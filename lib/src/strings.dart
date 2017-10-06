@@ -14,6 +14,7 @@ class FlutterMvcStrings {
   static final String editTodo = "Edit Todo";
   static final String saveChanges = "Save changes";
   static final String filterTodos = "Filter todos";
+  static final String deleteTodo = "Delete Todo";
 
   static String itemsLeft(int numTodos) {
     return '$numTodos item${numTodos != 1 ? 's' : ''} left';

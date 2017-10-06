@@ -33,25 +33,25 @@ class AppState {
         activeTab: activeTab ?? this.activeTab,
       );
 
-  AppState toggleAll() {
-    final allCompleted = this.allComplete;
-
-    return copyWith(
-      todos:
-          todos.map((todo) => todo.copyWith(complete: !allCompleted)).toList(),
-    );
-  }
-
-  AppState toggleOne(Todo todo, bool isComplete) {
-    return copyWith(
-      todos: todos
-          .map((t) => t == todo ? t.copyWith(complete: isComplete) : t)
-          .toList(),
-    );
-  }
-
-  AppState clearCompleted() =>
-      copyWith(todos: todos.where((todo) => !todo.complete).toList());
+//  AppState toggleAll() {
+//    final allCompleted = this.allComplete;
+//
+//    return copyWith(
+//      todos:
+//          todos.map((todo) => todo.copyWith(complete: !allCompleted)).toList(),
+//    );
+//  }
+//
+//  AppState toggleOne(Todo todo, bool isComplete) {
+//    return copyWith(
+//      todos: todos
+//          .map((t) => t == todo ? t.copyWith(complete: isComplete) : t)
+//          .toList(),
+//    );
+//  }
+//
+//  AppState clearCompleted() =>
+//      copyWith(todos: todos.where((todo) => !todo.complete).toList());
 
   bool get hasTodos => todos.isNotEmpty;
 
@@ -157,24 +157,13 @@ class AppState {
 }
 
 class Todo {
-  final bool complete;
-  final String task;
-  final String note;
-  final String id;
+  bool complete;
+  String task;
+  String note;
+  String id;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
       : this.id = id ?? (new Uuid().generateV4());
-
-  Todo copyWith({
-    String task,
-    bool complete,
-    String note,
-    String id,
-  }) =>
-      new Todo(task ?? this.task,
-          complete: complete ?? this.complete,
-          note: note ?? this.note,
-          id: id ?? this.id);
 
   Map<String, Object> toJson() {
     return {

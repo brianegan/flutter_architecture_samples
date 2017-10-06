@@ -18,32 +18,56 @@ class VanillaApp extends StatefulWidget {
 }
 
 class VanillaAppState extends State<VanillaApp> {
-  AppState _appState;
-  FlutterMvcFileStorage _storage;
+  List<Todo> todos = [];
+  VisibilityFilter activeFilter = VisibilityFilter.all;
+  bool isLoading = true;
+  AppTab activeTab = AppTab.todos;
+
+  FlutterMvcFileStorage _storage = new FlutterMvcFileStorage("vanilla");
 
   @override
   void initState() {
     super.initState();
-    _appState = new AppState.loading([], VisibilityFilter.all);
-    _storage = new FlutterMvcFileStorage("vanilla");
 
     _storage.loadAppState().then((loadedState) {
       setState(() {
-        _appState = loadedState;
+        isLoading = false;
+        todos = loadedState.todos;
+        activeTab = loadedState.activeTab;
+        activeFilter = loadedState.activeFilter;
       });
     }).catchError((err) {
       setState(() {
-        _appState = _appState.copyWith(isLoading: false);
+        isLoading = false;
       });
     });
   }
 
-  void updateState(AppState appState) {
-    setState(() {
-      _appState = appState;
-    });
+  void updateTodos(VoidCallback fn) {
+    setState(fn);
+  }
 
-    _storage.saveAppState(_appState);
+  void updateFilter(VisibilityFilter filter) {
+    setState(() {
+      activeFilter = filter;
+    });
+  }
+
+  void updateTab(AppTab tab) {
+    setState(() {
+      activeTab = tab;
+    });
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+
+    _storage.saveAppState(new AppState(
+      todos: todos,
+      activeFilter: activeFilter,
+      activeTab: activeTab,
+    ));
   }
 
   @override
@@ -55,28 +79,35 @@ class VanillaAppState extends State<VanillaApp> {
       routes: {
         '/': (context) {
           return new ListScreen(
-            updateState: updateState,
-            appState: _appState,
+            activeFilter: activeFilter,
+            activeTab: activeTab,
+            todos: todos,
+            isLoading: isLoading,
+            updateFilter: updateFilter,
+            updateTab: updateTab,
+            updateTodos: updateTodos,
           );
         },
-        '/addTodo': (context) => new AddEditScreen(
-              updateState: updateState,
-              appState: _appState,
-            ),
+        '/addTodo': (context) {
+          return new AddEditScreen(
+            updateTodos: updateTodos,
+            todos: todos,
+          );
+        },
       },
     );
   }
 }
 
 class DetailScreen extends StatelessWidget {
-  final AppState appState;
-  final Function(AppState) updateState;
+  final List<Todo> todos;
   final Todo todo;
+  final Function(Function) updateTodos;
 
   DetailScreen({
-    @required this.appState,
-    @required this.updateState,
+    @required this.todos,
     @required this.todo,
+    @required this.updateTodos,
     Key key,
   })
       : super(key: key);
@@ -86,19 +117,60 @@ class DetailScreen extends StatelessWidget {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Todo Details"),
+        actions: [
+          new IconButton(
+              tooltip: FlutterMvcStrings.deleteTodo,
+              icon: new Icon(Icons.delete),
+              onPressed: () {
+                updateTodos(() {
+                  todos.remove(todo);
+                });
+
+                Navigator.of(context).pop();
+              })
+        ],
       ),
       body: new Padding(
         padding: new EdgeInsets.all(16.0),
         child: new ListView(
           children: [
-            new Text(
-              todo.task,
-              style: Theme.of(context).textTheme.headline,
+            new Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                new Padding(
+                  padding: new EdgeInsets.only(right: 8.0),
+                  child: new Checkbox(
+                    value: todo.complete,
+                    onChanged: (complete) {
+                      updateTodos(() {
+                        todo.complete = !todo.complete;
+                      });
+                    },
+                  ),
+                ),
+                new Expanded(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      new Padding(
+                        padding: new EdgeInsets.only(
+                          top: 8.0,
+                          bottom: 16.0,
+                        ),
+                        child: new Text(
+                          todo.task,
+                          style: Theme.of(context).textTheme.headline,
+                        ),
+                      ),
+                      new Text(
+                        todo.note,
+                        style: Theme.of(context).textTheme.subhead,
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-            new Text(
-              todo.note,
-              style: Theme.of(context).textTheme.subhead,
-            )
           ],
         ),
       ),
@@ -109,8 +181,7 @@ class DetailScreen extends StatelessWidget {
             new PageRouteBuilder(
               pageBuilder: (context, _, __) {
                 return new AddEditScreen(
-                  appState: appState,
-                  updateState: updateState,
+                  updateTodos: updateTodos,
                   todo: todo,
                 );
               },
@@ -123,9 +194,6 @@ class DetailScreen extends StatelessWidget {
 }
 
 class AddEditScreen extends StatelessWidget {
-  final AppState appState;
-  final Function(AppState) updateState;
-  final Todo todo;
   static final GlobalKey<FormState> formKey =
       new GlobalKey<FormState>(debugLabel: 'AddScreen Form');
   static final GlobalKey<FormFieldState<String>> taskKey =
@@ -133,10 +201,11 @@ class AddEditScreen extends StatelessWidget {
   static final GlobalKey<FormFieldState<String>> noteKey =
       new GlobalKey<FormFieldState<String>>(debugLabel: 'AddScreen Note Field');
 
-  bool get isEditing => todo != null;
+  final List<Todo> todos;
+  final Todo todo;
+  final Function(Function) updateTodos;
 
-  AddEditScreen(
-      {@required this.appState, @required this.updateState, this.todo, Key key})
+  AddEditScreen({this.todos, this.todo, @required this.updateTodos, Key key})
       : super(key: key);
 
   @override
@@ -188,13 +257,17 @@ class AddEditScreen extends StatelessWidget {
               final note = noteKey.currentState.value;
 
               if (isEditing) {
-                updateState(appState.updateTodo(
-                    todo, todo.copyWith(task: task, note: note)));
+                updateTodos(() {
+                  todo.task = task;
+                  todo.note = note;
+                });
               } else {
-                updateState(appState.addTodo(new Todo(
-                  task,
-                  note: note,
-                )));
+                updateTodos(() {
+                  todos.add(new Todo(
+                    task,
+                    note: note,
+                  ));
+                });
               }
 
               Navigator.pop(context);
@@ -202,42 +275,73 @@ class AddEditScreen extends StatelessWidget {
           }),
     );
   }
+
+  bool get isEditing => todo != null;
 }
 
 class ListScreen extends StatelessWidget {
-  final AppState appState;
-  final Function(AppState) updateState;
+  final List<Todo> todos;
+  final VisibilityFilter activeFilter;
+  final bool isLoading;
+  final AppTab activeTab;
+  final Function(Function) updateTodos;
+  final Function(VisibilityFilter) updateFilter;
+  final Function(AppTab) updateTab;
 
-  ListScreen({@required this.appState, @required this.updateState, Key key})
+  ListScreen({
+    @required this.todos,
+    @required this.updateTodos,
+    @required this.updateFilter,
+    @required this.updateTab,
+    @required this.activeTab,
+    @required this.activeFilter,
+    @required this.isLoading,
+    Key key,
+  })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final numCompleted = todos.fold(
+      0,
+      (sum, todo) => todo.complete ? ++sum : sum,
+    );
+
+    final numActive = todos.fold(
+      0,
+      (sum, todo) => !todo.complete ? ++sum : sum,
+    );
+
+    final allComplete = todos.every((todo) => todo.complete);
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(VanillaApp.title),
         actions: [
           new FilterButton(
-              activeFilter: appState.activeFilter,
-              onSelected: (filter) {
-                updateState(appState.copyWith(activeFilter: filter));
-              }),
+            activeFilter: activeFilter,
+            onSelected: updateFilter,
+          ),
           new ExtraActionsButton(
-            allComplete: appState.allComplete,
-            hasCompletedTodos: appState.hasCompletedTodos,
+            allComplete: allComplete,
+            hasCompletedTodos: todos.any((todo) => todo.complete),
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
-                updateState(appState.toggleAll());
+                updateTodos(() {
+                  todos.forEach((todo) => todo.complete = !allComplete);
+                });
               } else if (action == ExtraAction.clearCompleted) {
-                updateState(appState.clearCompleted());
+                updateTodos(() {
+                  todos.removeWhere((todo) => todo.complete);
+                });
               }
             },
           )
         ],
       ),
-      body: appState.activeTab == AppTab.todos
+      body: activeTab == AppTab.todos
           ? new Container(
-              child: appState.isLoading
+              child: isLoading
                   ? new Center(child: new CircularProgressIndicator())
                   : new Column(
                       children: [
@@ -259,7 +363,7 @@ class ListScreen extends StatelessWidget {
                   new Padding(
                     padding: new EdgeInsets.only(bottom: 24.0),
                     child: new Text(
-                      appState.numCompleted.toString(),
+                      numCompleted.toString(),
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
@@ -273,7 +377,7 @@ class ListScreen extends StatelessWidget {
                   new Padding(
                     padding: new EdgeInsets.only(bottom: 24.0),
                     child: new Text(
-                      appState.numActive.toString(),
+                      "$numActive",
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   )
@@ -291,61 +395,74 @@ class ListScreen extends StatelessWidget {
     );
   }
 
-  Expanded _buildList() => new Expanded(
-        child: new ListView.builder(
-          itemCount: appState.filteredTodos.length,
-          itemBuilder: (BuildContext context, int index) {
-            final todo = appState.filteredTodos[index];
+  Expanded _buildList() {
+    final filteredTodos = todos.where((todo) {
+      if (activeFilter == VisibilityFilter.all) {
+        return true;
+      } else if (activeFilter == VisibilityFilter.active) {
+        return !todo.complete;
+      } else if (activeFilter == VisibilityFilter.completed) {
+        return todo.complete;
+      }
+    }).toList();
 
-            return new Dismissible(
-              key: new Key(todo.id),
-              onDismissed: (direction) {
-                updateState(appState.removeTodo(todo));
+    return new Expanded(
+      child: new ListView.builder(
+        itemCount: filteredTodos.length,
+        itemBuilder: (BuildContext context, int index) {
+          final todo = filteredTodos[index];
+
+          return new Dismissible(
+            key: new Key(todo.id),
+            onDismissed: (direction) {
+              updateTodos(() {
+                todos.remove(todo);
+              });
+            },
+            child: new ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  new PageRouteBuilder(
+                    pageBuilder: (context, _, __) {
+                      return new DetailScreen(
+                        todos: todos,
+                        todo: todo,
+                        updateTodos: updateTodos,
+                      );
+                    },
+                  ),
+                );
               },
-              child: new ListTile(
-                onTap: () {
-                  Navigator.of(context).push(
-                    new PageRouteBuilder(
-                      pageBuilder: (context, _, __) {
-                        return new DetailScreen(
-                          appState: appState,
-                          updateState: updateState,
-                          todo: todo,
-                        );
-                      },
-                    ),
-                  );
+              leading: new Checkbox(
+                value: todo.complete,
+                onChanged: (complete) {
+                  updateTodos(() {
+                    todo.complete = !todo.complete;
+                  });
                 },
-                leading: new Checkbox(
-                  value: todo.complete,
-                  onChanged: (complete) {
-                    updateState(appState.toggleOne(
-                      todo,
-                      complete,
-                    ));
-                  },
-                ),
-                title: new Text(
-                  todo.task,
-                  style: Theme.of(context).textTheme.title,
-                ),
-                subtitle: new Text(
-                  todo.note,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.subhead,
-                ),
               ),
-            );
-          },
-        ),
-      );
+              title: new Text(
+                todo.task,
+                style: Theme.of(context).textTheme.title,
+              ),
+              subtitle: new Text(
+                todo.note,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.subhead,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 
   BottomNavigationBar _buildNav() {
     return new BottomNavigationBar(
-        currentIndex: AppTab.values.indexOf(appState.activeTab),
-        onTap: (value) {
-          updateState(appState.copyWith(activeTab: AppTab.values[value]));
+        currentIndex: AppTab.values.indexOf(activeTab),
+        onTap: (index) {
+          updateTab(AppTab.values[index]);
         },
         items: AppTab.values.map((tab) {
           return new BottomNavigationBarItem(
