@@ -8,6 +8,7 @@ environment:
   sdk: '>=1.20.1 <2.0.0'
 
 dependencies:
+  uuid: 0.5.3
   flutter:
     sdk: flutter
   path_provider: ">=0.2.1+1 <0.3.0"

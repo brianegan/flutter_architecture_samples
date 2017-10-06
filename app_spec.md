@@ -21,17 +21,34 @@ All examples must include a README describing the framework, the general impleme
 
 ## Functionality
 
+### Home Screen
+
+The home screen of the app is the "Show all todos".
+
 ### No todos
 
-When there are no todos, the `MarkAll`, `TodoList` and `Footer` should be hidden.
+When there are no todos
+
+  * The Context Menu showing "Mark All Complete"
 
 ### New todo
 
-New todos are entered in the `TextField` at the top of the app. The `TextField` should be focused when the app starts. Pressing Enter creates the todo, appends it to the todo list, and clears the TextField. Make sure to `.trim()` the input and then check that it's not empty before creating a new todo.
+To add a new Todo, tap the Floating Action Button shown on List view. This button takes the user to the "Add New Todo" screen.
+
+The title of the Todo is entered into the title `TextField` at the top of the screen. The title `TextField` should be focused when the screen opens. In order to add a new todo, the title field must not be empty. Make sure to `.trim()` the input and then check that it's not empty before creating a new todo. If the title contains no text, show an error.  
+
+In addition to the title `TextField`, another `TextField` must exist to store Notes related to the todo.  
+
+Pressing the "Add Todo" button closes the "Add New Todo" screen and appends the new todo to the List of Todos.
+
 
 ### Mark all as complete
 
 This checkbox toggles all the todos to the same state as itself. Make sure to clear the checked state after the "Clear completed" button is clicked. The "Mark all as complete" checkbox should also be updated when single todo items are checked/unchecked. Eg. When all the todos are checked it should also get checked.
+
+### Clear completed button
+
+Removes completed todos when clicked. Should be hidden when there are no completed todos.
 
 ### Item
 
@@ -50,10 +67,6 @@ When editing mode is activated it will hide the checkbox and bring forward an in
 ### Counter
 
 Displays the number of active todos in a pluralized form. Make sure to pluralize the `item` word correctly: `0 items`, `1 item`, `2 items`. Example: **2** items left.
-
-### Clear completed button
-
-Removes completed todos when clicked. Should be hidden when there are no completed todos.
 
 ### Persistence
 
