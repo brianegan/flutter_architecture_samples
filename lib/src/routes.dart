@@ -1,5 +1,4 @@
 class FlutterMvcRoutes {
-  static final all = "/all";
-  static final active = "/active";
-  static final completed = "/completed";
+  static final home = "/";
+  static final addTodo = "/addTodo";
 }
