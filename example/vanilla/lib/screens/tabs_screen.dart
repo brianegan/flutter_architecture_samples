@@ -9,10 +9,8 @@ import 'package:vanilla/widgets/stats_counter.dart';
 import 'package:vanilla/widgets/todo_list.dart';
 import 'package:vanilla/widgets/typedefs.dart';
 
-class TabsScreen extends StatelessWidget {
+class TabsScreen extends StatefulWidget {
   final AppState appState;
-  final TabUpdater updateTab;
-  final VisibilityFilterUpdater updateFiler;
   final TodoAdder addTodo;
   final TodoRemover removeTodo;
   final TodoUpdater updateTodo;
@@ -21,8 +19,6 @@ class TabsScreen extends StatelessWidget {
 
   TabsScreen({
     @required this.appState,
-    @required this.updateTab,
-    @required this.updateFiler,
     @required this.addTodo,
     @required this.removeTodo,
     @required this.updateTodo,
@@ -33,40 +29,62 @@ class TabsScreen extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return new TabsScreenState();
+  }
+}
+
+class TabsScreenState extends State<TabsScreen> {
+  VisibilityFilter activeFilter = VisibilityFilter.all;
+  AppTab activeTab = AppTab.todos;
+
+  _updateVisibility(VisibilityFilter filter) {
+    setState(() {
+      activeFilter = filter;
+    });
+  }
+
+  _updateTab(AppTab tab) {
+    setState(() {
+      activeTab = tab;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(VanillaLocalizations.of(context).appTitle),
         actions: [
           new FilterButton(
-            isActive: appState.activeTab == AppTab.todos,
-            activeFilter: appState.activeFilter,
-            onSelected: updateFiler,
+            isActive: activeTab == AppTab.todos,
+            activeFilter: activeFilter,
+            onSelected: _updateVisibility,
           ),
           new ExtraActionsButton(
-            allComplete: appState.allComplete,
-            hasCompletedTodos: appState.hasCompletedTodos,
+            allComplete: widget.appState.allComplete,
+            hasCompletedTodos: widget.appState.hasCompletedTodos,
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
-                toggleAll();
+                widget.toggleAll();
               } else if (action == ExtraAction.clearCompleted) {
-                clearCompleted();
+                widget.clearCompleted();
               }
             },
           )
         ],
       ),
-      body: appState.activeTab == AppTab.todos
+      body: activeTab == AppTab.todos
           ? new TodoList(
-              filteredTodos: appState.filteredTodos,
-              loading: appState.isLoading,
-              removeTodo: removeTodo,
-              addTodo: addTodo,
-              updateTodo: updateTodo,
+              filteredTodos: widget.appState.filteredTodos(activeFilter),
+              loading: widget.appState.isLoading,
+              removeTodo: widget.removeTodo,
+              addTodo: widget.addTodo,
+              updateTodo: widget.updateTodo,
             )
           : new StatsCounter(
-              numActive: appState.numActive,
-              numCompleted: appState.numCompleted,
+              numActive: widget.appState.numActive,
+              numCompleted: widget.appState.numCompleted,
             ),
       floatingActionButton: new FloatingActionButton(
         key: FlutterMvcKeys.addTodoFab,
@@ -78,9 +96,9 @@ class TabsScreen extends StatelessWidget {
       ),
       bottomNavigationBar: new BottomNavigationBar(
         key: FlutterMvcKeys.tabs,
-        currentIndex: AppTab.values.indexOf(appState.activeTab),
+        currentIndex: AppTab.values.indexOf(activeTab),
         onTap: (index) {
-          updateTab(AppTab.values[index]);
+          _updateTab(AppTab.values[index]);
         },
         items: AppTab.values.map((tab) {
           return new BottomNavigationBarItem(

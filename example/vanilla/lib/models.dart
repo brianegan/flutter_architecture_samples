@@ -1,14 +1,10 @@
 import 'package:flutter_mvc/flutter_mvc.dart';
 
 class AppState {
-  VisibilityFilter activeFilter;
-  AppTab activeTab;
   bool isLoading;
   List<Todo> todos;
 
   AppState({
-    this.activeFilter = VisibilityFilter.all,
-    this.activeTab = AppTab.todos,
     this.isLoading = false,
     this.todos = const [],
   });
@@ -17,7 +13,8 @@ class AppState {
 
   bool get allComplete => todos.every((todo) => todo.complete);
 
-  List<Todo> get filteredTodos => todos.where((todo) {
+  List<Todo> filteredTodos(VisibilityFilter activeFilter) =>
+      todos.where((todo) {
         if (activeFilter == VisibilityFilter.all) {
           return true;
         } else if (activeFilter == VisibilityFilter.active) {
@@ -30,11 +27,7 @@ class AppState {
   bool get hasCompletedTodos => todos.any((todo) => todo.complete);
 
   @override
-  int get hashCode =>
-      todos.hashCode ^
-      activeFilter.hashCode ^
-      isLoading.hashCode ^
-      activeTab.hashCode;
+  int get hashCode => todos.hashCode ^ isLoading.hashCode;
 
   int get numActive =>
       todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
@@ -48,9 +41,7 @@ class AppState {
       other is AppState &&
           runtimeType == other.runtimeType &&
           todos == other.todos &&
-          activeFilter == other.activeFilter &&
-          isLoading == other.isLoading &&
-          activeTab == other.activeTab;
+          isLoading == other.isLoading;
 
   void clearCompleted() {
     todos.removeWhere((todo) => todo.complete);
@@ -65,27 +56,21 @@ class AppState {
   Map<String, Object> toJson() {
     return {
       "todos": todos.map((todo) => todo.toJson()).toList(),
-      "activeFilter": activeFilter.toString(),
-      "activeTab": activeTab.toString(),
     };
   }
 
   @override
   String toString() {
-    return 'AppState{todos: $todos, activeFilter: $activeFilter, isLoading: $isLoading, activeTab: $activeTab}';
+    return 'AppState{todos: $todos, isLoading: $isLoading}';
   }
 
   static AppState fromJson(Map<String, Object> json) {
     final todos = (json["todos"] as List<Map<String, Object>>)
         .map((todoJson) => Todo.fromJson(todoJson))
         .toList();
-    final activeFilter = getFilterFromString(json["activeFilter"] as String);
-    final activeTab = getTabFromString(json["activeTab"] as String);
 
     return new AppState(
       todos: todos,
-      activeFilter: activeFilter,
-      activeTab: activeTab,
     );
   }
 

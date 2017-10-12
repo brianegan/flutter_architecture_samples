@@ -41,10 +41,9 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.all,
       );
 
-      expect(state.filteredTodos, todos);
+      expect(state.filteredTodos(VisibilityFilter.all), todos);
     });
 
     test('should return active todos if the VisibilityFilter is active', () {
@@ -58,10 +57,9 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.active,
       );
 
-      expect(state.filteredTodos, [
+      expect(state.filteredTodos(VisibilityFilter.active), [
         todo1,
         todo2,
       ]);
@@ -79,10 +77,9 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.completed,
       );
 
-      expect(state.filteredTodos, [todo3]);
+      expect(state.filteredTodos(VisibilityFilter.completed), [todo3]);
     });
 
     test('should clear the completed todos', () {
@@ -96,7 +93,6 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.completed,
       );
 
       state.clearCompleted();
@@ -118,7 +114,6 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.completed,
       );
 
       // Toggle all complete
@@ -141,7 +136,6 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.completed,
       );
 
       state.removeTodo(todo3);
@@ -158,7 +152,6 @@ main() {
       ];
       final state = new AppState(
         todos: todos,
-        activeFilter: VisibilityFilter.completed,
       );
 
       state.addTodo(todo3);

@@ -49,9 +49,7 @@ class VanillaAppState extends State<VanillaApp> {
         FlutterMvcRoutes.home: (context) {
           return new TabsScreen(
             appState: appState,
-            updateFiler: updateFilter,
             updateTodo: updateTodo,
-            updateTab: updateTab,
             addTodo: addTodo,
             removeTodo: removeTodo,
             toggleAll: toggleAll,
@@ -77,18 +75,6 @@ class VanillaAppState extends State<VanillaApp> {
   void clearCompleted() {
     setState(() {
       appState.clearCompleted();
-    });
-  }
-
-  void updateTab(AppTab tab) {
-    setState(() {
-      appState.activeTab = tab;
-    });
-  }
-
-  void updateFilter(VisibilityFilter filter) {
-    setState(() {
-      appState.activeFilter = filter;
     });
   }
 

@@ -11,7 +11,3 @@ typedef TodoUpdater(
       String note,
       String task,
     });
-
-typedef TabUpdater(AppTab tab);
-
-typedef VisibilityFilterUpdater(VisibilityFilter filter);
