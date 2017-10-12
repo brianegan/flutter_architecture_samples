@@ -23,3 +23,10 @@ We'd love to have more samples added! Please read the [CONTRIBUTING](https://git
 ### License
 
 All code in this repo is MIT licensed.
+
+## Attribution
+
+All of these ideas and even some of the language are directly influenced by two projects:
+
+  - [TodoMVC](http://todomvc.com) - A Todo App implemented in various JS frameworks
+  - [Android Architecture Blueprints](https://github.com/googlesamples/android-architecture) - A similar concept, but for Android! The UI and app spec was highly inspired by their example. 
