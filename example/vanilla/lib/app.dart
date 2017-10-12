@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvc/flutter_mvc.dart';
 import 'package:vanilla/data/todos_service.dart';
@@ -9,7 +10,7 @@ import 'package:vanilla/localization.dart';
 class VanillaApp extends StatefulWidget {
   final TodosService service;
 
-  VanillaApp({this.service});
+  VanillaApp({@required this.service});
 
   @override
   State<StatefulWidget> createState() {

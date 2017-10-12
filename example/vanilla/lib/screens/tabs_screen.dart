@@ -69,6 +69,7 @@ class TabsScreen extends StatelessWidget {
               numCompleted: appState.numCompleted,
             ),
       floatingActionButton: new FloatingActionButton(
+        key: FlutterMvcKeys.addTodoFab,
         onPressed: () {
           Navigator.pushNamed(context, FlutterMvcRoutes.addTodo);
         },
@@ -76,6 +77,7 @@ class TabsScreen extends StatelessWidget {
         tooltip: ArchitectureLocalizations.of(context).addTodo,
       ),
       bottomNavigationBar: new BottomNavigationBar(
+        key: FlutterMvcKeys.tabs,
         currentIndex: AppTab.values.indexOf(appState.activeTab),
         onTap: (index) {
           updateTab(AppTab.values[index]);

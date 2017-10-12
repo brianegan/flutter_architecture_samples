@@ -8,8 +8,11 @@ dependencies:
     path: ../../
 
 dev_dependencies:
+  mockito: 2.2.0
   test: ^0.12.0
   flutter_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the

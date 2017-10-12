@@ -4,19 +4,11 @@ import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
 import 'package:vanilla/models.dart';
 
-/// Create an abstract class that we can use for both the concrete
-/// implementation below and a Mock implementation for testing.
-abstract class FileStorage {
-  Future<List<Todo>> loadTodos();
-  Future<File> saveTodos(List<Todo> todos);
-  Future<FileSystemEntity> clean();
-}
-
 /// Loads and saves a List of Todos using a text file stored on the device.
-class VanillaFileStorage implements FileStorage {
+class FileStorage {
   final String tag;
 
-  VanillaFileStorage(this.tag);
+  FileStorage(this.tag);
 
   Future<List<Todo>> loadTodos() async {
     final file = await _getLocalFile();

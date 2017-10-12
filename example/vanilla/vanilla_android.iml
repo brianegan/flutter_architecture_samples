@@ -13,8 +13,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
+  <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$/android">
       <sourceFolder url="file://$MODULE_DIR$/android/app/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/android/gen" isTestSource="false" generated="true" />

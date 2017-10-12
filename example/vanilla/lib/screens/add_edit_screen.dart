@@ -23,7 +23,7 @@ class AddEditScreen extends StatelessWidget {
     @required this.updateTodo,
     this.todo,
   })
-      : super(key: key);
+      : super(key: key ?? FlutterMvcKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {

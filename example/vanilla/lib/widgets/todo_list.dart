@@ -25,8 +25,12 @@ class TodoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       child: loading
-          ? new Center(child: new CircularProgressIndicator())
+          ? new Center(
+              child: new CircularProgressIndicator(
+              key: FlutterMvcKeys.loading,
+            ))
           : new ListView.builder(
+              key: FlutterMvcKeys.todoList,
               itemCount: filteredTodos.length,
               itemBuilder: (BuildContext context, int index) {
                 final todo = filteredTodos[index];

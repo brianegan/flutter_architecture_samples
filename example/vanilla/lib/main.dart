@@ -8,7 +8,7 @@ void main() {
   runApp(
     new VanillaApp(
       service: new TodosService(
-        fileStorage: new VanillaFileStorage("vanilla"),
+        fileStorage: new FileStorage("vanilla"),
         webService: new WebService(),
       ),
     ),

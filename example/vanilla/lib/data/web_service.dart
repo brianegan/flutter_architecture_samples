@@ -4,21 +4,24 @@ import 'package:vanilla/models.dart';
 /// A class that is meant to represent a Web Service you would call to fetch
 /// and persist Todos to and from the cloud.
 ///
-/// Since we're trying to keep this example simple, it is a Mock implementation.
+/// Since we're trying to keep this example simple, it doesn't communicate with
+/// a real server but simply emulates the functionality.
 class WebService {
-  WebService();
+  final Duration delay;
+
+  WebService([this.delay = const Duration(milliseconds: 1200)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<Todo>> fetchTodos() async {
     return new Future.delayed(
-        new Duration(milliseconds: 1200),
+        delay,
         () => [
-              new Todo('Hey', note: 'Ho, let\'s go!'),
-              new Todo('Wonderwall', complete: true),
-              new Todo('Everything', note: 'in its right place'),
-              new Todo('Cheeseburger in Paradise'),
-              new Todo('If you like', note: 'Pina Coladas', complete: true),
-            ]);
+          new Todo('Feed da kitty', note: 'With the chickeny bits!'),
+          new Todo('Find a Red Sea dive trip', note: 'Echo vs MY Dream'),
+          new Todo('Book flights to Egypt', complete: true),
+          new Todo('Decide on accommodation'),
+          new Todo('If you like', note: 'Piña coladas', complete: true),
+        ]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,

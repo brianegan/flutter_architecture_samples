@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvc/flutter_mvc.dart';
-import 'package:vanilla/models.dart';
 
 class StatsCounter extends StatelessWidget {
   final int numActive;
