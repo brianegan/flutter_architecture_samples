@@ -16,11 +16,11 @@ class WebService {
     return new Future.delayed(
         delay,
         () => [
-          new Todo('Feed da kitty', note: 'With the chickeny bits!'),
+          new Todo('Buy food for da kitty', note: 'With the chickeny bits!'),
           new Todo('Find a Red Sea dive trip', note: 'Echo vs MY Dream'),
           new Todo('Book flights to Egypt', complete: true),
           new Todo('Decide on accommodation'),
-          new Todo('If you like', note: 'Piña coladas', complete: true),
+          new Todo('Sip Margaritas', note: 'on the beach', complete: true),
         ]);
   }
 
