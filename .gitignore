@@ -9,3 +9,4 @@ pubspec.lock
 doc/api/
 .idea
 /intl_en.arb
+.DS_Store
