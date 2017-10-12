@@ -1,4 +1,4 @@
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 class AppState {
   bool isLoading;

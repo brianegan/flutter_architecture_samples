@@ -4,7 +4,7 @@ description: A new Flutter project.
 dependencies:
   flutter:
     sdk: flutter
-  flutter_mvc:
+  flutter_architecture_samples:
     path: ../../
 
 dev_dependencies:

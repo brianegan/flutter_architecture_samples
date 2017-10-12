@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/localization.dart';
 import 'package:vanilla/widgets/extra_actions_button.dart';
@@ -87,15 +87,15 @@ class TabsScreenState extends State<TabsScreen> {
               numCompleted: widget.appState.numCompleted,
             ),
       floatingActionButton: new FloatingActionButton(
-        key: FlutterMvcKeys.addTodoFab,
+        key: ArchSampleKeys.addTodoFab,
         onPressed: () {
-          Navigator.pushNamed(context, FlutterMvcRoutes.addTodo);
+          Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
         },
         child: new Icon(Icons.add),
-        tooltip: ArchitectureLocalizations.of(context).addTodo,
+        tooltip: ArchSampleLocalizations.of(context).addTodo,
       ),
       bottomNavigationBar: new BottomNavigationBar(
-        key: FlutterMvcKeys.tabs,
+        key: ArchSampleKeys.tabs,
         currentIndex: AppTab.values.indexOf(activeTab),
         onTap: (index) {
           _updateTab(AppTab.values[index]);
@@ -104,8 +104,8 @@ class TabsScreenState extends State<TabsScreen> {
           return new BottomNavigationBarItem(
             icon: new Icon(tab == AppTab.todos ? Icons.list : Icons.show_chart),
             title: new Text(tab == AppTab.stats
-                ? ArchitectureLocalizations.of(context).stats
-                : ArchitectureLocalizations.of(context).todos),
+                ? ArchSampleLocalizations.of(context).stats
+                : ArchSampleLocalizations.of(context).todos),
           );
         }).toList(),
       ),

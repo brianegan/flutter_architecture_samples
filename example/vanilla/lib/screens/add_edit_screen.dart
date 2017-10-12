@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/widgets/typedefs.dart';
 
@@ -23,15 +23,15 @@ class AddEditScreen extends StatelessWidget {
     @required this.updateTodo,
     this.todo,
   })
-      : super(key: key ?? FlutterMvcKeys.addTodoScreen);
+      : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(isEditing
-            ? ArchitectureLocalizations.of(context).editTodo
-            : ArchitectureLocalizations.of(context).addTodo),
+            ? ArchSampleLocalizations.of(context).editTodo
+            : ArchSampleLocalizations.of(context).addTodo),
       ),
       body: new Padding(
         padding: new EdgeInsets.all(16.0),
@@ -50,9 +50,9 @@ class AddEditScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline,
                 decoration: new InputDecoration(
                     hintText:
-                        ArchitectureLocalizations.of(context).newTodoHint),
+                        ArchSampleLocalizations.of(context).newTodoHint),
                 validator: (val) => val.trim().isEmpty
-                    ? ArchitectureLocalizations.of(context).emptyTodoError
+                    ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
               ),
               new TextFormField(
@@ -61,7 +61,7 @@ class AddEditScreen extends StatelessWidget {
                 maxLines: 10,
                 style: Theme.of(context).textTheme.subhead,
                 decoration: new InputDecoration(
-                  hintText: ArchitectureLocalizations.of(context).notesHint,
+                  hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
               )
             ],
@@ -70,8 +70,8 @@ class AddEditScreen extends StatelessWidget {
       ),
       floatingActionButton: new FloatingActionButton(
           tooltip: isEditing
-              ? ArchitectureLocalizations.of(context).saveChanges
-              : ArchitectureLocalizations.of(context).addTodo,
+              ? ArchSampleLocalizations.of(context).saveChanges
+              : ArchSampleLocalizations.of(context).addTodo,
           child: new Icon(isEditing ? Icons.check : Icons.add),
           onPressed: () {
             final form = formKey.currentState;

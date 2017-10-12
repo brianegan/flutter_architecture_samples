@@ -2,22 +2,22 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_mvc/src/localizations/messages_all.dart';
+import 'package:flutter_architecture_samples/src/localizations/messages_all.dart';
 
-class ArchitectureLocalizations {
-  ArchitectureLocalizations(this.locale);
+class ArchSampleLocalizations {
+  ArchSampleLocalizations(this.locale);
 
   final Locale locale;
 
-  static Future<ArchitectureLocalizations> load(Locale locale) {
+  static Future<ArchSampleLocalizations> load(Locale locale) {
     return initializeMessages(locale.toString()).then((Null value) {
-      return new ArchitectureLocalizations(locale);
+      return new ArchSampleLocalizations(locale);
     });
   }
 
-  static ArchitectureLocalizations of(BuildContext context) {
-    return Localizations.of<ArchitectureLocalizations>(
-        context, ArchitectureLocalizations);
+  static ArchSampleLocalizations of(BuildContext context) {
+    return Localizations.of<ArchSampleLocalizations>(
+        context, ArchSampleLocalizations);
   }
 
   String get todos => Intl.message(
@@ -156,7 +156,7 @@ class ArchitectureLocalizations {
   String todoDeleted(String task) => Intl.message(
         'Deleted "$task"',
         name: 'todoDeleted',
-        args: [],
+        args: [task],
         locale: locale.toString(),
       );
 
@@ -189,12 +189,12 @@ class ArchitectureLocalizations {
       );
 }
 
-class ArchitectureLocalizationsDelegate
-    extends LocalizationsDelegate<ArchitectureLocalizations> {
+class ArchSampleLocalizationsDelegate
+    extends LocalizationsDelegate<ArchSampleLocalizations> {
   @override
-  Future<ArchitectureLocalizations> load(Locale locale) =>
-      ArchitectureLocalizations.load(locale);
+  Future<ArchSampleLocalizations> load(Locale locale) =>
+      ArchSampleLocalizations.load(locale);
 
   @override
-  bool shouldReload(ArchitectureLocalizationsDelegate old) => false;
+  bool shouldReload(ArchSampleLocalizationsDelegate old) => false;
 }

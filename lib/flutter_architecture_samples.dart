@@ -1,6 +1,6 @@
 /// The core logic and presentation code that each app should feel free to use
 /// as a base for .
-library flutter_mvc;
+library flutter_architecture_samples;
 
 export 'src/keys.dart';
 export 'src/uuid.dart';

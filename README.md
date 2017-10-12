@@ -1,4 +1,4 @@
-# flutter_mvc
+# flutter_architecture_samples
 
 A library for Dart developers. It is awesome.
 
@@ -6,7 +6,7 @@ A library for Dart developers. It is awesome.
 
 A simple usage example:
 
-    import 'package:flutter_mvc/flutter_mvc.dart';
+    import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
     main() {
       var awesome = new Awesome();

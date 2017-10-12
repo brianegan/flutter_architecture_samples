@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FlutterMvcTheme {
+class ArchSampleTheme {
   static final theme = new ThemeData.dark().copyWith(
     primaryColor: Colors.grey[800],
     accentColor: Colors.cyan[300],

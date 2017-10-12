@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/add_edit_screen.dart';
 import 'package:vanilla/widgets/typedefs.dart';
@@ -24,10 +24,10 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(ArchitectureLocalizations.of(context).todoDetails),
+        title: new Text(ArchSampleLocalizations.of(context).todoDetails),
         actions: [
           new IconButton(
-              tooltip: ArchitectureLocalizations.of(context).deleteTodo,
+              tooltip: ArchSampleLocalizations.of(context).deleteTodo,
               icon: new Icon(Icons.delete),
               onPressed: () {
                 onDelete();
@@ -78,7 +78,7 @@ class DetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        tooltip: ArchitectureLocalizations.of(context).editTodo,
+        tooltip: ArchSampleLocalizations.of(context).editTodo,
         child: new Icon(Icons.edit),
         onPressed: () {
           Navigator.of(context).push(

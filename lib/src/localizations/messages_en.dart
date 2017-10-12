@@ -13,6 +13,8 @@ final _keepAnalysisHappy = Intl.defaultLocale;
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'en';
 
+  static m0(task) => "Deleted \"${task}\"";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => {
     "activeTodos" : MessageLookupByLibrary.simpleMessage("Active Todos"),
@@ -35,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "showAll" : MessageLookupByLibrary.simpleMessage("Show All"),
     "showCompleted" : MessageLookupByLibrary.simpleMessage("Show Completed"),
     "stats" : MessageLookupByLibrary.simpleMessage("Stats"),
+    "todoDeleted" : m0,
     "todoDetails" : MessageLookupByLibrary.simpleMessage("Todo Details"),
     "todos" : MessageLookupByLibrary.simpleMessage("Todos"),
     "undo" : MessageLookupByLibrary.simpleMessage("Undo")

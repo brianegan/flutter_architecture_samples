@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 class StatsCounter extends StatelessWidget {
   final int numActive;
@@ -18,7 +18,7 @@ class StatsCounter extends StatelessWidget {
           new Padding(
             padding: new EdgeInsets.only(bottom: 8.0),
             child: new Text(
-              ArchitectureLocalizations
+              ArchSampleLocalizations
                   .of(context)
                   .completedTodos,
               style: Theme
@@ -40,7 +40,7 @@ class StatsCounter extends StatelessWidget {
           new Padding(
             padding: new EdgeInsets.only(bottom: 8.0),
             child: new Text(
-              ArchitectureLocalizations
+              ArchSampleLocalizations
                   .of(context)
                   .activeTodos,
               style: Theme

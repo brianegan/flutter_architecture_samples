@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class FlutterMvcKeys {
+class ArchSampleKeys {
   static final loading = new UniqueKey();
   static final input = new UniqueKey();
   static final clearCompleted = new UniqueKey();

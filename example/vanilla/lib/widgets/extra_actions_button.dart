@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
 
 class ExtraActionsButton extends StatelessWidget {
@@ -23,13 +23,13 @@ class ExtraActionsButton extends StatelessWidget {
             new PopupMenuItem<ExtraAction>(
               value: ExtraAction.toggleAllComplete,
               child: new Text(allComplete
-                  ? ArchitectureLocalizations.of(context).markAllIncomplete
-                  : ArchitectureLocalizations.of(context).markAllComplete),
+                  ? ArchSampleLocalizations.of(context).markAllIncomplete
+                  : ArchSampleLocalizations.of(context).markAllComplete),
             ),
             new PopupMenuItem<ExtraAction>(
               value: ExtraAction.clearCompleted,
               child: new Text(
-                  ArchitectureLocalizations.of(context).clearCompleted),
+                  ArchSampleLocalizations.of(context).clearCompleted),
             ),
           ],
     );

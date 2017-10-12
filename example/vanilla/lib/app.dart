@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/data/todos_service.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/add_edit_screen.dart';
@@ -40,13 +40,13 @@ class VanillaAppState extends State<VanillaApp> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: new VanillaLocalizations().appTitle,
-      theme: FlutterMvcTheme.theme,
+      theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchitectureLocalizationsDelegate(),
+        new ArchSampleLocalizationsDelegate(),
         new VanillaLocalizationsDelegate(),
       ],
       routes: {
-        FlutterMvcRoutes.home: (context) {
+        ArchSampleRoutes.home: (context) {
           return new TabsScreen(
             appState: appState,
             updateTodo: updateTodo,
@@ -56,7 +56,7 @@ class VanillaAppState extends State<VanillaApp> {
             clearCompleted: clearCompleted,
           );
         },
-        FlutterMvcRoutes.addTodo: (context) {
+        ArchSampleRoutes.addTodo: (context) {
           return new AddEditScreen(
             addTodo: addTodo,
             updateTodo: updateTodo,

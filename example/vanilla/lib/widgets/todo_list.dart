@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvc/flutter_mvc.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/detail_screen.dart';
 import 'package:vanilla/widgets/todo_item.dart';
@@ -27,10 +27,10 @@ class TodoList extends StatelessWidget {
       child: loading
           ? new Center(
               child: new CircularProgressIndicator(
-              key: FlutterMvcKeys.loading,
+              key: ArchSampleKeys.loading,
             ))
           : new ListView.builder(
-              key: FlutterMvcKeys.todoList,
+              key: ArchSampleKeys.todoList,
               itemCount: filteredTodos.length,
               itemBuilder: (BuildContext context, int index) {
                 final todo = filteredTodos[index];
@@ -71,12 +71,12 @@ class TodoList extends StatelessWidget {
             duration: new Duration(seconds: 2),
             backgroundColor: Theme.of(context).backgroundColor,
             content: new Text(
-              ArchitectureLocalizations.of(context).todoDeleted(todo.task),
+              ArchSampleLocalizations.of(context).todoDeleted(todo.task),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             action: new SnackBarAction(
-              label: ArchitectureLocalizations.of(context).undo,
+              label: ArchSampleLocalizations.of(context).undo,
               onPressed: () {
                 addTodo(todo);
               },

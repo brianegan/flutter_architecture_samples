@@ -4,10 +4,12 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
-      <excludeFolder url="file://$MODULE_DIR$/example/dribbble_auth/.pub" />
-      <excludeFolder url="file://$MODULE_DIR$/example/dribbble_auth/build" />
       <excludeFolder url="file://$MODULE_DIR$/example/vanilla/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/example/vanilla/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../flutter_mvc/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../flutter_mvc/example/dribbble_auth/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/../flutter_mvc/example/dribbble_auth/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../flutter_mvc/example/vanilla/.pub" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

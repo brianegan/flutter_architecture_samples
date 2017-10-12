@@ -25,7 +25,7 @@ Let's start with a Simple Example. Say our app had only 1 Tab: The `List of Todo
 
 Now, we add a sibling Widget: The `Stats Tab`! But wait, it needs access to the List of Todos so it can calculate how many of them are active and how many are complete. So how do we share that data? 
 
-It can be difficult for siblings to pass their state to each other. For example, say both Widges were displayed side-by-side at the same time: How would Flutter know when to re-build the `Stats Tab` to reflect the latest count when the List of Todos changes?
+It can be difficult for siblings to pass their state to each other. For example, say both Widgets were displayed side-by-side at the same time: How would Flutter know when to re-build the `Stats Tab` to reflect the latest count when the List of Todos changes?
 
 ```
 +-------------+                 +-------------+
