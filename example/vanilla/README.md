@@ -176,3 +176,10 @@ To make this concrete, Let's see how our callbacks flow in the this app.
 |                |
 +----------------+
 ```
+
+## Addendum
+
+Since Flutter is quite similar to React with regards to State management, many of the resources on the React site are pertinent when thinking about State in flutter. In fact, the ideas in this example were lifted directly from the React site:
+
+  * [Lifting State Up in React](https://reactjs.org/docs/lifting-state-up.html)
+  * [Thinking in React](https://reactjs.org/docs/thinking-in-react.html)
