@@ -1,33 +1,32 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:vanilla/models.dart';
-import 'package:vanilla/screens/add_edit_screen.dart';
-import 'package:vanilla/widgets/typedefs.dart';
+import 'package:redux_sample/containers/edit_todo.dart';
+import 'package:redux_sample/models.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailsScreen extends StatelessWidget {
   final Todo todo;
   final Function onDelete;
-  final TodoAdder addTodo;
-  final TodoUpdater updateTodo;
+  final Function(bool) toggleCompleted;
 
-  DetailScreen({
-    @required this.todo,
-    @required this.addTodo,
-    @required this.updateTodo,
-    @required this.onDelete,
+  DetailsScreen({
     Key key,
+    @required this.todo,
+    @required this.onDelete,
+    @required this.toggleCompleted,
   })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ArchSampleLocalizations.of(context);
+
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(ArchSampleLocalizations.of(context).todoDetails),
+        title: new Text(localizations.todoDetails),
         actions: [
           new IconButton(
-            tooltip: ArchSampleLocalizations.of(context).deleteTodo,
+            tooltip: localizations.deleteTodo,
             icon: new Icon(Icons.delete),
             onPressed: () {
               onDelete();
@@ -47,9 +46,7 @@ class DetailScreen extends StatelessWidget {
                   padding: new EdgeInsets.only(right: 8.0),
                   child: new Checkbox(
                     value: todo.complete,
-                    onChanged: (complete) {
-                      updateTodo(todo, complete: !todo.complete);
-                    },
+                    onChanged: toggleCompleted,
                   ),
                 ),
                 new Expanded(
@@ -79,15 +76,13 @@ class DetailScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
-        tooltip: ArchSampleLocalizations.of(context).editTodo,
+        tooltip: localizations.editTodo,
         child: new Icon(Icons.edit),
         onPressed: () {
           Navigator.of(context).push(
             new MaterialPageRoute(
               builder: (context) {
-                return new AddEditScreen(
-                  updateTodo: updateTodo,
-                  addTodo: addTodo,
+                return new EditTodo(
                   todo: todo,
                 );
               },

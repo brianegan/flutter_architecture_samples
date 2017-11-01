@@ -1,4 +1,4 @@
-import 'package:vanilla/models.dart';
+import 'package:redux_sample/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 main() {
@@ -80,49 +80,6 @@ main() {
       );
 
       expect(state.filteredTodos(VisibilityFilter.completed), [todo3]);
-    });
-
-    test('should clear the completed todos', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
-      final todos = [
-        todo1,
-        todo2,
-        todo3,
-      ];
-      final state = new AppState(
-        todos: todos,
-      );
-
-      state.clearCompleted();
-
-      expect(state.todos, [
-        todo1,
-        todo2,
-      ]);
-    });
-
-    test('toggle all as complete or incomplete', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
-      final todos = [
-        todo1,
-        todo2,
-        todo3,
-      ];
-      final state = new AppState(
-        todos: todos,
-      );
-
-      // Toggle all complete
-      state.toggleAll();
-      expect(state.todos.every((t) => t.complete), isTrue);
-
-      // Toggle all incomplete
-      state.toggleAll();
-      expect(state.todos.every((t) => !t.complete), isTrue);
     });
   });
 }

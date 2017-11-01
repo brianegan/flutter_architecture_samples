@@ -1,15 +1,44 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
-class AppState {
-  bool isLoading;
-  List<Todo> todos;
+enum AppTab { todos, stats }
 
-  AppState({
-    this.isLoading = false,
-    this.todos = const [],
-  });
+enum ExtraAction { toggleAllComplete, clearCompleted }
+
+enum VisibilityFilter { all, active, completed }
+
+@immutable
+class AppState {
+  final bool isLoading;
+  final List<Todo> todos;
+  final AppTab activeTab;
+  final VisibilityFilter activeFilter;
+  final Function() myFn;
+
+  AppState(
+      {this.isLoading = false,
+      this.todos = const [],
+      this.activeTab = AppTab.todos,
+      this.activeFilter = VisibilityFilter.all,
+      this.myFn});
 
   factory AppState.loading() => new AppState(isLoading: true);
+
+  AppState copyWith({
+    bool isLoading,
+    List<Todo> todos,
+    AppTab activeTab,
+    VisibilityFilter activeFilter,
+  }) {
+    myFn();
+
+    return new AppState(
+      isLoading: isLoading ?? this.isLoading,
+      todos: todos ?? this.todos,
+      activeTab: activeTab ?? this.activeTab,
+      activeFilter: activeFilter ?? this.activeFilter,
+    );
+  }
 
   bool get allComplete => todos.every((todo) => todo.complete);
 
@@ -26,9 +55,6 @@ class AppState {
 
   bool get hasCompletedTodos => todos.any((todo) => todo.complete);
 
-  @override
-  int get hashCode => todos.hashCode ^ isLoading.hashCode;
-
   int get numActive =>
       todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
 
@@ -36,22 +62,21 @@ class AppState {
       todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
 
   @override
+  int get hashCode =>
+      isLoading.hashCode ^
+      todos.hashCode ^
+      activeTab.hashCode ^
+      activeFilter.hashCode;
+
+  @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AppState &&
           runtimeType == other.runtimeType &&
+          isLoading == other.isLoading &&
           todos == other.todos &&
-          isLoading == other.isLoading;
-
-  void clearCompleted() {
-    todos.removeWhere((todo) => todo.complete);
-  }
-
-  void toggleAll() {
-    final allCompleted = this.allComplete;
-
-    todos.forEach((todo) => todo.complete = !allCompleted);
-  }
+          activeTab == other.activeTab &&
+          activeFilter == other.activeFilter;
 
   Map<String, Object> toJson() {
     return {
@@ -61,7 +86,7 @@ class AppState {
 
   @override
   String toString() {
-    return 'AppState{todos: $todos, isLoading: $isLoading}';
+    return 'AppState{isLoading: $isLoading, todos: $todos, activeTab: $activeTab, activeFilter: $activeFilter}';
   }
 
   static AppState fromJson(Map<String, Object> json) {
@@ -75,18 +100,31 @@ class AppState {
   }
 }
 
-enum AppTab { todos, stats }
-
-enum ExtraAction { toggleAllComplete, clearCompleted }
-
+@immutable
 class Todo {
-  bool complete;
-  String id;
-  String note;
-  String task;
+  static const _notFound = "!!__NOT_FOUND__!!";
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? new Uuid().generateV4();
+  final bool complete;
+  final String id;
+  final String note;
+  final String task;
+
+  Todo(this.task, {this.complete = false, String note = '', String id})
+      : this.note = note ?? '',
+        this.id = id ?? new Uuid().generateV4();
+
+  factory Todo.notFound() => new Todo(_notFound);
+
+  Todo copyWith({bool complete, String id, String note, String task}) {
+    return new Todo(
+      task ?? this.task,
+      complete: complete ?? this.complete,
+      id: id ?? this.id,
+      note: note ?? this.note,
+    );
+  }
+
+  bool get isNotFound => this.task == _notFound;
 
   @override
   int get hashCode =>
@@ -125,5 +163,3 @@ class Todo {
     );
   }
 }
-
-enum VisibilityFilter { all, active, completed }

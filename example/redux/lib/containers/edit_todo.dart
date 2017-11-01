@@ -1,0 +1,36 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_sample/actions.dart';
+import 'package:redux_sample/models.dart';
+import 'package:redux_sample/widgets/add_edit_screen.dart';
+
+class EditTodo extends StatelessWidget {
+  final Todo todo;
+
+  EditTodo({this.todo, Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new StoreConnector<AppState, OnSaveCallback>(
+      converter: (Store<AppState> store) {
+        return (task, note) {
+          store.dispatch(new UpdateTodoAction(
+            todo.id,
+            todo.copyWith(
+              task: task,
+              note: note,
+            ),
+          ));
+        };
+      },
+      builder: (BuildContext context, OnSaveCallback onSave) {
+        return new AddEditScreen(
+          onSave: onSave,
+          isEditing: true,
+          todo: todo,
+        );
+      },
+    );
+  }
+}
