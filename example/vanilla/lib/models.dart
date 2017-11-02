@@ -1,4 +1,4 @@
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_architecture_samples/uuid.dart';
 
 class AppState {
   bool isLoading;

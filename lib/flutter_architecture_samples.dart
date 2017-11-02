@@ -3,7 +3,6 @@
 library flutter_architecture_samples;
 
 export 'src/keys.dart';
-export 'src/uuid.dart';
 export 'src/routes.dart';
 export 'src/localization.dart';
 export 'src/theme.dart';
