@@ -1,5 +1,5 @@
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/redux/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/actions/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';

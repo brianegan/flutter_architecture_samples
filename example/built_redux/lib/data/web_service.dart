@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:built_redux_sample/data_model/models.dart';
+import 'package:built_redux_sample/models/models.dart';
 
 /// A class that is meant to represent a Web Service you would call to fetch
 /// and persist Todos to and from the cloud.

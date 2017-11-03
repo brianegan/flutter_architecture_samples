@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/data_model/serializers.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/models/serializers.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Loads and saves a List of Todos using a text file stored on the device.

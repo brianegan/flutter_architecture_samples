@@ -1,7 +1,8 @@
 import 'package:built_redux/built_redux.dart';
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/redux/actions.dart';
-import 'package:built_redux_sample/redux/reducers.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/actions/actions.dart';
+import 'package:built_redux_sample/reducers/reducers.dart';
+import 'package:built_redux_sample/selectors/selectors.dart';
 import 'package:test/test.dart';
 
 main() {
@@ -86,7 +87,7 @@ main() {
 
       store.actions.toggleAllAction();
 
-      expect(store.state.allComplete, isTrue);
+      expect(allCompleteSelector(todosSelector(store.state)), isTrue);
     });
 
     test('should mark all as incomplete if all todos are complete', () {

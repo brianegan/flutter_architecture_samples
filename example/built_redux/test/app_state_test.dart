@@ -1,22 +1,9 @@
-import 'package:built_redux_sample/data_model/models.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/selectors/selectors.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('AppState', () {
-    test('should check if there are completed todos', () {
-      final state = new AppState.fromTodos([
-        new Todo('a'),
-        new Todo('b'),
-        new Todo.builder(
-          (b) => b
-            ..task = 'c'
-            ..complete = true,
-        ),
-      ]);
-
-      expect(state.hasCompletedTodos, true);
-    });
-
+  group('Selector Tests', () {
     test('should calculate the number of active todos', () {
       final state = new AppState.fromTodos([
         new Todo('a'),
@@ -28,7 +15,7 @@ main() {
         ),
       ]);
 
-      expect(state.numActive, 2);
+      expect(numActiveSelector(todosSelector(state)), 2);
     });
 
     test('should calculate the number of completed todos', () {
@@ -42,7 +29,7 @@ main() {
         ),
       ]);
 
-      expect(state.numCompleted, 1);
+      expect(numCompletedSelector(todosSelector(state)), 1);
     });
 
     test('should return all todos if the VisibilityFilter is all', () {
@@ -57,7 +44,10 @@ main() {
       ];
       final state = new AppState.fromTodos(todos);
 
-      expect(state.filteredTodos(VisibilityFilter.all), todos);
+      expect(
+        filteredTodosSelector(todosSelector(state), VisibilityFilter.all),
+        todos,
+      );
     });
 
     test('should return active todos if the VisibilityFilter is active', () {
@@ -75,10 +65,10 @@ main() {
       ];
       final state = new AppState.fromTodos(todos);
 
-      expect(state.filteredTodos(VisibilityFilter.active), [
-        todo1,
-        todo2,
-      ]);
+      expect(
+        filteredTodosSelector(todosSelector(state), VisibilityFilter.active),
+        [todo1, todo2],
+      );
     });
 
     test('should return completed todos if the VisibilityFilter is completed',
@@ -97,7 +87,10 @@ main() {
       ];
       final state = new AppState.fromTodos(todos);
 
-      expect(state.filteredTodos(VisibilityFilter.completed), [todo3]);
+      expect(
+        filteredTodosSelector(todosSelector(state), VisibilityFilter.completed),
+        [todo3],
+      );
     });
   });
 }

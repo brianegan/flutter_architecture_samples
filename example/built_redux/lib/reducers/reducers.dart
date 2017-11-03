@@ -1,7 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_redux/built_redux.dart';
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/redux/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/actions/actions.dart';
+import 'package:built_redux_sample/selectors/selectors.dart';
 
 var reducerBuilder = new ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.addTodoAction, addTodo)
@@ -25,7 +26,7 @@ deleteTodo(AppState state, Action<String> action, AppStateBuilder builder) =>
       ..where((todo) => todo.id != action.payload);
 
 toggleAll(AppState state, Action<Null> action, AppStateBuilder builder) {
-  final allComplete = state.allComplete;
+  final allComplete = allCompleteSelector(todosSelector(state));
 
   return builder.todos = state.todos.toBuilder()
     ..map((todo) => (todo.toBuilder()..complete = !allComplete).build());

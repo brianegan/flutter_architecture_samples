@@ -1,6 +1,6 @@
 import 'package:built_redux_sample/containers/app_loading.dart';
 import 'package:built_redux_sample/containers/todo_details.dart';
-import 'package:built_redux_sample/data_model/models.dart';
+import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/widgets/todo_item.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

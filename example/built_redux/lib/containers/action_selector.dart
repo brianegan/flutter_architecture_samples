@@ -1,8 +1,9 @@
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/redux/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/widgets/extra_actions_button.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:built_redux_sample/selectors/selectors.dart';
 
 class ExtraActionSelector
     extends StoreConnector<AppState, AppStateBuilder, AppActions, bool> {
@@ -10,7 +11,7 @@ class ExtraActionSelector
 
   @override
   bool connect(AppState state) {
-    return state.allComplete;
+    return allCompleteSelector(todosSelector(state));
   }
 
   @override

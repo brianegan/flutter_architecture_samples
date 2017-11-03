@@ -4,7 +4,7 @@ import 'package:built_redux_sample/containers/filter_selector.dart';
 import 'package:built_redux_sample/containers/filtered_todos.dart';
 import 'package:built_redux_sample/containers/stats.dart';
 import 'package:built_redux_sample/containers/tab_selector.dart';
-import 'package:built_redux_sample/data_model/models.dart';
+import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/localization.dart';
 import 'package:built_redux_sample/widgets/filter_button.dart';
 import 'package:flutter/material.dart';

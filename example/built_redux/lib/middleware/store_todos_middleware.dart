@@ -1,7 +1,7 @@
 import 'package:built_redux/built_redux.dart';
 import 'package:built_redux_sample/data/todos_service.dart';
-import 'package:built_redux_sample/data_model/models.dart';
-import 'package:built_redux_sample/redux/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
+import 'package:built_redux_sample/actions/actions.dart';
 
 Middleware<AppState, AppStateBuilder, AppActions> createStoreTodosMiddleware(
         TodosService service) =>
@@ -21,10 +21,12 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null> createFetchTodos(
     TodosService service) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<Null> action) {
-    service
-        .loadTodos()
-        .then(api.actions.loadTodosSuccess)
-        .catchError(api.actions.loadTodosFailure);
+    if (api.state.isLoading) {
+      service
+          .loadTodos()
+          .then(api.actions.loadTodosSuccess)
+          .catchError(api.actions.loadTodosFailure);
+    }
 
     next(action);
   };
