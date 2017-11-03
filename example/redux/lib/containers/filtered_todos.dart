@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_sample/models.dart';
-import 'package:redux_sample/actions.dart';
+import 'package:redux_sample/models/models.dart';
+import 'package:redux_sample/actions/actions.dart';
+import 'package:redux_sample/selectors/selectors.dart';
+import 'package:redux_sample/widgets/todo_list.dart';
 
 class FilteredTodosViewModel {
   final List<Todo> todos;
@@ -22,7 +24,10 @@ class FilteredTodosViewModel {
 
   static FilteredTodosViewModel fromStore(Store<AppState> store) {
     return new FilteredTodosViewModel(
-      todos: store.state.filteredTodos(store.state.activeFilter),
+      todos: filteredTodosSelector(
+        todosSelector(store.state),
+        activeFilterSelector(store.state),
+      ),
       loading: store.state.isLoading,
       onCheckboxChanged: (todo, complete) {
         store.dispatch(new UpdateTodoAction(
@@ -41,15 +46,20 @@ class FilteredTodosViewModel {
 }
 
 class FilteredTodos extends StatelessWidget {
-  final ViewModelBuilder<FilteredTodosViewModel> builder;
-
-  FilteredTodos({Key key, @required this.builder}) : super(key: key);
+  FilteredTodos({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new StoreConnector<AppState, FilteredTodosViewModel>(
       converter: FilteredTodosViewModel.fromStore,
-      builder: builder,
+      builder: (context, vm) {
+        return new TodoList(
+          todos: vm.todos,
+          onCheckboxChanged: vm.onCheckboxChanged,
+          onRemove: vm.onRemove,
+          onUndoRemove: vm.onUndoRemove,
+        );
+      },
     );
   }
 }

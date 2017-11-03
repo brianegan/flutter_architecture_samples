@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 /// Loads and saves a List of Todos using a text file stored on the device.
 class FileStorage {

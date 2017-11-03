@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:redux_sample/actions.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/actions/actions.dart';
+import 'package:redux_sample/models/models.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/widgets/add_edit_screen.dart';

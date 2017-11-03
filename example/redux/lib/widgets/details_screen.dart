@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:redux_sample/containers/edit_todo.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Todo todo;

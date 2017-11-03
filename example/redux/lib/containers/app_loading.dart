@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 class AppLoading extends StatelessWidget {
   final Function(BuildContext context, bool isLoading) builder;

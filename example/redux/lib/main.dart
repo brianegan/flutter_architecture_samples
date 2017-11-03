@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/containers/add_todo.dart';
 import 'package:redux_sample/data/todos_service.dart';
 import 'package:redux_sample/localization.dart';
-import 'package:redux_sample/models.dart';
-import 'package:redux_sample/reducers.dart';
-import 'package:redux_sample/storeTodosMiddleware.dart';
+import 'package:redux_sample/models/models.dart';
+import 'package:redux_sample/reducers/app_state_reducer.dart';
+import 'package:redux_sample/middleware/store_todos_middleware.dart';
 import 'package:redux_sample/widgets/home_screen.dart';
-import 'package:redux_future/redux_future.dart';
 
 void main() {
   runApp(new ReduxApp());
@@ -22,12 +22,9 @@ class ReduxApp extends StatelessWidget {
   factory ReduxApp() {
     final service = const TodosService();
     final store = new Store<AppState>(
-      stateReducer,
+      appReducer,
       initialState: new AppState.loading(),
-      middleware: [
-        futureMiddleware,
-        createStoreTodosMiddleware(service),
-      ],
+      middleware: createStoreTodosMiddleware(service),
     );
 
     return new ReduxApp._(store, service);
@@ -49,7 +46,7 @@ class ReduxApp extends StatelessWidget {
         routes: {
           ArchSampleRoutes.home: (context) {
             return new StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(service.loadTodos()),
+              onInit: (store) => store.dispatch(new LoadTodosAction()),
               builder: (context, store) {
                 return new HomeScreen();
               },

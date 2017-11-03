@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:core';
 import 'package:redux_sample/data/file_storage.dart';
 import 'package:redux_sample/data/web_service.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 /// A class that glues together our local file storage and a remote web service.
 class TodosService {

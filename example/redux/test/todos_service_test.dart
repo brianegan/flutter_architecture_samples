@@ -1,7 +1,7 @@
 import 'package:redux_sample/data/file_storage.dart';
 import 'package:redux_sample/data/todos_service.dart';
 import 'package:redux_sample/data/web_service.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

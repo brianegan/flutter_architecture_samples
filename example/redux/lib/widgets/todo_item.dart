@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;

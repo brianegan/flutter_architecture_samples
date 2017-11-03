@@ -2,11 +2,10 @@ name: redux_sample
 description: A new Flutter project.
 
 dependencies:
+  meta: '^1.1.0'
+  quiver: '^0.25.0'
   redux: 2.0.1
-  flutter_redux:
-    path: ../../../flutter_redux
-  reselect: 0.2.0
-  redux_future: 0.1.0
+  flutter_redux: '0.3.2'
   flutter:
     sdk: flutter
   flutter_architecture_samples:

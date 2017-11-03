@@ -1,4 +1,4 @@
-import 'package:redux_sample/models.dart';
+import 'package:redux_sample/models/models.dart';
 
 typedef TodoAdder(Todo todo);
 
