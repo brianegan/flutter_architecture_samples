@@ -2,7 +2,6 @@ library built_redux_sample;
 
 import 'package:built_redux/built_redux.dart';
 import 'package:built_redux_sample/containers/add_todo.dart';
-import 'package:built_redux_sample/data/todos_service.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/localization.dart';
 import 'package:built_redux_sample/actions/actions.dart';
@@ -18,24 +17,16 @@ void main() {
 }
 
 class BuiltReduxApp extends StatelessWidget {
-  final TodosService service;
-  final Store<AppState, AppStateBuilder, AppActions> store;
+  final store = new Store<AppState, AppStateBuilder, AppActions>(
+    reducerBuilder.build(),
+    new AppState.loading(),
+    new AppActions(),
+    middleware: [
+      createStoreTodosMiddleware(),
+    ],
+  );
 
-  factory BuiltReduxApp() {
-    final service = const TodosService();
-    final store = new Store<AppState, AppStateBuilder, AppActions>(
-      reducerBuilder.build(),
-      new AppState.loading(),
-      new AppActions(),
-      middleware: [
-        createStoreTodosMiddleware(service),
-      ],
-    );
-
-    return new BuiltReduxApp._(store, service);
-  }
-
-  BuiltReduxApp._(this.store, this.service);
+  BuiltReduxApp() {}
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/containers/add_todo.dart';
-import 'package:redux_sample/data/todos_service.dart';
 import 'package:redux_sample/localization.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
@@ -16,21 +15,13 @@ void main() {
 }
 
 class ReduxApp extends StatelessWidget {
-  final service;
-  final store;
+  final store = new Store<AppState>(
+    appReducer,
+    initialState: new AppState.loading(),
+    middleware: createStoreTodosMiddleware(),
+  );
 
-  factory ReduxApp() {
-    final service = const TodosService();
-    final store = new Store<AppState>(
-      appReducer,
-      initialState: new AppState.loading(),
-      middleware: createStoreTodosMiddleware(service),
-    );
-
-    return new ReduxApp._(store, service);
-  }
-
-  ReduxApp._(this.store, this.service);
+  ReduxApp();
 
   @override
   Widget build(BuildContext context) {

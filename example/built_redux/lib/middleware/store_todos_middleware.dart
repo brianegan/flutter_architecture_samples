@@ -3,19 +3,21 @@ import 'package:built_redux_sample/data/todos_service.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
 
-Middleware<AppState, AppStateBuilder, AppActions> createStoreTodosMiddleware(
-        TodosService service) =>
-    (new MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
-          ..add(AppActionsNames.fetchTodosAction, createFetchTodos(service))
-          ..add(AppActionsNames.addTodoAction, createSaveTodos<Todo>(service))
-          ..add(AppActionsNames.clearCompletedAction,
-              createSaveTodos<Null>(service))
-          ..add(AppActionsNames.deleteTodoAction,
-              createSaveTodos<String>(service))
-          ..add(AppActionsNames.toggleAllAction, createSaveTodos<Null>(service))
-          ..add(AppActionsNames.updateTodoAction,
-              createSaveTodos<UpdateTodoActionPayload>(service)))
-        .build();
+Middleware<AppState, AppStateBuilder, AppActions> createStoreTodosMiddleware([
+  TodosService service = const TodosService(),
+]) {
+  return (new MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
+        ..add(AppActionsNames.fetchTodosAction, createFetchTodos(service))
+        ..add(AppActionsNames.addTodoAction, createSaveTodos<Todo>(service))
+        ..add(AppActionsNames.clearCompletedAction,
+            createSaveTodos<Null>(service))
+        ..add(
+            AppActionsNames.deleteTodoAction, createSaveTodos<String>(service))
+        ..add(AppActionsNames.toggleAllAction, createSaveTodos<Null>(service))
+        ..add(AppActionsNames.updateTodoAction,
+            createSaveTodos<UpdateTodoActionPayload>(service)))
+      .build();
+}
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null> createFetchTodos(
     TodosService service) {

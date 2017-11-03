@@ -5,7 +5,9 @@ import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/utils.dart';
 
-List<Middleware<AppState>> createStoreTodosMiddleware(TodosService service) {
+List<Middleware<AppState>> createStoreTodosMiddleware([
+  TodosService service = const TodosService(),
+]) {
   final saveTodos = _createSaveTodos(service);
   final loadTodos = _createLoadTodos(service);
 
