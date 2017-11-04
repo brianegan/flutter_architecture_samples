@@ -27,6 +27,7 @@ class DetailsScreen extends StatelessWidget {
         actions: [
           new IconButton(
             tooltip: localizations.deleteTodo,
+            key: ArchSampleKeys.deleteTodoButton,
             icon: new Icon(Icons.delete),
             onPressed: () {
               onDelete();
@@ -60,11 +61,13 @@ class DetailsScreen extends StatelessWidget {
                         ),
                         child: new Text(
                           todo.task,
+                          key: ArchSampleKeys.detailsTodoItemTask,
                           style: Theme.of(context).textTheme.headline,
                         ),
                       ),
                       new Text(
                         todo.note,
+                        key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
                       )
                     ],
@@ -76,6 +79,7 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
+        key: ArchSampleKeys.editTodoFab,
         tooltip: localizations.editTodo,
         child: new Icon(Icons.edit),
         onPressed: () {

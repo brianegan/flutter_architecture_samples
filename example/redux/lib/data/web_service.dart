@@ -16,12 +16,32 @@ class WebService {
     return new Future.delayed(
         delay,
         () => [
-          new Todo('Buy food for da kitty', note: 'With the chickeny bits!'),
-          new Todo('Find a Red Sea dive trip', note: 'Echo vs MY Dream'),
-          new Todo('Book flights to Egypt', complete: true),
-          new Todo('Decide on accommodation'),
-          new Todo('Sip Margaritas', note: 'on the beach', complete: true),
-        ]);
+              new Todo(
+                'Buy food for da kitty',
+                note: 'With the chickeny bits!',
+                id: '1',
+              ),
+              new Todo(
+                'Find a Red Sea dive trip',
+                note: 'Echo vs MY Dream',
+                id: '2',
+              ),
+              new Todo(
+                'Book flights to Egypt',
+                complete: true,
+                id: '3',
+              ),
+              new Todo(
+                'Decide on accommodation',
+                id: '4',
+              ),
+              new Todo(
+                'Sip Margaritas',
+                note: 'on the beach',
+                complete: true,
+                id: '5',
+              ),
+            ]);
   }
 
   /// Mock that returns true or false for success or failure. In this case,

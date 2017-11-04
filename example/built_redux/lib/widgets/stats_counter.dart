@@ -19,7 +19,7 @@ class StatsCounter extends StatelessWidget {
       return loading
           ? new Center(
               child: new CircularProgressIndicator(
-              key: ArchSampleKeys.loading,
+              key: ArchSampleKeys.statsLoading,
             ))
           : new Center(
               child: new Column(

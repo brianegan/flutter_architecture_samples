@@ -51,8 +51,12 @@ class TabSelector extends StatelessWidget {
           onTap: vm.onTabSelected,
           items: AppTab.values.map((tab) {
             return new BottomNavigationBarItem(
-              icon:
-                  new Icon(tab == AppTab.todos ? Icons.list : Icons.show_chart),
+              icon: new Icon(
+                tab == AppTab.todos ? Icons.list : Icons.show_chart,
+                key: tab == AppTab.todos
+                    ? ArchSampleKeys.todoTab
+                    : ArchSampleKeys.statsTab,
+              ),
               title: new Text(tab == AppTab.stats
                   ? ArchSampleLocalizations.of(context).stats
                   : ArchSampleLocalizations.of(context).todos),

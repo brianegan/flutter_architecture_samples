@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
@@ -26,6 +27,7 @@ class EditTodo extends StatelessWidget {
       },
       builder: (BuildContext context, OnSaveCallback onSave) {
         return new AddEditScreen(
+          key: ArchSampleKeys.editTodoScreen,
           onSave: onSave,
           isEditing: true,
           todo: todo,

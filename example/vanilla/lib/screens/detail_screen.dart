@@ -16,9 +16,8 @@ class DetailScreen extends StatelessWidget {
     @required this.addTodo,
     @required this.updateTodo,
     @required this.onDelete,
-    Key key,
   })
-      : super(key: key);
+      : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +26,7 @@ class DetailScreen extends StatelessWidget {
         title: new Text(ArchSampleLocalizations.of(context).todoDetails),
         actions: [
           new IconButton(
+            key: ArchSampleKeys.deleteTodoButton,
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
             icon: new Icon(Icons.delete),
             onPressed: () {
@@ -47,6 +47,7 @@ class DetailScreen extends StatelessWidget {
                   padding: new EdgeInsets.only(right: 8.0),
                   child: new Checkbox(
                     value: todo.complete,
+                    key: ArchSampleKeys.detailsTodoItemCheckbox,
                     onChanged: (complete) {
                       updateTodo(todo, complete: !todo.complete);
                     },
@@ -63,11 +64,13 @@ class DetailScreen extends StatelessWidget {
                         ),
                         child: new Text(
                           todo.task,
+                          key: ArchSampleKeys.detailsTodoItemTask,
                           style: Theme.of(context).textTheme.headline,
                         ),
                       ),
                       new Text(
                         todo.note,
+                        key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
                       )
                     ],
@@ -81,6 +84,7 @@ class DetailScreen extends StatelessWidget {
       floatingActionButton: new FloatingActionButton(
         tooltip: ArchSampleLocalizations.of(context).editTodo,
         child: new Icon(Icons.edit),
+        key: ArchSampleKeys.editTodoFab,
         onPressed: () {
           Navigator.of(context).push(
             new MaterialPageRoute(

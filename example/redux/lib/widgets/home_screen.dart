@@ -10,7 +10,7 @@ import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/localization.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({Key key}) : super(key: key);
+  HomeScreen() : super(key: ArchSampleKeys.homeScreen);
 
   @override
   Widget build(BuildContext context) {

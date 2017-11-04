@@ -17,7 +17,9 @@ class StatsCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new AppLoading(builder: (context, loading) {
-      return loading ? new LoadingIndicator() : _buildStats(context);
+      return loading
+          ? new LoadingIndicator(key: new Key('__statsLoading__'))
+          : _buildStats(context);
     });
   }
 
@@ -37,6 +39,7 @@ class StatsCounter extends StatelessWidget {
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               '$numCompleted',
+              key: ArchSampleKeys.statsCompletedItems,
               style: Theme.of(context).textTheme.subhead,
             ),
           ),
@@ -51,6 +54,7 @@ class StatsCounter extends StatelessWidget {
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               "$numActive",
+              key: ArchSampleKeys.statsActiveItems,
               style: Theme.of(context).textTheme.subhead,
             ),
           )

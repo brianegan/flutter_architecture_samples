@@ -17,7 +17,8 @@ class TodoList extends StatelessWidget {
     @required this.onCheckboxChanged,
     @required this.onRemove,
     @required this.onUndoRemove,
-  });
+  })
+      : super(key: ArchSampleKeys.todoList);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class TodoList extends StatelessWidget {
       return loading
           ? new Center(
               child: new CircularProgressIndicator(
-              key: ArchSampleKeys.loading,
+              key: ArchSampleKeys.statsLoading,
             ))
           : new Container(
               child: new ListView.builder(

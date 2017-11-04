@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -21,6 +22,7 @@ class AddTodo extends StatelessWidget {
       },
       builder: (BuildContext context, OnSaveCallback onSave) {
         return new AddEditScreen(
+          key: ArchSampleKeys.addTodoScreen,
           onSave: onSave,
           isEditing: false,
         );

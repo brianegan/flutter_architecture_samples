@@ -9,7 +9,7 @@ import 'package:built_redux_sample/models/models.dart';
 class WebService {
   final Duration delay;
 
-  const WebService([this.delay = const Duration(milliseconds: 1200)]);
+  const WebService([this.delay = const Duration(milliseconds: 3000)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<Todo>> fetchTodos() async {

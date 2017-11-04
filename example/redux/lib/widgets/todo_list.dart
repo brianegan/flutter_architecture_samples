@@ -14,16 +14,20 @@ class TodoList extends StatelessWidget {
   final Function(Todo) onUndoRemove;
 
   TodoList({
+    Key key,
     @required this.todos,
     @required this.onCheckboxChanged,
     @required this.onRemove,
     @required this.onUndoRemove,
-  });
+  })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return new AppLoading(builder: (context, loading) {
-      return loading ? new LoadingIndicator() : _buildListView();
+      return loading
+          ? new LoadingIndicator(key: ArchSampleKeys.todosLoading)
+          : _buildListView();
     });
   }
 
@@ -74,6 +78,7 @@ class TodoList extends StatelessWidget {
         .then((removedTodo) {
       if (removedTodo != null) {
         Scaffold.of(context).showSnackBar(new SnackBar(
+            key: ArchSampleKeys.snackbar,
             duration: new Duration(seconds: 2),
             backgroundColor: Theme.of(context).backgroundColor,
             content: new Text(
