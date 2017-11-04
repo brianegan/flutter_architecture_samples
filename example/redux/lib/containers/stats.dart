@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
-import 'package:redux_sample/widgets/stats_counter.dart';
+import 'package:redux_sample/presentation/stats_counter.dart';
 
 class StatsViewModel {
   final int numCompleted;

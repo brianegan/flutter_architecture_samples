@@ -6,7 +6,7 @@ import 'package:built_redux_sample/containers/stats.dart';
 import 'package:built_redux_sample/containers/tab_selector.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/localization.dart';
-import 'package:built_redux_sample/widgets/filter_button.dart';
+import 'package:built_redux_sample/presentation/filter_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 

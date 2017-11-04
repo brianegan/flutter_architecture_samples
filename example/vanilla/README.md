@@ -6,7 +6,8 @@ The vanilla example uses only the core Widgets and Classes that Flutter provides
 
   * Share State by Lifting State Up - If two Widgets need access to the same state (aka data), "lift" the state up to a parent `StatefulWidget` that passes the state down to each child Widget that needs it.
   * Updating State with callbacks - To update state, pass a callback function from the Parent `StatefulWidget` to the child widgets.
-  * Local persistence - The list of todos is serialized to JSON and stored as a file on disk whenever the State is updated. 
+  * Local persistence - The list of todos is serialized to JSON and stored as a file on disk whenever the State is updated.
+  * Testing - Pull Business logic out of Widgets into Plain Old Dart Object (PODOs).
 
 ## Share State by Lifting State Up
 
@@ -176,6 +177,17 @@ To make this concrete, Let's see how our callbacks flow in the this app.
 |                |
 +----------------+
 ```
+
+## Testing
+
+There are a few Strategies for testing:
+
+  1. Store state and the state mutations (methods) within a `StatefulWidget`
+  2. Extract this State and logic out into a "Plain Old Dart Objects" (PODOs) and test those. The `StatefulWidget` can then delegate to this object.
+  
+So which should you choose? For View-related State: Option #1. For App State / Business Logic: Option #2.
+
+While Option #1 works because Flutter provides a nice set of Widget testing utilities out of the box, Option #2 will generally prove easier to test because it has no Flutter dependencies and does not require you to test against a Widget tree, but simply against an Object.  
 
 ## Addendum
 

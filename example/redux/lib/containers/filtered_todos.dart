@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/selectors/selectors.dart';
-import 'package:redux_sample/widgets/todo_list.dart';
+import 'package:redux_sample/presentation/todo_list.dart';
 
 class FilteredTodosViewModel {
   final List<Todo> todos;

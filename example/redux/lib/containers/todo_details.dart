@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
-import 'package:redux_sample/widgets/details_screen.dart';
+import 'package:redux_sample/presentation/details_screen.dart';
 
 class TodoDetailsViewModel {
   final Todo todo;

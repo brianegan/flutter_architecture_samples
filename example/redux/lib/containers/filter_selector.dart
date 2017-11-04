@@ -4,7 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
-import 'package:redux_sample/widgets/filter_button.dart';
+import 'package:redux_sample/presentation/filter_button.dart';
 
 class FilterSelectorViewModel {
   final Function(VisibilityFilter) onFilterSelected;

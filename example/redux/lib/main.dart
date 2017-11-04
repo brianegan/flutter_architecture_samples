@@ -8,7 +8,7 @@ import 'package:redux_sample/localization.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 import 'package:redux_sample/middleware/store_todos_middleware.dart';
-import 'package:redux_sample/widgets/home_screen.dart';
+import 'package:redux_sample/presentation/home_screen.dart';
 
 void main() {
   runApp(new ReduxApp());

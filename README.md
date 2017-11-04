@@ -2,6 +2,8 @@
 
 <img align="right" src="assets/todo-list.png" alt="List of Todos Screen">
 
+[TodoMVC](http://todomvc.com) for Flutter!
+
 Flutter provides a lot of flexibility in deciding how to organize and architect an your apps. While this freedom is very valuable, it can also lead to apps with large classes, inconsistent naming schemes, as well as mismatching or missing architectures. These types of issues can make testing, maintaining and extending your apps difficult.
 
 The Flutter Architecture Samples project demonstrates strategies to help solve or avoid these common problems. This project implements the same app using different architectural concepts and tools.
@@ -11,6 +13,8 @@ You can use the samples in this project as a learning reference, or as a startin
 ### Current Samples
 
   * [Vanilla Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
+  * [Redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
+  * [built_redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
   
 ### Why a to-do app?
    

@@ -4,8 +4,8 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:redux_sample/containers/app_loading.dart';
 import 'package:redux_sample/containers/todo_details.dart';
 import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/widgets/loading_indicator.dart';
-import 'package:redux_sample/widgets/todo_item.dart';
+import 'package:redux_sample/presentation/loading_indicator.dart';
+import 'package:redux_sample/presentation/todo_item.dart';
 
 class TodoList extends StatelessWidget {
   final List<Todo> todos;

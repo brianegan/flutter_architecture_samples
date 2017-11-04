@@ -5,7 +5,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/actions/actions.dart';
-import 'package:redux_sample/widgets/extra_actions_button.dart';
+import 'package:redux_sample/presentation/extra_actions_button.dart';
 
 class ExtraActionsContainer extends StatelessWidget {
   ExtraActionsContainer({Key key}) : super(key: key);

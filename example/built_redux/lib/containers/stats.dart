@@ -3,7 +3,7 @@ library stats;
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/selectors/selectors.dart';
-import 'package:built_redux_sample/widgets/stats_counter.dart';
+import 'package:built_redux_sample/presentation/stats_counter.dart';
 import 'package:built_value/built_value.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';

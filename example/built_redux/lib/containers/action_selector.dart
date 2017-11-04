@@ -1,6 +1,6 @@
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
-import 'package:built_redux_sample/widgets/extra_actions_button.dart';
+import 'package:built_redux_sample/presentation/extra_actions_button.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 import 'package:built_redux_sample/selectors/selectors.dart';

@@ -6,7 +6,7 @@ Contributions are very welcome in many forms :)
 
 If you find a problem with any of the examples, please [file an issue on Gitlab](https://gitlab.com/brianegan/flutter_architecture_samples/issues).
 
-## Merge Requests
+## Merge Requests / New Apps
 
 If you would like to fix a bug or make an improvement, please [file a merge request](https://gitlab.com/brianegan/flutter_architecture_samples/merge_requests) explaining your changes!
 

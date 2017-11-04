@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:redux_sample/containers/app_loading.dart';
-import 'package:redux_sample/widgets/loading_indicator.dart';
+import 'package:redux_sample/presentation/loading_indicator.dart';
 
 class StatsCounter extends StatelessWidget {
   final int numActive;
