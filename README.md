@@ -18,7 +18,13 @@ You can use the samples in this project as a learning reference, or as a startin
   
 ### Why a to-do app?
    
-The app in this project aims to be simple enough that you can understand it quickly, but complex enough to showcase difficult design decisions and testing scenarios. For more information, see the [app's specification](https://gitlab.com/brianegan/flutter_architecture_samples/blob/master/app_spec.md).   
+The app in this project aims to be simple enough that you can understand it quickly, but complex enough to showcase difficult design decisions and testing scenarios. For more information, see the [app's specification](https://gitlab.com/brianegan/flutter_architecture_samples/blob/master/app_spec.md).
+
+### Be excellent to each other
+
+This Repo is meant as a discussion platform for various architectures. Let us debate these ideas vigorously, but let us be excellent to each other in the process! 
+
+While healthy debate and contributions are very welcome, trolls are not. Read the [code of conduct](https://gitlab.com/brianegan/flutter_architecture_samples/blob/master/code-of-conduct.md) for detailed information. 
 
 ### Contributing new samples
 
