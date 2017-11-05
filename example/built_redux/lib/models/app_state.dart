@@ -6,6 +6,7 @@ import 'package:built_redux_sample/models/todo.dart';
 import 'package:built_redux_sample/models/visibility_filter.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:quiver/core.dart';
 
 part 'app_state.g.dart';
 
@@ -33,4 +34,40 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   factory AppState.fromTodos(List<Todo> todos) =>
       new AppState((b) => b..todos = new ListBuilder<Todo>(todos));
+
+  /// [numCompletedSelector] memoizes and returns the number of complete todos.
+  @memoized
+  int get numCompletedSelector =>
+      todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
+
+  /// [numActiveSelector] returns and memoizes the number of active todos.
+  /// Note it is computed using numCompletedSelector. Since `numCompletedSelector` is memoized, this is
+  /// cheaper than iterating over all todos again by doing todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
+  @memoized
+  int get numActiveSelector => todos.length - numCompletedSelector;
+
+  /// [allCompleteSelector] returns and memoizes a boolean value which is true if all todos are complete.
+  /// Note it is computed using numCompletedSelector. Since `numCompletedSelector` is memoized, this is
+  /// cheaper than iterating over all todos again by doing todos.every((t) => t.completed);
+  @memoized
+  bool get allCompleteSelector => numCompletedSelector == todos.length;
+
+  @memoized
+  List<Todo> get filteredTodosSelector => todos.where((todo) {
+        if (activeFilter == VisibilityFilter.all) {
+          return true;
+        } else if (activeFilter == VisibilityFilter.active) {
+          return !todo.complete;
+        } else if (activeFilter == VisibilityFilter.completed) {
+          return todo.complete;
+        }
+      }).toList();
+
+  Optional<Todo> todoSelector(String id) {
+    try {
+      return new Optional.of(todos.firstWhere((todo) => todo.id == id));
+    } catch (e) {
+      return new Optional.absent();
+    }
+  }
 }

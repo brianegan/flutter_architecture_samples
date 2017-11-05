@@ -1,5 +1,4 @@
 import 'package:built_redux_sample/models/models.dart';
-import 'package:built_redux_sample/selectors/selectors.dart';
 import 'package:test/test.dart';
 
 main() {
@@ -15,7 +14,7 @@ main() {
         ),
       ]);
 
-      expect(numActiveSelector(todosSelector(state)), 2);
+      expect(state.numActiveSelector, 2);
     });
 
     test('should calculate the number of completed todos', () {
@@ -29,7 +28,7 @@ main() {
         ),
       ]);
 
-      expect(numCompletedSelector(todosSelector(state)), 1);
+      expect(state.numCompletedSelector, 1);
     });
 
     test('should return all todos if the VisibilityFilter is all', () {
@@ -43,11 +42,8 @@ main() {
         ),
       ];
       final state = new AppState.fromTodos(todos);
-
-      expect(
-        filteredTodosSelector(todosSelector(state), VisibilityFilter.all),
-        todos,
-      );
+      expect(state.activeFilter, VisibilityFilter.all);
+      expect(state.filteredTodosSelector, todos);
     });
 
     test('should return active todos if the VisibilityFilter is active', () {
@@ -63,12 +59,10 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState.fromTodos(todos);
+      final state = new AppState.fromTodos(todos)
+          .rebuild((b) => b.activeFilter = VisibilityFilter.active);
 
-      expect(
-        filteredTodosSelector(todosSelector(state), VisibilityFilter.active),
-        [todo1, todo2],
-      );
+      expect(state.filteredTodosSelector, [todo1, todo2]);
     });
 
     test('should return completed todos if the VisibilityFilter is completed',
@@ -85,12 +79,10 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState.fromTodos(todos);
+      final state = new AppState.fromTodos(todos)
+          .rebuild((b) => b.activeFilter = VisibilityFilter.completed);
 
-      expect(
-        filteredTodosSelector(todosSelector(state), VisibilityFilter.completed),
-        [todo3],
-      );
+      expect(state.filteredTodosSelector, [todo3]);
     });
   });
 }

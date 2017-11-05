@@ -35,10 +35,10 @@ As your app grows, you'll want to break reducers and middleware down into smalle
 These two libraries are incredibly similar. These are the minor differences:
 
   * Actions
-    - `built_redux` - Actions are generated for you by `built_redux` based on a definition. They are then attached to the Store upon creation.
+    - `built_redux` - Actions are generated for you by `built_redux` based on a definition. They are then attached to the Store upon creation. Each action has a unique name and a generic payload type. Each action can have at most one reducer.
     - `Redux`, Actions are plain ol' Dart values, Classes or Enums.
   * Reducers
-    - `built_redux` - Reducers are functions that mutate a `StateBuilder` and return it. The `StateBuilder` is then built after all reducers have run. Enforces immutability.
+    - `built_redux` - Reducers are void functions that mutate a `StateBuilder`. The `StateBuilder` is then built after all reducers have run. Enforces immutability.
     - `redux` - Reducers are functions in app state and latest action and return a new app state. Since immutability is not enforced, a user could simply mutate the state object instead of returning an updated copy.
     - Both - Testing is easy, and both libraries have utilities for binding Reducers to Actions of a specific type. 
   * Middleware

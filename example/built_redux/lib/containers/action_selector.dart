@@ -3,16 +3,13 @@ import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/presentation/extra_actions_button.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
-import 'package:built_redux_sample/selectors/selectors.dart';
 
 class ExtraActionSelector
     extends StoreConnector<AppState, AppStateBuilder, AppActions, bool> {
   ExtraActionSelector({Key key}) : super(key: key);
 
   @override
-  bool connect(AppState state) {
-    return allCompleteSelector(todosSelector(state));
-  }
+  bool connect(AppState state) => state.allCompleteSelector;
 
   @override
   Widget build(BuildContext context, bool allComplete, AppActions actions) {
