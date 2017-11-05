@@ -13,49 +13,51 @@ var reducerBuilder = new ReducerBuilder<AppState, AppStateBuilder>()
   ..add(AppActionsNames.loadTodosSuccess, todosLoaded)
   ..add(AppActionsNames.loadTodosFailure, todosLoadFailed);
 
-addTodo(AppState state, Action<Todo> action, AppStateBuilder builder) {
+void addTodo(AppState state, Action<Todo> action, AppStateBuilder builder) {
   builder.todos.add(action.payload);
 }
 
-clearCompleted(AppState state, Action<Null> action, AppStateBuilder builder) {
+void clearCompleted(
+    AppState state, Action<Null> action, AppStateBuilder builder) {
   builder.todos.where((todo) => !todo.complete);
 }
 
-deleteTodo(AppState state, Action<String> action, AppStateBuilder builder) {
+void deleteTodo(
+    AppState state, Action<String> action, AppStateBuilder builder) {
   builder.todos.where((todo) => todo.id != action.payload);
 }
 
-toggleAll(AppState state, Action<Null> action, AppStateBuilder builder) {
+void toggleAll(AppState state, Action<Null> action, AppStateBuilder builder) {
   final allComplete = state.allCompleteSelector;
 
-  return builder.todos = state.todos.toBuilder()
+  builder.todos = state.todos.toBuilder()
     ..map((todo) => (todo.toBuilder()..complete = !allComplete).build());
 }
 
-updateFilter(
+void updateFilter(
     AppState state, Action<VisibilityFilter> action, AppStateBuilder builder) {
   builder.activeFilter = action.payload;
 }
 
-updateTab(AppState state, Action<AppTab> action, AppStateBuilder builder) {
+void updateTab(AppState state, Action<AppTab> action, AppStateBuilder builder) {
   builder.activeTab = action.payload;
 }
 
-todosLoaded(
+void todosLoaded(
     AppState state, Action<List<Todo>> action, AppStateBuilder builder) {
   builder
     ..isLoading = false
     ..todos.addAll(action.payload);
 }
 
-todosLoadFailed(
+void todosLoadFailed(
     AppState state, Action<Object> action, AppStateBuilder builder) {
   builder
     ..isLoading = false
     ..todos.clear();
 }
 
-updateTodo(AppState state, Action<UpdateTodoActionPayload> action,
+void updateTodo(AppState state, Action<UpdateTodoActionPayload> action,
     AppStateBuilder builder) {
   builder.todos.map((todo) =>
       todo.id == action.payload.id ? action.payload.updatedTodo : todo);
