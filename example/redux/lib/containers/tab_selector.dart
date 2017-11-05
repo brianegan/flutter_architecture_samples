@@ -7,43 +7,14 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
 
-class TabSelectorViewModelViewModel {
-  final AppTab activeTab;
-  final Function(int) onTabSelected;
-
-  TabSelectorViewModelViewModel({
-    @required this.activeTab,
-    @required this.onTabSelected,
-  });
-
-  static TabSelectorViewModelViewModel fromStore(Store<AppState> store) {
-    return new TabSelectorViewModelViewModel(
-      activeTab: store.state.activeTab,
-      onTabSelected: (index) {
-        store.dispatch(new UpdateTabAction((AppTab.values[index])));
-      },
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TabSelectorViewModelViewModel &&
-          runtimeType == other.runtimeType &&
-          activeTab == other.activeTab;
-
-  @override
-  int get hashCode => activeTab.hashCode;
-}
-
 class TabSelector extends StatelessWidget {
   TabSelector({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, TabSelectorViewModelViewModel>(
+    return new StoreConnector<AppState, _ViewModel>(
       distinct: true,
-      converter: TabSelectorViewModelViewModel.fromStore,
+      converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return new BottomNavigationBar(
           key: ArchSampleKeys.tabs,
@@ -66,4 +37,33 @@ class TabSelector extends StatelessWidget {
       },
     );
   }
+}
+
+class _ViewModel {
+  final AppTab activeTab;
+  final Function(int) onTabSelected;
+
+  _ViewModel({
+    @required this.activeTab,
+    @required this.onTabSelected,
+  });
+
+  static _ViewModel fromStore(Store<AppState> store) {
+    return new _ViewModel(
+      activeTab: store.state.activeTab,
+      onTabSelected: (index) {
+        store.dispatch(new UpdateTabAction((AppTab.values[index])));
+      },
+    );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _ViewModel &&
+          runtimeType == other.runtimeType &&
+          activeTab == other.activeTab;
+
+  @override
+  int get hashCode => activeTab.hashCode;
 }

@@ -6,17 +6,38 @@ import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/presentation/filter_button.dart';
 
-class FilterSelectorViewModel {
+class FilterSelector extends StatelessWidget {
+  final bool visible;
+
+  FilterSelector({Key key, @required this.visible}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new StoreConnector<AppState, _ViewModel>(
+      distinct: true,
+      converter: _ViewModel.fromStore,
+      builder: (context, vm) {
+        return new FilterButton(
+          visible: visible,
+          activeFilter: vm.activeFilter,
+          onSelected: vm.onFilterSelected,
+        );
+      },
+    );
+  }
+}
+
+class _ViewModel {
   final Function(VisibilityFilter) onFilterSelected;
   final VisibilityFilter activeFilter;
 
-  FilterSelectorViewModel({
+  _ViewModel({
     @required this.onFilterSelected,
     @required this.activeFilter,
   });
 
-  static FilterSelectorViewModel fromStore(Store<AppState> store) {
-    return new FilterSelectorViewModel(
+  static _ViewModel fromStore(Store<AppState> store) {
+    return new _ViewModel(
       onFilterSelected: (filter) {
         store.dispatch(new UpdateFilterAction(filter));
       },
@@ -27,31 +48,10 @@ class FilterSelectorViewModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FilterSelectorViewModel &&
+      other is _ViewModel &&
           runtimeType == other.runtimeType &&
           activeFilter == other.activeFilter;
 
   @override
   int get hashCode => activeFilter.hashCode;
-}
-
-class FilterSelector extends StatelessWidget {
-  final bool visible;
-
-  FilterSelector({Key key, @required this.visible}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return new StoreConnector<AppState, FilterSelectorViewModel>(
-      distinct: true,
-      converter: FilterSelectorViewModel.fromStore,
-      builder: (context, vm) {
-        return new FilterButton(
-          visible: visible,
-          activeFilter: vm.activeFilter,
-          onSelected: vm.onFilterSelected,
-        );
-      },
-    );
-  }
 }

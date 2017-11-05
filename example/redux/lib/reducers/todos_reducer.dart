@@ -1,16 +1,16 @@
+import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/utils.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 
 final todosReducer = combineTypedReducers<List<Todo>>([
-  new ReducerBinder<List<Todo>, AddTodoAction>(_addTodo),
-  new ReducerBinder<List<Todo>, DeleteTodoAction>(_deleteTodo),
-  new ReducerBinder<List<Todo>, UpdateTodoAction>(_updateTodo),
-  new ReducerBinder<List<Todo>, ClearCompletedAction>(_clearCompleted),
-  new ReducerBinder<List<Todo>, ToggleAllAction>(_toggleAll),
-  new ReducerBinder<List<Todo>, TodosLoadedAction>(_setLoadedTodos),
-  new ReducerBinder<List<Todo>, TodosNotLoadedAction>(_setNoTodos),
+  new ReducerBinding<List<Todo>, AddTodoAction>(_addTodo),
+  new ReducerBinding<List<Todo>, DeleteTodoAction>(_deleteTodo),
+  new ReducerBinding<List<Todo>, UpdateTodoAction>(_updateTodo),
+  new ReducerBinding<List<Todo>, ClearCompletedAction>(_clearCompleted),
+  new ReducerBinding<List<Todo>, ToggleAllAction>(_toggleAll),
+  new ReducerBinding<List<Todo>, TodosLoadedAction>(_setLoadedTodos),
+  new ReducerBinding<List<Todo>, TodosNotLoadedAction>(_setNoTodos),
 ]);
 
 List<Todo> _addTodo(List<Todo> todos, AddTodoAction action) {

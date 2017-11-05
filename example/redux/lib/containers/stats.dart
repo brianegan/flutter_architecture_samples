@@ -6,33 +6,33 @@ import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/presentation/stats_counter.dart';
 
-class StatsViewModel {
-  final int numCompleted;
-  final int numActive;
-
-  StatsViewModel({@required this.numCompleted, @required this.numActive});
-
-  static StatsViewModel fromStore(Store<AppState> store) {
-    return new StatsViewModel(
-      numActive: numActiveSelector(todosSelector(store.state)),
-      numCompleted: numCompletedSelector(todosSelector(store.state)),
-    );
-  }
-}
-
 class Stats extends StatelessWidget {
   Stats({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, StatsViewModel>(
-      converter: StatsViewModel.fromStore,
+    return new StoreConnector<AppState, _ViewModel>(
+      converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return new StatsCounter(
           numActive: vm.numActive,
           numCompleted: vm.numCompleted,
         );
       },
+    );
+  }
+}
+
+class _ViewModel {
+  final int numCompleted;
+  final int numActive;
+
+  _ViewModel({@required this.numCompleted, @required this.numActive});
+
+  static _ViewModel fromStore(Store<AppState> store) {
+    return new _ViewModel(
+      numActive: numActiveSelector(todosSelector(store.state)),
+      numCompleted: numCompletedSelector(todosSelector(store.state)),
     );
   }
 }

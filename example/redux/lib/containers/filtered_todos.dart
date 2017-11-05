@@ -7,14 +7,33 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/presentation/todo_list.dart';
 
-class FilteredTodosViewModel {
+class FilteredTodos extends StatelessWidget {
+  FilteredTodos({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new StoreConnector<AppState, _ViewModel>(
+      converter: _ViewModel.fromStore,
+      builder: (context, vm) {
+        return new TodoList(
+          todos: vm.todos,
+          onCheckboxChanged: vm.onCheckboxChanged,
+          onRemove: vm.onRemove,
+          onUndoRemove: vm.onUndoRemove,
+        );
+      },
+    );
+  }
+}
+
+class _ViewModel {
   final List<Todo> todos;
   final bool loading;
   final Function(Todo, bool) onCheckboxChanged;
   final Function(Todo) onRemove;
   final Function(Todo) onUndoRemove;
 
-  FilteredTodosViewModel({
+  _ViewModel({
     @required this.todos,
     @required this.loading,
     @required this.onCheckboxChanged,
@@ -22,8 +41,8 @@ class FilteredTodosViewModel {
     @required this.onUndoRemove,
   });
 
-  static FilteredTodosViewModel fromStore(Store<AppState> store) {
-    return new FilteredTodosViewModel(
+  static _ViewModel fromStore(Store<AppState> store) {
+    return new _ViewModel(
       todos: filteredTodosSelector(
         todosSelector(store.state),
         activeFilterSelector(store.state),
@@ -40,25 +59,6 @@ class FilteredTodosViewModel {
       },
       onUndoRemove: (todo) {
         store.dispatch(new AddTodoAction(todo));
-      },
-    );
-  }
-}
-
-class FilteredTodos extends StatelessWidget {
-  FilteredTodos({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return new StoreConnector<AppState, FilteredTodosViewModel>(
-      converter: FilteredTodosViewModel.fromStore,
-      builder: (context, vm) {
-        return new TodoList(
-          todos: vm.todos,
-          onCheckboxChanged: vm.onCheckboxChanged,
-          onRemove: vm.onRemove,
-          onUndoRemove: vm.onUndoRemove,
-        );
       },
     );
   }

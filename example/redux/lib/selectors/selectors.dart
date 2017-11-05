@@ -1,5 +1,5 @@
 import 'package:redux_sample/models/models.dart';
-import 'package:quiver/core.dart';
+import 'package:flutter_architecture_samples/optional.dart';
 
 List<Todo> todosSelector(AppState state) => state.todos;
 

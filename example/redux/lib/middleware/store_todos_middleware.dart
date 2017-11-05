@@ -3,7 +3,6 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/data/todos_service.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
-import 'package:redux_sample/utils.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([
   TodosService service = const TodosService(),
@@ -12,12 +11,12 @@ List<Middleware<AppState>> createStoreTodosMiddleware([
   final loadTodos = _createLoadTodos(service);
 
   return combineTypedMiddleware([
-    new MiddlewareBinder<AppState, LoadTodosAction>(loadTodos),
-    new MiddlewareBinder<AppState, AddTodoAction>(saveTodos),
-    new MiddlewareBinder<AppState, ClearCompletedAction>(saveTodos),
-    new MiddlewareBinder<AppState, ToggleAllAction>(saveTodos),
-    new MiddlewareBinder<AppState, UpdateTodoAction>(saveTodos),
-    new MiddlewareBinder<AppState, TodosLoadedAction>(saveTodos),
+    new MiddlewareBinding<AppState, LoadTodosAction>(loadTodos),
+    new MiddlewareBinding<AppState, AddTodoAction>(saveTodos),
+    new MiddlewareBinding<AppState, ClearCompletedAction>(saveTodos),
+    new MiddlewareBinding<AppState, ToggleAllAction>(saveTodos),
+    new MiddlewareBinding<AppState, UpdateTodoAction>(saveTodos),
+    new MiddlewareBinding<AppState, TodosLoadedAction>(saveTodos),
   ]);
 }
 
