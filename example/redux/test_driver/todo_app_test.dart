@@ -1,5 +1,5 @@
-import 'package:integration_tests/integration_tests.dart' as endToEndTests;
+import 'package:integration_tests/integration_tests.dart' as integrationTests;
 
 main() {
-  endToEndTests.main();
+  integrationTests.main();
 }

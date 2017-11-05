@@ -77,17 +77,16 @@ In this app, we have a "Store Todos Middleware". It responds to `LoadTodos` and 
 
 ## Testing
 
-Generally, this app conforms the "Testing Pyramid": Lots of Unit and Widget tests, fewer integration tests, even fewer end to end tests.
+Generally, this app conforms the "Testing Pyramid": Lots of Unit tests, fewer Widget tests, and fewer integration tests.
 
   * Unit tests
     - `Reducer` functions are very easy to unit test since they are pure functions
     - `Middleware` functions that call out to APIs can be tested using Mock implementations. This is done using the Mockito library.
     - `selector` functions are also easy to test since they are pure.
-    - `presentation` Widgets can be unit tested by passing in test data and making assertions against the Widget rendered with that data.
+  * Widget Tests
+    - `container` Widgets can be tested to ensure they generate the correct `ViewModel`.
+    - `presentation` Widgets can be tested by passing in fake data and making assertions against the Widget rendered with that data.
   * Integration Tests
-    - Test the `FileStorage` class to ensure it can save and load data from a local file on device.
-    - Database tests could also go here
-  * End to End Test
     - Run the app and drive it using the `flutter_driver`.
     - Use the "Page Object Model" pattern to make the tests easier to read and maintain.
     
