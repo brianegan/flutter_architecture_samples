@@ -11,6 +11,12 @@ class TodoListElement extends TestElement {
   TodoListElement(FlutterDriver driver) : super(driver);
 
   Future<bool> get isLoading {
+    // We need to run this command "unsynchronized". This means it immediately
+    // checks if the loading widget is on screen, rather than waiting for any
+    // pending animations to complete.
+    //
+    // Since the CircularProgressIndicator runs a continuous animation, if we
+    // do not `runUnsynchronized`, this check will never work.
     return driver.runUnsynchronized(() {
       return widgetExists(driver, _loadingFinder);
     });

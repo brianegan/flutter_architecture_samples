@@ -32,9 +32,10 @@ class ArchSampleKeys {
   static final completedFilter = const Key('__completedFilter__');
 
   // Stats
+  static final statsCounter = const Key('__statsCounter__');
   static final statsLoading = const Key('__statsLoading__');
-  static final statsActiveItems = const Key('__statsActiveItems__');
-  static final statsCompletedItems = const Key('__statsCompletedItems__');
+  static final statsNumActive = const Key('__statsActiveItems__');
+  static final statsNumCompleted = const Key('__statsCompletedItems__');
 
   // Details Screen
   static final editTodoFab = const Key('__editTodoFab__');
