@@ -14,7 +14,7 @@ You can use the samples in this project as a learning reference, or as a startin
 
   * [Vanilla Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
   * [Redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
-  * [built_redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
+  * [built_redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to manage app state and update Widgets
   
 ### Why a to-do app?
    
