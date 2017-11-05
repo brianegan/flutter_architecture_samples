@@ -50,7 +50,7 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
   /// Note it is computed using numCompletedSelector. Since `numCompletedSelector` is memoized, this is
   /// cheaper than iterating over all todos again by doing todos.every((t) => t.completed);
   @memoized
-  bool get allCompleteSelector => numCompletedSelector == 0;
+  bool get allCompleteSelector => numCompletedSelector == todos.length;
 
   @memoized
   List<Todo> get filteredTodosSelector => todos.where((todo) {

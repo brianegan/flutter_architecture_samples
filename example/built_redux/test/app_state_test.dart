@@ -28,7 +28,7 @@ main() {
         ),
       ]);
 
-      expect(state.numActiveSelector, 1);
+      expect(state.numCompletedSelector, 1);
     });
 
     test('should return all todos if the VisibilityFilter is all', () {

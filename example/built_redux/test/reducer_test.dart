@@ -110,6 +110,7 @@ main() {
 
       store.actions.toggleAllAction();
 
+      expect(store.state.allCompleteSelector, isFalse);
       expect(store.state.todos.every((todo) => !todo.complete), isTrue);
     });
 
