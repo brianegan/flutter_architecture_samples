@@ -52,8 +52,10 @@ main() {
 
       await detailsScreen.tapDeleteButton();
 
-      expect(await homeScreen.todoList.todoItem('2').isAbsent, isTrue);
-      expect(await homeScreen.snackbarVisible, isTrue);
+      expect(await homeScreen.todoList.todoItem('2').isAbsent, isTrue,
+          reason: 'TodoItem2 should be absent');
+      expect(await homeScreen.snackbarVisible, isTrue,
+          reason: 'snackbar should be visible');
     });
 
     test('should filter to completed todos', () async {

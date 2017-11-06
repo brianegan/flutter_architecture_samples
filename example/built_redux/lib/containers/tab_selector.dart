@@ -5,7 +5,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-
 typedef OnTabsSelected = void Function(int);
 
 class TabSelector
@@ -25,7 +24,12 @@ class TabSelector
       },
       items: AppTab.values.map((tab) {
         return new BottomNavigationBarItem(
-          icon: new Icon(tab == AppTab.todos ? Icons.list : Icons.show_chart),
+          icon: new Icon(
+            tab == AppTab.todos ? Icons.list : Icons.show_chart,
+            key: tab == AppTab.stats
+                ? ArchSampleKeys.statsTab
+                : ArchSampleKeys.todoTab,
+          ),
           title: new Text(tab == AppTab.stats
               ? ArchSampleLocalizations.of(context).stats
               : ArchSampleLocalizations.of(context).todos),

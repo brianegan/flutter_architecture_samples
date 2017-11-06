@@ -4,7 +4,6 @@ import 'package:inherited_widget_sample/localization.dart';
 import 'package:inherited_widget_sample/screens/add_edit_screen.dart';
 import 'package:inherited_widget_sample/screens/home_screen.dart';
 
-
 class InheritedWidgetApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

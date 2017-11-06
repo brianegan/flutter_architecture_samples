@@ -2,6 +2,7 @@ import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/presentation/add_edit_screen.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class EditTodo
@@ -13,6 +14,7 @@ class EditTodo
   @override
   Widget build(BuildContext context, _, AppActions actions) {
     return new AddEditScreen(
+      key: ArchSampleKeys.editTodoScreen,
       isEditing: true,
       onSave: (task, note) {
         actions.updateTodoAction(new UpdateTodoActionPayload(

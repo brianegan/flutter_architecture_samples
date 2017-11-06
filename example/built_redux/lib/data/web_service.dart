@@ -9,7 +9,7 @@ import 'package:built_redux_sample/models/models.dart';
 class WebClient {
   final Duration delay;
 
-  const WebClient([this.delay = const Duration(milliseconds: 3000)]);
+  const WebClient([this.delay = const Duration(milliseconds: 1200)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<Todo>> fetchTodos() async {
@@ -19,24 +19,32 @@ class WebClient {
               new Todo.builder(
                 (b) => b
                   ..task = 'Buy food for da kitty'
-                  ..note = 'With the chickeny bits!',
+                  ..note = 'With the chickeny bits!'
+                  ..id = '1',
               ),
               new Todo.builder(
                 (b) => b
                   ..task = 'Find a Red Sea dive trip'
-                  ..note = 'Echo vs MY Dream',
+                  ..note = 'Echo vs MY Dream'
+                  ..id = '2',
               ),
               new Todo.builder(
                 (b) => b
                   ..task = 'Book flights to Egypt'
-                  ..complete = true,
+                  ..complete = true
+                  ..id = '3',
               ),
-              new Todo('Decide on accommodation'),
+              new Todo.builder(
+                (b) => b
+                  ..task = 'Decide on accommodation'
+                  ..id = '4',
+              ),
               new Todo.builder(
                 (b) => b
                   ..task = 'Sip Margaritas'
                   ..note = 'on the beach'
-                  ..complete = true,
+                  ..complete = true
+                  ..id = '5',
               ),
             ]);
   }

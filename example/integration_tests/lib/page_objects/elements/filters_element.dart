@@ -9,11 +9,9 @@ class FiltersElement extends TestElement {
 
   FiltersElement(FlutterDriver driver) : super(driver);
 
-  Future<Null> tapShowAll() async =>
-      await driver.tap(_allFilter);
+  Future<Null> tapShowAll() async => await driver.tap(_allFilter);
 
-  Future<Null> tapShowActive() async =>
-      await driver.tap(_activeFilter);
+  Future<Null> tapShowActive() async => await driver.tap(_activeFilter);
 
   Future<Null> tapShowCompleted() async {
     return await driver.tap(_completedFilter);

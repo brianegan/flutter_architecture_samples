@@ -16,18 +16,21 @@ class ExtraActionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new PopupMenuButton<ExtraAction>(
+      key: ArchSampleKeys.extraActionsButton,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => <PopupMenuItem<ExtraAction>>[
             new PopupMenuItem<ExtraAction>(
+              key: ArchSampleKeys.toggleAll,
               value: ExtraAction.toggleAllComplete,
               child: new Text(allComplete
                   ? ArchSampleLocalizations.of(context).markAllIncomplete
                   : ArchSampleLocalizations.of(context).markAllComplete),
             ),
             new PopupMenuItem<ExtraAction>(
+              key: ArchSampleKeys.clearCompleted,
               value: ExtraAction.clearCompleted,
-              child: new Text(
-                  ArchSampleLocalizations.of(context).clearCompleted),
+              child:
+                  new Text(ArchSampleLocalizations.of(context).clearCompleted),
             ),
           ],
     );

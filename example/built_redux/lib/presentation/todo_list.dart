@@ -25,9 +25,10 @@ class TodoList extends StatelessWidget {
     return new AppLoading(builder: (context, loading) {
       return loading
           ? new Center(
+              key: ArchSampleKeys.todosLoading,
               child: new CircularProgressIndicator(
-              key: ArchSampleKeys.statsLoading,
-            ))
+                key: ArchSampleKeys.statsLoading,
+              ))
           : new Container(
               child: new ListView.builder(
                 key: ArchSampleKeys.todoList,
@@ -55,6 +56,7 @@ class TodoList extends StatelessWidget {
     onRemove(todo);
 
     Scaffold.of(context).showSnackBar(new SnackBar(
+        key: ArchSampleKeys.snackbar,
         duration: new Duration(seconds: 2),
         backgroundColor: Theme.of(context).backgroundColor,
         content: new Text(
@@ -81,6 +83,7 @@ class TodoList extends StatelessWidget {
       if (removedTodo != null) {
         Scaffold.of(context).showSnackBar(
               new SnackBar(
+                key: ArchSampleKeys.snackbar,
                 duration: new Duration(seconds: 2),
                 backgroundColor: Theme.of(context).backgroundColor,
                 content: new Text(

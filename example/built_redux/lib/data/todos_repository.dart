@@ -11,13 +11,16 @@ import 'package:path_provider/path_provider.dart';
 /// In most apps, we use the provided repository. In this case, it makes sense
 /// to demonstrate the built_value serializers, which are used in the
 /// FileStorage part of this app.
+///
+/// Please see the `todos_repository` library for more information about the
+/// Repository pattern.
 class TodosRepository {
   final FileStorage fileStorage;
   final WebClient webClient;
 
   const TodosRepository({
     this.fileStorage = const FileStorage(
-      '__built_redux__',
+      '__built_redux_sample_app__',
       getApplicationDocumentsDirectory,
     ),
     this.webClient = const WebClient(),

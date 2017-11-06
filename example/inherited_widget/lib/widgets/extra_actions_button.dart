@@ -31,8 +31,8 @@ class ExtraActionsButton extends StatelessWidget {
             new PopupMenuItem<ExtraAction>(
               key: ArchSampleKeys.clearCompleted,
               value: ExtraAction.clearCompleted,
-              child: new Text(
-                  ArchSampleLocalizations.of(context).clearCompleted),
+              child:
+                  new Text(ArchSampleLocalizations.of(context).clearCompleted),
             ),
           ],
     );

@@ -18,9 +18,10 @@ class StatsCounter extends StatelessWidget {
     return new AppLoading(builder: (context, loading) {
       return loading
           ? new Center(
-              child: new CircularProgressIndicator(
               key: ArchSampleKeys.statsLoading,
-            ))
+              child: new CircularProgressIndicator(
+                key: ArchSampleKeys.statsLoading,
+              ))
           : new Center(
               child: new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -36,6 +37,7 @@ class StatsCounter extends StatelessWidget {
                     padding: new EdgeInsets.only(bottom: 24.0),
                     child: new Text(
                       '$numCompleted',
+                      key: ArchSampleKeys.statsNumCompleted,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
@@ -50,6 +52,7 @@ class StatsCounter extends StatelessWidget {
                     padding: new EdgeInsets.only(bottom: 24.0),
                     child: new Text(
                       "$numActive",
+                      key: ArchSampleKeys.statsNumActive,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   )

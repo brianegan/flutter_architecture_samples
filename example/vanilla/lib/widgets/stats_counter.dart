@@ -18,45 +18,29 @@ class StatsCounter extends StatelessWidget {
           new Padding(
             padding: new EdgeInsets.only(bottom: 8.0),
             child: new Text(
-              ArchSampleLocalizations
-                  .of(context)
-                  .completedTodos,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .title,
+              ArchSampleLocalizations.of(context).completedTodos,
+              style: Theme.of(context).textTheme.title,
             ),
           ),
           new Padding(
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               '$numCompleted',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .subhead,
+              style: Theme.of(context).textTheme.subhead,
             ),
           ),
           new Padding(
             padding: new EdgeInsets.only(bottom: 8.0),
             child: new Text(
-              ArchSampleLocalizations
-                  .of(context)
-                  .activeTodos,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .title,
+              ArchSampleLocalizations.of(context).activeTodos,
+              style: Theme.of(context).textTheme.title,
             ),
           ),
           new Padding(
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               "$numActive",
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .subhead,
+              style: Theme.of(context).textTheme.subhead,
             ),
           )
         ],

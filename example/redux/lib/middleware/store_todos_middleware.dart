@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 List<Middleware<AppState>> createStoreTodosMiddleware([
   TodosRepository repository = const TodosRepository(
     fileStorage: const FileStorage(
-      'redux_sample',
+      'redux_sample_app_',
       getApplicationDocumentsDirectory,
     ),
   ),

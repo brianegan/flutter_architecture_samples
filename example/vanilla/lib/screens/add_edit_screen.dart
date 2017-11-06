@@ -49,8 +49,7 @@ class AddEditScreen extends StatelessWidget {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: new InputDecoration(
-                    hintText:
-                        ArchSampleLocalizations.of(context).newTodoHint),
+                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,

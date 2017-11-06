@@ -16,8 +16,7 @@ class AppState {
 
   bool get allComplete => todos.every((todo) => todo.complete);
 
-  List<Todo> get filteredTodos =>
-      todos.where((todo) {
+  List<Todo> get filteredTodos => todos.where((todo) {
         if (activeFilter == VisibilityFilter.all) {
           return true;
         } else if (activeFilter == VisibilityFilter.active) {

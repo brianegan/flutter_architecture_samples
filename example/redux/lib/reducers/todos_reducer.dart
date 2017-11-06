@@ -14,8 +14,7 @@ final todosReducer = combineTypedReducers<List<Todo>>([
 ]);
 
 List<Todo> _addTodo(List<Todo> todos, AddTodoAction action) {
-  return new List.from(todos)
-      ..add(action.todo);
+  return new List.from(todos)..add(action.todo);
 }
 
 List<Todo> _deleteTodo(List<Todo> todos, DeleteTodoAction action) {

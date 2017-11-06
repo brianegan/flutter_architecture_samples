@@ -16,7 +16,7 @@ void main() {
   runApp(new BuiltReduxApp());
 }
 
-class BuiltReduxApp extends StatelessWidget {
+class BuiltReduxApp extends StatefulWidget {
   final store = new Store<AppState, AppStateBuilder, AppActions>(
     reducerBuilder.build(),
     new AppState.loading(),
@@ -26,7 +26,25 @@ class BuiltReduxApp extends StatelessWidget {
     ],
   );
 
+  @override
+  State<StatefulWidget> createState() {
+    return new BuiltReduxAppState();
+  }
+}
+
+class BuiltReduxAppState extends State<BuiltReduxApp> {
+  Store<AppState, AppStateBuilder, AppActions> store;
+
   BuiltReduxApp() {}
+
+  @override
+  void initState() {
+    store = widget.store;
+
+    store.actions.fetchTodosAction();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +59,7 @@ class BuiltReduxApp extends StatelessWidget {
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            store.actions.fetchTodosAction();
-
-            return new HomeScreen();
+            return new HomeScreen(key: ArchSampleKeys.homeScreen);
           },
           ArchSampleRoutes.addTodo: (context) {
             return new AddTodo();

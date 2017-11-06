@@ -11,6 +11,8 @@ Middleware<AppState, AppStateBuilder, AppActions> createStoreTodosMiddleware([
         ..add(AppActionsNames.addTodoAction, createSaveTodos<Todo>(service))
         ..add(AppActionsNames.clearCompletedAction,
             createSaveTodos<Null>(service))
+        ..add(AppActionsNames.loadTodosSuccess,
+            createSaveTodos<List<Todo>>(service))
         ..add(
             AppActionsNames.deleteTodoAction, createSaveTodos<String>(service))
         ..add(AppActionsNames.toggleAllAction, createSaveTodos<Null>(service))
@@ -24,10 +26,9 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null> createFetchTodos(
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<Null> action) {
     if (api.state.isLoading) {
-      service
-          .loadTodos()
-          .then(api.actions.loadTodosSuccess)
-          .catchError(api.actions.loadTodosFailure);
+      service.loadTodos().then((todos) {
+        return api.actions.loadTodosSuccess(todos);
+      }).catchError(api.actions.loadTodosFailure);
     }
 
     next(action);

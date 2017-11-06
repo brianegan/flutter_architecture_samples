@@ -20,6 +20,10 @@ dev_dependencies:
   source_gen: ^0.7.0
   test: any
   mockito: 2.2.0
+  flutter_driver:
+    sdk: flutter
+  integration_tests:
+    path: ../integration_tests
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

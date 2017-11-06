@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
     @required this.onDelete,
     @required this.toggleCompleted,
   })
-      : super(key: key);
+      : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +28,7 @@ class DetailsScreen extends StatelessWidget {
           new IconButton(
             tooltip: localizations.deleteTodo,
             icon: new Icon(Icons.delete),
+            key: ArchSampleKeys.deleteTodoButton,
             onPressed: () {
               onDelete();
               Navigator.pop(context, todo);
@@ -45,6 +46,7 @@ class DetailsScreen extends StatelessWidget {
                 new Padding(
                   padding: new EdgeInsets.only(right: 8.0),
                   child: new Checkbox(
+                    key: ArchSampleKeys.detailsTodoItemCheckbox,
                     value: todo.complete,
                     onChanged: toggleCompleted,
                   ),
@@ -60,11 +62,13 @@ class DetailsScreen extends StatelessWidget {
                         ),
                         child: new Text(
                           todo.task,
+                          key: ArchSampleKeys.detailsTodoItemTask,
                           style: Theme.of(context).textTheme.headline,
                         ),
                       ),
                       new Text(
                         todo.note,
+                        key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
                       )
                     ],
@@ -76,6 +80,7 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: new FloatingActionButton(
+        key: ArchSampleKeys.editTodoFab,
         tooltip: localizations.editTodo,
         child: new Icon(Icons.edit),
         onPressed: () {
