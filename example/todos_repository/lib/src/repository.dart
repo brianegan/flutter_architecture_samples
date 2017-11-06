@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 import 'package:todos_repository/src/file_storage.dart';
 import 'package:todos_repository/src/todo_entity.dart';
 import 'package:todos_repository/src/web_client.dart';

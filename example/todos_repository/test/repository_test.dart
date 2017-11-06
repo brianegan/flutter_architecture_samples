@@ -1,4 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'dart:async';
+
+import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:todos_repository/todos_repository.dart';
 
@@ -47,7 +49,7 @@ main() {
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
-      when(fileStorage.loadTodos()).thenReturn("");
+      when(fileStorage.loadTodos()).thenThrow("Uh ohhhh");
       when(webClient.fetchTodos()).thenReturn(new Future.value(todos));
 
       // We check that the correct todos were returned, and that the
