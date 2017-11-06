@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:built_redux_sample/data/file_storage.dart';
-import 'package:built_redux_sample/data/todos_service.dart';
+import 'package:built_redux_sample/data/todos_repository.dart';
 import 'package:built_redux_sample/data/web_service.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:mockito/mockito.dart';
@@ -11,18 +11,18 @@ import 'package:test/test.dart';
 /// mock classes to verify the behavior of the TodosService.
 class MockFileStorage extends Mock implements FileStorage {}
 
-class MockWebService extends Mock implements WebService {}
+class MockWebService extends Mock implements WebClient {}
 
 main() {
-  group('TodosService', () {
+  group('TodosRepository', () {
     test(
         'should load todos from File Storage if they exist without calling the web service',
         () {
       final fileStorage = new MockFileStorage();
       final webService = new MockWebService();
-      final todosService = new TodosService(
+      final todosService = new TodosRepository(
         fileStorage: fileStorage,
-        webService: webService,
+        webClient: webService,
       );
       final todos = [new Todo("Task")];
 
@@ -40,9 +40,9 @@ main() {
         () async {
       final fileStorage = new MockFileStorage();
       final webService = new MockWebService();
-      final todosService = new TodosService(
+      final todosService = new TodosRepository(
         fileStorage: fileStorage,
-        webService: webService,
+        webClient: webService,
       );
       final todos = [new Todo("Task")];
 
@@ -62,9 +62,9 @@ main() {
         () async {
       final fileStorage = new MockFileStorage();
       final webService = new MockWebService();
-      final todosService = new TodosService(
+      final todosService = new TodosRepository(
         fileStorage: fileStorage,
-        webService: webService,
+        webClient: webService,
       );
       final todos = [new Todo("Task")];
 
@@ -79,9 +79,9 @@ main() {
     test('should persist the todos to local disk and the web service', () {
       final fileStorage = new MockFileStorage();
       final webService = new MockWebService();
-      final todosService = new TodosService(
+      final todosService = new TodosRepository(
         fileStorage: fileStorage,
-        webService: webService,
+        webClient: webService,
       );
       final todos = [new Todo("Task")];
 

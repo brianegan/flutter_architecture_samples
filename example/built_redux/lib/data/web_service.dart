@@ -6,10 +6,10 @@ import 'package:built_redux_sample/models/models.dart';
 ///
 /// Since we're trying to keep this example simple, it doesn't communicate with
 /// a real server but simply emulates the functionality.
-class WebService {
+class WebClient {
   final Duration delay;
 
-  const WebService([this.delay = const Duration(milliseconds: 3000)]);
+  const WebClient([this.delay = const Duration(milliseconds: 3000)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<Todo>> fetchTodos() async {

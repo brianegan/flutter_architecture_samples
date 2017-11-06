@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:built_redux/built_redux.dart';
 import 'package:built_redux_sample/actions/actions.dart';
-import 'package:built_redux_sample/data/todos_service.dart';
+import 'package:built_redux_sample/data/todos_repository.dart';
 import 'package:built_redux_sample/middleware/store_todos_middleware.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/reducers/reducers.dart';
@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 
 /// We create two Mocks for our Web Service and File Storage. We will use these
 /// mock classes to verify the behavior of the TodosService.
-class MockTodosService extends Mock implements TodosService {}
+class MockTodosService extends Mock implements TodosRepository {}
 
 main() {
   group('TodosMiddleware', () {

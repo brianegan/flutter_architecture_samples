@@ -47,24 +47,8 @@ class AppState {
           activeTab == other.activeTab &&
           activeFilter == other.activeFilter;
 
-  Map<String, Object> toJson() {
-    return {
-      "todos": todos.map((todo) => todo.toJson()).toList(),
-    };
-  }
-
   @override
   String toString() {
     return 'AppState{isLoading: $isLoading, todos: $todos, activeTab: $activeTab, activeFilter: $activeFilter}';
-  }
-
-  static AppState fromJson(Map<String, Object> json) {
-    final todos = (json["todos"] as List<Map<String, Object>>)
-        .map((todoJson) => Todo.fromJson(todoJson))
-        .toList();
-
-    return new AppState(
-      todos: todos,
-    );
   }
 }

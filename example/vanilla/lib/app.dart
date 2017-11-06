@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:vanilla/data/todos_service.dart';
+import 'package:todos_repository/todos_repository.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/add_edit_screen.dart';
 import 'package:vanilla/screens/tabs_screen.dart';
 import 'package:vanilla/localization.dart';
 
 class VanillaApp extends StatefulWidget {
-  final TodosService service;
+  final TodosRepository repository;
 
-  VanillaApp({@required this.service});
+  VanillaApp({@required this.repository});
 
   @override
   State<StatefulWidget> createState() {
@@ -25,9 +25,11 @@ class VanillaAppState extends State<VanillaApp> {
   void initState() {
     super.initState();
 
-    widget.service.loadTodos().then((loadedTodos) {
+    widget.repository.loadTodos().then((loadedTodos) {
       setState(() {
-        appState = new AppState(todos: loadedTodos);
+        appState = new AppState(
+          todos: loadedTodos.map(Todo.fromEntity).toList(),
+        );
       });
     }).catchError((err) {
       setState(() {
@@ -109,6 +111,8 @@ class VanillaAppState extends State<VanillaApp> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    widget.service.saveTodos(appState.todos);
+    widget.repository.saveTodos(
+      appState.todos.map((todo) => todo.toEntity()).toList(),
+    );
   }
 }

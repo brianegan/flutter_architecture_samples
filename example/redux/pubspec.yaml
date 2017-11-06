@@ -9,6 +9,8 @@ dependencies:
     sdk: flutter
   flutter_architecture_samples:
     path: ../../
+  todos_repository:
+    path: ../todos_repository
 
 dev_dependencies:
   mockito: 2.2.0

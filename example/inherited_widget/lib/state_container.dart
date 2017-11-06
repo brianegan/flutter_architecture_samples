@@ -1,15 +1,21 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inherited_widget_sample/app.dart';
-import 'package:inherited_widget_sample/data/todos_service.dart';
 import 'package:inherited_widget_sample/models.dart';
+import 'package:todos_repository/todos_repository.dart';
+import 'package:path_provider/path_provider.dart';
 
 class StateContainerController extends StatefulWidget {
   final AppState state;
-  final TodosService service;
+  final TodosRepository service;
 
   StateContainerController({
-    this.service = const TodosService(),
+    this.service = const TodosRepository(
+      fileStorage: const FileStorage(
+        'inherited_widget_sample',
+        getApplicationDocumentsDirectory,
+      ),
+    ),
     this.state,
   });
 
@@ -32,7 +38,9 @@ class StateContainerControllerState extends State<StateContainerController> {
 
     widget.service.loadTodos().then((loadedTodos) {
       setState(() {
-        state = new AppState(todos: loadedTodos);
+        state = new AppState(
+          todos: loadedTodos.map(Todo.fromEntity).toList(),
+        );
       });
     }).catchError((err) {
       setState(() {
@@ -92,7 +100,8 @@ class StateContainerControllerState extends State<StateContainerController> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    widget.service.saveTodos(state.todos);
+    widget.service
+        .saveTodos(state.todos.map((todo) => todo.toEntity()).toList());
   }
 
   @override

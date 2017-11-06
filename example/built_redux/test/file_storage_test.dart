@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:built_redux_sample/data/file_storage.dart';
+import 'package:built_redux_sample/models/todo.dart';
 import 'package:test/test.dart';
-import 'package:todos_repository/todos_repository.dart';
 
 main() {
   group('FileStorage', () {
-    final todos = [new TodoEntity("Task", "1", "Hallo", false)];
+    final todos = [new Todo("Yep")];
     final directory = Directory.systemTemp.createTemp('__storage_test__');
     final storage = new FileStorage(
       '_test_tag_',

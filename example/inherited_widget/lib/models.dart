@@ -1,4 +1,5 @@
 import 'package:flutter_architecture_samples/uuid.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 class AppState {
   bool isLoading;
@@ -55,25 +56,9 @@ class AppState {
     todos.forEach((todo) => todo.complete = !allCompleted);
   }
 
-  Map<String, Object> toJson() {
-    return {
-      "todos": todos.map((todo) => todo.toJson()).toList(),
-    };
-  }
-
   @override
   String toString() {
     return 'AppState{todos: $todos, isLoading: $isLoading}';
-  }
-
-  static AppState fromJson(Map<String, Object> json) {
-    final todos = (json["todos"] as List<Map<String, Object>>)
-        .map((todoJson) => Todo.fromJson(todoJson))
-        .toList();
-
-    return new AppState(
-      todos: todos,
-    );
   }
 }
 
@@ -104,26 +89,21 @@ class Todo {
           note == other.note &&
           id == other.id;
 
-  Map<String, Object> toJson() {
-    return {
-      "complete": complete,
-      "task": task,
-      "note": note,
-      "id": id,
-    };
-  }
-
   @override
   String toString() {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  static Todo fromJson(Map<String, Object> json) {
+  TodoEntity toEntity() {
+    return new TodoEntity(task, id, note, complete);
+  }
+
+  static Todo fromEntity(TodoEntity entity) {
     return new Todo(
-      json["task"] as String,
-      complete: json["complete"] as bool,
-      note: json["note"] as String,
-      id: json["id"] as String,
+      entity.task,
+      complete: entity.complete ?? false,
+      note: entity.note,
+      id: entity.id ?? new Uuid().generateV4(),
     );
   }
 }

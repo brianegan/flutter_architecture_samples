@@ -3,15 +3,24 @@ import 'dart:core';
 import 'package:built_redux_sample/data/file_storage.dart';
 import 'package:built_redux_sample/data/web_service.dart';
 import 'package:built_redux_sample/models/models.dart';
+import 'package:path_provider/path_provider.dart';
 
-/// A class that glues together our local file storage and a remote web service.
-class TodosService {
+/// A class that glues together our local file storage and web client. It has a
+/// clear responsibility: Load Todos and Persist todos.
+///
+/// In most apps, we use the provided repository. In this case, it makes sense
+/// to demonstrate the built_value serializers, which are used in the
+/// FileStorage part of this app.
+class TodosRepository {
   final FileStorage fileStorage;
-  final WebService webService;
+  final WebClient webClient;
 
-  const TodosService({
-    this.fileStorage = const FileStorage('__built_redux__'),
-    this.webService = const WebService(),
+  const TodosRepository({
+    this.fileStorage = const FileStorage(
+      '__built_redux__',
+      getApplicationDocumentsDirectory,
+    ),
+    this.webClient = const WebClient(),
   });
 
   /// Loads todos first from File storage. If they don't exist or encounter an
@@ -20,7 +29,7 @@ class TodosService {
     try {
       return await fileStorage.loadTodos();
     } catch (e) {
-      return webService.fetchTodos();
+      return webClient.fetchTodos();
     }
   }
 
@@ -28,7 +37,7 @@ class TodosService {
   Future saveTodos(List<Todo> todos) {
     return Future.wait([
       fileStorage.saveTodos(todos),
-      webService.postTodos(todos),
+      webClient.postTodos(todos),
     ]);
   }
 }

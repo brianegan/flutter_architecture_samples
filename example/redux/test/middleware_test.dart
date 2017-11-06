@@ -1,13 +1,13 @@
 import 'package:redux/redux.dart';
-import 'package:redux_sample/data/todos_service.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 import 'package:redux_sample/middleware/store_todos_middleware.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:todos_repository/todos_repository.dart';
 
-class MockTodosService extends Mock implements TodosService {}
+class MockTodosService extends Mock implements TodosRepository {}
 
 main() {
   group('Save State Middleware', () {
@@ -44,8 +44,9 @@ main() {
       store.dispatch(new TodosLoadedAction([new Todo("Hi")]));
       store.dispatch(new ToggleAllAction());
       store.dispatch(new UpdateTodoAction("", new Todo("")));
+      store.dispatch(new DeleteTodoAction(""));
 
-      verify(service.saveTodos(any)).called(6);
+      verify(service.saveTodos(any)).called(7);
     });
   });
 }

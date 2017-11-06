@@ -1,5 +1,6 @@
 import 'package:flutter_architecture_samples/uuid.dart';
 import 'package:meta/meta.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 @immutable
 class Todo {
@@ -28,33 +29,28 @@ class Todo {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Todo &&
-              runtimeType == other.runtimeType &&
-              complete == other.complete &&
-              task == other.task &&
-              note == other.note &&
-              id == other.id;
-
-  Map<String, Object> toJson() {
-    return {
-      "complete": complete,
-      "task": task,
-      "note": note,
-      "id": id,
-    };
-  }
+      other is Todo &&
+          runtimeType == other.runtimeType &&
+          complete == other.complete &&
+          task == other.task &&
+          note == other.note &&
+          id == other.id;
 
   @override
   String toString() {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  static Todo fromJson(Map<String, Object> json) {
+  TodoEntity toEntity() {
+    return new TodoEntity(task, id, note, complete);
+  }
+
+  static Todo fromEntity(TodoEntity entity) {
     return new Todo(
-      json["task"] as String,
-      complete: json["complete"] as bool,
-      note: json["note"] as String,
-      id: json["id"] as String,
+      entity.task,
+      complete: entity.complete ?? false,
+      note: entity.note,
+      id: entity.id ?? new Uuid().generateV4(),
     );
   }
 }
