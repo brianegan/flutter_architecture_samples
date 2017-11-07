@@ -69,6 +69,7 @@ class TodoList extends StatelessWidget {
 
     Scaffold.of(context).showSnackBar(
           new SnackBar(
+            key: ArchSampleKeys.snackbar,
             duration: new Duration(seconds: 2),
             backgroundColor: Theme.of(context).backgroundColor,
             content: new Text(

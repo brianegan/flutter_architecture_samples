@@ -23,11 +23,13 @@ class FilterButton extends StatelessWidget {
       opacity: isActive ? 1.0 : 0.0,
       duration: new Duration(milliseconds: 150),
       child: new PopupMenuButton<VisibilityFilter>(
+        key: ArchSampleKeys.filterButton,
         tooltip: ArchSampleLocalizations.of(context).filterTodos,
         onSelected: onSelected,
         itemBuilder: (BuildContext context) =>
             <PopupMenuItem<VisibilityFilter>>[
               new PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.allFilter,
                 value: VisibilityFilter.all,
                 child: new Text(
                   ArchSampleLocalizations.of(context).showAll,
@@ -37,6 +39,7 @@ class FilterButton extends StatelessWidget {
                 ),
               ),
               new PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.activeFilter,
                 value: VisibilityFilter.active,
                 child: new Text(
                   ArchSampleLocalizations.of(context).showActive,
@@ -46,6 +49,7 @@ class FilterButton extends StatelessWidget {
                 ),
               ),
               new PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.completedFilter,
                 value: VisibilityFilter.completed,
                 child: new Text(
                   ArchSampleLocalizations.of(context).showCompleted,

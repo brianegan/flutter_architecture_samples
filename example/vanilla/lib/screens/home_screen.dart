@@ -9,7 +9,7 @@ import 'package:vanilla/widgets/stats_counter.dart';
 import 'package:vanilla/widgets/todo_list.dart';
 import 'package:vanilla/widgets/typedefs.dart';
 
-class TabsScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   final AppState appState;
   final TodoAdder addTodo;
   final TodoRemover removeTodo;
@@ -17,7 +17,7 @@ class TabsScreen extends StatefulWidget {
   final Function toggleAll;
   final Function clearCompleted;
 
-  TabsScreen({
+  HomeScreen({
     @required this.appState,
     @required this.addTodo,
     @required this.removeTodo,
@@ -26,15 +26,15 @@ class TabsScreen extends StatefulWidget {
     @required this.clearCompleted,
     Key key,
   })
-      : super(key: key);
+      : super(key: ArchSampleKeys.homeScreen);
 
   @override
   State<StatefulWidget> createState() {
-    return new TabsScreenState();
+    return new HomeScreenState();
   }
 }
 
-class TabsScreenState extends State<TabsScreen> {
+class HomeScreenState extends State<HomeScreen> {
   VisibilityFilter activeFilter = VisibilityFilter.all;
   AppTab activeTab = AppTab.todos;
 
@@ -102,7 +102,12 @@ class TabsScreenState extends State<TabsScreen> {
         },
         items: AppTab.values.map((tab) {
           return new BottomNavigationBarItem(
-            icon: new Icon(tab == AppTab.todos ? Icons.list : Icons.show_chart),
+            icon: new Icon(
+              tab == AppTab.todos ? Icons.list : Icons.show_chart,
+              key: tab == AppTab.stats
+                  ? ArchSampleKeys.statsTab
+                  : ArchSampleKeys.todoTab,
+            ),
             title: new Text(tab == AppTab.stats
                 ? ArchSampleLocalizations.of(context).stats
                 : ArchSampleLocalizations.of(context).todos),

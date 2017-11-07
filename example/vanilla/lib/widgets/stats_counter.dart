@@ -7,7 +7,7 @@ class StatsCounter extends StatelessWidget {
   final int numActive;
   final int numCompleted;
 
-  StatsCounter({@required this.numActive, @required this.numCompleted});
+  StatsCounter({@required this.numActive, @required this.numCompleted}) : super(key: ArchSampleKeys.statsCounter);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class StatsCounter extends StatelessWidget {
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               '$numCompleted',
+              key: ArchSampleKeys.statsNumCompleted,
               style: Theme.of(context).textTheme.subhead,
             ),
           ),
@@ -40,6 +41,7 @@ class StatsCounter extends StatelessWidget {
             padding: new EdgeInsets.only(bottom: 24.0),
             child: new Text(
               "$numActive",
+              key: ArchSampleKeys.statsNumActive,
               style: Theme.of(context).textTheme.subhead,
             ),
           )

@@ -4,7 +4,7 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:todos_repository/todos_repository.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/add_edit_screen.dart';
-import 'package:vanilla/screens/tabs_screen.dart';
+import 'package:vanilla/screens/home_screen.dart';
 import 'package:vanilla/localization.dart';
 
 class VanillaApp extends StatefulWidget {
@@ -49,7 +49,7 @@ class VanillaAppState extends State<VanillaApp> {
       ],
       routes: {
         ArchSampleRoutes.home: (context) {
-          return new TabsScreen(
+          return new HomeScreen(
             appState: appState,
             updateTodo: updateTodo,
             addTodo: addTodo,
@@ -60,6 +60,7 @@ class VanillaAppState extends State<VanillaApp> {
         },
         ArchSampleRoutes.addTodo: (context) {
           return new AddEditScreen(
+            key: ArchSampleKeys.addTodoScreen,
             addTodo: addTodo,
             updateTodo: updateTodo,
           );
