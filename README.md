@@ -16,7 +16,12 @@ You can use the samples in this project as a learning reference, or as a startin
   * [Redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
   * [built_redux Example](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to manage app state and update Widgets
   
-### Why a to-do app?
+### Supporting Code
+
+  * [integration_tests](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
+  * [todos_repository](https://gitlab.com/brianegan/flutter_architecture_samples/tree/master/example/integration_tests) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.     
+  
+### Why a todo app?
    
 The app in this project aims to be simple enough that you can understand it quickly, but complex enough to showcase difficult design decisions and testing scenarios. For more information, see the [app's specification](https://gitlab.com/brianegan/flutter_architecture_samples/blob/master/app_spec.md).
 
