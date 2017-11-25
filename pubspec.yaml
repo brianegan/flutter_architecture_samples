@@ -1,8 +1,8 @@
 name: flutter_architecture_samples
-description: A starting point for Dart libraries or applications.
+description: TodoMVC for Flutter
 version: 0.0.1
-#homepage: https://www.example.com
-#author: phillywiggins <email@example.com>
+homepage: https://github.com/brianegan/flutter_architecture_samples
+author: Brian Egan <brian@brianegan.com>
 
 environment:
   sdk: '>=1.20.1 <2.0.0'
