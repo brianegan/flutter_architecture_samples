@@ -19,7 +19,7 @@ You can use the samples in this project as a learning reference, or as a startin
 ### Supporting Code
 
   * [integration_tests](example/integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
-  * [todos_repository](example/integration_tests) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.     
+  * [todos_repository](example/todos_repository) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.     
   
 ### Why a todo app?
    
