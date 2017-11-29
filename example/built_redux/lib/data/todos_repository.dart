@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 import 'package:built_redux_sample/data/file_storage.dart';
-import 'package:built_redux_sample/data/web_service.dart';
+import 'package:built_redux_sample/data/web_client.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:path_provider/path_provider.dart';
 

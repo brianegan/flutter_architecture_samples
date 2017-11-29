@@ -4,29 +4,29 @@ import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
 
 Middleware<AppState, AppStateBuilder, AppActions> createStoreTodosMiddleware([
-  TodosRepository service = const TodosRepository(),
+  TodosRepository repository = const TodosRepository(),
 ]) {
   return (new MiddlewareBuilder<AppState, AppStateBuilder, AppActions>()
-        ..add(AppActionsNames.fetchTodosAction, createFetchTodos(service))
-        ..add(AppActionsNames.addTodoAction, createSaveTodos<Todo>(service))
+        ..add(AppActionsNames.fetchTodosAction, createFetchTodos(repository))
+        ..add(AppActionsNames.addTodoAction, createSaveTodos<Todo>(repository))
         ..add(AppActionsNames.clearCompletedAction,
-            createSaveTodos<Null>(service))
+            createSaveTodos<Null>(repository))
         ..add(AppActionsNames.loadTodosSuccess,
-            createSaveTodos<List<Todo>>(service))
+            createSaveTodos<List<Todo>>(repository))
         ..add(
-            AppActionsNames.deleteTodoAction, createSaveTodos<String>(service))
-        ..add(AppActionsNames.toggleAllAction, createSaveTodos<Null>(service))
+            AppActionsNames.deleteTodoAction, createSaveTodos<String>(repository))
+        ..add(AppActionsNames.toggleAllAction, createSaveTodos<Null>(repository))
         ..add(AppActionsNames.updateTodoAction,
-            createSaveTodos<UpdateTodoActionPayload>(service)))
+            createSaveTodos<UpdateTodoActionPayload>(repository)))
       .build();
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null> createFetchTodos(
-    TodosRepository service) {
+    TodosRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<Null> action) {
     if (api.state.isLoading) {
-      service.loadTodos().then((todos) {
+      repository.loadTodos().then((todos) {
         return api.actions.loadTodosSuccess(todos);
       }).catchError(api.actions.loadTodosFailure);
     }
@@ -36,11 +36,11 @@ MiddlewareHandler<AppState, AppStateBuilder, AppActions, Null> createFetchTodos(
 }
 
 MiddlewareHandler<AppState, AppStateBuilder, AppActions, T> createSaveTodos<T>(
-    TodosRepository service) {
+    TodosRepository repository) {
   return (MiddlewareApi<AppState, AppStateBuilder, AppActions> api,
       ActionHandler next, Action<T> action) {
     next(action);
 
-    service.saveTodos(api.state.todos.toList());
+    repository.saveTodos(api.state.todos.toList());
   };
 }

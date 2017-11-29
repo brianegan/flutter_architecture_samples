@@ -7,34 +7,34 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class MockTodosService extends Mock implements TodosRepository {}
+class MockTodosRepository extends Mock implements TodosRepository {}
 
 main() {
   group('Save State Middleware', () {
     test('should load the todos in response to a LoadTodosAction', () {
-      final service = new MockTodosService();
+      final repository = new MockTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
       final todos = [
         new Todo("Moin"),
       ];
 
-      when(service.loadTodos()).thenReturn(new Future.value(todos));
+      when(repository.loadTodos()).thenReturn(new Future.value(todos));
 
       store.dispatch(new LoadTodosAction());
 
-      verify(service.loadTodos());
+      verify(repository.loadTodos());
     });
 
     test('should save the state on every update action', () {
-      final service = new MockTodosService();
+      final repository = new MockTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
       final todo = new Todo("Hallo");
 
@@ -46,7 +46,7 @@ main() {
       store.dispatch(new UpdateTodoAction("", new Todo("")));
       store.dispatch(new DeleteTodoAction(""));
 
-      verify(service.saveTodos(any)).called(7);
+      verify(repository.saveTodos(any)).called(7);
     });
   });
 }

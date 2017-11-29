@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:built_redux_sample/data/file_storage.dart';
 import 'package:built_redux_sample/data/todos_repository.dart';
-import 'package:built_redux_sample/data/web_service.dart';
+import 'package:built_redux_sample/data/web_client.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';

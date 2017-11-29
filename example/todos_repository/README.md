@@ -24,8 +24,8 @@ It does not expose the in-memory, web client, or file storage mechanisms directl
 
 This separation provides several benefits:
 
-  * We could change the underlying File Storage mechanism without requiring any of of the Flutter apps to change. Currently, the file storage works by saving json to disk. We could instead use the SQLLite database and the apps would never know the difference!
-  *  We can control the the fallback logic in a central place. E.g. We first try to read todos from memory, then from disk, then from the web. We can always change the way this works.
+  * We could change the underlying File Storage mechanism without requiring any of of the Flutter apps to change. Currently, the file storage works by saving json to disk. We could instead use Firebase or an SQLLite database and the apps would never know the difference!
+  * We can control the the fallback logic in a central place. E.g. We first try to read todos from memory, then from disk, then from the web. We can always change the way this works.
   * We can compose several different types of data sources together into a single, easy-to-consume Entity.
   
 ## Dart Library or Flutter Library?

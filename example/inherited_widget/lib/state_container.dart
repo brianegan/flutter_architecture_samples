@@ -7,10 +7,10 @@ import 'package:path_provider/path_provider.dart';
 
 class StateContainerController extends StatefulWidget {
   final AppState state;
-  final TodosRepository service;
+  final TodosRepository repository;
 
   StateContainerController({
-    this.service = const TodosRepository(
+    this.repository = const TodosRepository(
       fileStorage: const FileStorage(
         'inherited_widget_sample',
         getApplicationDocumentsDirectory,
@@ -36,7 +36,7 @@ class StateContainerControllerState extends State<StateContainerController> {
       state = new AppState.loading();
     }
 
-    widget.service.loadTodos().then((loadedTodos) {
+    widget.repository.loadTodos().then((loadedTodos) {
       setState(() {
         state = new AppState(
           todos: loadedTodos.map(Todo.fromEntity).toList(),
@@ -100,7 +100,7 @@ class StateContainerControllerState extends State<StateContainerController> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    widget.service
+    widget.repository
         .saveTodos(state.todos.map((todo) => todo.toEntity()).toList());
   }
 
