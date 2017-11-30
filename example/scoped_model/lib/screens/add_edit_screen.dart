@@ -39,7 +39,7 @@ class AddEditScreen extends StatelessWidget {
           },
           child: new ScopedModelDescendant<TodoListModel>(
             builder: (BuildContext context, Widget child, TodoListModel model) {
-              var task = model.todos.firstWhere((it) => it.id == todoId);
+              var task = model.todoById(todoId);
               return new ListView(
                 children: [
                   new TextFormField(
@@ -83,8 +83,8 @@ class AddEditScreen extends StatelessWidget {
             final note = noteKey.currentState.value;
 
             var model = TodoListModel.of(context);
-            var todo = model[todoId];
             if (isEditing) {
+              var todo = model.todoById(todoId);
               model.updateTodo(todo.copy(task: task, note: note));
             } else {
               model.addTodo(new Todo(task, note: note));

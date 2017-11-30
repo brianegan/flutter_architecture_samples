@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/screens/add_edit_screen.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
 
@@ -17,8 +18,8 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<TodoListModel>(
       builder: (context, child, model) {
-        var todo = model.todos.firstWhere((it)=>it.id == todoId);
-
+        // fallback to empty item. When deleting it, it is null before the screen is gone
+        var todo = model.todoById(todoId) ?? new Todo('');
         return new Scaffold(
           appBar: new AppBar(
             title: new Text(ArchSampleLocalizations.of(context).todoDetails),
@@ -29,7 +30,7 @@ class DetailScreen extends StatelessWidget {
                 icon: new Icon(Icons.delete),
                 onPressed: () {
                   model.removeTodo(todo);
-                  Navigator.pop(context, todoId);
+                  Navigator.pop(context, todo);
                 },
               )
             ],
