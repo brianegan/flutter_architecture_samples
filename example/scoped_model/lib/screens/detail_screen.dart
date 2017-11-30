@@ -17,7 +17,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ScopedModelDescendant<TodoListModel>(
       builder: (context, child, model) {
-        var todo = model.items.firstWhere((it)=>it.id == todoId);
+        var todo = model.todos.firstWhere((it)=>it.id == todoId);
 
         return new Scaffold(
           appBar: new AppBar(

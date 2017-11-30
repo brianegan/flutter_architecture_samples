@@ -1,51 +1,61 @@
-import 'package:scoped_model_sample/models.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:scoped_model_sample/models.dart';
+import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 main() {
-  group('AppState', () {
-    test('should check if there are completed todos', () {
-      final state = new AppState(todos: [
+  group('TodoListModel', () {
+    test('should check if there are completed todos', () async {
+      final model = new TodoListModel(
+          repository: new MockRepository([
         new Todo('a'),
         new Todo('b'),
         new Todo('c', complete: true),
-      ]);
+      ]));
+      await model.loadTodos();
 
-      expect(state.hasCompletedTodos, true);
+      expect(model.todos.any((it) => it.complete), true);
     });
 
-    test('should calculate the number of active todos', () {
-      final state = new AppState(todos: [
+    test('should calculate the number of active todos', () async {
+      final model = new TodoListModel(
+          repository: new MockRepository([
         new Todo('a'),
         new Todo('b'),
         new Todo('c', complete: true),
-      ]);
+      ]));
+      await model.loadTodos();
 
-      expect(state.numActive, 2);
+      expect(model.todos.where((it) => !it.complete).toList().length, 2);
     });
 
-    test('should calculate the number of completed todos', () {
-      final state = new AppState(todos: [
+    test('should calculate the number of completed todos', () async {
+      final model = new TodoListModel(
+          repository: new MockRepository([
         new Todo('a'),
         new Todo('b'),
         new Todo('c', complete: true),
-      ]);
+      ]));
+      await model.loadTodos();
 
-      expect(state.numCompleted, 1);
+      expect(model.todos.where((it) => it.complete).toList().length, 1);
     });
 
-    test('should return all todos if the VisibilityFilter is all', () {
+    test('should return all todos if the VisibilityFilter is all', () async {
       final todos = [
         new Todo('a'),
         new Todo('b'),
         new Todo('c', complete: true),
       ];
-      final state =
-          new AppState(todos: todos, activeFilter: VisibilityFilter.all);
+      final model = new TodoListModel(
+          repository: new MockRepository(todos),
+          activeFilter: VisibilityFilter.all);
+      await model.loadTodos();
 
-      expect(state.filteredTodos, todos);
+      expect(model.filteredTodos, todos);
     });
 
-    test('should return active todos if the VisibilityFilter is active', () {
+    test('should return active todos if the VisibilityFilter is active', () async {
       final todo1 = new Todo('a');
       final todo2 = new Todo('b');
       final todo3 = new Todo('c', complete: true);
@@ -54,19 +64,20 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState(
-        todos: todos,
+      final model = new TodoListModel(
+        repository: new MockRepository(todos),
         activeFilter: VisibilityFilter.active,
       );
+      await model.loadTodos();
 
-      expect(state.filteredTodos, [
+      expect(model.filteredTodos, [
         todo1,
         todo2,
       ]);
     });
 
     test('should return completed todos if the VisibilityFilter is completed',
-        () {
+        () async {
       final todo1 = new Todo('a');
       final todo2 = new Todo('b');
       final todo3 = new Todo('c', complete: true);
@@ -75,15 +86,16 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState(
-        todos: todos,
+      final model = new TodoListModel(
+        repository: new MockRepository(todos),
         activeFilter: VisibilityFilter.completed,
       );
+      await model.loadTodos();
 
-      expect(state.filteredTodos, [todo3]);
+      expect(model.filteredTodos, [todo3]);
     });
 
-    test('should clear the completed todos', () {
+    test('should clear the completed todos', () async {
       final todo1 = new Todo('a');
       final todo2 = new Todo('b');
       final todo3 = new Todo('c', complete: true);
@@ -92,19 +104,20 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState(
-        todos: todos,
+      final model = new TodoListModel(
+        repository: new MockRepository(todos),
       );
+      await model.loadTodos();
 
-      state.clearCompleted();
+      model.clearCompleted();
 
-      expect(state.todos, [
+      expect(model.todos, [
         todo1,
         todo2,
       ]);
     });
 
-    test('toggle all as complete or incomplete', () {
+    test('toggle all as complete or incomplete', () async {
       final todo1 = new Todo('a');
       final todo2 = new Todo('b');
       final todo3 = new Todo('c', complete: true);
@@ -113,17 +126,35 @@ main() {
         todo2,
         todo3,
       ];
-      final state = new AppState(
-        todos: todos,
+      final model = new TodoListModel(
+        repository: new MockRepository(todos),
       );
+      await model.loadTodos();
 
       // Toggle all complete
-      state.toggleAll();
-      expect(state.todos.every((t) => t.complete), isTrue);
+      model.toggleAll();
+      expect(model.todos.every((t) => t.complete), isTrue);
 
       // Toggle all incomplete
-      state.toggleAll();
-      expect(state.todos.every((t) => !t.complete), isTrue);
+      model.toggleAll();
+      expect(model.todos.every((t) => !t.complete), isTrue);
     });
   });
+}
+
+class MockRepository extends TodosRepository {
+  List<TodoEntity> entities;
+
+  MockRepository(List<Todo> todos)
+      : this.entities = todos.map((it) => it.toEntity()).toList();
+
+  @override
+  Future<List<TodoEntity>> loadTodos() {
+    return new Future.value(entities);
+  }
+
+  @override
+  Future saveTodos(List<TodoEntity> todos) {
+    return new Future.sync(() => entities = todos);
+  }
 }
