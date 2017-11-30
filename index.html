@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flutter Architecture Samples</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body {
+            color: rgb(17, 17, 17);
+        }
+
+        .site-title {
+            font-size: 4.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .button-blue {
+            background-color: #0091ea;
+            border-color: #0091ea;
+        }
+
+        a {
+            color: #0091ea;
+        }
+
+        a:focus,
+        a:hover,
+        a:hover {
+            color: #01579B
+        }
+
+        .button-blue:active,
+        .button-blue:focus,
+        .button-blue:hover {
+            background-color: #01579B;
+            border-color: #01579B;
+        }
+
+        .button-blue.button-outline:active,
+        .button-blue.button-outline:focus,
+        .button-blue.button-outline:hover {
+            border-color: #01579B;
+            color: #01579B;
+        }
+
+        .button-blue.button-clear,
+        .button-blue.button-outline {
+            background-color: transparent;
+            color: #0091ea;
+        }
+
+        .button-blue.button-clear {
+            border-color: transparent;
+        }
+
+        .site-subtitle {
+            color: rgb(120, 120, 120);
+            margin-bottom: 1.2rem;
+        }
+
+        .downloads {
+            margin-bottom: 2.4rem;
+        }
+
+        h2 {
+            color: rgb(70, 70, 70);
+        }
+
+        .site-header {
+            margin-top: 3.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .container {
+            max-width: 80rem;
+        }
+
+        .logo {
+            min-width: 5rem;
+            max-width: 8rem;
+            margin-right: 2.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 0.25rem;
+            box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            min-height: 180px;
+            padding: 2.4rem 2.4rem 1.2rem 2.4rem;
+            border: solid transparent;
+            border-bottom-color: transparent;
+            border-bottom-color: #0091ea;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row site-header">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Flutter Architecture Samples Logo">
+            </div>
+            <div class="site-title-container">
+                <h1 class="site-title">Flutter Architecture Samples</h1>
+                <h5 class="site-subtitle">A gallery of app architectures</h5>
+            </div>
+        </div>
+
+        <div class="description">
+            <p>Flutter provides a lot of flexibility in deciding how to organize and architect your apps. While this freedom is very valuable, it can also lead to apps with large classes, inconsistent naming schemes, as well as mismatching or missing architectures. These types of issues can make testing, maintaining and extending your apps difficult.</p>
+            <p>The Flutter Architecture Samples project demonstrates strategies to help solve or avoid these common problems. This project implements the same "Todos" app using different architectural concepts and tools.</p>
+        </div>
+
+        <div class="downloads">
+            <a href="https://github.com/brianegan/flutter_architecture_samples/archive/master.zip" class="button button-blue">Download</a>
+            <a href="https://github.com/brianegan/flutter_architecture_samples" class="button button-blue button-outline">Github</a>
+        </div>
+
+        <div class="card">
+            <h3>Samples</h3>
+            <ul>
+                <li>
+                    <a href="https://github.com/brianegan/flutter_architecture_samples/blob/master/example/vanilla">Vanilla</a>
+                </li>
+                <li>
+                    <a href="https://github.com/brianegan/flutter_architecture_samples/blob/master/example/redux">Redux</a>
+                </li>
+                <li>
+                    <a href="https://github.com/brianegan/flutter_architecture_samples/blob/master/example/built_redux">built_redux</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Supporting code</h3>
+            <ul>
+                <li>
+                    <a href="https://github.com/brianegan/flutter_architecture_samples/blob/master/example/integration_tests">Integration Tests</a>
+                </li>
+                <li>
+                    <a href="https://github.com/brianegan/flutter_architecture_samples/blob/master/example/todos_repository">Todos Repository</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="copyright">
+            <p> &copy; 2017
+                <a href="https://github.com/brianegan">Brian Egan</a> and contributors.
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>
