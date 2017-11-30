@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:scoped_model_sample/state_container.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/screens/detail_screen.dart';
+import 'package:scoped_model_sample/todo_list_model.dart';
 import 'package:scoped_model_sample/widgets/todo_item.dart';
 
 class TodoList extends StatelessWidget {
@@ -11,11 +11,10 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ScopedModelDescendant<StateContainer>(
-      builder: (context, child, container) {
+    return new ScopedModelDescendant<TodoListModel>(
+      builder: (context, child, model) {
         return new Container(
-          child:
-              container.state.isLoading ? _buildLoading : _buildList(container),
+          child: model.isLoading ? _buildLoading : _buildList(model),
         );
       },
     );
@@ -29,8 +28,8 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  ListView _buildList(StateContainer container) {
-    final todos = container.state.filteredTodos;
+  ListView _buildList(TodoListModel model) {
+    final todos = model.filteredTodos;
 
     return new ListView.builder(
       key: ArchSampleKeys.todoList,
@@ -48,7 +47,7 @@ class TodoList extends StatelessWidget {
               new MaterialPageRoute(
                 builder: (_) {
                   return new DetailScreen(
-                    todo: todo,
+                    todoId: todo.id,
                   );
                 },
               ),
@@ -59,7 +58,8 @@ class TodoList extends StatelessWidget {
             });
           },
           onCheckboxChanged: (complete) {
-            container.updateTodo(todo, complete: !todo.complete);
+            var toggled = todo.copy(complete: !todo.complete);
+            model.updateTodo(toggled);
           },
         );
       },
@@ -67,7 +67,7 @@ class TodoList extends StatelessWidget {
   }
 
   void _removeTodo(BuildContext context, Todo todo) {
-    new ModelFinder<StateContainer>().of(context).removeTodo(todo);
+    TodoListModel.of(context).removeTodo(todo);
 
     _showUndoSnackbar(context, todo);
   }
@@ -86,7 +86,7 @@ class TodoList extends StatelessWidget {
             action: new SnackBarAction(
               label: ArchSampleLocalizations.of(context).undo,
               onPressed: () {
-                new ModelFinder<StateContainer>().of(context).addTodo(todo);
+                TodoListModel.of(context).addTodo(todo);
               },
             ),
           ),
