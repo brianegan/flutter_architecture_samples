@@ -39,7 +39,7 @@ class AddEditScreen extends StatelessWidget {
           },
           child: new ScopedModelDescendant<TodoListModel>(
             builder: (BuildContext context, Widget child, TodoListModel model) {
-              var task = model.items.firstWhere((it) => it.id == todoId);
+              var task = model.todos.firstWhere((it) => it.id == todoId);
               return new ListView(
                 children: [
                   new TextFormField(

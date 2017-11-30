@@ -27,7 +27,7 @@ class ExtraActionsButton extends StatelessWidget {
               new PopupMenuItem<ExtraAction>(
                 key: ArchSampleKeys.toggleAll,
                 value: ExtraAction.toggleAllComplete,
-                child: new Text(model.items.any((it) => !it.complete)
+                child: new Text(model.todos.any((it) => !it.complete)
                     ? ArchSampleLocalizations.of(context).markAllIncomplete
                     : ArchSampleLocalizations.of(context).markAllComplete),
               ),

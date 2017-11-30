@@ -17,8 +17,8 @@ class StatsCounter extends StatelessWidget {
     return new Center(
       child: new ScopedModelDescendant<TodoListModel>(
           builder: (context, child, model) {
-        var numCompleted = model.items.where(isCompleted).toList().length;
-        var numActive = model.items.where(isActive).toList().length;
+        var numCompleted = model.todos.where(isCompleted).toList().length;
+        var numActive = model.todos.where(isActive).toList().length;
 
         return new Column(
           mainAxisAlignment: MainAxisAlignment.center,

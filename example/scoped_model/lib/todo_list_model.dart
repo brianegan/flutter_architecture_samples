@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -7,7 +9,7 @@ import 'package:todos_repository/src/repository.dart';
 class TodoListModel extends Model {
   final TodosRepository repository;
 
-  VisibilityFilter _activeFilter = VisibilityFilter.all;
+  VisibilityFilter _activeFilter;
 
   VisibilityFilter get activeFilter => _activeFilter;
 
@@ -16,7 +18,7 @@ class TodoListModel extends Model {
     notifyListeners();
   }
 
-  List<Todo> get items => _todos.toList();
+  List<Todo> get todos => _todos.toList();
 
   List<Todo> _todos = [];
 
@@ -24,7 +26,8 @@ class TodoListModel extends Model {
 
   bool get isLoading => _isLoading;
 
-  TodoListModel({@required this.repository});
+  TodoListModel({@required this.repository, VisibilityFilter activeFilter})
+      : this._activeFilter = activeFilter ?? VisibilityFilter.all;
 
   /// Wraps [ModelFinder.of] for this [Model]. See [ModelFinder.of] for more
   static TodoListModel of(BuildContext context) =>
@@ -40,11 +43,11 @@ class TodoListModel extends Model {
   /// Loads remote data
   ///
   /// Call this initially and when the user manually refreshes
-  void loadTodos() {
+  Future loadTodos() {
     _isLoading = true;
     notifyListeners();
 
-    repository.loadTodos().then((loadedTodos) {
+    return repository.loadTodos().then((loadedTodos) {
       _todos = loadedTodos.map(Todo.fromEntity).toList();
       _isLoading = false;
       notifyListeners();
@@ -71,8 +74,8 @@ class TodoListModel extends Model {
   }
 
   void toggleAll() {
-    _todos.map((todo) {});
-    _todos = _todos.map((todo) => todo.copy(complete: !todo.complete));
+    var allComplete = todos.every((todo) => todo.complete);
+    _todos = _todos.map((todo) => todo.copy(complete: !allComplete)).toList();
     notifyListeners();
     _uploadItems();
   }
@@ -89,7 +92,7 @@ class TodoListModel extends Model {
   }
 
   void removeTodo(Todo todo) {
-    _todos.removeWhere((it)=> it.id == todo.id);
+    _todos.removeWhere((it) => it.id == todo.id);
     notifyListeners();
     _uploadItems();
   }
@@ -105,7 +108,7 @@ class TodoListModel extends Model {
   }
 
   Todo operator [](String id) {
-    return _todos.firstWhere((it)=> it.id == id);
+    return _todos.firstWhere((it) => it.id == id);
   }
 }
 
