@@ -1,75 +1,15 @@
 import 'package:flutter_architecture_samples/uuid.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class AppState {
-  bool isLoading;
-  List<Todo> todos;
-  VisibilityFilter activeFilter = VisibilityFilter.all;
-
-  AppState({
-    this.isLoading = false,
-    this.todos = const [],
-    this.activeFilter = VisibilityFilter.all,
-  });
-
-  factory AppState.loading() => new AppState(isLoading: true);
-
-  bool get allComplete => todos.every((todo) => todo.complete);
-
-  List<Todo> get filteredTodos => todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
-        }
-      }).toList();
-
-  bool get hasCompletedTodos => todos.any((todo) => todo.complete);
-
-  @override
-  int get hashCode => todos.hashCode ^ isLoading.hashCode;
-
-  int get numActive =>
-      todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
-
-  int get numCompleted =>
-      todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AppState &&
-          runtimeType == other.runtimeType &&
-          todos == other.todos &&
-          isLoading == other.isLoading;
-
-  void clearCompleted() {
-    todos.removeWhere((todo) => todo.complete);
-  }
-
-  void toggleAll() {
-    final allCompleted = this.allComplete;
-
-    todos.forEach((todo) => todo.complete = !allCompleted);
-  }
-
-  @override
-  String toString() {
-    return 'AppState{todos: $todos, isLoading: $isLoading}';
-  }
-}
-
 enum AppTab { todos, stats }
 
 enum ExtraAction { toggleAllComplete, clearCompleted }
 
 class Todo {
-  bool complete;
-  String id;
-  String note;
-  String task;
+  final bool complete;
+  final String id;
+  final String note;
+  final String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
       : this.id = id ?? new Uuid().generateV4();
@@ -102,9 +42,16 @@ class Todo {
       entity.task,
       complete: entity.complete ?? false,
       note: entity.note,
-      id: entity.id ?? new Uuid().generateV4(),
+      id: entity.id,
+    );
+  }
+
+  Todo copy({String task, bool complete, String note, String id}) {
+    return new Todo(
+      task ?? this.task,
+      complete: complete ?? this.complete,
+      note: note ?? this.note,
+      id: id ?? this.id,
     );
   }
 }
-
-enum VisibilityFilter { all, active, completed }
