@@ -107,8 +107,8 @@ class TodoListModel extends Model {
     repository.saveTodos(_todos.map((it) => it.toEntity()).toList());
   }
 
-  Todo operator [](String id) {
-    return _todos.firstWhere((it) => it.id == id);
+  Todo todoById(String id) {
+    return _todos.firstWhere((it) => it.id == id, orElse: () => null);
   }
 }
 
