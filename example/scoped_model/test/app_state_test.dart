@@ -8,9 +8,9 @@ main() {
     test('should check if there are completed todos', () async {
       final model = new TodoListModel(
           repository: new MockRepository([
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+        new TodoModel('a'),
+        new TodoModel('b'),
+        new TodoModel('c', complete: true),
       ]));
       await model.loadTodos();
 
@@ -20,9 +20,9 @@ main() {
     test('should calculate the number of active todos', () async {
       final model = new TodoListModel(
           repository: new MockRepository([
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+        new TodoModel('a'),
+        new TodoModel('b'),
+        new TodoModel('c', complete: true),
       ]));
       await model.loadTodos();
 
@@ -32,9 +32,9 @@ main() {
     test('should calculate the number of completed todos', () async {
       final model = new TodoListModel(
           repository: new MockRepository([
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+        new TodoModel('a'),
+        new TodoModel('b'),
+        new TodoModel('c', complete: true),
       ]));
       await model.loadTodos();
 
@@ -43,9 +43,9 @@ main() {
 
     test('should return all todos if the VisibilityFilter is all', () async {
       final todos = [
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+        new TodoModel('a'),
+        new TodoModel('b'),
+        new TodoModel('c', complete: true),
       ];
       final model = new TodoListModel(
           repository: new MockRepository(todos),
@@ -56,9 +56,9 @@ main() {
     });
 
     test('should return active todos if the VisibilityFilter is active', () async {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = new TodoModel('a');
+      final todo2 = new TodoModel('b');
+      final todo3 = new TodoModel('c', complete: true);
       final todos = [
         todo1,
         todo2,
@@ -78,9 +78,9 @@ main() {
 
     test('should return completed todos if the VisibilityFilter is completed',
         () async {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = new TodoModel('a');
+      final todo2 = new TodoModel('b');
+      final todo3 = new TodoModel('c', complete: true);
       final todos = [
         todo1,
         todo2,
@@ -96,9 +96,9 @@ main() {
     });
 
     test('should clear the completed todos', () async {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = new TodoModel('a');
+      final todo2 = new TodoModel('b');
+      final todo3 = new TodoModel('c', complete: true);
       final todos = [
         todo1,
         todo2,
@@ -118,9 +118,9 @@ main() {
     });
 
     test('toggle all as complete or incomplete', () async {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = new TodoModel('a');
+      final todo2 = new TodoModel('b');
+      final todo3 = new TodoModel('c', complete: true);
       final todos = [
         todo1,
         todo2,
@@ -145,7 +145,7 @@ main() {
 class MockRepository extends TodosRepository {
   List<TodoEntity> entities;
 
-  MockRepository(List<Todo> todos)
+  MockRepository(List<TodoModel> todos)
       : this.entities = todos.map((it) => it.toEntity()).toList();
 
   @override

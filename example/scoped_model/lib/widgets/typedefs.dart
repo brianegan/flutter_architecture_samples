@@ -1,11 +1,11 @@
 import 'package:scoped_model_sample/models.dart';
 
-typedef TodoAdder(Todo todo);
+typedef TodoAdder(TodoModel todo);
 
-typedef TodoRemover(Todo todo);
+typedef TodoRemover(TodoModel todo);
 
 typedef TodoUpdater(
-  Todo todo, {
+  TodoModel todo, {
   bool complete,
   String id,
   String note,

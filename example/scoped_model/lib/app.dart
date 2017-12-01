@@ -4,22 +4,38 @@ import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/localization.dart';
 import 'package:scoped_model_sample/screens/add_edit_screen.dart';
+import 'package:scoped_model_sample/screens/detail_screen.dart';
 import 'package:scoped_model_sample/screens/home_screen.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
 import 'package:todos_repository/src/repository.dart';
+import 'package:scoped_model_sample/models.dart';
 
 class ScopedModelApp extends StatelessWidget {
-  final TodosRepository repository;
-
-  ScopedModelApp({
-    @required this.repository,
-  });
+  ScopedModelApp();
 
   @override
   Widget build(BuildContext context) {
-    var app = new MaterialApp(
+    return new MaterialApp(
       title: new ScopedModelLocalizations().appTitle,
       theme: ArchSampleTheme.theme,
+      onGenerateRoute: (settings) {
+        final detailRoute = '/detail/';
+        if (settings.name.startsWith(detailRoute)) {
+          final todo = new ModelFinder<TodoListModel>()
+                  .of(context)
+                  .todoById(settings.name.replaceFirst(detailRoute, '')) ??
+              new TodoModel('Oh nooooooo');
+
+          return new MaterialPageRoute(
+            builder: (_) {
+              return new ScopedModel<TodoModel>(
+                model: todo,
+                child: new DetailScreen(),
+              );
+            },
+          );
+        }
+      },
       localizationsDelegates: [
         new ArchSampleLocalizationsDelegate(),
         new ScopedModelLocalizationsDelegate(),
@@ -28,13 +44,6 @@ class ScopedModelApp extends StatelessWidget {
         ArchSampleRoutes.home: (context) => new HomeScreen(),
         ArchSampleRoutes.addTodo: (context) => new AddEditScreen(),
       },
-    );
-
-    return new ScopedModel<TodoListModel>(
-      model: new TodoListModel(
-        repository: repository,
-      ),
-      child: app,
     );
   }
 }

@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:flutter_driver/src/driver.dart';
+import 'package:flutter_driver/flutter_driver.dart';
 import '../screens/details_test_screen.dart';
 import '../utils.dart';
-import 'package:flutter_driver/src/find.dart';
 import 'test_element.dart';
 
 class TodoItemElement extends TestElement {

@@ -18,9 +18,9 @@ class TodoListModel extends Model {
     notifyListeners();
   }
 
-  List<Todo> get todos => _todos.toList();
+  List<TodoModel> get todos => _todos.toList();
 
-  List<Todo> _todos = [];
+  List<TodoModel> _todos = [];
 
   bool _isLoading = false;
 
@@ -48,17 +48,19 @@ class TodoListModel extends Model {
     notifyListeners();
 
     return repository.loadTodos().then((loadedTodos) {
-      _todos = loadedTodos.map(Todo.fromEntity).toList();
+      _todos = loadedTodos.map(TodoModel.fromEntity).toList();
+      _todos.forEach((todo) => todo.addListener(_uploadItems));
       _isLoading = false;
       notifyListeners();
     }).catchError((err) {
+      _todos.forEach((todo) => todo.removeListener(_uploadItems));
       _isLoading = false;
       _todos = [];
       notifyListeners();
     });
   }
 
-  List<Todo> get filteredTodos => _todos.where((todo) {
+  List<TodoModel> get filteredTodos => _todos.where((todo) {
         if (activeFilter == VisibilityFilter.all) {
           return true;
         } else if (activeFilter == VisibilityFilter.active) {
@@ -75,30 +77,23 @@ class TodoListModel extends Model {
 
   void toggleAll() {
     var allComplete = todos.every((todo) => todo.complete);
-    _todos = _todos.map((todo) => todo.copy(complete: !allComplete)).toList();
+    _todos.forEach((todo) {
+      todo.complete = !allComplete;
+    });
     notifyListeners();
     _uploadItems();
   }
 
-  /// updates a [Todo] by replacing the item with the same id by the parameter [todo]
-  void updateTodo(Todo todo) {
-    assert(todo != null);
-    assert(todo.id != null);
-    var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
-    var replaceIndex = _todos.indexOf(oldTodo);
-    _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
+  void removeTodo(TodoModel todo) {
+    _todos.remove(todo);
+    todo.removeListener(_uploadItems);
     notifyListeners();
     _uploadItems();
   }
 
-  void removeTodo(Todo todo) {
-    _todos.removeWhere((it) => it.id == todo.id);
-    notifyListeners();
-    _uploadItems();
-  }
-
-  void addTodo(Todo todo) {
+  void addTodo(TodoModel todo) {
     _todos.add(todo);
+    todo.addListener(_uploadItems);
     notifyListeners();
     _uploadItems();
   }
@@ -107,7 +102,7 @@ class TodoListModel extends Model {
     repository.saveTodos(_todos.map((it) => it.toEntity()).toList());
   }
 
-  Todo todoById(String id) {
+  TodoModel todoById(String id) {
     return _todos.firstWhere((it) => it.id == id, orElse: () => null);
   }
 }

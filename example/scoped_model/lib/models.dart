@@ -1,32 +1,64 @@
 import 'package:flutter_architecture_samples/uuid.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 enum AppTab { todos, stats }
 
 enum ExtraAction { toggleAllComplete, clearCompleted }
 
-class Todo {
-  final bool complete;
-  final String id;
-  final String note;
-  final String task;
+class TodoModel extends Model {
+  bool _complete;
+  String _id;
+  String _note;
+  String _task;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? new Uuid().generateV4();
+  TodoModel(String task, {bool complete = false, String note = '', String id})
+      : this._task = task,
+        this._note = note,
+        this._complete = complete,
+        this._id = id ?? new Uuid().generateV4();
 
-  @override
-  int get hashCode =>
-      complete.hashCode ^ task.hashCode ^ note.hashCode ^ id.hashCode;
+  bool get complete => _complete;
+
+  String get id => _id;
+
+  String get note => _note;
+
+  String get task => _task;
+
+  void set complete(bool isComplete) {
+    _complete = isComplete;
+    notifyListeners();
+  }
+
+  void set id(String newId) {
+    _id = newId;
+    notifyListeners();
+  }
+
+  void set note(String newNote) {
+    _note = newNote;
+    notifyListeners();
+  }
+
+  void set task(String newTask) {
+    _task = newTask;
+    notifyListeners();
+  }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Todo &&
+      other is TodoModel &&
           runtimeType == other.runtimeType &&
-          complete == other.complete &&
-          task == other.task &&
-          note == other.note &&
-          id == other.id;
+          _complete == other._complete &&
+          _id == other._id &&
+          _note == other._note &&
+          _task == other._task;
+
+  @override
+  int get hashCode =>
+      _complete.hashCode ^ _id.hashCode ^ _note.hashCode ^ _task.hashCode;
 
   @override
   String toString() {
@@ -37,21 +69,12 @@ class Todo {
     return new TodoEntity(task, id, note, complete);
   }
 
-  static Todo fromEntity(TodoEntity entity) {
-    return new Todo(
+  static TodoModel fromEntity(TodoEntity entity) {
+    return new TodoModel(
       entity.task,
       complete: entity.complete ?? false,
       note: entity.note,
       id: entity.id,
-    );
-  }
-
-  Todo copy({String task, bool complete, String note, String id}) {
-    return new Todo(
-      task ?? this.task,
-      complete: complete ?? this.complete,
-      note: note ?? this.note,
-      id: id ?? this.id,
     );
   }
 }

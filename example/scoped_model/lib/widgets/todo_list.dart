@@ -37,42 +37,39 @@ class TodoList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         final todo = todos[index];
 
-        return new TodoItem(
-          todo: todo,
-          onDismissed: (direction) {
-            _removeTodo(context, todo);
-          },
-          onTap: () {
-            Navigator.of(context).push(
-              new MaterialPageRoute(
-                builder: (_) {
-                  return new DetailScreen(
-                    todoId: todo.id,
-                  );
-                },
-              ),
-            ).then((todo) {
-              if (todo is Todo) {
-                _showUndoSnackbar(context, todo);
-              }
-            });
-          },
-          onCheckboxChanged: (complete) {
-            var toggled = todo.copy(complete: !todo.complete);
-            model.updateTodo(toggled);
-          },
+        return new ScopedModel<TodoModel>(
+          model: todo,
+          child: new TodoItem(
+            onDismissed: (direction) {
+              _removeTodo(context, todo);
+            },
+            onTap: () {
+              Navigator
+                  .of(context)
+                  .pushNamed('/detail/${todo.id}')
+                  .then((todo) {
+                if (todo is TodoModel) {
+                  model.removeTodo(todo);
+                  _showUndoSnackbar(context, todo);
+                }
+              });
+            },
+            onCheckboxChanged: (complete) {
+              todo.complete = complete;
+            },
+          ),
         );
       },
     );
   }
 
-  void _removeTodo(BuildContext context, Todo todo) {
+  void _removeTodo(BuildContext context, TodoModel todo) {
     TodoListModel.of(context).removeTodo(todo);
 
     _showUndoSnackbar(context, todo);
   }
 
-  void _showUndoSnackbar(BuildContext context, Todo todo) {
+  void _showUndoSnackbar(BuildContext context, TodoModel todo) {
     Scaffold.of(context).showSnackBar(
           new SnackBar(
             key: ArchSampleKeys.snackbar,

@@ -8,9 +8,9 @@ import 'package:scoped_model_sample/todo_list_model.dart';
 class StatsCounter extends StatelessWidget {
   StatsCounter() : super(key: ArchSampleKeys.statsCounter);
 
-  bool isActive(Todo todo) => !todo.complete;
+  bool isActive(TodoModel todo) => !todo.complete;
 
-  bool isCompleted(Todo todo) => todo.complete;
+  bool isCompleted(TodoModel todo) => todo.complete;
 
   @override
   Widget build(BuildContext context) {
