@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_driver/src/driver.dart';
+import 'package:flutter_driver/flutter_driver.dart';
 import '../utils.dart';
 import 'test_element.dart';
 import 'todo_item_element.dart';
