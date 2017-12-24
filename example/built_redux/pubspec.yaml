@@ -19,7 +19,7 @@ dev_dependencies:
   built_value_generator: ^4.3.2
   source_gen: ^0.7.0
   test: any
-  mockito: 2.2.0
+  mockito: ">=2.2.0 <3.0.0"
   flutter_driver:
     sdk: flutter
   integration_tests:

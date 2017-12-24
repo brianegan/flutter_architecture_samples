@@ -13,7 +13,7 @@ dependencies:
     path: ../todos_repository
 
 dev_dependencies:
-  mockito: 2.2.0
+  mockito: ">=2.2.0 <3.0.0"
   flutter_driver:
     sdk: flutter
   flutter_test:

@@ -4,14 +4,17 @@ The Integration (aka end to end tests) that should be run against every sample a
 
 ## Key Concepts
 
-  * `flutter_driver` is used to drive the tests
+  * `flutter_driver` is used to drive the tests.
   * The tests are structured using the Page Object Model
   
 ## Drive tests with `flutter_driver`
 
-In order to run tests on against your app, you need to include `flutter_driver`. This tool allows you to find Widgets on screen and send commands to them. This allows you to tap on Widgets, scroll through lists, or get the text of a Text Widget.
+In order to run tests on against your app, you need to use the `flutter_driver`. This tool allows you to find Widgets on screen and send commands to them. This allows you to tap on Widgets, scroll through lists, or get the text of a Text Widget.
 
-To see a brief tutorial on how to get started, visit the [Flutter Testing](https://flutter.io/testing/#integration-testing) page.
+To get started with Flutter Driver, please check out the following links:
+
+  * [How to write an integration test in Flutter](http://cogitas.net/write-integration-test-flutter/) by [Natalie Masse Hooper](https://twitter.com/NatJM)    
+  * Visit the [Flutter Testing](https://flutter.io/testing/#integration-testing) page.
 
 ## Organize Code with the Page Object Model
 
@@ -56,12 +59,7 @@ test("Should wait for the list to load then tap on the first todo", () async {
   final homeScreen = new HomeTestScreen(driver);
   
   expect(await homeScreen.isReady, isTrue);
-  
-  final firstTodo = homeScreen.todo("1");
-  final firstTodo = homeScreen.todo("1");
-  final firstTodo = homeScreen.todo("1"); 
-  
-  expect(await firstTodo.task, isNotEmpty);
+  expect(await homeScreen.todo("1"), isNotEmpty);
   
   final detailsScreen = firstTodo.tap();
   
@@ -131,7 +129,7 @@ class TodoItemElement {
 As you can see, we've ended up with more code, but we've gained a few things:
 
   1. The tests themselves are now easier to read.
-  2. We can reuse these classes throughout our tests
+  2. We can reuse these classes throughout our tests. Overall, this will *reduce* the amount of code you need to write in tests!
   3. If these Widget change a bit in your app, such as after a redesign, you can update the classes themselves to reflect the changes. In many cases, this will result in little to no changes to your actual tests! 
 
 ## Missing Features

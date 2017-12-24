@@ -23,6 +23,7 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final container = StateContainer.of(context);
+    final state = container.state;
 
     return new Scaffold(
       appBar: new AppBar(
@@ -30,12 +31,12 @@ class HomeScreenState extends State<HomeScreen> {
         actions: [
           new FilterButton(
             isActive: activeTab == AppTab.todos,
-            activeFilter: container.state.activeFilter,
+            activeFilter: state.activeFilter,
             onSelected: container.updateFilter,
           ),
           new ExtraActionsButton(
-            allComplete: container.state.allComplete,
-            hasCompletedTodos: container.state.hasCompletedTodos,
+            allComplete: state.allComplete,
+            hasCompletedTodos: state.hasCompletedTodos,
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
                 container.toggleAll();
@@ -69,9 +70,11 @@ class HomeScreenState extends State<HomeScreen> {
                   ? ArchSampleKeys.statsTab
                   : ArchSampleKeys.todoTab,
             ),
-            title: new Text(tab == AppTab.stats
-                ? ArchSampleLocalizations.of(context).stats
-                : ArchSampleLocalizations.of(context).todos),
+            title: new Text(
+              tab == AppTab.stats
+                  ? ArchSampleLocalizations.of(context).stats
+                  : ArchSampleLocalizations.of(context).todos,
+            ),
           );
         }).toList(),
       ),

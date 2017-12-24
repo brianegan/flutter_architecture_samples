@@ -28,10 +28,16 @@ class TodoItem extends StatelessWidget {
           value: todo.complete,
           onChanged: onCheckboxChanged,
         ),
-        title: new Text(
-          todo.task,
-          key: ArchSampleKeys.todoItemTask(todo.id),
-          style: Theme.of(context).textTheme.title,
+        title: new Hero(
+          tag: todo.task + '__heroTag',
+          child: new Container(
+            width: MediaQuery.of(context).size.width,
+            child: new Text(
+              todo.task,
+              key: ArchSampleKeys.todoItemTask(todo.id),
+              style: Theme.of(context).textTheme.title,
+            ),
+          ),
         ),
         subtitle: new Text(
           todo.note,

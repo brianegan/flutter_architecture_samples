@@ -26,9 +26,11 @@ class AddEditScreen extends StatelessWidget {
 
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: new Text(
+          isEditing
+              ? ArchSampleLocalizations.of(context).editTodo
+              : ArchSampleLocalizations.of(context).addTodo,
+        ),
       ),
       body: new Padding(
         padding: new EdgeInsets.all(16.0),
@@ -46,7 +48,8 @@ class AddEditScreen extends StatelessWidget {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: new InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
+                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                ),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,

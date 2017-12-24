@@ -108,9 +108,11 @@ class HomeScreenState extends State<HomeScreen> {
                   ? ArchSampleKeys.statsTab
                   : ArchSampleKeys.todoTab,
             ),
-            title: new Text(tab == AppTab.stats
-                ? ArchSampleLocalizations.of(context).stats
-                : ArchSampleLocalizations.of(context).todos),
+            title: new Text(
+              tab == AppTab.stats
+                  ? ArchSampleLocalizations.of(context).stats
+                  : ArchSampleLocalizations.of(context).todos,
+            ),
           );
         }).toList(),
       ),

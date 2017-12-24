@@ -5,4 +5,4 @@ dependencies:
   meta:
 
 dev_dependencies:
-  mockito: 2.2.0
+  mockito: ">=2.2.0 <3.0.0"

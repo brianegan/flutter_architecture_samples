@@ -12,12 +12,11 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.body1;
-    final activeStyle = Theme
-        .of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    final theme = Theme.of(context);
+    final defaultStyle = theme.textTheme.body1;
+    final activeStyle = theme.textTheme.body1.copyWith(
+      color: theme.accentColor,
+    );
 
     return new AnimatedOpacity(
       opacity: isActive ? 1.0 : 0.0,
@@ -26,39 +25,40 @@ class FilterButton extends StatelessWidget {
         key: ArchSampleKeys.filterButton,
         tooltip: ArchSampleLocalizations.of(context).filterTodos,
         onSelected: onSelected,
-        itemBuilder: (BuildContext context) =>
-            <PopupMenuItem<VisibilityFilter>>[
-              new PopupMenuItem<VisibilityFilter>(
-                key: ArchSampleKeys.allFilter,
-                value: VisibilityFilter.all,
-                child: new Text(
-                  ArchSampleLocalizations.of(context).showAll,
-                  style: activeFilter == VisibilityFilter.all
-                      ? activeStyle
-                      : defaultStyle,
-                ),
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuItem<VisibilityFilter>>[
+            new PopupMenuItem<VisibilityFilter>(
+              key: ArchSampleKeys.allFilter,
+              value: VisibilityFilter.all,
+              child: new Text(
+                ArchSampleLocalizations.of(context).showAll,
+                style: activeFilter == VisibilityFilter.all
+                    ? activeStyle
+                    : defaultStyle,
               ),
-              new PopupMenuItem<VisibilityFilter>(
-                key: ArchSampleKeys.activeFilter,
-                value: VisibilityFilter.active,
-                child: new Text(
-                  ArchSampleLocalizations.of(context).showActive,
-                  style: activeFilter == VisibilityFilter.active
-                      ? activeStyle
-                      : defaultStyle,
-                ),
+            ),
+            new PopupMenuItem<VisibilityFilter>(
+              key: ArchSampleKeys.activeFilter,
+              value: VisibilityFilter.active,
+              child: new Text(
+                ArchSampleLocalizations.of(context).showActive,
+                style: activeFilter == VisibilityFilter.active
+                    ? activeStyle
+                    : defaultStyle,
               ),
-              new PopupMenuItem<VisibilityFilter>(
-                key: ArchSampleKeys.completedFilter,
-                value: VisibilityFilter.completed,
-                child: new Text(
-                  ArchSampleLocalizations.of(context).showCompleted,
-                  style: activeFilter == VisibilityFilter.completed
-                      ? activeStyle
-                      : defaultStyle,
-                ),
+            ),
+            new PopupMenuItem<VisibilityFilter>(
+              key: ArchSampleKeys.completedFilter,
+              value: VisibilityFilter.completed,
+              child: new Text(
+                ArchSampleLocalizations.of(context).showCompleted,
+                style: activeFilter == VisibilityFilter.completed
+                    ? activeStyle
+                    : defaultStyle,
               ),
-            ],
+            ),
+          ];
+        },
         icon: new Icon(Icons.filter_list),
       ),
     );

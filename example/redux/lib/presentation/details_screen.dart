@@ -54,22 +54,26 @@ class DetailsScreen extends StatelessWidget {
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      new Padding(
-                        padding: new EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
-                        child: new Text(
-                          todo.task,
-                          key: ArchSampleKeys.detailsTodoItemTask,
-                          style: Theme.of(context).textTheme.headline,
+                      new Hero(
+                        tag: todo.task + '__heroTag',
+                        child: new Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: new EdgeInsets.only(
+                            top: 8.0,
+                            bottom: 16.0,
+                          ),
+                          child: new Text(
+                            todo.task,
+                            key: ArchSampleKeys.detailsTodoItemTask,
+                            style: Theme.of(context).textTheme.headline,
+                          ),
                         ),
                       ),
                       new Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
-                      )
+                      ),
                     ],
                   ),
                 ),
