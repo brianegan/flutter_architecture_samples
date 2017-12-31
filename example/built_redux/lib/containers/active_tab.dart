@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class ActiveTab
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, AppTab> {
+class ActiveTab extends StoreConnector<AppState, AppActions, AppTab> {
   final ViewModelBuilder<AppTab> builder;
 
   ActiveTab({Key key, @required this.builder}) : super(key: key);

@@ -35,8 +35,8 @@ abstract class FilterSelectorViewModel
   }
 }
 
-class FilterSelector extends StoreConnector<AppState, AppStateBuilder,
-    AppActions, VisibilityFilter> {
+class FilterSelector
+    extends StoreConnector<AppState, AppActions, VisibilityFilter> {
   final ViewModelBuilder<FilterSelectorViewModel> builder;
 
   @override

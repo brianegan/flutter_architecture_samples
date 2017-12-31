@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class TodoDetails
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, Todo> {
+class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
   final String id;
 
   TodoDetails({Key key, @required this.id}) : super(key: key);
