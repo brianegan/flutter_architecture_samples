@@ -30,7 +30,7 @@ class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
                 : ArchSampleKeys.todoTab,
           ),
           title: new Text(tab == AppTab.stats
-              ? 'ArchSampleLocalizations.of(context).stats'
+              ? ArchSampleLocalizations.of(context).stats
               : ArchSampleLocalizations.of(context).todos),
         );
       }).toList(),
