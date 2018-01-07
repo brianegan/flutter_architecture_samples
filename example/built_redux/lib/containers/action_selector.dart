@@ -4,8 +4,7 @@ import 'package:built_redux_sample/presentation/extra_actions_button.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class ExtraActionSelector
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, bool> {
+class ExtraActionSelector extends StoreConnector<AppState, AppActions, bool> {
   ExtraActionSelector({Key key}) : super(key: key);
 
   @override

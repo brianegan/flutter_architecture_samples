@@ -5,8 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class EditTodo
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, Null> {
+class EditTodo extends StoreConnector<AppState, AppActions, Null> {
   final Todo todo;
 
   EditTodo({this.todo, Key key}) : super(key: key);
@@ -19,10 +18,9 @@ class EditTodo
       onSave: (task, note) {
         actions.updateTodoAction(new UpdateTodoActionPayload(
             todo.id,
-            (todo.toBuilder()
-                  ..task = task
-                  ..note = note)
-                .build()));
+            todo.rebuild((b) => b
+              ..task = task
+              ..note = note)));
       },
       todo: todo,
     );

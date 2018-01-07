@@ -5,8 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class AppLoading
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, bool> {
+class AppLoading extends StoreConnector<AppState, AppActions, bool> {
   final ViewModelBuilder<bool> builder;
 
   AppLoading({Key key, @required this.builder}) : super(key: key);

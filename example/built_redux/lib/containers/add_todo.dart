@@ -4,8 +4,7 @@ import 'package:built_redux_sample/presentation/add_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class AddTodo
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, Null> {
+class AddTodo extends StoreConnector<AppState, AppActions, Null> {
   AddTodo({Key key}) : super(key: key);
 
   @override

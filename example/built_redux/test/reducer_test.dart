@@ -36,7 +36,7 @@ main() {
 
     test('should update a todo in response to an UpdateTodoAction', () {
       final todo = new Todo("Hallo");
-      final updatedTodo = (todo.toBuilder()..task = "Tschuss").build();
+      final updatedTodo = todo.rebuild((b) => b.task = "Tschuss");
       final store = new Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
         new AppState.fromTodos([todo]),

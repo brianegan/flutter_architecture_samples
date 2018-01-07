@@ -4,8 +4,7 @@ import 'package:built_redux_sample/presentation/todo_list.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
-class FilteredTodos
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, List<Todo>> {
+class FilteredTodos extends StoreConnector<AppState, AppActions, List<Todo>> {
   FilteredTodos({Key key}) : super(key: key);
 
   @override
@@ -14,7 +13,7 @@ class FilteredTodos
       todos: state,
       onCheckboxChanged: (todo, complete) {
         actions.updateTodoAction(new UpdateTodoActionPayload(
-            todo.id, (todo.toBuilder()..complete = complete).build()));
+            todo.id, todo.rebuild((b) => b..complete = complete)));
       },
       onRemove: (todo) {
         actions.deleteTodoAction(todo.id);

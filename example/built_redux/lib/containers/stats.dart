@@ -19,8 +19,7 @@ abstract class StatsProps implements Built<StatsProps, StatsPropsBuilder> {
   factory StatsProps([updates(StatsPropsBuilder b)]) = _$StatsProps;
 }
 
-class Stats
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, StatsProps> {
+class Stats extends StoreConnector<AppState, AppActions, StatsProps> {
   Stats({Key key}) : super(key: key);
 
   @override

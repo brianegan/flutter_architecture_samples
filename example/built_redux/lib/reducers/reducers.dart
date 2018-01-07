@@ -29,9 +29,7 @@ void deleteTodo(
 
 void toggleAll(AppState state, Action<Null> action, AppStateBuilder builder) {
   final allComplete = state.allCompleteSelector;
-
-  builder.todos = state.todos.toBuilder()
-    ..map((todo) => (todo.toBuilder()..complete = !allComplete).build());
+  builder.todos.map((todo) => todo.rebuild((b) => b..complete = !allComplete));
 }
 
 void updateFilter(

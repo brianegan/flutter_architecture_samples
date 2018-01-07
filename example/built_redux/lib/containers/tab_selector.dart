@@ -7,8 +7,7 @@ import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 typedef OnTabsSelected = void Function(int);
 
-class TabSelector
-    extends StoreConnector<AppState, AppStateBuilder, AppActions, AppTab> {
+class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
   TabSelector({Key key}) : super(key: key);
 
   @override
