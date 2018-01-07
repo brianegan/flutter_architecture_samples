@@ -18,7 +18,7 @@ class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
       toggleCompleted: (isComplete) {
         actions.updateTodoAction(new UpdateTodoActionPayload(
           id,
-          (todo.toBuilder()..complete = isComplete).build(),
+          todo.rebuild((b) => b..complete = isComplete),
         ));
       },
     );

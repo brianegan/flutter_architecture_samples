@@ -13,7 +13,7 @@ class FilteredTodos extends StoreConnector<AppState, AppActions, List<Todo>> {
       todos: state,
       onCheckboxChanged: (todo, complete) {
         actions.updateTodoAction(new UpdateTodoActionPayload(
-            todo.id, (todo.toBuilder()..complete = complete).build()));
+            todo.id, todo.rebuild((b) => b..complete = complete)));
       },
       onRemove: (todo) {
         actions.deleteTodoAction(todo.id);

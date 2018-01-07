@@ -4,8 +4,7 @@ description: An example Todo app created with built_redux
 dependencies:
   flutter:
     sdk: flutter
-  flutter_built_redux:
-    path: ../../../flutter_built_redux
+  flutter_built_redux: ^0.4.0
   built_redux: ^7.0.0
   built_value: ^4.3.2
   built_collection: ^2.0.0

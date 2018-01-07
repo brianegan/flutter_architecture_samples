@@ -18,10 +18,9 @@ class EditTodo extends StoreConnector<AppState, AppActions, Null> {
       onSave: (task, note) {
         actions.updateTodoAction(new UpdateTodoActionPayload(
             todo.id,
-            (todo.toBuilder()
-                  ..task = task
-                  ..note = note)
-                .build()));
+            todo.rebuild((b) => b
+              ..task = task
+              ..note = note)));
       },
       todo: todo,
     );
