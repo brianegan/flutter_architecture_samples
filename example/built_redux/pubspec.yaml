@@ -18,7 +18,7 @@ dev_dependencies:
   build_runner: ^0.5.0
   built_value_generator: ^4.3.2
   source_gen: ^0.7.0
-  test: any
+  test: ^0.12.0
   mockito: ">=2.2.0 <3.0.0"
   flutter_driver:
     sdk: flutter
