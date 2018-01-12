@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:scoped_model/scoped_model.dart';
+import 'package:scoped_model_sample/models.dart';
+import 'package:scoped_model_sample/todo_list_model.dart';
+
+class ExtraActionsButton extends StatelessWidget {
+  ExtraActionsButton({
+    Key key,
+  })
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return new ScopedModelDescendant<TodoListModel>(
+        builder: (BuildContext context, Widget child, TodoListModel model) {
+      return new PopupMenuButton<ExtraAction>(
+        key: ArchSampleKeys.extraActionsButton,
+        onSelected: (action) {
+          if (action == ExtraAction.toggleAllComplete) {
+            model.toggleAll();
+          } else if (action == ExtraAction.clearCompleted) {
+            model.clearCompleted();
+          }
+        },
+        itemBuilder: (BuildContext context) => <PopupMenuItem<ExtraAction>>[
+              new PopupMenuItem<ExtraAction>(
+                key: ArchSampleKeys.toggleAll,
+                value: ExtraAction.toggleAllComplete,
+                child: new Text(model.todos.any((it) => !it.complete)
+                    ? ArchSampleLocalizations.of(context).markAllIncomplete
+                    : ArchSampleLocalizations.of(context).markAllComplete),
+              ),
+              new PopupMenuItem<ExtraAction>(
+                key: ArchSampleKeys.clearCompleted,
+                value: ExtraAction.clearCompleted,
+                child: new Text(
+                    ArchSampleLocalizations.of(context).clearCompleted),
+              ),
+            ],
+      );
+    });
+  }
+}
