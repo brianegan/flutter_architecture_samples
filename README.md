@@ -12,9 +12,11 @@ You can use the samples in this project as a learning reference, or as a startin
 
 ### Current Samples
 
-  * [Vanilla Example](example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
+  * [Lifting State Up (Vanilla) Example](example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
+  * [InheritedWidget Example](example/inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
   * [Redux Example](example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
-  * [built_redux Example](example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to manage app state and update Widgets
+  * [built_redux Example](example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
+  * [scoped_model Example](example/scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
   
 ### Supporting Code
 
