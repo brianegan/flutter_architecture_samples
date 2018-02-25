@@ -11,6 +11,10 @@ The Integration (aka end to end tests) that should be run against every sample a
 
 In order to run tests on against your app, you need to use the `flutter_driver`. This tool allows you to find Widgets on screen and send commands to them. This allows you to tap on Widgets, scroll through lists, or get the text of a Text Widget.
 
+To run the tests
+  1. cd example/\<app>/ (e.g. `cd example/vanilla/`)
+  2. flutter drive --target test_driver/todo_app.dart
+
 To get started with Flutter Driver, please check out the following links:
 
   * [How to write an integration test in Flutter](http://cogitas.net/write-integration-test-flutter/) by [Natalie Masse Hooper](https://twitter.com/NatJM)    
