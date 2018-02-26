@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:vanilla/models.dart';
 import 'package:vanilla/localization.dart';
+import 'package:vanilla/models.dart';
 import 'package:vanilla/widgets/extra_actions_button.dart';
 import 'package:vanilla/widgets/filter_button.dart';
 import 'package:vanilla/widgets/stats_counter.dart';
