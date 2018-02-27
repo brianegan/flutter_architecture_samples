@@ -27,8 +27,11 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
   _$FilterSelectorViewModel._({this.onFilterSelected, this.activeFilter})
       : super._() {
     if (onFilterSelected == null)
-      throw new ArgumentError.notNull('onFilterSelected');
-    if (activeFilter == null) throw new ArgumentError.notNull('activeFilter');
+      throw new BuiltValueNullFieldError(
+          'FilterSelectorViewModel', 'onFilterSelected');
+    if (activeFilter == null)
+      throw new BuiltValueNullFieldError(
+          'FilterSelectorViewModel', 'activeFilter');
   }
 
   @override

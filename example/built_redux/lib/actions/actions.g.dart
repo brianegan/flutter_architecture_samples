@@ -79,8 +79,11 @@ class _$UpdateTodoActionPayload extends UpdateTodoActionPayload {
       (new UpdateTodoActionPayloadBuilder()..update(updates)).build();
 
   _$UpdateTodoActionPayload._({this.id, this.updatedTodo}) : super._() {
-    if (id == null) throw new ArgumentError.notNull('id');
-    if (updatedTodo == null) throw new ArgumentError.notNull('updatedTodo');
+    if (id == null)
+      throw new BuiltValueNullFieldError('UpdateTodoActionPayload', 'id');
+    if (updatedTodo == null)
+      throw new BuiltValueNullFieldError(
+          'UpdateTodoActionPayload', 'updatedTodo');
   }
 
   @override
@@ -150,9 +153,22 @@ class UpdateTodoActionPayloadBuilder
 
   @override
   _$UpdateTodoActionPayload build() {
-    final _$result = _$v ??
-        new _$UpdateTodoActionPayload._(
-            id: id, updatedTodo: updatedTodo?.build());
+    _$UpdateTodoActionPayload _$result;
+    try {
+      _$result = _$v ??
+          new _$UpdateTodoActionPayload._(
+              id: id, updatedTodo: updatedTodo.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'updatedTodo';
+        updatedTodo.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'UpdateTodoActionPayload', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
