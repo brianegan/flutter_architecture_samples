@@ -63,7 +63,7 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
           result.todos.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Todo)]))
-              as BuiltList<Todo>);
+              as BuiltList);
           break;
         case 'activeTab':
           result.activeTab = serializers.deserialize(value,
@@ -90,17 +90,39 @@ class _$AppState extends AppState {
   final AppTab activeTab;
   @override
   final VisibilityFilter activeFilter;
+  int __numCompletedSelector;
+  int __numActiveSelector;
+  bool __allCompleteSelector;
+  List<Todo> __filteredTodosSelector;
 
   factory _$AppState([void updates(AppStateBuilder b)]) =>
       (new AppStateBuilder()..update(updates)).build();
 
   _$AppState._({this.isLoading, this.todos, this.activeTab, this.activeFilter})
       : super._() {
-    if (isLoading == null) throw new ArgumentError.notNull('isLoading');
-    if (todos == null) throw new ArgumentError.notNull('todos');
-    if (activeTab == null) throw new ArgumentError.notNull('activeTab');
-    if (activeFilter == null) throw new ArgumentError.notNull('activeFilter');
+    if (isLoading == null)
+      throw new BuiltValueNullFieldError('AppState', 'isLoading');
+    if (todos == null) throw new BuiltValueNullFieldError('AppState', 'todos');
+    if (activeTab == null)
+      throw new BuiltValueNullFieldError('AppState', 'activeTab');
+    if (activeFilter == null)
+      throw new BuiltValueNullFieldError('AppState', 'activeFilter');
   }
+
+  @override
+  int get numCompletedSelector =>
+      __numCompletedSelector ??= super.numCompletedSelector;
+
+  @override
+  int get numActiveSelector => __numActiveSelector ??= super.numActiveSelector;
+
+  @override
+  bool get allCompleteSelector =>
+      __allCompleteSelector ??= super.allCompleteSelector;
+
+  @override
+  List<Todo> get filteredTodosSelector =>
+      __filteredTodosSelector ??= super.filteredTodosSelector;
 
   @override
   AppState rebuild(void updates(AppStateBuilder b)) =>
@@ -184,12 +206,25 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   @override
   _$AppState build() {
-    final _$result = _$v ??
-        new _$AppState._(
-            isLoading: isLoading,
-            todos: todos?.build(),
-            activeTab: activeTab,
-            activeFilter: activeFilter);
+    _$AppState _$result;
+    try {
+      _$result = _$v ??
+          new _$AppState._(
+              isLoading: isLoading,
+              todos: todos.build(),
+              activeTab: activeTab,
+              activeFilter: activeFilter);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'todos';
+        todos.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'AppState', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

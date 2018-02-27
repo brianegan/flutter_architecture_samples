@@ -88,10 +88,11 @@ class _$Todo extends Todo {
       (new TodoBuilder()..update(updates)).build();
 
   _$Todo._({this.complete, this.id, this.note, this.task}) : super._() {
-    if (complete == null) throw new ArgumentError.notNull('complete');
-    if (id == null) throw new ArgumentError.notNull('id');
-    if (note == null) throw new ArgumentError.notNull('note');
-    if (task == null) throw new ArgumentError.notNull('task');
+    if (complete == null)
+      throw new BuiltValueNullFieldError('Todo', 'complete');
+    if (id == null) throw new BuiltValueNullFieldError('Todo', 'id');
+    if (note == null) throw new BuiltValueNullFieldError('Todo', 'note');
+    if (task == null) throw new BuiltValueNullFieldError('Todo', 'task');
   }
 
   @override

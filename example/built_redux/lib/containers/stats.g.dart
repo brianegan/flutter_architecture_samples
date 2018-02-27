@@ -24,8 +24,10 @@ class _$StatsProps extends StatsProps {
       (new StatsPropsBuilder()..update(updates)).build();
 
   _$StatsProps._({this.numCompleted, this.numActive}) : super._() {
-    if (numCompleted == null) throw new ArgumentError.notNull('numCompleted');
-    if (numActive == null) throw new ArgumentError.notNull('numActive');
+    if (numCompleted == null)
+      throw new BuiltValueNullFieldError('StatsProps', 'numCompleted');
+    if (numActive == null)
+      throw new BuiltValueNullFieldError('StatsProps', 'numActive');
   }
 
   @override
