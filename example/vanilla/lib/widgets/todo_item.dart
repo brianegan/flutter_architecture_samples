@@ -15,7 +15,8 @@ class TodoItem extends StatelessWidget {
     @required this.onTap,
     @required this.onCheckboxChanged,
     @required this.todo,
-  }) : super(key: key);
+  })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
