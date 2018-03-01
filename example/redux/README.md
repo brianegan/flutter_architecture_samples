@@ -4,13 +4,13 @@ This sample makes use of the [Redux](https://pub.dartlang.org/packages/redux) an
 
 ## Key Concepts
 
-  * App State is an immutable Object that lives at the top of your Widget hierarchy within a `Store`.
+  * App `State` is an immutable Object that lives at the top of your Widget hierarchy within a `Store`.
   * The `Store` is passed down to all ancestors via an `InheritedWidget` called a `StoreProvider`
-  * The `State` object is immutable. To update the `State`, you must dispatch an `Action`.
+  * The `State` object is immutable. To create a new `State`, you must dispatch an `Action`.
   * The `Action` will be picked up by a `Reducer`, which is a function that builds and returns a new `State` based on the previous `State` and the `Action` that was dispatched.
   * Reducers are pure functions.
-  * When the app State is updated, all Widgets connected to the `Store` using `StoreConnector` will be rebuilt.
-  * The Widgets that use `StoreConnectors` are called `container` Widgets. They are only responsible from converting the latest App State to a `ViewModel`.
+  * When there is a new app State, all Widgets connected to the `Store` using `StoreConnector` will be rebuilt.
+  * The Widgets that use `StoreConnectors` are called `container` Widgets. They are only responsible for converting the latest App State to a `ViewModel`.
   * The Widgets that display data are called `presentation` widgets. Think of a `Text` widget or `FloatingActionButton`.
   * To read data from the `State`, use `selector` functions. These act like queries against your "State Database".
   * To handle fetching data from our Database or Web Service, we use a `Middleware`.
@@ -87,6 +87,6 @@ Generally, this app conforms the "Testing Pyramid": Lots of Unit tests, fewer Wi
     - `container` Widgets can be tested to ensure they generate the correct `ViewModel`.
     - `presentation` Widgets can be tested by passing in fake data and making assertions against the Widget rendered with that data.
   * Integration Tests
-    - Run the app and drive it using the `flutter_driver`.
+    - Run the app and drive it using flutter_driver `flutter drive --target test_driver/todo_app.dart`.
     - Use the "Page Object Model" pattern to make the tests easier to read and maintain.
     
