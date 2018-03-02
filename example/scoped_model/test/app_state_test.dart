@@ -1,3 +1,7 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
@@ -55,7 +59,8 @@ main() {
       expect(model.filteredTodos, todos);
     });
 
-    test('should return active todos if the VisibilityFilter is active', () async {
+    test('should return active todos if the VisibilityFilter is active',
+        () async {
       final todo1 = new Todo('a');
       final todo2 = new Todo('b');
       final todo3 = new Todo('c', complete: true);

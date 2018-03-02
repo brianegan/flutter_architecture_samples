@@ -1,3 +1,7 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'package:inherited_widget_sample/models.dart';
 import 'package:flutter_test/flutter_test.dart';
 

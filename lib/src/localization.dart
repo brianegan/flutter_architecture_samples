@@ -1,8 +1,12 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_architecture_samples/src/localizations/messages_all.dart';
+import 'package:intl/intl.dart';
 
 class ArchSampleLocalizations {
   ArchSampleLocalizations(this.locale);
@@ -10,7 +14,7 @@ class ArchSampleLocalizations {
   final Locale locale;
 
   static Future<ArchSampleLocalizations> load(Locale locale) {
-    return initializeMessages(locale.toString()).then((Null value) {
+    return initializeMessages(locale.toString()).then((_) {
       return new ArchSampleLocalizations(locale);
     });
   }

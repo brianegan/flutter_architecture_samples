@@ -1,3 +1,7 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:inherited_widget_sample/models.dart';
@@ -22,23 +26,23 @@ class ExtraActionsButton extends StatelessWidget {
       onSelected: onSelected,
       itemBuilder: (BuildContext context) {
         return <PopupMenuItem<ExtraAction>>[
-            new PopupMenuItem<ExtraAction>(
-              key: ArchSampleKeys.toggleAll,
-              value: ExtraAction.toggleAllComplete,
-              child: new Text(
-                allComplete
-                    ? ArchSampleLocalizations.of(context).markAllIncomplete
-                    : ArchSampleLocalizations.of(context).markAllComplete,
-              ),
+          new PopupMenuItem<ExtraAction>(
+            key: ArchSampleKeys.toggleAll,
+            value: ExtraAction.toggleAllComplete,
+            child: new Text(
+              allComplete
+                  ? ArchSampleLocalizations.of(context).markAllIncomplete
+                  : ArchSampleLocalizations.of(context).markAllComplete,
             ),
-            new PopupMenuItem<ExtraAction>(
-              key: ArchSampleKeys.clearCompleted,
-              value: ExtraAction.clearCompleted,
-              child: new Text(
-                ArchSampleLocalizations.of(context).clearCompleted,
-              ),
+          ),
+          new PopupMenuItem<ExtraAction>(
+            key: ArchSampleKeys.clearCompleted,
+            value: ExtraAction.clearCompleted,
+            child: new Text(
+              ArchSampleLocalizations.of(context).clearCompleted,
             ),
-          ];
+          ),
+        ];
       },
     );
   }
