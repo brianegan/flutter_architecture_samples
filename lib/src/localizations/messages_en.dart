@@ -24,6 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static m0(task) => "Deleted \"${task}\"";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
+
   static _notInlinedMessages(_) => {
         "activeTodos": MessageLookupByLibrary.simpleMessage("Active Todos"),
         "addTodo": MessageLookupByLibrary.simpleMessage("Add Todo"),

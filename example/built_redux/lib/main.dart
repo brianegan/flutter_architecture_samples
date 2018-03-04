@@ -5,16 +5,16 @@
 library built_redux_sample;
 
 import 'package:built_redux/built_redux.dart';
-import 'package:built_redux_sample/containers/add_todo.dart';
-import 'package:built_redux_sample/models/models.dart';
-import 'package:built_redux_sample/localization.dart';
 import 'package:built_redux_sample/actions/actions.dart';
-import 'package:built_redux_sample/reducers/reducers.dart';
+import 'package:built_redux_sample/containers/add_todo.dart';
+import 'package:built_redux_sample/localization.dart';
 import 'package:built_redux_sample/middleware/store_todos_middleware.dart';
+import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/home_screen.dart';
-import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:built_redux_sample/reducers/reducers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 void main() {
   runApp(new BuiltReduxApp());

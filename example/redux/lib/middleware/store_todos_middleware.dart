@@ -2,12 +2,12 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:todos_repository/todos_repository.dart';
-import 'package:path_provider/path_provider.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([
   TodosRepository repository = const TodosRepository(

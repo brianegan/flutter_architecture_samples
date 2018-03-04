@@ -168,19 +168,27 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   _$AppState _$v;
 
   bool _isLoading;
+
   bool get isLoading => _$this._isLoading;
+
   set isLoading(bool isLoading) => _$this._isLoading = isLoading;
 
   ListBuilder<Todo> _todos;
+
   ListBuilder<Todo> get todos => _$this._todos ??= new ListBuilder<Todo>();
+
   set todos(ListBuilder<Todo> todos) => _$this._todos = todos;
 
   AppTab _activeTab;
+
   AppTab get activeTab => _$this._activeTab;
+
   set activeTab(AppTab activeTab) => _$this._activeTab = activeTab;
 
   VisibilityFilter _activeFilter;
+
   VisibilityFilter get activeFilter => _$this._activeFilter;
+
   set activeFilter(VisibilityFilter activeFilter) =>
       _$this._activeFilter = activeFilter;
 

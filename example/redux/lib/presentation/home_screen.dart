@@ -4,14 +4,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:redux_sample/containers/active_tab.dart';
 import 'package:redux_sample/containers/extra_actions_container.dart';
 import 'package:redux_sample/containers/filter_selector.dart';
-import 'package:redux_sample/containers/active_tab.dart';
 import 'package:redux_sample/containers/filtered_todos.dart';
 import 'package:redux_sample/containers/stats.dart';
 import 'package:redux_sample/containers/tab_selector.dart';
-import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/localization.dart';
+import 'package:redux_sample/models/models.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen() : super(key: ArchSampleKeys.homeScreen);

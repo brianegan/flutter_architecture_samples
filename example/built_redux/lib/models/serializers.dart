@@ -4,9 +4,9 @@
 
 library serializers;
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_value/serializer.dart';
-import 'package:built_collection/built_collection.dart';
 
 part 'serializers.g.dart';
 

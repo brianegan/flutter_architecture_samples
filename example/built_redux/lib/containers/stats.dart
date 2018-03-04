@@ -4,8 +4,8 @@
 
 library stats;
 
-import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/stats_counter.dart';
 import 'package:built_value/built_value.dart';
 import 'package:flutter/src/widgets/framework.dart';

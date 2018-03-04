@@ -3,7 +3,9 @@
 // in the LICENSE file.
 
 import 'dart:async';
+
 import 'package:flutter_driver/flutter_driver.dart';
+
 import 'test_element.dart';
 
 class StatsElement extends TestElement {

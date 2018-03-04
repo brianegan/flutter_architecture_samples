@@ -3,8 +3,8 @@
 // in the LICENSE file.
 
 import 'package:built_redux/built_redux.dart';
-import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/actions/actions.dart';
+import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/reducers/reducers.dart';
 import 'package:test/test.dart';
 

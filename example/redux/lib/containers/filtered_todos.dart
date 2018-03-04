@@ -6,10 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/actions/actions.dart';
-import 'package:redux_sample/selectors/selectors.dart';
+import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/presentation/todo_list.dart';
+import 'package:redux_sample/selectors/selectors.dart';
 
 class FilteredTodos extends StatelessWidget {
   FilteredTodos({Key key}) : super(key: key);

@@ -4,9 +4,9 @@
 
 library actions;
 
+import 'package:built_redux/built_redux.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_value/built_value.dart';
-import 'package:built_redux/built_redux.dart';
 import 'package:built_value/serializer.dart';
 
 part 'actions.g.dart';

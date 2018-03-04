@@ -4,13 +4,13 @@
 
 library filter_selector;
 
+import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/containers/typedefs.dart';
 import 'package:built_redux_sample/models/models.dart';
-import 'package:built_redux_sample/actions/actions.dart';
+import 'package:built_value/built_value.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
-import 'package:built_value/built_value.dart';
 
 part 'filter_selector.g.dart';
 

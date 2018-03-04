@@ -8,8 +8,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/presentation/details_screen.dart';
+import 'package:redux_sample/selectors/selectors.dart';
 
 class TodoDetails extends StatelessWidget {
   final String id;

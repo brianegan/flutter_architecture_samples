@@ -3,6 +3,7 @@
 // in the LICENSE file.
 
 import 'dart:async';
+
 import 'package:todos_repository/src/todo_entity.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web

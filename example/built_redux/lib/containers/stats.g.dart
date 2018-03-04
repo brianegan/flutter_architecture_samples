@@ -66,11 +66,15 @@ class StatsPropsBuilder implements Builder<StatsProps, StatsPropsBuilder> {
   _$StatsProps _$v;
 
   int _numCompleted;
+
   int get numCompleted => _$this._numCompleted;
+
   set numCompleted(int numCompleted) => _$this._numCompleted = numCompleted;
 
   int _numActive;
+
   int get numActive => _$this._numActive;
+
   set numActive(int numActive) => _$this._numActive = numActive;
 
   StatsPropsBuilder();

@@ -4,9 +4,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:inherited_widget_sample/state_container.dart';
 import 'package:inherited_widget_sample/models.dart';
 import 'package:inherited_widget_sample/screens/detail_screen.dart';
+import 'package:inherited_widget_sample/state_container.dart';
 import 'package:inherited_widget_sample/widgets/todo_item.dart';
 
 class TodoList extends StatelessWidget {

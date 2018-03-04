@@ -2,11 +2,11 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:redux/redux.dart';
-import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/actions/actions.dart';
-import 'package:redux_sample/reducers/app_state_reducer.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_sample/actions/actions.dart';
+import 'package:redux_sample/models/models.dart';
+import 'package:redux_sample/reducers/app_state_reducer.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 
 main() {

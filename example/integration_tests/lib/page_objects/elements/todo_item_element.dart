@@ -3,7 +3,9 @@
 // in the LICENSE file.
 
 import 'dart:async';
+
 import 'package:flutter_driver/flutter_driver.dart';
+
 import '../screens/details_test_screen.dart';
 import '../utils.dart';
 import 'test_element.dart';

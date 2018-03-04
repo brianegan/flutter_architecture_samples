@@ -7,8 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/selectors/selectors.dart';
 import 'package:redux_sample/presentation/stats_counter.dart';
+import 'package:redux_sample/selectors/selectors.dart';
 
 class Stats extends StatelessWidget {
   Stats({Key key}) : super(key: key);

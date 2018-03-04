@@ -126,11 +126,15 @@ class UpdateTodoActionPayloadBuilder
   _$UpdateTodoActionPayload _$v;
 
   String _id;
+
   String get id => _$this._id;
+
   set id(String id) => _$this._id = id;
 
   TodoBuilder _updatedTodo;
+
   TodoBuilder get updatedTodo => _$this._updatedTodo ??= new TodoBuilder();
+
   set updatedTodo(TodoBuilder updatedTodo) => _$this._updatedTodo = updatedTodo;
 
   UpdateTodoActionPayloadBuilder();
@@ -184,6 +188,7 @@ class UpdateTodoActionPayloadBuilder
 
 class _$AppActions extends AppActions {
   factory _$AppActions() => new _$AppActions._();
+
   _$AppActions._() : super._();
 
   final ActionDispatcher<Todo> addTodoAction =

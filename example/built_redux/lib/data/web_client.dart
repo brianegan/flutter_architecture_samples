@@ -3,6 +3,7 @@
 // in the LICENSE file.
 
 import 'dart:async';
+
 import 'package:built_redux_sample/models/models.dart';
 
 /// A class that is meant to represent a Web Service you would call to fetch
