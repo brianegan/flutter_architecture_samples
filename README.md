@@ -19,7 +19,9 @@ To run the samples, please use the `beta` channel and Dart 1 for now. We'll upda
   * [Redux Example](example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
   * [built_redux Example](example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
   * [scoped_model Example](example/scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
-  
+  * [Firestore Redux Example](example/firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and 
+  adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
+
 ### Supporting Code
 
   * [integration_tests](example/integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.

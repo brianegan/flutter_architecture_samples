@@ -1,0 +1,60 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
+import 'package:flutter/material.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:fire_redux_sample/containers/add_todo.dart';
+import 'package:fire_redux_sample/localization.dart';
+import 'package:fire_redux_sample/middleware/store_todos_middleware.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/presentation/home_screen.dart';
+import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
+import 'package:fire_redux_sample/firestore_services.dart';
+
+void main() {
+  runApp(new ReduxApp());
+}
+
+class ReduxApp extends StatelessWidget {
+  static dynamic firestoreServices = new FirestoreServices();
+
+  static Store<AppState> store = new Store<AppState>(
+    appReducer,
+    initialState: new AppState.loading(),
+    middleware: createStoreTodosMiddleware(firestoreServices),
+  );
+
+  ReduxApp() {
+    firestoreServices.anonymousLogin(store);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new StoreProvider(
+      store: store,
+      child: new MaterialApp(
+        title: new ReduxLocalizations().appTitle,
+        theme: ArchSampleTheme.theme,
+        localizationsDelegates: [
+          new ArchSampleLocalizationsDelegate(),
+          new ReduxLocalizationsDelegate(),
+        ],
+        routes: {
+          ArchSampleRoutes.home: (context) {
+            return new StoreBuilder<AppState>(
+              builder: (context, store) {
+                return new HomeScreen();
+              },
+            );
+          },
+          ArchSampleRoutes.addTodo: (context) {
+            return new AddTodo();
+          },
+        },
+      ),
+    );
+  }
+}
