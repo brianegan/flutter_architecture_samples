@@ -5,9 +5,9 @@ FILES := $(shell find . -name '*.arb' | xargs)
 all: localize
 
 localize: check_env clean
-	pub run intl_translation:extract_to_arb --output-dir=./ --no-transformer lib/src/localization.dart
+	flutter pub pub run intl_translation:extract_to_arb --output-dir=./ --no-transformer lib/src/localization.dart
 	mv intl_messages.arb intl_en.arb
-	pub run intl_translation:generate_from_arb lib/src/localization.dart $(FILES)
+	flutter pub pub run intl_translation:generate_from_arb --no-use-deferred-loading lib/src/localization.dart $(FILES)
 	mv messages*.dart lib/src/localizations
 
 clean:
