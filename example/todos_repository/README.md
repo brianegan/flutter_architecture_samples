@@ -2,6 +2,17 @@
 
 An app-agnostic data source that can be used by sample apps to fetch and persist data. 
 
+## Getting Started
+
+The code is in `example/todos_repository/lib/`.
+
+The tests can be run from the command line
+
+```
+cd flutter_architecture_samples/example/todos_repository
+flutter test
+```
+
 ## Key Concepts
 
   * Provides a clean interface to the data layer
