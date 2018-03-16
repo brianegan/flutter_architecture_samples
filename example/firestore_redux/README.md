@@ -10,9 +10,10 @@ persistence for Android and iOS. Firebase authentication is included for anonymo
 
 # Set-up
 
-The steps below were developed from [MemeChat repo](https://github.com/efortuna/memechat/blob/master/README.md). 
+The steps below were primarily developed from [MemeChat repo](https://github.com/efortuna/memechat/blob/master/README.md). 
 There is a very useful [video tutorial](https://www.youtube.com/watch?v=w2TcYP8qiRI) associated with the MemeChat 
-repo from 2017 Google I/O that covers some basics related to connecting to Firebase. 
+repo from 2017 Google I/O that covers some basics related to connecting to Firebase. Additionally, refer to 
+[Firebase for Flutter Codelab](https://codelabs.developers.google.com/codelabs/flutter-firebase/index.html?index=..%2F..%2Findex#0)
 In the present case, Firestore is being used but set up is similar.
 
 1) Set up a Firestore instance at [Firebase Console](https://console.firebase.google.com/).
@@ -23,22 +24,32 @@ In the present case, Firestore is being used but set up is similar.
 3) For Android:
 
     - Create an app within your Firebase instance for Android, with package name com.yourcompany.fireredux.
+    In the Firebase console, in the settings of your Android app, add your SHA-1 key by clicking "Add Fingerprint".
+    Run the following command to get your SHA-1 key:
+    
+    `keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
     - Follow instructions to download google-services.json, and place it into fire_redux/android/app/.
     - Set the defaultConfig.applicationID in `android/app/build.gradle` to match 
     android_client_info.package_name in `google-services.json`, e.g. `com.yourcompany.firereduxandroid`.
     This is the name of your Android app in Firebase. 
     Package names must match between files `android/app/src/main/AndroidManifest.xml` and 
     `android/app/src/main/java/yourcompany/redux/MainActivity.java`, e.g. `com.yourcompany.fireredux`.
-    - Run the following command to get your SHA-1 key:
-    
-    `keytool -exportcert -list -v \
-     -alias androiddebugkey -keystore ~/.android/debug.keystore`
-    - In the Firebase console, in the settings of your Android app, add your SHA-1 key by clicking "Add Fingerprint".
+
     - To connect to Firestore be sure your project is using Gradle 4.1 and Android Studio Gradle plugin 3.0.1.
+    If you are creating a new Flutter project, then this should already be set up properly.
     If not, then follow these 
     [upgrades steps](https://github.com/flutter/flutter/wiki/Updating-Flutter-projects-to-Gradle-4.1-and-Android-Studio-Gradle-plugin-3.0.1).
     You will need to edit these files: `android/gradle/wrapper/gradle-wrapper.properties`, 
     `android/build.gradle`, and `android/app/build.gradle`.
+    
+    - Add google-service plugin to `android/build.gradle` under buildscript.dependencies:
+    `classpath 'com.google.gms:google-services:3.1.0'`. Also to `android/app/build.gradle` apply plugin by
+    adding `apply plugin: 'com.google.gms.google-services'` to the end of the file.
+    
+    - Add the following to `android/build.gradle` under allprojects.repositories:
+    `        maven {
+                 url "https://jitpack.io"
+             }`
     
 4) For iOS:
 
