@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
+// Use of this source code is governed by the MIT license that can be found 
 // in the LICENSE file.
 
 import 'package:redux/redux.dart';
@@ -14,7 +14,7 @@ import 'firestore_services_mock.dart';
 main() {
   group('verify all actions with Middleware', () {
     test('AddTodoAction: should have 3 todos, 2 active and 1 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
@@ -35,7 +35,7 @@ main() {
     test(
         'ClearCompletedAction: '
         'should have 2 todos, 2 active and 0 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
@@ -57,7 +57,7 @@ main() {
     test(
         'ToggleAllAction(false): '
         'should have 3 todos, 0 active and 3 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
@@ -79,7 +79,7 @@ main() {
     test(
         'ToggleAllAction(true): '
         'should have 3 todos, 3 active and 0 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
@@ -101,7 +101,7 @@ main() {
     test(
         'UpdateTodoAction: '
         'should have 3 todos, 1 active and 2 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
@@ -125,7 +125,7 @@ main() {
     test(
         'DeleteTodoAction: '
         'should have 2 todos, 1 active and 1 completed', () {
-      final firestoreServices = new FirestoreServices();
+      final firestoreServices = new MockFirestoreServices();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),

@@ -3,12 +3,14 @@
 // in the LICENSE file.
 
 import 'dart:async';
-import 'package:fire_redux_sample/models/models.dart';
-import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:todos_repository/src/web_client.dart';
-import 'package:fire_redux_sample/selectors/selectors.dart';
 
-class FirestoreServices {
+import 'package:fire_redux_sample/actions/actions.dart';
+import 'package:fire_redux_sample/firestore_services.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/selectors/selectors.dart';
+import 'package:todos_repository/src/web_client.dart';
+
+class MockFirestoreServices implements FirestoreServices {
   void anonymousLogin(store, [delayAuth = const Duration(milliseconds: 1000)]) {
     new Future.delayed(delayAuth, () {
       todosListener(store);
