@@ -51,3 +51,13 @@ All of these ideas and even some of the language are directly influenced by two 
 
   - [TodoMVC](http://todomvc.com) - A Todo App implemented in various JS frameworks
   - [Android Architecture Blueprints](https://github.com/googlesamples/android-architecture) - A similar concept, but for Android! The UI and app spec was highly inspired by their example. 
+
+## Contributors
+
+  * [Brian Egan](https://github.com/brianegan)
+  * [David Marne](https://github.com/davidmarne)
+  * [Pascal Welsch](https://github.com/passsy)
+  * [Larry King](https://github.com/kinggolf)
+  * [Frank Harper](https://github.com/franklinharper)
+
+I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
