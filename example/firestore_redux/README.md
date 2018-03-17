@@ -32,7 +32,7 @@ In the present case, Firestore is being used but set up is similar.
     - Set the defaultConfig.applicationID in `android/app/build.gradle` to match 
     android_client_info.package_name in `google-services.json`, e.g. `com.yourcompany.firereduxandroid`.
     This is the name of your Android app in Firebase. 
-    Package values must match between files `android/app/src/main/AndroidManifest.xml` and 
+    Package names must match between files `android/app/src/main/AndroidManifest.xml` and 
     `android/app/src/main/java/yourcompany/redux/MainActivity.java`, e.g. `com.yourcompany.fireredux`.
 
     - To connect to Firestore be sure your project is using Gradle 4.1 and Android Studio Gradle plugin 3.0.1.
@@ -43,15 +43,10 @@ In the present case, Firestore is being used but set up is similar.
     `android/build.gradle`, and `android/app/build.gradle`.
     
     - Add google-service plugin to `android/build.gradle` under buildscript.dependencies:
-    
-    `classpath 'com.google.gms:google-services:3.1.0'`. 
-    
-    - Apply this plugin to `android/app/build.gradle` by adding this to the end of the file:
-    
-    `apply plugin: 'com.google.gms.google-services'`
+    `classpath 'com.google.gms:google-services:3.1.0'`. Also to `android/app/build.gradle` apply plugin by
+    adding `apply plugin: 'com.google.gms.google-services'` to the end of the file.
     
     - Add the following to `android/build.gradle` under allprojects.repositories:
-    
     `        maven {
                  url "https://jitpack.io"
              }`
