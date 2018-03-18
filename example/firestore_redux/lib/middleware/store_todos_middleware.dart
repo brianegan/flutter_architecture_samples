@@ -3,19 +3,19 @@
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/firestore_service.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
+import 'package:fire_redux_sample/todos_service.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware(
-  FirestoreService services,
+  TodosService services,
 ) {
   return combineTypedMiddleware([
-    new MiddlewareBinding<AppState, SignInAction>(
+    new MiddlewareBinding<AppState, InitAppAction>(
       _firestoreSignIn(services),
     ),
-    new MiddlewareBinding<AppState, DataSourceConnectAction>(
+    new MiddlewareBinding<AppState, ConnectToDataSourceAction>(
       _firestoreConnect(services),
     ),
     new MiddlewareBinding<AppState, AddTodoAction>(
@@ -36,20 +36,20 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
   ]);
 }
 
-TypedMiddleware<AppState, SignInAction> _firestoreSignIn(
-  FirestoreService services,
+TypedMiddleware<AppState, InitAppAction> _firestoreSignIn(
+  TodosService services,
 ) {
-  return (store, SignInAction action, next) {
+  return (store, InitAppAction action, next) {
     next(action);
 
     services.anonymousLogin().then((_) {
-      store.dispatch(new DataSourceConnectAction());
+      store.dispatch(new ConnectToDataSourceAction());
     });
   };
 }
 
-TypedMiddleware<AppState, DataSourceConnectAction> _firestoreConnect(
-  FirestoreService services,
+TypedMiddleware<AppState, ConnectToDataSourceAction> _firestoreConnect(
+  TodosService services,
 ) {
   return (store, action, next) {
     next(action);
@@ -61,7 +61,7 @@ TypedMiddleware<AppState, DataSourceConnectAction> _firestoreConnect(
 }
 
 TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
-  FirestoreService services,
+  TodosService services,
 ) {
   return (store, action, next) {
     next(action);
@@ -70,7 +70,7 @@ TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
 }
 
 TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
-  FirestoreService services,
+  TodosService services,
 ) {
   return (store, action, next) {
     next(action);
@@ -79,7 +79,7 @@ TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
 }
 
 TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
-  FirestoreService services,
+  TodosService services,
 ) {
   return (store, action, next) {
     next(action);
@@ -88,31 +88,30 @@ TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
 }
 
 TypedMiddleware<AppState, ToggleAllAction> _firestoreToggleAll(
-  FirestoreService services,
+  TodosService services,
 ) {
   return (store, action, next) {
-    for (var todo in todosSelector(store.state)) {
-      if (action.toggleAllTodosToActive) {
+    next(action);
+    var todos = todosSelector(store.state);
+
+    for (var todo in todos) {
+      if (allCompleteSelector(todos)) {
         if (todo.complete) services.updateTodo(todo.copyWith(complete: false));
       } else {
         if (!todo.complete) services.updateTodo(todo.copyWith(complete: true));
       }
     }
-    next(action);
   };
 }
 
 TypedMiddleware<AppState, ClearCompletedAction> _firestoreClearCompleted(
-  FirestoreService services,
+  TodosService services,
 ) {
   return (store, action, next) {
     next(action);
 
     services.deleteTodo(
-      filteredTodosSelector(
-        todosSelector(store.state),
-        VisibilityFilter.completed,
-      ).map((todo) => todo.id).toList(),
+      completeTodosSelector(todosSelector(store.state)).map((todo) => todo.id).toList(),
     );
   };
 }

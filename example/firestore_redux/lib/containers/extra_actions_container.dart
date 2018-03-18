@@ -44,9 +44,7 @@ class _ViewModel {
         if (action == ExtraAction.clearCompleted) {
           store.dispatch(new ClearCompletedAction());
         } else if (action == ExtraAction.toggleAllComplete) {
-          store.dispatch(new ToggleAllAction(allCompleteSelector(
-            todosSelector(store.state),
-          )));
+          store.dispatch(new ToggleAllAction());
         }
       },
       allComplete: allCompleteSelector(todosSelector(store.state)),

@@ -5,8 +5,8 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire_redux_sample/firestore_service.dart';
 import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/todos_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -36,7 +36,7 @@ main() {
 
       service.addNewTodo(todo);
 
-      verify(document.setData(any));
+      verify(document.setData(todo.toMap()));
     });
 
     test('should update todos on firestore', () {

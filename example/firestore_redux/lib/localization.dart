@@ -1,30 +1,30 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class ReduxLocalizations {
-  static ReduxLocalizations of(BuildContext context) {
-    return Localizations.of<ReduxLocalizations>(
+class FirestoreReduxLocalizations {
+  static FirestoreReduxLocalizations of(BuildContext context) {
+    return Localizations.of<FirestoreReduxLocalizations>(
       context,
-      ReduxLocalizations,
+      FirestoreReduxLocalizations,
     );
   }
 
-  String get appTitle => "Redux Example";
+  String get appTitle => "Firestore Redux Example";
 }
 
-class ReduxLocalizationsDelegate
-    extends LocalizationsDelegate<ReduxLocalizations> {
+class FirestoreReduxLocalizationsDelegate
+    extends LocalizationsDelegate<FirestoreReduxLocalizations> {
   @override
-  Future<ReduxLocalizations> load(Locale locale) =>
-      new Future(() => new ReduxLocalizations());
+  Future<FirestoreReduxLocalizations> load(Locale locale) =>
+      new Future(() => new FirestoreReduxLocalizations());
 
   @override
-  bool shouldReload(ReduxLocalizationsDelegate old) => false;
+  bool shouldReload(FirestoreReduxLocalizationsDelegate old) => false;
 
   @override
   bool isSupported(Locale locale) =>

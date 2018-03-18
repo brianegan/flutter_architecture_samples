@@ -7,13 +7,11 @@ import 'package:fire_redux_sample/models/models.dart';
 class ClearCompletedAction {}
 
 class ToggleAllAction {
-  final bool toggleAllTodosToActive;
-
-  ToggleAllAction(this.toggleAllTodosToActive);
+  ToggleAllAction();
 
   @override
   String toString() {
-    return 'ToggleAllAction{toggleAllTodosToActive: $toggleAllTodosToActive}';
+    return 'ToggleAllAction{}';
   }
 }
 
@@ -62,9 +60,19 @@ class AddTodoAction {
   }
 }
 
-class SignInAction {}
+class InitAppAction {
+  @override
+  String toString() {
+    return 'InitAppAction{}';
+  }
+}
 
-class DataSourceConnectAction {}
+class ConnectToDataSourceAction {
+  @override
+  String toString() {
+    return 'ConnectToDataSourceAction{}';
+  }
+}
 
 class UpdateFilterAction {
   final VisibilityFilter newFilter;

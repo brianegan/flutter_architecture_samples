@@ -30,7 +30,7 @@ In the present case, Firestore is being used but set up is similar.
     `keytool -exportcert -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore`
     - Follow instructions to download google-services.json, and place it into fire_redux/android/app/.
     - Set the defaultConfig.applicationID in `android/app/build.gradle` to match 
-    android_client_info.package_name in `google-services.json`, e.g. `com.yourcompany.firereduxandroid`.
+    android_client_info.package_name in `google-services.json`, e.g. `com.yourcompany.fireredux`.
     This is the name of your Android app in Firebase. 
     Package values must match between files `android/app/src/main/AndroidManifest.xml` and 
     `android/app/src/main/java/yourcompany/redux/MainActivity.java`, e.g. `com.yourcompany.fireredux`.

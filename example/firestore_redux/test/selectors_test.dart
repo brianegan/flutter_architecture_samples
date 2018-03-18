@@ -9,6 +9,18 @@ import 'package:fire_redux_sample/selectors/selectors.dart';
 
 main() {
   group('Selectors', () {
+    test('should list the active todos', () {
+      final todoA = new Todo('a');
+      final todoB = new Todo('b');
+      final todos = [
+        todoA,
+        todoB,
+        new Todo('c', complete: true),
+      ];
+
+      expect(activeTodosSelector(todos), [todoA, todoB]);
+    });
+
     test('should calculate the number of active todos', () {
       final todos = [
         new Todo('a'),
@@ -17,6 +29,17 @@ main() {
       ];
 
       expect(numActiveSelector(todos), 2);
+    });
+
+    test('should list the completed todos', () {
+      final todo = new Todo('c', complete: true);
+      final todos = [
+        new Todo('a'),
+        new Todo('b'),
+        todo,
+      ];
+
+      expect(completeTodosSelector(todos), [todo]);
     });
 
     test('should calculate the number of completed todos', () {

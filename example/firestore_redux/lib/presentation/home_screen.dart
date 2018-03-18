@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
       builder: (BuildContext context, AppTab activeTab) {
         return new Scaffold(
           appBar: new AppBar(
-            title: new Text(ReduxLocalizations.of(context).appTitle),
+            title: new Text(FirestoreReduxLocalizations.of(context).appTitle),
             actions: [
               new FilterSelector(visible: activeTab == AppTab.todos),
               new ExtraActionsContainer(),
