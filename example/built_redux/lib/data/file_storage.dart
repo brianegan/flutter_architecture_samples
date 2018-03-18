@@ -25,7 +25,7 @@ class FileStorage {
     final contents = await file.readAsString();
 
     return serializers
-        .deserializeWith(AppState.serializer, JSON.decode(contents))
+        .deserializeWith(AppState.serializer, json.decode(contents))
         .todos
         .toList();
   }
@@ -34,7 +34,7 @@ class FileStorage {
     final file = await _getLocalFile();
 
     return file.writeAsString(
-      JSON.encode(
+      json.encode(
         serializers.serializeWith(
           AppState.serializer,
           new AppState.fromTodos(todos),

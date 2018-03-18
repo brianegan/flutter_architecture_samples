@@ -1,34 +1,47 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
-// in the LICENSE file.
-
-import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/containers/add_todo.dart';
+import 'package:fire_redux_sample/firestore_service.dart';
 import 'package:fire_redux_sample/localization.dart';
 import 'package:fire_redux_sample/middleware/store_todos_middleware.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/home_screen.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
-import 'package:fire_redux_sample/firestore_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 
-void main() {
-  runApp(new ReduxApp());
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
+void main([FirestoreService service]) {
+  runApp(new ReduxApp(
+    service: service,
+  ));
 }
 
 class ReduxApp extends StatelessWidget {
-  static dynamic firestoreServices = new FirestoreServices();
+  final Store<AppState> store;
 
-  static Store<AppState> store = new Store<AppState>(
-    appReducer,
-    initialState: new AppState.loading(),
-    middleware: createStoreTodosMiddleware(firestoreServices),
-  );
-
-  ReduxApp() {
-    firestoreServices.anonymousLogin(store);
+  ReduxApp({
+    Key key,
+    FirestoreService service,
+  })  : store = new Store<AppState>(
+          appReducer,
+          initialState: new AppState.loading(),
+          middleware: createStoreTodosMiddleware(
+            service ??
+                new FirestoreService(
+                  FirebaseAuth.instance,
+                  Firestore.instance,
+                ),
+          ),
+        ),
+        super(key: key) {
+    store.dispatch(new SignInAction());
   }
 
   @override

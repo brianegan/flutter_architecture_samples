@@ -3,72 +3,116 @@
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/firestore_services.dart';
+import 'package:fire_redux_sample/firestore_service.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware(
-    FirestoreServices firestoreServices) {
+  FirestoreService services,
+) {
   return combineTypedMiddleware([
+    new MiddlewareBinding<AppState, SignInAction>(
+      _firestoreSignIn(services),
+    ),
+    new MiddlewareBinding<AppState, DataSourceConnectAction>(
+      _firestoreConnect(services),
+    ),
     new MiddlewareBinding<AppState, AddTodoAction>(
-        _firestoreSaveNewTodo(firestoreServices)),
+      _firestoreSaveNewTodo(services),
+    ),
     new MiddlewareBinding<AppState, DeleteTodoAction>(
-        _firestoreDeleteTodo(firestoreServices)),
+      _firestoreDeleteTodo(services),
+    ),
     new MiddlewareBinding<AppState, UpdateTodoAction>(
-        _firestoreUpdateTodo(firestoreServices)),
+      _firestoreUpdateTodo(services),
+    ),
     new MiddlewareBinding<AppState, ToggleAllAction>(
-        _firestoreToggleAll(firestoreServices)),
+      _firestoreToggleAll(services),
+    ),
     new MiddlewareBinding<AppState, ClearCompletedAction>(
-        _firestoreClearCompleted(firestoreServices)),
+      _firestoreClearCompleted(services),
+    ),
   ]);
 }
 
-Middleware<AppState> _firestoreSaveNewTodo(
-    FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.addNewTodo(store, action.todo);
+TypedMiddleware<AppState, SignInAction> _firestoreSignIn(
+  FirestoreService services,
+) {
+  return (store, SignInAction action, next) {
     next(action);
+
+    services.anonymousLogin().then((_) {
+      store.dispatch(new DataSourceConnectAction());
+    });
   };
 }
 
-Middleware<AppState> _firestoreDeleteTodo(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.deleteTodo(store, [action.id]);
+TypedMiddleware<AppState, DataSourceConnectAction> _firestoreConnect(
+  FirestoreService services,
+) {
+  return (store, action, next) {
     next(action);
+
+    services.todosListener().listen((todos) {
+      store.dispatch(new LoadTodosAction(todos));
+    });
   };
 }
 
-Middleware<AppState> _firestoreUpdateTodo(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.updateTodo(store, action.updatedTodo);
+TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
+  FirestoreService services,
+) {
+  return (store, action, next) {
     next(action);
+    services.addNewTodo(action.todo);
   };
 }
 
-Middleware<AppState> _firestoreToggleAll(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
+TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
+  FirestoreService services,
+) {
+  return (store, action, next) {
+    next(action);
+    services.deleteTodo([action.id]);
+  };
+}
+
+TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
+  FirestoreService services,
+) {
+  return (store, action, next) {
+    next(action);
+    services.updateTodo(action.updatedTodo);
+  };
+}
+
+TypedMiddleware<AppState, ToggleAllAction> _firestoreToggleAll(
+  FirestoreService services,
+) {
+  return (store, action, next) {
     for (var todo in todosSelector(store.state)) {
       if (action.toggleAllTodosToActive) {
-        if (todo.complete)
-          firestoreServices.updateTodo(store, todo.copyWith(complete: false));
+        if (todo.complete) services.updateTodo(todo.copyWith(complete: false));
       } else {
-        if (!todo.complete)
-          firestoreServices.updateTodo(store, todo.copyWith(complete: true));
+        if (!todo.complete) services.updateTodo(todo.copyWith(complete: true));
       }
     }
     next(action);
   };
 }
 
-Middleware<AppState> _firestoreClearCompleted(
-    FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    List<String> indexesToDelete = [];
-    for (var todo in todosSelector(store.state)) {
-      if (todo.complete) indexesToDelete.add(todo.id);
-    }
-    firestoreServices.deleteTodo(store, indexesToDelete);
+TypedMiddleware<AppState, ClearCompletedAction> _firestoreClearCompleted(
+  FirestoreService services,
+) {
+  return (store, action, next) {
     next(action);
+
+    services.deleteTodo(
+      filteredTodosSelector(
+        todosSelector(store.state),
+        VisibilityFilter.completed,
+      ).map((todo) => todo.id).toList(),
+    );
   };
 }

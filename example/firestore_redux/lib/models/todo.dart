@@ -1,10 +1,11 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
-// in the LICENSE file.
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_architecture_samples/uuid.dart';
 import 'package:meta/meta.dart';
 import 'package:todos_repository/todos_repository.dart';
+
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
 
 @immutable
 class Todo {
@@ -45,8 +46,12 @@ class Todo {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  TodoEntity toEntity() {
-    return new TodoEntity(task, id, note, complete);
+  Map<String, dynamic> toMap() {
+    return {
+      'complete': complete,
+      'task': task,
+      'note': note,
+    };
   }
 
   static Todo fromEntity(TodoEntity entity) {
@@ -55,6 +60,15 @@ class Todo {
       complete: entity.complete ?? false,
       note: entity.note,
       id: entity.id ?? new Uuid().generateV4(),
+    );
+  }
+
+  static Todo fromDocument(DocumentSnapshot doc) {
+    return new Todo(
+      doc['task'],
+      complete: doc['complete'] ?? false,
+      id: doc.documentID,
+      note: doc['note'] ?? '',
     );
   }
 }

@@ -1,148 +1,149 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:redux/redux.dart';
-import 'package:fire_redux_sample/models/models.dart';
+import 'dart:async';
+
 import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
+import 'package:fire_redux_sample/firestore_service.dart';
 import 'package:fire_redux_sample/middleware/store_todos_middleware.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fire_redux_sample/selectors/selectors.dart';
-import 'firestore_services_mock.dart';
+import 'package:mockito/mockito.dart';
+import 'package:redux/redux.dart';
+
+class MockFirestoreService extends Mock implements FirestoreService {}
+
+class MockMiddleware extends Mock implements MiddlewareClass<AppState> {}
 
 main() {
-  group('verify all actions with Middleware', () {
-    test('AddTodoAction: should have 3 todos, 2 active and 1 completed', () {
-      final firestoreServices = new MockFirestoreServices();
+  group('Middleware Test', () {
+    test('should log the user in and start listening for changes', () {
+      final service = new MockFirestoreService();
+      final captor = new MockMiddleware();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
+        middleware: createStoreTodosMiddleware(service)..add(captor),
       );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
 
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
-      expect(todosSelector(store.state).length, 3);
-      expect(numActiveSelector(todosSelector(store.state)), 2);
-      expect(numCompletedSelector(todosSelector(store.state)), 1);
+      when(service.anonymousLogin()).thenReturn(new SynchronousFuture(null));
+      when(service.todosListener()).thenReturn(new StreamController().stream);
+
+      store.dispatch(new SignInAction());
+
+      verify(service.anonymousLogin());
+      verify(service.todosListener());
+      verify(captor.call(
+        any,
+        new isInstanceOf<DataSourceConnectAction>(),
+        any,
+      ));
     });
 
-    test(
-        'ClearCompletedAction: '
-        'should have 2 todos, 2 active and 0 completed', () {
-      final firestoreServices = new MockFirestoreServices();
+    test('should send new todos to firestore', () {
+      final todo = new Todo("T");
+      final service = new MockFirestoreService();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
+        middleware: createStoreTodosMiddleware(service),
       );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
 
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
+      store.dispatch(new AddTodoAction(todo));
+      verify(service.addNewTodo(todo));
+    });
+
+    test('should clear the completed todos on firestore', () {
+      final service = new MockFirestoreService();
+      final todoA = new Todo("A");
+      final todoB = new Todo("B", complete: true);
+      final todoC = new Todo("C", complete: true);
+      final store = new Store<AppState>(
+        appReducer,
+        initialState: new AppState(todos: [
+          todoA,
+          todoB,
+          todoC,
+        ]),
+        middleware: createStoreTodosMiddleware(service),
+      );
+
       store.dispatch(new ClearCompletedAction());
-      expect(todosSelector(store.state).length, 2);
-      expect(numActiveSelector(todosSelector(store.state)), 2);
-      expect(numCompletedSelector(todosSelector(store.state)), 0);
+
+      verify(service.deleteTodo([todoB.id, todoC.id]));
     });
 
-    test(
-        'ToggleAllAction(false): '
-        'should have 3 todos, 0 active and 3 completed', () {
-      final firestoreServices = new MockFirestoreServices();
+    test('should toggle all todos active on firestore', () {
+      final service = new MockFirestoreService();
+      final todoA = new Todo("A");
+      final todoB = new Todo("B", complete: true);
+      final todoC = new Todo("C", complete: true);
       final store = new Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
+        initialState: new AppState(todos: [
+          todoA,
+          todoB,
+          todoC,
+        ]),
+        middleware: createStoreTodosMiddleware(service),
       );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
 
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
-      store.dispatch(new ToggleAllAction(false));
-      expect(todosSelector(store.state).length, 3);
-      expect(numActiveSelector(todosSelector(store.state)), 0);
-      expect(numCompletedSelector(todosSelector(store.state)), 3);
-    });
-
-    test(
-        'ToggleAllAction(true): '
-        'should have 3 todos, 3 active and 0 completed', () {
-      final firestoreServices = new MockFirestoreServices();
-      final store = new Store<AppState>(
-        appReducer,
-        initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
-      );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
-
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
       store.dispatch(new ToggleAllAction(true));
-      expect(todosSelector(store.state).length, 3);
-      expect(numActiveSelector(todosSelector(store.state)), 3);
-      expect(numCompletedSelector(todosSelector(store.state)), 0);
+
+      verify(service.updateTodo(todoB.copyWith(complete: false)));
+      verify(service.updateTodo(todoC.copyWith(complete: false)));
     });
 
-    test(
-        'UpdateTodoAction: '
-        'should have 3 todos, 1 active and 2 completed', () {
-      final firestoreServices = new MockFirestoreServices();
+    test('should toggle all todos complete on firestore', () {
+      final service = new MockFirestoreService();
+      final todoA = new Todo("A");
+      final todoB = new Todo("B", complete: true);
+      final todoC = new Todo("C", complete: true);
       final store = new Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
+        initialState: new AppState(todos: [
+          todoA,
+          todoB,
+          todoC,
+        ]),
+        middleware: createStoreTodosMiddleware(service),
       );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
 
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
+      store.dispatch(new ToggleAllAction(false));
 
-      store.dispatch(new UpdateTodoAction(
-          '1', new Todo("Hallo & Welcome", complete: true, id: '1')));
-      expect(todosSelector(store.state).length, 3);
-      expect(numActiveSelector(todosSelector(store.state)), 1);
-      expect(numCompletedSelector(todosSelector(store.state)), 2);
+      verify(service.updateTodo(todoA.copyWith(complete: true)));
     });
 
-    test(
-        'DeleteTodoAction: '
-        'should have 2 todos, 1 active and 1 completed', () {
-      final firestoreServices = new MockFirestoreServices();
+    test('should update a todo on firestore', () {
+      final service = new MockFirestoreService();
+      final todo = new Todo("A");
+      final update = todo.copyWith(task: "B");
       final store = new Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(firestoreServices),
+        initialState: new AppState(todos: [todo]),
+        middleware: createStoreTodosMiddleware(service),
       );
-      final todo1 = new Todo("Hallo", id: '1');
-      final todo2 = new Todo("Bye", complete: true);
-      final todo3 = new Todo("Uncertain");
 
-      store.dispatch(new AddTodoAction(todo1));
-      store.dispatch(new AddTodoAction(todo2));
-      store.dispatch(new AddTodoAction(todo3));
+      store.dispatch(new UpdateTodoAction(todo.id, update));
 
-      store.dispatch(new DeleteTodoAction('1'));
-      expect(todosSelector(store.state).length, 2);
-      expect(numActiveSelector(todosSelector(store.state)), 1);
-      expect(numCompletedSelector(todosSelector(store.state)), 1);
+      verify(service.updateTodo(update));
+    });
+
+    test('shuld delete a todo on firestore', () {
+      final service = new MockFirestoreService();
+      final todo = new Todo("A");
+      final store = new Store<AppState>(
+        appReducer,
+        initialState: new AppState(todos: [todo]),
+        middleware: createStoreTodosMiddleware(service),
+      );
+
+      store.dispatch(new DeleteTodoAction(todo.id));
+
+      verify(service.deleteTodo([todo.id]));
     });
   });
 }
