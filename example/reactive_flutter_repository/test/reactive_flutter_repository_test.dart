@@ -5,20 +5,20 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fire_redux_sample/models/models.dart';
-import 'package:fire_redux_sample/todos_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:reactive_flutter_repository/reactive_flutter_repository.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 main() {
-  group('FirestoreService', () {
+  group('FlutterTodosReactiveRepository', () {
     test('should log the user in anonymously', () {
       final auth = new MockFirebaseAuth();
       final firestore = new MockFirestore();
-      final service = new FirestoreService(auth, firestore);
+      final repository = new FlutterTodosReactiveRepository(auth, firestore);
 
-      service.anonymousLogin();
+      repository.anonymousLogin();
 
       verify(auth.signInAnonymously());
     });
@@ -28,15 +28,16 @@ main() {
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final document = new MockDocumentReference();
-      final service = new FirestoreService(auth, firestore);
-      final todo = new Todo('A');
+      final repository = new FlutterTodosReactiveRepository(auth, firestore);
+      final todo = new TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirestoreService.path)).thenReturn(collection);
+      when(firestore.collection(FlutterTodosReactiveRepository.path))
+          .thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
-      service.addNewTodo(todo);
+      repository.addNewTodo(todo);
 
-      verify(document.setData(todo.toMap()));
+      verify(document.setData(todo.toJson()));
     });
 
     test('should update todos on firestore', () {
@@ -44,52 +45,55 @@ main() {
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final document = new MockDocumentReference();
-      final service = new FirestoreService(auth, firestore);
-      final todo = new Todo('A');
+      final repository = new FlutterTodosReactiveRepository(auth, firestore);
+      final todo = new TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirestoreService.path)).thenReturn(collection);
+      when(firestore.collection(FlutterTodosReactiveRepository.path))
+          .thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
-      service.updateTodo(todo);
+      repository.updateTodo(todo);
 
-      verify(document.updateData(todo.toMap()));
+      verify(document.updateData(todo.toJson()));
     });
 
     test('should listen for updates to the collection', () {
-      final todo = new Todo('A');
+      final todo = new TodoEntity('A', '1', '', true);
       final auth = new MockFirebaseAuth();
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final snapshot = new MockQuerySnapshot();
       final snapshots = new Stream.fromIterable([snapshot]);
-      final document = new MockDocumentSnapshot(todo.toMap());
-      final service = new FirestoreService(auth, firestore);
+      final document = new MockDocumentSnapshot(todo.toJson());
+      final repository = new FlutterTodosReactiveRepository(auth, firestore);
 
-      when(firestore.collection(FirestoreService.path)).thenReturn(collection);
+      when(firestore.collection(FlutterTodosReactiveRepository.path))
+          .thenReturn(collection);
       when(collection.snapshots).thenReturn(snapshots);
       when(snapshot.documents).thenReturn([document]);
       when(document.documentID).thenReturn(todo.id);
 
-      expect(service.todosListener(), emits([todo]));
+      expect(repository.todos(), emits([todo]));
     });
 
     test('should delete todos on firestore', () {
-      final todoA = new Todo('A');
-      final todoB = new Todo('B');
+      final todoA = 'A';
+      final todoB = 'B';
       final auth = new MockFirebaseAuth();
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final documentA = new MockDocumentReference();
       final documentB = new MockDocumentReference();
-      final service = new FirestoreService(auth, firestore);
+      final repository = new FlutterTodosReactiveRepository(auth, firestore);
 
-      when(firestore.collection(FirestoreService.path)).thenReturn(collection);
-      when(collection.document(todoA.id)).thenReturn(documentA);
-      when(collection.document(todoB.id)).thenReturn(documentB);
+      when(firestore.collection(FlutterTodosReactiveRepository.path))
+          .thenReturn(collection);
+      when(collection.document(todoA)).thenReturn(documentA);
+      when(collection.document(todoB)).thenReturn(documentB);
       when(documentA.delete()).thenReturn(new Future.value());
       when(documentB.delete()).thenReturn(new Future.value());
 
-      service.deleteTodo([todoA.id, todoB.id]);
+      repository.deleteTodo([todoA, todoB]);
 
       verify(documentA.delete());
       verify(documentB.delete());

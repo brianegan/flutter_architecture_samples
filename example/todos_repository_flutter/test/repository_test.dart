@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 /// We create two Mocks for our Web Client and File Storage. We will use these
 /// mock classes to verify the behavior of the TodosRepository.
@@ -25,7 +26,7 @@ main() {
         () {
       final fileStorage = new MockFileStorage();
       final webClient = new MockWebClient();
-      final repository = new TodosRepository(
+      final repository = new TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
@@ -45,7 +46,7 @@ main() {
         () async {
       final fileStorage = new MockFileStorage();
       final webClient = new MockWebClient();
-      final repository = new TodosRepository(
+      final repository = new TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
@@ -67,7 +68,7 @@ main() {
         () async {
       final fileStorage = new MockFileStorage();
       final webClient = new MockWebClient();
-      final repository = new TodosRepository(
+      final repository = new TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
@@ -84,7 +85,7 @@ main() {
     test('should persist the todos to local disk and the web client', () {
       final fileStorage = new MockFileStorage();
       final webClient = new MockWebClient();
-      final repository = new TodosRepository(
+      final repository = new TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );

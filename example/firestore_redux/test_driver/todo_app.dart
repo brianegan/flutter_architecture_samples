@@ -5,10 +5,10 @@
 import 'package:fire_redux_sample/main.dart' as app;
 import 'package:flutter_driver/driver_extension.dart';
 
-import 'todos_services_mock.dart';
+import 'mock_reactive_repository.dart';
 
 void main() {
   enableFlutterDriverExtension();
 
-  app.main(new MockTodosServices());
+  app.main(new MockTodosReactiveRepository());
 }

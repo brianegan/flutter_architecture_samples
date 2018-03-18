@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:path_provider/path_provider.dart';
@@ -8,9 +8,10 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([
-  TodosRepository repository = const TodosRepository(
+  TodosRepository repository = const TodosRepositoryFlutter(
     fileStorage: const FileStorage(
       'redux_sample_app_',
       getApplicationDocumentsDirectory,

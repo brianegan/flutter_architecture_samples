@@ -1,0 +1,15 @@
+name: reactive_flutter_repository
+description: A reactive version of the todos repository for Flutter
+
+dependencies:
+  flutter:
+    sdk: flutter
+  todos_repository:
+    path: ../todos_repository
+  firebase_auth: 0.4.7
+  cloud_firestore: 0.2.12
+
+dev_dependencies:
+  mockito: ">=2.2.0 <3.0.0"
+  flutter_test:
+    sdk: flutter

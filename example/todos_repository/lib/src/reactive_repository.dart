@@ -7,19 +7,23 @@ import 'dart:core';
 
 import 'package:todos_repository/src/todo_entity.dart';
 
-/// A class that Loads and Persists todos. The data layer of the app.
+/// A data layer class works with reactive data sources, such as Firebase. This
+/// class emits a Stream of TodoEntities. The data layer of the app.
 ///
 /// How and where it stores the entities should defined in a concrete
-/// implementation, such as todos_repository_flutter or todos_repository_web.
+/// implementation, such as firebase_repository_flutter.
 ///
 /// The domain layer should depend on this abstract class, and each app can
 /// inject the correct implementation depending on the environment, such as
 /// web or Flutter.
-abstract class TodosRepository {
-  /// Loads todos first from File storage. If they don't exist or encounter an
-  /// error, it attempts to load the Todos from a Web Client.
-  Future<List<TodoEntity>> loadTodos();
+abstract class TodosReactiveRepository {
+  Future<void> addNewTodo(TodoEntity todo);
 
-  // Persists todos to local disk and the web
-  Future saveTodos(List<TodoEntity> todos);
+  Future<void> anonymousLogin();
+
+  Future<void> deleteTodo(List<String> idList);
+
+  Stream<List<TodoEntity>> todos();
+
+  Future<void> updateTodo(TodoEntity todo);
 }

@@ -1,18 +1,18 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:todos_repository/src/todo_entity.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 /// Loads and saves a List of Todos using a text file stored on the device.
 ///
 /// Note: This class has no direct dependencies on any Flutter dependencies.
-/// Instead, the `getDirectory` method should be injected. If you're calling
-/// this from the
+/// Instead, the `getDirectory` method should be injected. This allows for
+/// testing.
 class FileStorage {
   final String tag;
   final Future<Directory> Function() getDirectory;

@@ -16,8 +16,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:todos_repository/todos_repository.dart';
 
-void main([TodosService service]) {
+void main([TodosReactiveRepository service]) {
   runApp(new ReduxApp(
     service: service,
   ));
@@ -28,13 +29,13 @@ class ReduxApp extends StatelessWidget {
 
   ReduxApp({
     Key key,
-    TodosService service,
+    TodosReactiveRepository service,
   })  : store = new Store<AppState>(
           appReducer,
           initialState: new AppState.loading(),
           middleware: createStoreTodosMiddleware(
             service ??
-                new FirestoreService(
+                new FlutterTodosReactiveRepository(
                   FirebaseAuth.instance,
                   Firestore.instance,
                 ),

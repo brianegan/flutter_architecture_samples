@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_architecture_samples/uuid.dart';
 import 'package:meta/meta.dart';
 import 'package:todos_repository/todos_repository.dart';
@@ -46,12 +45,8 @@ class Todo {
     return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'complete': complete,
-      'task': task,
-      'note': note,
-    };
+  TodoEntity toEntity() {
+    return new TodoEntity(task, id, note, complete);
   }
 
   static Todo fromEntity(TodoEntity entity) {
@@ -60,15 +55,6 @@ class Todo {
       complete: entity.complete ?? false,
       note: entity.note,
       id: entity.id ?? new Uuid().generateV4(),
-    );
-  }
-
-  static Todo fromDocument(DocumentSnapshot doc) {
-    return new Todo(
-      doc['task'],
-      complete: doc['complete'] ?? false,
-      id: doc.documentID,
-      note: doc['note'] ?? '',
     );
   }
 }

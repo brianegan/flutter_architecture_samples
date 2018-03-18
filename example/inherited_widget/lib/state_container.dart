@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
@@ -8,13 +8,14 @@ import 'package:inherited_widget_sample/app.dart';
 import 'package:inherited_widget_sample/models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 class StateContainerController extends StatefulWidget {
   final AppState state;
   final TodosRepository repository;
 
   StateContainerController({
-    this.repository = const TodosRepository(
+    this.repository = const TodosRepositoryFlutter(
       fileStorage: const FileStorage(
         'inherited_widget_sample',
         getApplicationDocumentsDirectory,
@@ -142,8 +143,7 @@ class StateContainer extends InheritedWidget {
     @required this.clearCompleted,
     @required this.updateFilter,
     @required Widget child,
-  })
-      : super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   static StateContainer of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(StateContainer);

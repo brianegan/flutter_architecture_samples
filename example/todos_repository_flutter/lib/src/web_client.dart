@@ -1,10 +1,10 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
 
-import 'package:todos_repository/src/todo_entity.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 /// A class that is meant to represent a Client that would be used to call a Web
 /// Service. It is responsible for fetching and persisting Todos to and from the

@@ -1,0 +1,11 @@
+name: todos_repository_flutter
+description: An app-agnostic data source that can be used by all implementations
+
+dependencies:
+  meta:
+  todos_repository:
+    path: ../todos_repository
+
+dev_dependencies:
+  test: ^0.12.0
+  mockito: ">=2.2.3 <3.0.0"
