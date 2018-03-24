@@ -16,7 +16,7 @@ import 'package:todos_repository/src/todo_entity.dart';
 /// The domain layer should depend on this abstract class, and each app can
 /// inject the correct implementation depending on the environment, such as
 /// web or Flutter.
-abstract class TodosReactiveRepository {
+abstract class ReactiveTodosRepository {
   Future<void> addNewTodo(TodoEntity todo);
 
   Future<void> anonymousLogin();

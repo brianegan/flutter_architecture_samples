@@ -8,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class FlutterTodosReactiveRepository implements TodosReactiveRepository {
+class FlutterTodosReactiveRepository implements ReactiveTodosRepository {
   static const String path = 'todo';
 
   final FirebaseAuth auth;

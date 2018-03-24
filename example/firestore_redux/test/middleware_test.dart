@@ -14,28 +14,29 @@ import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class MockTodosService extends Mock implements TodosReactiveRepository {}
+class MockReactiveTodosRepository extends Mock
+    implements ReactiveTodosRepository {}
 
 class MockMiddleware extends Mock implements MiddlewareClass<AppState> {}
 
 main() {
   group('Middleware', () {
     test('should log in and start listening for changes', () {
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final captor = new MockMiddleware();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(service)..add(captor),
+        middleware: createStoreTodosMiddleware(repository)..add(captor),
       );
 
-      when(service.anonymousLogin()).thenReturn(new SynchronousFuture(null));
-      when(service.todos()).thenReturn(new StreamController().stream);
+      when(repository.anonymousLogin()).thenReturn(new SynchronousFuture(null));
+      when(repository.todos()).thenReturn(new StreamController().stream);
 
       store.dispatch(new InitAppAction());
 
-      verify(service.anonymousLogin());
-      verify(service.todos());
+      verify(repository.anonymousLogin());
+      verify(repository.todos());
       verify(captor.call(
         any,
         new isInstanceOf<ConnectToDataSourceAction>(),
@@ -43,24 +44,48 @@ main() {
       ));
     });
 
-    test('should send new todos to the service', () {
-      final todo = new Todo("T");
-      final service = new MockTodosService();
+    test('should convert entities to todos', () async {
+      // ignore: close_sinks
+      final controller = new StreamController(sync: true);
+      final todo = new Todo('A');
+      final repository = new MockReactiveTodosRepository();
+      final captor = new MockMiddleware();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState.loading(),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository)..add(captor),
+      );
+
+      when(repository.todos()).thenReturn(controller.stream);
+
+      store.dispatch(new ConnectToDataSourceAction());
+      controller.add([todo.toEntity()]);
+
+      verify(captor.call(
+        any,
+        new isInstanceOf<LoadTodosAction>(),
+        any,
+      ));
+    });
+
+    test('should send new todos to the repository', () {
+      final todo = new Todo("T");
+      final repository = new MockReactiveTodosRepository();
+      final store = new Store<AppState>(
+        appReducer,
+        initialState: new AppState.loading(),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new AddTodoAction(todo));
-      verify(service.addNewTodo(todo.toEntity()));
+      verify(repository.addNewTodo(todo.toEntity()));
     });
 
-    test('should clear the completed todos from the service', () {
+    test('should clear the completed todos from the repository', () {
       final todoA = new Todo("A");
       final todoB = new Todo("B", complete: true);
       final todoC = new Todo("C", complete: true);
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState(todos: [
@@ -68,78 +93,78 @@ main() {
           todoB,
           todoC,
         ]),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new ClearCompletedAction());
 
-      verify(service.deleteTodo([todoB.id, todoC.id]));
+      verify(repository.deleteTodo([todoB.id, todoC.id]));
     });
 
-    test('should inform the service to toggle all todos active', () {
+    test('should inform the repository to toggle all todos active', () {
       final todoA = new Todo("A", complete: true);
       final todoB = new Todo("B", complete: true);
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState(todos: [
           todoA,
           todoB,
         ]),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new ToggleAllAction());
 
-      verify(service.updateTodo(todoA.copyWith(complete: false).toEntity()));
-      verify(service.updateTodo(todoB.copyWith(complete: false).toEntity()));
+      verify(repository.updateTodo(todoA.copyWith(complete: false).toEntity()));
+      verify(repository.updateTodo(todoB.copyWith(complete: false).toEntity()));
     });
 
-    test('should inform the service to toggle all todos complete', () {
+    test('should inform the repository to toggle all todos complete', () {
       final todoA = new Todo("A");
       final todoB = new Todo("B", complete: true);
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState(todos: [
           todoA,
           todoB,
         ]),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new ToggleAllAction());
 
-      verify(service.updateTodo(todoA.copyWith(complete: true).toEntity()));
+      verify(repository.updateTodo(todoA.copyWith(complete: true).toEntity()));
     });
 
     test('should update a todo on firestore', () {
       final todo = new Todo("A");
       final update = todo.copyWith(task: "B");
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState(todos: [todo]),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new UpdateTodoAction(todo.id, update));
 
-      verify(service.updateTodo(update.toEntity()));
+      verify(repository.updateTodo(update.toEntity()));
     });
 
     test('should delete a todo on firestore', () {
       final todo = new Todo("A");
-      final service = new MockTodosService();
+      final repository = new MockReactiveTodosRepository();
       final store = new Store<AppState>(
         appReducer,
         initialState: new AppState(todos: [todo]),
-        middleware: createStoreTodosMiddleware(service),
+        middleware: createStoreTodosMiddleware(repository),
       );
 
       store.dispatch(new DeleteTodoAction(todo.id));
 
-      verify(service.deleteTodo([todo.id]));
+      verify(repository.deleteTodo([todo.id]));
     });
   });
 }

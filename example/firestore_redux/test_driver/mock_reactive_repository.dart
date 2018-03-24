@@ -7,9 +7,9 @@ import 'dart:async';
 import 'package:todos_repository/todos_repository.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
-class MockTodosReactiveRepository implements TodosReactiveRepository {
-  final controller =
-      new StreamController<List<TodoEntity>>(); // ignore: close_sinks
+class MockReactiveTodosRepository implements ReactiveTodosRepository {
+  // ignore: close_sinks
+  final controller = new StreamController<List<TodoEntity>>();
   List<TodoEntity> _todos = [];
 
   @override

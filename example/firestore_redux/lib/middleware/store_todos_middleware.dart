@@ -9,7 +9,7 @@ import 'package:redux/redux.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return combineTypedMiddleware([
     new MiddlewareBinding<AppState, InitAppAction>(
@@ -37,7 +37,7 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
 }
 
 TypedMiddleware<AppState, InitAppAction> _firestoreSignIn(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, InitAppAction action, next) {
     next(action);
@@ -49,7 +49,7 @@ TypedMiddleware<AppState, InitAppAction> _firestoreSignIn(
 }
 
 TypedMiddleware<AppState, ConnectToDataSourceAction> _firestoreConnect(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
@@ -61,7 +61,7 @@ TypedMiddleware<AppState, ConnectToDataSourceAction> _firestoreConnect(
 }
 
 TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
@@ -70,7 +70,7 @@ TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
 }
 
 TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
@@ -79,7 +79,7 @@ TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
 }
 
 TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
@@ -88,7 +88,7 @@ TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
 }
 
 TypedMiddleware<AppState, ToggleAllAction> _firestoreToggleAll(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
@@ -107,7 +107,7 @@ TypedMiddleware<AppState, ToggleAllAction> _firestoreToggleAll(
 }
 
 TypedMiddleware<AppState, ClearCompletedAction> _firestoreClearCompleted(
-  TodosReactiveRepository repository,
+  ReactiveTodosRepository repository,
 ) {
   return (store, action, next) {
     next(action);
