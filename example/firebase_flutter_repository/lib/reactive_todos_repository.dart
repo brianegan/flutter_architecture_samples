@@ -20,8 +20,8 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   }
 
   @override
-  Future<void> deleteTodo(List<String> idList) {
-    return Future.wait<void>(idList.map((id) {
+  Future<void> deleteTodo(List<String> idList) async {
+    await Future.wait<void>(idList.map((id) {
       return firestore.collection(path).document(id).delete();
     }));
   }

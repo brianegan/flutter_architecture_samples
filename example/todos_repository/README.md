@@ -4,13 +4,13 @@ An app-agnostic data source that can be used by sample apps to fetch and persist
 
 ## Key Concepts
 
-  * Provides an abstract interface to the data layer
+  * Defines *what* can be fetched from the data layer
   * Does not expose *how* the data is fetched and stored
   * Should be consumed by the domain layer 
   
-## Provides an abstract interface to the data layer
+## Defines *what* can be fetched from the data layer
 
-The goal of the repository pattern is to provide an abstract interface to the data layer of your application. The data describes the entities that can be fetched and stored, but should not expose how those things happen. 
+The goal of the repository pattern is to provide an abstract interface to the data layer of your application. The Repository describes the entities that can be fetched and stored, but should not expose how those things happen. 
 
 The term "Data Layer" comes from the "Clean Architecture Pattern." In this pattern, we separate our app into layers. Each Layer should only talk to the layer after it.
 
@@ -32,4 +32,4 @@ This separation provides several benefits:
   
 ## Should be consumed by the domain layer 
 
-The domain layer should depend on the abstract classes defined in this library rather than concrete implementations. This allows the domain layer to be shared across different environments, such as Flutter and Web. 
+In order to maximize code sharing, the domain layer should be pure Dart and depend on the abstract classes defined in this library rather than concrete implementations. This allows the domain layer to be shared across different environments, such as Flutter and Web. 
