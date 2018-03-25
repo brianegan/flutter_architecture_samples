@@ -1,14 +1,11 @@
 # firestore redux sample
 
-
-
-
 This repo started with [flutter_architecture_redux sample](https://github.com/brianegan/flutter_architecture_samples/blob/master/example/redux/README.md),
 and added [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the backend database. Cloud Firestore 
 provides realtime connection between the database and authenticated devices, as well as automatic offline 
 persistence for Android and iOS. Firebase authentication is included for anonymous authentication of users.
 
-# Set-up
+## Set-up
 
 The steps below were primarily developed from [MemeChat repo](https://github.com/efortuna/memechat/blob/master/README.md). 
 There is a very useful [video tutorial](https://www.youtube.com/watch?v=w2TcYP8qiRI) associated with the MemeChat 
@@ -83,57 +80,19 @@ In the present case, Firestore is being used but set up is similar.
     GoogleService-Info.plist to Runner/Runner folder. Then your project should run on iOS.
     
     
-# Summary of changes made to the original redux sample repo.
+## Summary of changes made to the original redux sample repo.
 
-a) Added `firebase_auth` and `cloud_firestore` to pubspec.yaml.
+  1. Added `firebase_flutter_repository` to the `pubspec.yaml`, removed `todos_repository_flutter`.
+  2. Limit the responsibility of the Reducers since Firestore is the source of truth. 
+  3. Change the Middleware to work with a `UserRepository` for auth and `ReactiveTodosRepository` to listen for changes to the Todos and push updates to Firestore.
+  4. Add Actions for Login and to Start Listening to Firestore. It's not needed in this app, but we could also add an action to stop listening to Firestore.
 
-b) Created new file `firestore_services.dart`. Class `FirestoreServices` in this file
-provides complete interface to Firestore and is called only from `main.dart`.
-This file acts as the data layer for the app and updates the redux store automatically 
-whenever there is a change to the Firestore todos data. The app UI is connected to the redux 
-store per the original redux sample repo. 
-Changes were made to actions, reducers, and middleware files from original repo
-based on this new data source.
+## Testing
 
-c) Only one widget was modified from the original repo. This was in `extra_actions_container.dart`.
-```apple js
-store.dispatch(new ToggleAllAction(
-              allCompleteSelector(todosSelector(store.state))));
-```
-Here an argument was added to ToggleAllAction to ensure all Todos are toggled correctly to
-complete or active. Otherwise issues arose due to the propagation times from the app to
-Firestore and back again.
+For integration testing, we need to pass through a Mock `UserRepository` and Mock `ReactiveTodosRepository`. 
 
-For integration testing, the following files were created to avoid using Firestore and instead
-access the original repo's local data source: `package:todos_repository/src/web_client.dart`.
-
-`test/firestore_services_mock.dart` - the mocked data service.
-
-`test/main_fire_4test.dart` - this is a copy of main.dart and replaces firestore_services with
-firestore_services_mock. Any changes made to a new project main.dart should be replicated here
-for testing purposes.
-
-Additionally, `test_driver/todo_app.dart` was modified to import `test/main_fire_4test.dart`
-rather than main.dart.
-
-
-
-1) `flutter test` will run all unit tests.
-
-    a) `flutter test test/selectors_test.dart` for selectors unit testing.
-    
-    b) `flutter test test/reducer_test.dart` for reducers unit testing.
-    
-    c) `flutter test test/middleware_test.dart` for middleware unit testing.
-
-2) `flutter drive --target=test_driver/todo_app.dart` to run integrations test.
-Integrations tests are unchanged from the original redux repo.
-
-    
-Please see original repo
-[flutter_architecture_redux sample](https://github.com/brianegan/flutter_architecture_samples/blob/master/example/redux/README.md)
-for all details related to [redux](https://pub.dartlang.org/packages/redux) 
-and [flutter_redux](https://pub.dartlang.org/packages/flutter_redux). 
-
-Special thanks to [brianegan](https://github.com/brianegan) for providing such a wonderful repo:
-[Flutter architecture samples](https://github.com/brianegan/flutter_architecture_samples/blob/master/README.md)!
+  1. `flutter test` will run all unit tests.
+    * `flutter test test/selectors_test.dart` for selectors unit testing.
+    * `flutter test test/reducer_test.dart` for reducers unit testing.
+    * `flutter test test/middleware_test.dart` for middleware unit testing.
+  2. `flutter drive --target=test_driver/todo_app.dart` to run integrations test. Integrations tests are unchanged from the original redux repo.
