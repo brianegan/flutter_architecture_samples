@@ -26,7 +26,7 @@ class FileStorage {
     final file = await _getLocalFile();
     final string = await file.readAsString();
     final json = new JsonDecoder().convert(string);
-    final todos = (json['todos'] as List<Map<String, dynamic>>)
+    final todos = (json['todos'])
         .map((todo) => TodoEntity.fromJson(todo))
         .toList();
 
