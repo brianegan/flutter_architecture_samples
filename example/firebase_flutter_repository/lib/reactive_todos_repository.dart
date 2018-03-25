@@ -7,12 +7,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
+class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
   static const String path = 'todo';
 
   final Firestore firestore;
 
-  const FirebaseReactiveTodosRepository(this.firestore);
+  const FirestoreReactiveTodosRepository(this.firestore);
 
   @override
   Future<void> addNewTodo(TodoEntity todo) {

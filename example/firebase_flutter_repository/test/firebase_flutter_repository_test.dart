@@ -31,10 +31,10 @@ main() {
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final document = new MockDocumentReference();
-      final repository = new FirebaseReactiveTodosRepository(firestore);
+      final repository = new FirestoreReactiveTodosRepository(firestore);
       final todo = new TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirebaseReactiveTodosRepository.path))
+      when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
@@ -47,10 +47,10 @@ main() {
       final firestore = new MockFirestore();
       final collection = new MockCollectionReference();
       final document = new MockDocumentReference();
-      final repository = new FirebaseReactiveTodosRepository(firestore);
+      final repository = new FirestoreReactiveTodosRepository(firestore);
       final todo = new TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirebaseReactiveTodosRepository.path))
+      when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
@@ -66,9 +66,9 @@ main() {
       final snapshot = new MockQuerySnapshot();
       final snapshots = new Stream.fromIterable([snapshot]);
       final document = new MockDocumentSnapshot(todo.toJson());
-      final repository = new FirebaseReactiveTodosRepository(firestore);
+      final repository = new FirestoreReactiveTodosRepository(firestore);
 
-      when(firestore.collection(FirebaseReactiveTodosRepository.path))
+      when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
       when(collection.snapshots).thenReturn(snapshots);
       when(snapshot.documents).thenReturn([document]);
@@ -84,9 +84,9 @@ main() {
       final collection = new MockCollectionReference();
       final documentA = new MockDocumentReference();
       final documentB = new MockDocumentReference();
-      final repository = new FirebaseReactiveTodosRepository(firestore);
+      final repository = new FirestoreReactiveTodosRepository(firestore);
 
-      when(firestore.collection(FirebaseReactiveTodosRepository.path))
+      when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
       when(collection.document(todoA)).thenReturn(documentA);
       when(collection.document(todoB)).thenReturn(documentB);

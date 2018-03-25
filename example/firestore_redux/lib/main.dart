@@ -40,7 +40,7 @@ class ReduxApp extends StatelessWidget {
           initialState: new AppState.loading(),
           middleware: createStoreTodosMiddleware(
             todosRepository ??
-                new FirebaseReactiveTodosRepository(Firestore.instance),
+                new FirestoreReactiveTodosRepository(Firestore.instance),
             userRepository ?? new FirebaseUserRepository(FirebaseAuth.instance),
           ),
         ),
