@@ -10,7 +10,7 @@ An app-agnostic data source that can be used by sample apps to fetch and persist
   
 ## Provides an abstract interface to the data layer
 
-The goal of the repository pattern is to provide an abstract interface to the data layer of your application. The data describes how things are fetched and stored, but should not expose how those things happen. 
+The goal of the repository pattern is to provide an abstract interface to the data layer of your application. The data describes the entities that can be fetched and stored, but should not expose how those things happen. 
 
 The term "Data Layer" comes from the "Clean Architecture Pattern." In this pattern, we separate our app into layers. Each Layer should only talk to the layer after it.
 

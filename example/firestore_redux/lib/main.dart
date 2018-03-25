@@ -11,16 +11,19 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/home_screen.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
+import 'package:firebase_flutter_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:reactive_flutter_repository/reactive_flutter_repository.dart';
 import 'package:redux/redux.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-void main([ReactiveTodosRepository repository]) {
+void main(
+    [ReactiveTodosRepository todosRepository, UserRepository userRepository]) {
   runApp(new ReduxApp(
-    repository: repository,
+    todosRepository: todosRepository,
+    userRepository: userRepository,
   ));
 }
 
@@ -29,17 +32,16 @@ class ReduxApp extends StatelessWidget {
 
   ReduxApp({
     Key key,
-    ReactiveTodosRepository repository,
+    ReactiveTodosRepository todosRepository,
+    UserRepository userRepository,
   })
       : store = new Store<AppState>(
           appReducer,
           initialState: new AppState.loading(),
           middleware: createStoreTodosMiddleware(
-            repository ??
-                new FlutterTodosReactiveRepository(
-                  FirebaseAuth.instance,
-                  Firestore.instance,
-                ),
+            todosRepository ??
+                new FirebaseReactiveTodosRepository(Firestore.instance),
+            userRepository ?? new FirebaseUserRepository(FirebaseAuth.instance),
           ),
         ),
         super(key: key) {

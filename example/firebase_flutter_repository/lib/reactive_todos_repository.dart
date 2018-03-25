@@ -5,16 +5,14 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class FlutterTodosReactiveRepository implements ReactiveTodosRepository {
+class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   static const String path = 'todo';
 
-  final FirebaseAuth auth;
   final Firestore firestore;
 
-  const FlutterTodosReactiveRepository(this.auth, this.firestore);
+  const FirebaseReactiveTodosRepository(this.firestore);
 
   @override
   Future<void> addNewTodo(TodoEntity todo) {
@@ -22,13 +20,8 @@ class FlutterTodosReactiveRepository implements ReactiveTodosRepository {
   }
 
   @override
-  Future<UserInfo> anonymousLogin() {
-    return auth.signInAnonymously();
-  }
-
-  @override
-  Future<List<void>> deleteTodo(List<String> idList) {
-    return Future.wait(idList.map((id) {
+  Future<void> deleteTodo(List<String> idList) {
+    return Future.wait<void>(idList.map((id) {
       return firestore.collection(path).document(id).delete();
     }));
   }

@@ -1,4 +1,4 @@
-# reactive_flutter_repository
+# firebase_flutter_repository
 
 A reactive version of the todos repository.
 

@@ -9,8 +9,8 @@ dependencies:
     sdk: flutter
   flutter_architecture_samples:
     path: ../../
-  reactive_flutter_repository:
-    path: ../reactive_flutter_repository
+  firebase_flutter_repository:
+    path: ../firebase_flutter_repository
 
 dev_dependencies:
   test: ^0.12.0

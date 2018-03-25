@@ -1,4 +1,4 @@
-name: reactive_flutter_repository
+name: firebase_flutter_repository
 description: A reactive version of the todos repository for Flutter
 
 dependencies:
@@ -13,3 +13,5 @@ dev_dependencies:
   mockito: ">=2.2.0 <3.0.0"
   flutter_test:
     sdk: flutter
+
+flutter:

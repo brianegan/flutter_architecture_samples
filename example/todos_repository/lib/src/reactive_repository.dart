@@ -19,8 +19,6 @@ import 'package:todos_repository/src/todo_entity.dart';
 abstract class ReactiveTodosRepository {
   Future<void> addNewTodo(TodoEntity todo);
 
-  Future<void> anonymousLogin();
-
   Future<void> deleteTodo(List<String> idList);
 
   Stream<List<TodoEntity>> todos();

@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
-import 'package:todos_repository/src/repository.dart';
+import 'package:todos_repository/src/todos_repository.dart';
 
 class TodoListModel extends Model {
   final TodosRepository repository;

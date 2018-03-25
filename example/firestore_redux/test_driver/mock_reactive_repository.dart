@@ -7,6 +7,15 @@ import 'dart:async';
 import 'package:todos_repository/todos_repository.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
+class MockUserRepository implements UserRepository {
+  @override
+  Future<UserEntity> login([
+    delayAuth = const Duration(milliseconds: 200),
+  ]) {
+    return new Future<UserEntity>.delayed(delayAuth);
+  }
+}
+
 class MockReactiveTodosRepository implements ReactiveTodosRepository {
   // ignore: close_sinks
   final controller = new StreamController<List<TodoEntity>>();
@@ -16,13 +25,6 @@ class MockReactiveTodosRepository implements ReactiveTodosRepository {
   Future<void> addNewTodo(TodoEntity newTodo) async {
     _todos.add(newTodo);
     controller.add(_todos);
-  }
-
-  @override
-  Future<void> anonymousLogin([
-    delayAuth = const Duration(milliseconds: 200),
-  ]) {
-    return new Future<void>.delayed(delayAuth);
   }
 
   @override

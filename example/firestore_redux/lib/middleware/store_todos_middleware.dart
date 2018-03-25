@@ -9,40 +9,41 @@ import 'package:redux/redux.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware(
-  ReactiveTodosRepository repository,
+  ReactiveTodosRepository todosRepository,
+  UserRepository userRepository,
 ) {
   return combineTypedMiddleware([
     new MiddlewareBinding<AppState, InitAppAction>(
-      _firestoreSignIn(repository),
+      _firestoreSignIn(userRepository),
     ),
     new MiddlewareBinding<AppState, ConnectToDataSourceAction>(
-      _firestoreConnect(repository),
+      _firestoreConnect(todosRepository),
     ),
     new MiddlewareBinding<AppState, AddTodoAction>(
-      _firestoreSaveNewTodo(repository),
+      _firestoreSaveNewTodo(todosRepository),
     ),
     new MiddlewareBinding<AppState, DeleteTodoAction>(
-      _firestoreDeleteTodo(repository),
+      _firestoreDeleteTodo(todosRepository),
     ),
     new MiddlewareBinding<AppState, UpdateTodoAction>(
-      _firestoreUpdateTodo(repository),
+      _firestoreUpdateTodo(todosRepository),
     ),
     new MiddlewareBinding<AppState, ToggleAllAction>(
-      _firestoreToggleAll(repository),
+      _firestoreToggleAll(todosRepository),
     ),
     new MiddlewareBinding<AppState, ClearCompletedAction>(
-      _firestoreClearCompleted(repository),
+      _firestoreClearCompleted(todosRepository),
     ),
   ]);
 }
 
 TypedMiddleware<AppState, InitAppAction> _firestoreSignIn(
-  ReactiveTodosRepository repository,
+  UserRepository repository,
 ) {
   return (store, InitAppAction action, next) {
     next(action);
 
-    repository.anonymousLogin().then((_) {
+    repository.login().then((_) {
       store.dispatch(new ConnectToDataSourceAction());
     });
   };
