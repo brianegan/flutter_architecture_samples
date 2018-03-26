@@ -4,17 +4,18 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:inherited_widget_sample/app.dart';
 import 'package:inherited_widget_sample/models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository/todos_repository.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
-class StateContainerController extends StatefulWidget {
+class StateContainer extends StatefulWidget {
   final AppState state;
   final TodosRepository repository;
+  final Widget child;
 
-  StateContainerController({
+  StateContainer({
+    @required this.child,
     this.repository = const TodosRepositoryFlutter(
       fileStorage: const FileStorage(
         'inherited_widget_sample',
@@ -24,13 +25,19 @@ class StateContainerController extends StatefulWidget {
     this.state,
   });
 
+  static StateContainerState of(BuildContext context) {
+    return (context.inheritFromWidgetOfExactType(_InheritedStateContainer)
+            as _InheritedStateContainer)
+        .data;
+  }
+
   @override
   State<StatefulWidget> createState() {
-    return new StateContainerControllerState();
+    return new StateContainerState();
   }
 }
 
-class StateContainerControllerState extends State<StateContainerController> {
+class StateContainerState extends State<StateContainer> {
   AppState state;
 
   @override
@@ -56,37 +63,37 @@ class StateContainerControllerState extends State<StateContainerController> {
     super.initState();
   }
 
-  void _toggleAll() {
+  void toggleAll() {
     setState(() {
       state.toggleAll();
     });
   }
 
-  void _clearCompleted() {
+  void clearCompleted() {
     setState(() {
       state.clearCompleted();
     });
   }
 
-  void _addTodo(Todo todo) {
+  void addTodo(Todo todo) {
     setState(() {
       state.todos.add(todo);
     });
   }
 
-  void _removeTodo(Todo todo) {
+  void removeTodo(Todo todo) {
     setState(() {
       state.todos.remove(todo);
     });
   }
 
-  void _updateFilter(VisibilityFilter filter) {
+  void updateFilter(VisibilityFilter filter) {
     setState(() {
       state.activeFilter = filter;
     });
   }
 
-  void _updateTodo(
+  void updateTodo(
     Todo todo, {
     bool complete,
     String id,
@@ -111,46 +118,29 @@ class StateContainerControllerState extends State<StateContainerController> {
 
   @override
   Widget build(BuildContext context) {
-    return new StateContainer(
-      state: state,
-      updateTodo: _updateTodo,
-      addTodo: _addTodo,
-      removeTodo: _removeTodo,
-      toggleAll: _toggleAll,
-      clearCompleted: _clearCompleted,
-      updateFilter: _updateFilter,
-      child: new InheritedWidgetApp(),
+    return new _InheritedStateContainer(
+      data: this,
+      child: widget.child,
     );
   }
 }
 
-class StateContainer extends InheritedWidget {
-  final AppState state;
-  final Function(Todo todo) addTodo;
-  final Function(Todo todo) removeTodo;
-  final TodoUpdater updateTodo;
-  final Function() toggleAll;
-  final Function() clearCompleted;
-  final Function(VisibilityFilter) updateFilter;
+class _InheritedStateContainer extends InheritedWidget {
+  final StateContainerState data;
 
-  StateContainer({
+  _InheritedStateContainer({
     Key key,
-    @required this.state,
-    @required this.updateTodo,
-    @required this.addTodo,
-    @required this.removeTodo,
-    @required this.toggleAll,
-    @required this.clearCompleted,
-    @required this.updateFilter,
+    @required this.data,
     @required Widget child,
-  }) : super(key: key, child: child);
+  })
+      : super(key: key, child: child);
 
-  static StateContainer of(BuildContext context) {
-    return context.inheritFromWidgetOfExactType(StateContainer);
-  }
-
+  // Note: we could get fancy here and compare whether the old AppState is
+  // different than the current AppState. However, since we know this is the
+  // root Widget, when we make changes we also know we want to rebuild Widgets
+  // that depend on the StateContainer.
   @override
-  bool updateShouldNotify(StateContainer old) => state != old.state;
+  bool updateShouldNotify(_InheritedStateContainer old) => true;
 }
 
 typedef TodoUpdater(

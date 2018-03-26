@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class TodoList extends StatelessWidget {
     );
   }
 
-  ListView _buildList(StateContainer container) {
+  ListView _buildList(StateContainerState container) {
     final todos = container.state.filteredTodos;
 
     return new ListView.builder(
