@@ -3,72 +3,120 @@
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/firestore_services.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
 import 'package:redux/redux.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware(
-    FirestoreServices firestoreServices) {
+  ReactiveTodosRepository todosRepository,
+  UserRepository userRepository,
+) {
   return combineTypedMiddleware([
+    new MiddlewareBinding<AppState, InitAppAction>(
+      _firestoreSignIn(userRepository),
+    ),
+    new MiddlewareBinding<AppState, ConnectToDataSourceAction>(
+      _firestoreConnect(todosRepository),
+    ),
     new MiddlewareBinding<AppState, AddTodoAction>(
-        _firestoreSaveNewTodo(firestoreServices)),
+      _firestoreSaveNewTodo(todosRepository),
+    ),
     new MiddlewareBinding<AppState, DeleteTodoAction>(
-        _firestoreDeleteTodo(firestoreServices)),
+      _firestoreDeleteTodo(todosRepository),
+    ),
     new MiddlewareBinding<AppState, UpdateTodoAction>(
-        _firestoreUpdateTodo(firestoreServices)),
+      _firestoreUpdateTodo(todosRepository),
+    ),
     new MiddlewareBinding<AppState, ToggleAllAction>(
-        _firestoreToggleAll(firestoreServices)),
+      _firestoreToggleAll(todosRepository),
+    ),
     new MiddlewareBinding<AppState, ClearCompletedAction>(
-        _firestoreClearCompleted(firestoreServices)),
+      _firestoreClearCompleted(todosRepository),
+    ),
   ]);
 }
 
-Middleware<AppState> _firestoreSaveNewTodo(
-    FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.addNewTodo(store, action.todo);
+TypedMiddleware<AppState, InitAppAction> _firestoreSignIn(
+  UserRepository repository,
+) {
+  return (store, InitAppAction action, next) {
     next(action);
+
+    repository.login().then((_) {
+      store.dispatch(new ConnectToDataSourceAction());
+    });
   };
 }
 
-Middleware<AppState> _firestoreDeleteTodo(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.deleteTodo(store, [action.id]);
+TypedMiddleware<AppState, ConnectToDataSourceAction> _firestoreConnect(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
     next(action);
+
+    repository.todos().listen((todos) {
+      store.dispatch(new LoadTodosAction(todos.map(Todo.fromEntity).toList()));
+    });
   };
 }
 
-Middleware<AppState> _firestoreUpdateTodo(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    firestoreServices.updateTodo(store, action.updatedTodo);
+TypedMiddleware<AppState, AddTodoAction> _firestoreSaveNewTodo(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
     next(action);
+    repository.addNewTodo(action.todo.toEntity());
   };
 }
 
-Middleware<AppState> _firestoreToggleAll(FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    for (var todo in todosSelector(store.state)) {
-      if (action.toggleAllTodosToActive) {
+TypedMiddleware<AppState, DeleteTodoAction> _firestoreDeleteTodo(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
+    next(action);
+    repository.deleteTodo([action.id]);
+  };
+}
+
+TypedMiddleware<AppState, UpdateTodoAction> _firestoreUpdateTodo(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
+    next(action);
+    repository.updateTodo(action.updatedTodo.toEntity());
+  };
+}
+
+TypedMiddleware<AppState, ToggleAllAction> _firestoreToggleAll(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
+    next(action);
+    var todos = todosSelector(store.state);
+
+    for (var todo in todos) {
+      if (allCompleteSelector(todos)) {
         if (todo.complete)
-          firestoreServices.updateTodo(store, todo.copyWith(complete: false));
+          repository.updateTodo(todo.copyWith(complete: false).toEntity());
       } else {
         if (!todo.complete)
-          firestoreServices.updateTodo(store, todo.copyWith(complete: true));
+          repository.updateTodo(todo.copyWith(complete: true).toEntity());
       }
     }
-    next(action);
   };
 }
 
-Middleware<AppState> _firestoreClearCompleted(
-    FirestoreServices firestoreServices) {
-  return (Store<AppState> store, action, NextDispatcher next) {
-    List<String> indexesToDelete = [];
-    for (var todo in todosSelector(store.state)) {
-      if (todo.complete) indexesToDelete.add(todo.id);
-    }
-    firestoreServices.deleteTodo(store, indexesToDelete);
+TypedMiddleware<AppState, ClearCompletedAction> _firestoreClearCompleted(
+  ReactiveTodosRepository repository,
+) {
+  return (store, action, next) {
     next(action);
+
+    repository.deleteTodo(
+      completeTodosSelector(todosSelector(store.state))
+          .map((todo) => todo.id)
+          .toList(),
+    );
   };
 }

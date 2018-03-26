@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/models/models.dart';
@@ -7,13 +7,11 @@ import 'package:fire_redux_sample/models/models.dart';
 class ClearCompletedAction {}
 
 class ToggleAllAction {
-  final bool toggleAllTodosToActive;
-
-  ToggleAllAction(this.toggleAllTodosToActive);
+  ToggleAllAction();
 
   @override
   String toString() {
-    return 'ToggleAllAction{toggleAllTodosToActive: $toggleAllTodosToActive}';
+    return 'ToggleAllAction{}';
   }
 }
 
@@ -59,6 +57,20 @@ class AddTodoAction {
   @override
   String toString() {
     return 'AddTodoAction{todo: $todo}';
+  }
+}
+
+class InitAppAction {
+  @override
+  String toString() {
+    return 'InitAppAction{}';
+  }
+}
+
+class ConnectToDataSourceAction {
+  @override
+  String toString() {
+    return 'ConnectToDataSourceAction{}';
   }
 }
 

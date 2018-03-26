@@ -1,11 +1,12 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 main() {
   group('FileStorage', () {

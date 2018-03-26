@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -24,8 +24,6 @@ class ReduxApp extends StatelessWidget {
     initialState: new AppState.loading(),
     middleware: createStoreTodosMiddleware(),
   );
-
-  ReduxApp();
 
   @override
   Widget build(BuildContext context) {

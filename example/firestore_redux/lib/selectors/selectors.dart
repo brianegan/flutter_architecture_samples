@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/models/models.dart';
@@ -16,25 +16,30 @@ bool isLoadingSelector(AppState state) => state.isLoading;
 bool allCompleteSelector(List<Todo> todos) =>
     todos.every((todo) => todo.complete);
 
-int numActiveSelector(List<Todo> todos) =>
-    todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
+int numActiveSelector(List<Todo> todos) => activeTodosSelector(todos).length;
 
 int numCompletedSelector(List<Todo> todos) =>
-    todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
+    completeTodosSelector(todos).length;
+
+List<Todo> activeTodosSelector(List<Todo> todos) =>
+    todos.where((todo) => !todo.complete).toList();
+
+List<Todo> completeTodosSelector(List<Todo> todos) =>
+    todos.where((todo) => todo.complete).toList();
 
 List<Todo> filteredTodosSelector(
   List<Todo> todos,
   VisibilityFilter activeFilter,
 ) {
-  return todos.where((todo) {
-    if (activeFilter == VisibilityFilter.all) {
-      return true;
-    } else if (activeFilter == VisibilityFilter.active) {
-      return !todo.complete;
-    } else if (activeFilter == VisibilityFilter.completed) {
-      return todo.complete;
-    }
-  }).toList();
+  switch (activeFilter) {
+    case VisibilityFilter.active:
+      return activeTodosSelector(todos);
+    case VisibilityFilter.completed:
+      return completeTodosSelector(todos);
+    case VisibilityFilter.all:
+    default:
+      return todos;
+  }
 }
 
 Optional<Todo> todoSelector(List<Todo> todos, String id) {

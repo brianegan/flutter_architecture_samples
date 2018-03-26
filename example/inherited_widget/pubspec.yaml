@@ -2,8 +2,8 @@ name: inherited_widget_sample
 description: A new Flutter project.
 
 dependencies:
-  todos_repository:
-    path: ../todos_repository
+  todos_repository_flutter:
+    path: ../todos_repository_flutter
   flutter_architecture_samples:
     path: ../../
   flutter:

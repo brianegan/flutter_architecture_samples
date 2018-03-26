@@ -1,12 +1,12 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 class TodoEntity {
-  bool complete;
-  String id;
-  String note;
-  String task;
+  final bool complete;
+  final String id;
+  final String note;
+  final String task;
 
   TodoEntity(this.task, this.id, this.note, this.complete);
 
