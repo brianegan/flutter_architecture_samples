@@ -5,5 +5,6 @@
 library todos_repository_flutter;
 
 export 'src/file_storage.dart';
+export 'src/reactive_repository.dart';
 export 'src/repository.dart';
 export 'src/web_client.dart';
