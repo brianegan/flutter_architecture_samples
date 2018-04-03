@@ -3,6 +3,7 @@
 // in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
@@ -74,8 +75,7 @@ main() {
       );
       final todos = createTodos();
 
-      when(fileStorage.loadTodos())
-          .thenAnswer((_) => new Future.error("Oh no"));
+      when(fileStorage.loadTodos()).thenThrow(new Exception("Oh no."));
       when(webClient.fetchTodos()).thenReturn(new Future.value(todos));
 
       expect(await repository.loadTodos(), todos);
@@ -91,8 +91,9 @@ main() {
       );
       final todos = createTodos();
 
-      when(fileStorage.saveTodos(todos)).thenReturn(new Future.value("Cool"));
-      when(webClient.postTodos(todos)).thenReturn(new Future.value("Beans."));
+      when(fileStorage.saveTodos(todos))
+          .thenReturn(new Future.value(new File('falsch')));
+      when(webClient.postTodos(todos)).thenReturn(new Future.value(true));
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

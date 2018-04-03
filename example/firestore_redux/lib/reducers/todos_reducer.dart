@@ -6,9 +6,9 @@ import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:redux/redux.dart';
 
-final todosReducer = combineTypedReducers<List<Todo>>([
-  new ReducerBinding<List<Todo>, LoadTodosAction>(_setLoadedTodos),
-  new ReducerBinding<List<Todo>, DeleteTodoAction>(_deleteTodo),
+final todosReducer = combineReducers<List<Todo>>([
+  new TypedReducer<List<Todo>, LoadTodosAction>(_setLoadedTodos),
+  new TypedReducer<List<Todo>, DeleteTodoAction>(_deleteTodo),
 ]);
 
 List<Todo> _setLoadedTodos(List<Todo> todos, LoadTodosAction action) {

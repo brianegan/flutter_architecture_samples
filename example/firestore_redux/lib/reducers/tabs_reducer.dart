@@ -6,8 +6,8 @@ import 'package:redux/redux.dart';
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 
-final tabsReducer = combineTypedReducers<AppTab>([
-  new ReducerBinding<AppTab, UpdateTabAction>(_activeTabReducer),
+final tabsReducer = combineReducers<AppTab>([
+  new TypedReducer<AppTab, UpdateTabAction>(_activeTabReducer),
 ]);
 
 AppTab _activeTabReducer(AppTab activeTab, UpdateTabAction action) {

@@ -34,7 +34,7 @@ class TodosRepositoryFlutter implements TodosRepository {
   // Persists todos to local disk and the web
   @override
   Future saveTodos(List<TodoEntity> todos) {
-    return Future.wait([
+    return Future.wait<dynamic>([
       fileStorage.saveTodos(todos),
       webClient.postTodos(todos),
     ]);

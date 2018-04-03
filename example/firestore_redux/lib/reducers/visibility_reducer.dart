@@ -6,8 +6,8 @@ import 'package:redux/redux.dart';
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 
-final visibilityReducer = combineTypedReducers<VisibilityFilter>([
-  new ReducerBinding<VisibilityFilter, UpdateFilterAction>(
+final visibilityReducer = combineReducers<VisibilityFilter>([
+  new TypedReducer<VisibilityFilter, UpdateFilterAction>(
       _activeFilterReducer),
 ]);
 

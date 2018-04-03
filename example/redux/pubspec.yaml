@@ -3,8 +3,8 @@ description: A new Flutter project.
 
 dependencies:
   meta: '>=1.1.0 <2.0.0'
-  redux: ^2.0.2
-  flutter_redux: '0.3.2'
+  redux: ^3.0.0
+  flutter_redux: ^0.5.0
   flutter:
     sdk: flutter
   flutter_architecture_samples:
