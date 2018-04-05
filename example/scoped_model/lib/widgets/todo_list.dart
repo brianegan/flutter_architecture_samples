@@ -88,6 +88,7 @@ class TodoList extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             action: new SnackBarAction(
+              key: ArchSampleKeys.snackbarAction(todo.id),
               label: ArchSampleLocalizations.of(context).undo,
               onPressed: () {
                 TodoListModel.of(context).addTodo(todo);

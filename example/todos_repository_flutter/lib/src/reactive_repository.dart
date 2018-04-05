@@ -19,16 +19,13 @@ class ReactiveTodosRepositoryFlutter implements ReactiveTodosRepository {
   ReactiveTodosRepositoryFlutter({
     @required TodosRepository repository,
     List<TodoEntity> seedValue,
-  })
-      : this._repository = repository,
-        this._subject = new BehaviorSubject<List<TodoEntity>>(
-          seedValue: new List<TodoEntity>.unmodifiable(seedValue ?? []),
-        );
+  })  : this._repository = repository,
+        this._subject = new BehaviorSubject<List<TodoEntity>>();
 
   @override
   Future<void> addNewTodo(TodoEntity todo) async {
     _subject.add(new List.unmodifiable([]
-      ..addAll(_subject.value)
+      ..addAll(_subject.value ?? [])
       ..add(todo)));
 
     await _repository.saveTodos(_subject.value);
@@ -60,7 +57,7 @@ class ReactiveTodosRepositoryFlutter implements ReactiveTodosRepository {
 
     _repository.loadTodos().then((entities) {
       _subject.add(new List<TodoEntity>.unmodifiable(
-        []..addAll(_subject.value)..addAll(entities),
+        []..addAll(_subject.value ?? [])..addAll(entities),
       ));
     });
   }

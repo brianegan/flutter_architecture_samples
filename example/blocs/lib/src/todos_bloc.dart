@@ -18,8 +18,12 @@ class TodosBloc {
   final Sink<void> toggleAll;
 
   // Outputs
-  final Stream<List<Todo>> visibleTodos;
+  final Stream<VisibilityFilter> activeFilter;
   final Stream<bool> allComplete;
+  final Stream<bool> hasCompletedTodos;
+  final Stream<List<Todo>> visibleTodos;
+  final Stream<int> numComplete;
+  final Stream<int> numActive;
 
   factory TodosBloc(ReactiveTodosRepository repository) {
     // We'll use a series of StreamControllers to glue together our inputs and
@@ -57,13 +61,15 @@ class TodosBloc {
     // When a user clears the completed items, convert the current list of todos
     // into a list of ids, then send that to the repository
     clearCompletedController.stream
-        .withLatestFrom<List<Todo>, List<String>>(todos, _completedTodoIds)
-        .listen(repository.deleteTodo);
+        .switchMap<List<String>>((_) => todos.map(_completedTodoIds).take(1))
+        .listen((ids) {
+      return repository.deleteTodo(ids);
+    });
 
     // When a user toggles all todos, calculate whether all todos should be
     // marked complete or incomplete and push the change to the repository
     toggleAllController.stream
-        .withLatestFrom<List<Todo>, List<Todo>>(todos, _todosToUpdate)
+        .switchMap<List<Todo>>((_) => todos.map(_todosToUpdate).take(1))
         .listen((updates) => updates
             .forEach((update) => repository.updateTodo(update.toEntity())));
 
@@ -72,12 +78,18 @@ class TodosBloc {
     //
     // Every time the todos or the filter changes the visible items will emit
     // once again.
-    final visibleTodos =
-        Observable.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
-            todos, updateFilterController.stream, _filterTodos);
+    final visibleTodosController = new BehaviorSubject<List<Todo>>();
+
+    Observable
+        .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
+            todos, updateFilterController.stream, _filterTodos)
+        .pipe(visibleTodosController);
 
     // Calculate whether or not all todos are complete
     final allComplete = todos.map(_allComplete);
+
+    // Calculate whether or not all todos are complete
+    final hasCompletedTodos = todos.map(_hasCompletedTodos);
 
     return new TodosBloc._(
       addTodoController,
@@ -86,8 +98,12 @@ class TodosBloc {
       updateFilterController,
       clearCompletedController,
       toggleAllController,
-      visibleTodos,
+      visibleTodosController.stream,
       allComplete,
+      hasCompletedTodos,
+      updateFilterController.stream,
+      todos.map(_numActive),
+      todos.map(_numComplete),
     );
   }
 
@@ -100,12 +116,16 @@ class TodosBloc {
     this.toggleAll,
     this.visibleTodos,
     this.allComplete,
+    this.hasCompletedTodos,
+    this.activeFilter,
+    this.numActive,
+    this.numComplete,
   );
 
   static bool _allComplete(List<Todo> todos) =>
       todos.every((todo) => todo.complete);
 
-  static List<String> _completedTodoIds(void _, List<Todo> todos) {
+  static List<String> _completedTodoIds(List<Todo> todos) {
     return todos.fold<List<String>>([], (prev, todo) {
       if (todo.complete) {
         return prev..add(todo.id);
@@ -128,7 +148,7 @@ class TodosBloc {
     }).toList();
   }
 
-  static List<Todo> _todosToUpdate(void _, List<Todo> todos) {
+  static List<Todo> _todosToUpdate(List<Todo> todos) {
     final allComplete = _allComplete(todos);
 
     return todos.fold<List<Todo>>([], (prev, todo) {
@@ -140,5 +160,17 @@ class TodosBloc {
         return prev;
       }
     });
+  }
+
+  static bool _hasCompletedTodos(List<Todo> todos) {
+    return todos.any((todo) => todo.complete);
+  }
+
+  static int _numComplete(List<Todo> todos) {
+    return todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
+  }
+
+  static int _numActive(List<Todo> todos) {
+    return todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
   }
 }
