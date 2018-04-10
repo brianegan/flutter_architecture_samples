@@ -4,6 +4,8 @@ description: A new Flutter project.
 dependencies:
   todos_repository_flutter:
     path: ../todos_repository_flutter
+  firebase_flutter_repository:
+    path: ../firebase_flutter_repository
   flutter_architecture_samples:
     path: ../../
   blocs:

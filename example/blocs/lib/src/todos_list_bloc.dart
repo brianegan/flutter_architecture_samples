@@ -49,9 +49,12 @@ class TodosListBloc {
         .listen((todo) => repository.updateTodo(todo.toEntity()));
 
     // A Stream of all Todos from our Repository
-    final todos = repository
+    final todosSubject = new BehaviorSubject<List<Todo>>();
+
+    repository
         .todos()
-        .map((entities) => entities.map(Todo.fromEntity).toList());
+        .map((entities) => entities.map(Todo.fromEntity).toList())
+        .pipe(todosSubject);
 
     // When a user adds an item, add it to the repository
     addTodoController.stream
@@ -63,13 +66,15 @@ class TodosListBloc {
     // When a user clears the completed items, convert the current list of todos
     // into a list of ids, then send that to the repository
     clearCompletedController.stream
-        .switchMap<List<String>>((_) => todos.map(_completedTodoIds).take(1))
+        .switchMap<List<String>>(
+            (_) => todosSubject.stream.map(_completedTodoIds).take(1))
         .listen((ids) => repository.deleteTodo(ids));
 
     // When a user toggles all todos, calculate whether all todos should be
     // marked complete or incomplete and push the change to the repository
     toggleAllController.stream
-        .switchMap<List<Todo>>((_) => todos.map(_todosToUpdate).take(1))
+        .switchMap<List<Todo>>(
+            (_) => todosSubject.stream.map(_todosToUpdate).take(1))
         .listen((updates) => updates
             .forEach((update) => repository.updateTodo(update.toEntity())));
 
@@ -82,17 +87,17 @@ class TodosListBloc {
 
     Observable
         .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
-          todos,
+          todosSubject.stream,
           updateFilterController.stream,
           _filterTodos,
         )
         .pipe(visibleTodosController);
 
     // Calculate whether or not all todos are complete
-    final allComplete = todos.map(_allComplete);
+    final allComplete = todosSubject.stream.map(_allComplete);
 
     // Calculate whether or not all todos are complete
-    final hasCompletedTodos = todos.map(_hasCompletedTodos);
+    final hasCompletedTodos = todosSubject.stream.map(_hasCompletedTodos);
 
     return new TodosListBloc._(
       addTodoController,

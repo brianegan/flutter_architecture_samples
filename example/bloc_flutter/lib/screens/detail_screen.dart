@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:bloc_flutter_sample/dependency_injection.dart';
 import 'package:bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:bloc_flutter_sample/widgets/loading.dart';
 import 'package:blocs/blocs.dart';
@@ -12,9 +11,11 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
+  final TodoBloc Function() buildBloc;
 
   DetailScreen({
     @required this.todoId,
+    @required this.buildBloc,
   }) : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -29,7 +30,7 @@ class DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    todoBloc = new TodoBloc(injector.repository);
+    todoBloc = widget.buildBloc();
   }
 
   @override

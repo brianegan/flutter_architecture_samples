@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:bloc_flutter_sample/models.dart';
 
 class ExtraActionsButton extends StatelessWidget {
   final PopupMenuItemSelected<ExtraAction> onSelected;
@@ -54,3 +53,5 @@ class ExtraActionsButtonViewModel {
 
   ExtraActionsButtonViewModel(this.allComplete, this.hasCompletedTodos);
 }
+
+enum ExtraAction { toggleAllComplete, clearCompleted }

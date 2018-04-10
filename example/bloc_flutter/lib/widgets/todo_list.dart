@@ -2,8 +2,9 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_flutter_sample/dependency_injection.dart';
 import 'package:bloc_flutter_sample/screens/detail_screen.dart';
-import 'package:bloc_flutter_sample/todos_bloc_provider.dart';
+import 'package:bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:bloc_flutter_sample/widgets/loading.dart';
 import 'package:bloc_flutter_sample/widgets/todo_item.dart';
 import 'package:blocs/blocs.dart';
@@ -41,6 +42,8 @@ class TodoList extends StatelessWidget {
                 builder: (_) {
                   return new DetailScreen(
                     todoId: todo.id,
+                    buildBloc: () =>
+                        new TodoBloc(Injector.of(context).todosRepository),
                   );
                 },
               ),

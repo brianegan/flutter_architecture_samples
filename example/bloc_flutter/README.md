@@ -1,4 +1,4 @@
-# inherited_widget
+# bloc_example
 
 A new Flutter project.
 

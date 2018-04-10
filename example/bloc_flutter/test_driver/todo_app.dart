@@ -4,7 +4,7 @@
 
 // This line imports the extension
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:bloc_flutter_sample/main.dart' as app;
+import 'package:bloc_flutter_sample/main_local_storage.dart' as app;
 
 void main() {
   enableFlutterDriverExtension();

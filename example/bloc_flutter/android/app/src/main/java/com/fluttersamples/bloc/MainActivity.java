@@ -1,4 +1,4 @@
-package com.yourcompany.inheritedwidget;
+package com.fluttersamples.bloc;
 
 import android.os.Bundle;
 

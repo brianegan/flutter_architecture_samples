@@ -443,7 +443,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.inheritedWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fluttersamples.bloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -465,7 +465,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.inheritedWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fluttersamples.bloc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
