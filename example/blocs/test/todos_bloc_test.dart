@@ -11,7 +11,7 @@ class MockReactiveTodosRepository extends Mock
     implements ReactiveTodosRepository {}
 
 void main() {
-  group('TodosBloc', () {
+  group('TodosListBloc', () {
     test('should display all todos by default', () {
       final repository = new MockReactiveTodosRepository();
       final todos = [new TodoEntity("Hallo", "1", "Note", false)];
@@ -19,7 +19,7 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.visibleTodos, emits(todos.map(Todo.fromEntity)));
     });
@@ -34,10 +34,13 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.updateFilter.add(VisibilityFilter.completed);
 
-      expect(bloc.visibleTodos, emits([Todo.fromEntity(todos.last)]));
+      expect(
+        bloc.visibleTodos,
+        emitsThrough([Todo.fromEntity(todos.last)]),
+      );
     });
 
     test('should display active todos', () {
@@ -50,10 +53,13 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.updateFilter.add(VisibilityFilter.active);
 
-      expect(bloc.visibleTodos, emits([Todo.fromEntity(todos.first)]));
+      expect(
+        bloc.visibleTodos,
+        emitsThrough([Todo.fromEntity(todos.first)]),
+      );
     });
 
     test('allComplete should stream false if some todos incomplete', () {
@@ -66,7 +72,7 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.allComplete, emits(false));
     });
@@ -81,7 +87,7 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.allComplete, emits(true));
     });
@@ -96,7 +102,7 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.hasCompletedTodos, emits(true));
     });
@@ -111,7 +117,7 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.hasCompletedTodos, emits(true));
     });
@@ -126,39 +132,9 @@ void main() {
 
       when(repository.todos()).thenReturn(source.stream);
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
 
       expect(bloc.hasCompletedTodos, emits(false));
-    });
-
-    test('should stream the number of active todos', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
-
-      when(repository.todos()).thenReturn(source.stream);
-
-      final bloc = new TodosBloc(repository);
-
-      expect(bloc.numActive, emits(1));
-    });
-
-    test('should stream the number of completed todos', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", true),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
-
-      when(repository.todos()).thenReturn(source.stream);
-
-      final bloc = new TodosBloc(repository);
-
-      expect(bloc.numComplete, emits(2));
     });
 
     test('should add todos to the repo', () async {
@@ -170,25 +146,10 @@ void main() {
       when(repository.addNewTodo(todo.toEntity()))
           .thenReturn(new Future.value());
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.addTodo.add(todo);
 
       verify(repository.addNewTodo(todo.toEntity()));
-    });
-
-    test('should send updates to the repo', () async {
-      final repository = new MockReactiveTodosRepository();
-      final update = new Todo('Waaaat');
-      final source = new BehaviorSubject<List<TodoEntity>>();
-
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(update.toEntity()))
-          .thenReturn(new Future.value());
-
-      final bloc = new TodosBloc(repository);
-      bloc.updateTodo.add(update);
-
-      verify(repository.updateTodo(update.toEntity()));
     });
 
     test('should send deletions to the repo', () async {
@@ -198,7 +159,7 @@ void main() {
       when(repository.todos()).thenReturn(source.stream);
       when(repository.deleteTodo(["1"])).thenReturn(new Future.value());
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.deleteTodo.add("1");
 
       verify(repository.deleteTodo(["1"]));
@@ -218,7 +179,7 @@ void main() {
       when(repository.todos()).thenReturn(source.stream);
       when(repository.deleteTodo(["2"])).thenReturn(new Future.sync(() {}));
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.clearCompleted.add(null);
 
       await source.stream.first;
@@ -239,7 +200,7 @@ void main() {
       when(repository.todos()).thenReturn(source.stream);
       when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.toggleAll.add(null);
 
       await source.stream.first;
@@ -262,7 +223,7 @@ void main() {
       when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
       when(repository.updateTodo(e2Update)).thenReturn(new Future.sync(() {}));
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.toggleAll.add(null);
 
       await source.stream.first;
@@ -286,7 +247,7 @@ void main() {
       when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
       when(repository.updateTodo(e2Update)).thenReturn(new Future.sync(() {}));
 
-      final bloc = new TodosBloc(repository);
+      final bloc = new TodosListBloc(repository);
       bloc.toggleAll.add(null);
 
       await source.stream.first;

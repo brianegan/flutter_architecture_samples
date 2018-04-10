@@ -8,24 +8,25 @@ import 'package:blocs/src/models/models.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-class TodosBloc {
+class TodosListBloc {
   // Inputs
   final Sink<Todo> addTodo;
-  final Sink<Todo> updateTodo;
   final Sink<String> deleteTodo;
   final Sink<VisibilityFilter> updateFilter;
   final Sink<void> clearCompleted;
   final Sink<void> toggleAll;
+  final Sink<Todo> updateTodo;
 
   // Outputs
   final Stream<VisibilityFilter> activeFilter;
   final Stream<bool> allComplete;
   final Stream<bool> hasCompletedTodos;
   final Stream<List<Todo>> visibleTodos;
-  final Stream<int> numComplete;
-  final Stream<int> numActive;
 
-  factory TodosBloc(ReactiveTodosRepository repository) {
+  // Cleanup
+  final List<Sink<dynamic>> _sinks;
+
+  factory TodosListBloc(ReactiveTodosRepository repository) {
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //
@@ -36,11 +37,16 @@ class TodosBloc {
     final clearCompletedController = new PublishSubject<void>(sync: true);
     final removeTodoController = new StreamController<String>(sync: true);
     final toggleAllController = new PublishSubject<void>(sync: true);
-    final updateTodoController = new StreamController<Todo>(sync: true);
+
     final updateFilterController = new BehaviorSubject<VisibilityFilter>(
       seedValue: VisibilityFilter.all,
       sync: true,
     );
+
+    // When a user updates an item, update the repository
+    final updateTodoController = new StreamController<Todo>(sync: true);
+    updateTodoController.stream
+        .listen((todo) => repository.updateTodo(todo.toEntity()));
 
     // A Stream of all Todos from our Repository
     final todos = repository
@@ -51,10 +57,6 @@ class TodosBloc {
     addTodoController.stream
         .listen((todo) => repository.addNewTodo(todo.toEntity()));
 
-    // When a user updates an item, update the repository
-    updateTodoController.stream
-        .listen((todo) => repository.updateTodo(todo.toEntity()));
-
     // When a user removes an item, remove it from the repository
     removeTodoController.stream.listen((id) => repository.deleteTodo([id]));
 
@@ -62,9 +64,7 @@ class TodosBloc {
     // into a list of ids, then send that to the repository
     clearCompletedController.stream
         .switchMap<List<String>>((_) => todos.map(_completedTodoIds).take(1))
-        .listen((ids) {
-      return repository.deleteTodo(ids);
-    });
+        .listen((ids) => repository.deleteTodo(ids));
 
     // When a user toggles all todos, calculate whether all todos should be
     // marked complete or incomplete and push the change to the repository
@@ -82,7 +82,10 @@ class TodosBloc {
 
     Observable
         .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
-            todos, updateFilterController.stream, _filterTodos)
+          todos,
+          updateFilterController.stream,
+          _filterTodos,
+        )
         .pipe(visibleTodosController);
 
     // Calculate whether or not all todos are complete
@@ -91,35 +94,40 @@ class TodosBloc {
     // Calculate whether or not all todos are complete
     final hasCompletedTodos = todos.map(_hasCompletedTodos);
 
-    return new TodosBloc._(
+    return new TodosListBloc._(
       addTodoController,
-      updateTodoController,
       removeTodoController,
       updateFilterController,
       clearCompletedController,
       toggleAllController,
+      updateTodoController,
       visibleTodosController.stream,
       allComplete,
       hasCompletedTodos,
       updateFilterController.stream,
-      todos.map(_numActive),
-      todos.map(_numComplete),
+      [
+        addTodoController,
+        clearCompletedController,
+        removeTodoController,
+        toggleAllController,
+        updateFilterController,
+        updateTodoController,
+      ],
     );
   }
 
-  TodosBloc._(
+  TodosListBloc._(
     this.addTodo,
-    this.updateTodo,
     this.deleteTodo,
     this.updateFilter,
     this.clearCompleted,
     this.toggleAll,
+    this.updateTodo,
     this.visibleTodos,
     this.allComplete,
     this.hasCompletedTodos,
     this.activeFilter,
-    this.numActive,
-    this.numComplete,
+    this._sinks,
   );
 
   static bool _allComplete(List<Todo> todos) =>
@@ -166,11 +174,7 @@ class TodosBloc {
     return todos.any((todo) => todo.complete);
   }
 
-  static int _numComplete(List<Todo> todos) {
-    return todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
-  }
-
-  static int _numActive(List<Todo> todos) {
-    return todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
+  void close() {
+    _sinks.forEach((sink) => sink.close());
   }
 }

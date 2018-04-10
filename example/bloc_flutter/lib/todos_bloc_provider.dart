@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class TodosBlocProvider extends InheritedWidget {
-  final TodosBloc bloc;
+  final TodosListBloc bloc;
 
   TodosBlocProvider({
     Key key,
@@ -15,7 +15,7 @@ class TodosBlocProvider extends InheritedWidget {
     @required Widget child,
   }) : super(key: key, child: child);
 
-  static TodosBloc of(BuildContext context) {
+  static TodosListBloc of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(TodosBlocProvider)
             as TodosBlocProvider)
         .bloc;

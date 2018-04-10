@@ -4,7 +4,6 @@
 
 import 'dart:async';
 
-import 'package:bloc_flutter_sample/todos_bloc_provider.dart';
 import 'package:blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
@@ -17,16 +16,18 @@ class AddEditScreen extends StatelessWidget {
       new GlobalKey<FormFieldState<String>>();
 
   final Todo todo;
+  final Function(Todo) addTodo;
+  final Function(Todo) updateTodo;
 
   AddEditScreen({
     Key key,
     this.todo,
+    this.addTodo,
+    this.updateTodo,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TodosBlocProvider.of(context);
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(
@@ -84,9 +85,9 @@ class AddEditScreen extends StatelessWidget {
             final note = noteKey.currentState.value;
 
             if (isEditing) {
-              bloc.updateTodo.add(todo.copyWith(task: task, note: note));
+              updateTodo(todo.copyWith(task: task, note: note));
             } else {
-              bloc.addTodo.add(new Todo(
+              addTodo(new Todo(
                 task,
                 note: note,
               ));

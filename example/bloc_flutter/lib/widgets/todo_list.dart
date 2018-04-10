@@ -1,13 +1,14 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'package:bloc_flutter_sample/screens/detail_screen.dart';
 import 'package:bloc_flutter_sample/todos_bloc_provider.dart';
+import 'package:bloc_flutter_sample/widgets/loading.dart';
 import 'package:bloc_flutter_sample/widgets/todo_item.dart';
 import 'package:blocs/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
 
 class TodoList extends StatelessWidget {
   TodoList({Key key}) : super(key: key);
@@ -16,16 +17,9 @@ class TodoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return new StreamBuilder<List<Todo>>(
       stream: TodosBlocProvider.of(context).visibleTodos,
-      builder: (context, snapshot) =>
-          snapshot.hasData ? _buildList(snapshot.data) : _buildLoading(),
-    );
-  }
-
-  Center _buildLoading() {
-    return new Center(
-      child: new CircularProgressIndicator(
-        key: ArchSampleKeys.todosLoading,
-      ),
+      builder: (context, snapshot) => snapshot.hasData
+          ? _buildList(snapshot.data)
+          : new LoadingSpinner(key: ArchSampleKeys.todosLoading),
     );
   }
 
@@ -46,7 +40,7 @@ class TodoList extends StatelessWidget {
               new MaterialPageRoute(
                 builder: (_) {
                   return new DetailScreen(
-                    todo: todo,
+                    todoId: todo.id,
                   );
                 },
               ),
