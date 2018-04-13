@@ -9,6 +9,7 @@ class ArchSampleKeys {
   static final homeScreen = const Key('__homeScreen__');
   static final addTodoFab = const Key('__addTodoFab__');
   static final snackbar = const Key('__snackbar__');
+  static Key snackbarAction(String id) => new Key('__snackbar_action_${id}__');
 
   // Todos
   static final todoList = const Key('__todoList__');

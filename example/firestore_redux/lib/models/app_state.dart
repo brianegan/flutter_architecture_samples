@@ -1,9 +1,9 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:meta/meta.dart';
 import 'package:fire_redux_sample/models/models.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class AppState {
@@ -12,11 +12,12 @@ class AppState {
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
 
-  AppState(
-      {this.isLoading = false,
-      this.todos = const [],
-      this.activeTab = AppTab.todos,
-      this.activeFilter = VisibilityFilter.all});
+  AppState({
+    this.isLoading = false,
+    this.todos = const [],
+    this.activeTab = AppTab.todos,
+    this.activeFilter = VisibilityFilter.all,
+  });
 
   factory AppState.loading() => new AppState(isLoading: true);
 
