@@ -1,0 +1,14 @@
+name: mvi_base
+description: The MI parts of an MVI app.
+
+environment:
+  sdk: '>=2.0.0-dev.28.0 <3.0.0'
+
+dependencies:
+  todos_repository:
+    path: ../todos_repository
+  rxdart: 0.16.6
+
+dev_dependencies:
+  test: ^0.12.33
+  mockito: "^2.2.3"
