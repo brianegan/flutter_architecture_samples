@@ -25,8 +25,11 @@ class TodosListBloc {
 
   // Cleanup
   final List<Sink<dynamic>> _sinks;
+  final List<StreamSubscription<dynamic>> _subscriptions;
 
   factory TodosListBloc(ReactiveTodosRepository repository) {
+    final List<StreamSubscription<dynamic>> subscriptions = [];
+
     // We'll use a series of StreamControllers to glue together our inputs and
     // outputs.
     //
@@ -37,16 +40,15 @@ class TodosListBloc {
     final clearCompletedController = new PublishSubject<void>(sync: true);
     final removeTodoController = new StreamController<String>(sync: true);
     final toggleAllController = new PublishSubject<void>(sync: true);
-
+    final updateTodoController = new StreamController<Todo>(sync: true);
     final updateFilterController = new BehaviorSubject<VisibilityFilter>(
       seedValue: VisibilityFilter.all,
       sync: true,
     );
 
     // When a user updates an item, update the repository
-    final updateTodoController = new StreamController<Todo>(sync: true);
-    updateTodoController.stream
-        .listen((todo) => repository.updateTodo(todo.toEntity()));
+    subscriptions.add(updateTodoController.stream
+        .listen((todo) => repository.updateTodo(todo.toEntity())));
 
     // A Stream of all Todos from our Repository
     final todosSubject = new BehaviorSubject<List<Todo>>();
@@ -57,26 +59,27 @@ class TodosListBloc {
         .pipe(todosSubject);
 
     // When a user adds an item, add it to the repository
-    addTodoController.stream
-        .listen((todo) => repository.addNewTodo(todo.toEntity()));
+    subscriptions.add(addTodoController.stream
+        .listen((todo) => repository.addNewTodo(todo.toEntity())));
 
     // When a user removes an item, remove it from the repository
-    removeTodoController.stream.listen((id) => repository.deleteTodo([id]));
+    subscriptions.add(removeTodoController.stream
+        .listen((id) => repository.deleteTodo([id])));
 
     // When a user clears the completed items, convert the current list of todos
     // into a list of ids, then send that to the repository
-    clearCompletedController.stream
+    subscriptions.add(clearCompletedController.stream
         .switchMap<List<String>>(
             (_) => todosSubject.stream.map(_completedTodoIds).take(1))
-        .listen((ids) => repository.deleteTodo(ids));
+        .listen((ids) => repository.deleteTodo(ids)));
 
     // When a user toggles all todos, calculate whether all todos should be
     // marked complete or incomplete and push the change to the repository
-    toggleAllController.stream
+    subscriptions.add(toggleAllController.stream
         .switchMap<List<Todo>>(
             (_) => todosSubject.stream.map(_todosToUpdate).take(1))
         .listen((updates) => updates
-            .forEach((update) => repository.updateTodo(update.toEntity())));
+            .forEach((update) => repository.updateTodo(update.toEntity()))));
 
     // To calculate the visible todos, we combine the todos with the current
     // visibility filter and return the filtered todos.
@@ -118,6 +121,7 @@ class TodosListBloc {
         updateFilterController,
         updateTodoController,
       ],
+      subscriptions,
     );
   }
 
@@ -133,6 +137,7 @@ class TodosListBloc {
     this.hasCompletedTodos,
     this.activeFilter,
     this._sinks,
+    this._subscriptions,
   );
 
   static bool _allComplete(List<Todo> todos) =>
@@ -181,5 +186,6 @@ class TodosListBloc {
 
   void close() {
     _sinks.forEach((sink) => sink.close());
+    _subscriptions.forEach((subscription) => subscription.cancel());
   }
 }
