@@ -3,256 +3,166 @@ import 'dart:async';
 import 'package:blocs/blocs.dart';
 import 'package:blocs/src/models/models.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 class MockReactiveTodosRepository extends Mock
     implements ReactiveTodosRepository {}
 
+class MockTodosListInteractor extends Mock implements TodosInteractor {}
+
 void main() {
   group('TodosListBloc', () {
     test('should display all todos by default', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [new TodoEntity("Hallo", "1", "Note", false)];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
+      final interactor = new MockTodosListInteractor();
+      final todos = [new Todo('Hallo')];
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
 
-      expect(bloc.visibleTodos, emits(todos.map(Todo.fromEntity)));
+      expect(bloc.visibleTodos, emits(todos));
     });
 
     test('should display completed todos', () {
-      final repository = new MockReactiveTodosRepository();
+      final interactor = new MockTodosListInteractor();
       final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
+        new Todo('Hallo'),
+        new Todo('Friend', complete: true),
       ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
       bloc.updateFilter.add(VisibilityFilter.completed);
 
       expect(
         bloc.visibleTodos,
-        emitsThrough([Todo.fromEntity(todos.last)]),
+        emitsThrough([todos.last]),
       );
     });
 
     test('should display active todos', () {
-      final repository = new MockReactiveTodosRepository();
+      final interactor = new MockTodosListInteractor();
       final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
+        new Todo('Hallo'),
+        new Todo('Friend', complete: true),
       ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
       bloc.updateFilter.add(VisibilityFilter.active);
 
       expect(
         bloc.visibleTodos,
-        emitsThrough([Todo.fromEntity(todos.first)]),
+        emitsThrough([todos.first]),
       );
     });
 
-    test('allComplete should stream false if some todos incomplete', () {
-      final repository = new MockReactiveTodosRepository();
+    test('should stream the current visibility filter', () {
+      final interactor = new MockTodosListInteractor();
       final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
+        new Todo('Hallo'),
+        new Todo('Friend', complete: true),
       ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
+
+      bloc.updateFilter.add(VisibilityFilter.completed);
+
+      expect(
+        bloc.activeFilter,
+        emits(VisibilityFilter.completed),
+      );
+    });
+
+    test('allComplete should stream from the interactor', () {
+      final interactor = new MockTodosListInteractor();
+
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.allComplete)
+          .thenAnswer((_) => new Stream.fromIterable([false]));
+
+      final bloc = new TodosListBloc(interactor);
 
       expect(bloc.allComplete, emits(false));
     });
 
-    test('allComplete should stream true when all todos are complete', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", true),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
+    test('hasCompletedTodos should stream from the interactor', () {
+      final interactor = new MockTodosListInteractor();
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.hasCompletedTodos)
+          .thenAnswer((_) => new Stream.fromIterable([true]));
 
-      final bloc = new TodosListBloc(repository);
-
-      expect(bloc.allComplete, emits(true));
-    });
-
-    test('hasCompletedTodos should be true when all todos are complete', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", true),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
-
-      when(repository.todos()).thenReturn(source.stream);
-
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
 
       expect(bloc.hasCompletedTodos, emits(true));
     });
 
-    test('hasCompletedTodos should be true when some todos are complete', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
+    test('should add todos to the interactor', () async {
+      final interactor = new MockTodosListInteractor();
+      final todo = new Todo('AddMe');
 
-      when(repository.todos()).thenReturn(source.stream);
+      when(interactor.todos).thenAnswer((_) => new Stream.fromIterable([
+            [todo]
+          ]));
+      when(interactor.addNewTodo(todo)).thenReturn(new Future.value());
 
-      final bloc = new TodosListBloc(repository);
-
-      expect(bloc.hasCompletedTodos, emits(true));
-    });
-
-    test('hasCompletedTodos should be false when all todos are incomplete', () {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", false),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(seedValue: todos);
-
-      when(repository.todos()).thenReturn(source.stream);
-
-      final bloc = new TodosListBloc(repository);
-
-      expect(bloc.hasCompletedTodos, emits(false));
-    });
-
-    test('should add todos to the repo', () async {
-      final repository = new MockReactiveTodosRepository();
-      final source = new BehaviorSubject<List<TodoEntity>>();
-      final todo = new Todo("AddMe");
-
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.addNewTodo(todo.toEntity()))
-          .thenReturn(new Future.value());
-
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
       bloc.addTodo.add(todo);
 
-      verify(repository.addNewTodo(todo.toEntity()));
+      verify(interactor.addNewTodo(todo));
     });
 
-    test('should send deletions to the repo', () async {
-      final repository = new MockReactiveTodosRepository();
-      final source = new BehaviorSubject<List<TodoEntity>>();
+    test('should send deletions to the interactor', () async {
+      final interactor = new MockTodosListInteractor();
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.deleteTodo(["1"])).thenReturn(new Future.value());
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.deleteTodo('1')).thenReturn(new Future.value());
 
-      final bloc = new TodosListBloc(repository);
-      bloc.deleteTodo.add("1");
+      final bloc = new TodosListBloc(interactor);
+      bloc.deleteTodo.add('1');
 
-      verify(repository.deleteTodo(["1"]));
+      verify(interactor.deleteTodo('1'));
     });
 
-    test('should remove completed todos from the repo', () async {
-      final repository = new MockReactiveTodosRepository();
-      final todos = [
-        new TodoEntity("Hallo", "1", "Note", false),
-        new TodoEntity("Friend", "2", "Note", true),
-      ];
-      final source = new BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
-        sync: true,
-      );
+    test('should remove completed todos from the interactor', () async {
+      final interactor = new MockTodosListInteractor();
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.deleteTodo(["2"])).thenReturn(new Future.sync(() {}));
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.clearCompleted(null))
+          .thenAnswer((_) => new Future.value());
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
       bloc.clearCompleted.add(null);
 
-      await source.stream.first;
-      verify(repository.deleteTodo(["2"]));
+      verify(interactor.clearCompleted(null));
     });
 
-    test('if some todos incomplete, should toggle todos complete', () async {
-      final repository = new MockReactiveTodosRepository();
-      final e1 = new TodoEntity("Hallo", "1", "Note", false);
-      final e1Update = new TodoEntity("Hallo", "1", "Note", true);
-      final e2 = new TodoEntity("Friend", "2", "Note", true);
-      final todos = [e1, e2];
-      final source = new BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
-        sync: true,
-      );
+    test('should toggle all with the interactor', () async {
+      final interactor = new MockTodosListInteractor();
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
+      when(interactor.todos)
+          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.toggleAll(null))
+          .thenAnswer((_) => new Future<List<dynamic>>.value());
 
-      final bloc = new TodosListBloc(repository);
+      final bloc = new TodosListBloc(interactor);
       bloc.toggleAll.add(null);
 
-      await source.stream.first;
-      verify(repository.updateTodo(e1Update));
-    });
-
-    test('if all todos incomplete, should toggle all todos complete', () async {
-      final repository = new MockReactiveTodosRepository();
-      final e1 = new TodoEntity("Hallo", "1", "Note", false);
-      final e1Update = new TodoEntity("Hallo", "1", "Note", true);
-      final e2 = new TodoEntity("Friend", "2", "Note", false);
-      final e2Update = new TodoEntity("Friend", "2", "Note", true);
-      final todos = [e1, e2];
-      final source = new BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
-        sync: true,
-      );
-
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
-      when(repository.updateTodo(e2Update)).thenReturn(new Future.sync(() {}));
-
-      final bloc = new TodosListBloc(repository);
-      bloc.toggleAll.add(null);
-
-      await source.stream.first;
-      verify(repository.updateTodo(e1Update));
-      verify(repository.updateTodo(e2Update));
-    });
-
-    test('if all todos complete, should toggle todos incomplete', () async {
-      final repository = new MockReactiveTodosRepository();
-      final e1 = new TodoEntity("Hallo", "1", "Note", true);
-      final e1Update = new TodoEntity("Hallo", "1", "Note", false);
-      final e2 = new TodoEntity("Friend", "2", "Note", true);
-      final e2Update = new TodoEntity("Friend", "2", "Note", false);
-      final todos = [e1, e2];
-      final source = new BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
-        sync: true,
-      );
-
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(new Future.sync(() {}));
-      when(repository.updateTodo(e2Update)).thenReturn(new Future.sync(() {}));
-
-      final bloc = new TodosListBloc(repository);
-      bloc.toggleAll.add(null);
-
-      await source.stream.first;
-      verify(repository.updateTodo(e1Update));
-      verify(repository.updateTodo(e2Update));
+      verify(interactor.toggleAll(null));
     });
   });
 }

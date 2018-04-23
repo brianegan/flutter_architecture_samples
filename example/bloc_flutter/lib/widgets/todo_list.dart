@@ -43,7 +43,7 @@ class TodoList extends StatelessWidget {
                   return new DetailScreen(
                     todoId: todo.id,
                     buildBloc: () =>
-                        new TodoBloc(Injector.of(context).todosRepository),
+                        new TodoBloc(Injector.of(context).todosInteractor),
                   );
                 },
               ),

@@ -76,7 +76,7 @@ class HomeScreenState extends State<HomeScreen> {
                       ? new TodoList()
                       : new StatsCounter(
                           buildBloc: () => new StatsBloc(
-                              Injector.of(context).todosRepository),
+                              Injector.of(context).todosInteractor),
                         )
                   : new LoadingSpinner(
                       key: ArchSampleKeys.todosLoading,

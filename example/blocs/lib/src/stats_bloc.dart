@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:blocs/src/models/models.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:blocs/src/todos_interactor.dart';
 
 class StatsBloc {
   final Stream<int> numActive;
@@ -16,14 +16,10 @@ class StatsBloc {
     this.numComplete,
   );
 
-  factory StatsBloc(ReactiveTodosRepository repository) {
-    final todos = repository
-        .todos()
-        .map((entities) => entities.map(Todo.fromEntity).toList());
-
+  factory StatsBloc(TodosInteractor interactor) {
     return new StatsBloc._(
-      todos.map(_numActive),
-      todos.map(_numComplete),
+      interactor.todos.map(_numActive),
+      interactor.todos.map(_numComplete),
     );
   }
 

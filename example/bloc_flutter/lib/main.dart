@@ -14,16 +14,17 @@ import 'package:meta/meta.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 void main({
-  @required ReactiveTodosRepository todosRepository,
+  @required TodosInteractor todosInteractor,
   @required UserRepository userRepository,
 }) {
   // ignore: deprecated_member_use
   MaterialPageRoute.debugEnableFadingRoutes = true;
 
   runApp(new Injector(
-    todosRepository: todosRepository,
+    todosInteractor: todosInteractor,
     userRepository: userRepository,
     child: new TodosBlocProvider(
+      bloc: new TodosListBloc(todosInteractor),
       child: new MaterialApp(
         title: new BlocLocalizations().appTitle,
         theme: ArchSampleTheme.theme,
@@ -44,7 +45,6 @@ void main({
           },
         },
       ),
-      bloc: new TodosListBloc(todosRepository),
     ),
   ));
 }

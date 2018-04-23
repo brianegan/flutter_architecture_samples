@@ -6,17 +6,18 @@
 // are more stable.
 library dependency_injector;
 
+import 'package:blocs/blocs.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 class Injector extends InheritedWidget {
-  final ReactiveTodosRepository todosRepository;
+  final TodosInteractor todosInteractor;
   final UserRepository userRepository;
 
   Injector({
     Key key,
-    @required this.todosRepository,
+    @required this.todosInteractor,
     @required this.userRepository,
     @required Widget child,
   }) : super(key: key, child: child);
@@ -26,6 +27,6 @@ class Injector extends InheritedWidget {
 
   @override
   bool updateShouldNotify(Injector oldWidget) =>
-      todosRepository != oldWidget.todosRepository ||
+      todosInteractor != oldWidget.todosInteractor ||
       userRepository != oldWidget.userRepository;
 }

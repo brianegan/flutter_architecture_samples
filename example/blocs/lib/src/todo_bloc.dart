@@ -5,52 +5,49 @@
 import 'dart:async';
 
 import 'package:blocs/src/models/models.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:blocs/src/todos_interactor.dart';
 
 class TodoBloc {
+  // Inputs
   final Sink<String> deleteTodo;
   final Sink<Todo> updateTodo;
 
-  final ReactiveTodosRepository _repository;
-  final List<Sink<dynamic>> _sinks;
+  final TodosInteractor _interactor;
+  final List<StreamSubscription<dynamic>> _subscriptions;
 
   TodoBloc._(
     this.deleteTodo,
     this.updateTodo,
-    this._repository,
-    this._sinks,
+    this._interactor,
+    this._subscriptions,
   );
 
-  factory TodoBloc(ReactiveTodosRepository repository) {
+  factory TodoBloc(TodosInteractor interactor) {
     final removeTodoController = new StreamController<String>(sync: true);
     final updateTodoController = new StreamController<Todo>(sync: true);
+    final subscriptions = <StreamSubscription<dynamic>>[
+      // When a user updates an item, update the repository
+      updateTodoController.stream.listen(interactor.updateTodo),
 
-    // When a user updates an item, update the repository
-    updateTodoController.stream
-        .listen((todo) => repository.updateTodo(todo.toEntity()));
-
-    // When a user removes an item, remove it from the repository
-    removeTodoController.stream.listen((id) => repository.deleteTodo([id]));
+      // When a user removes an item, remove it from the repository
+      removeTodoController.stream.listen(interactor.deleteTodo),
+    ];
 
     return new TodoBloc._(
       removeTodoController,
       updateTodoController,
-      repository,
-      [updateTodoController, removeTodoController],
+      interactor,
+      subscriptions,
     );
   }
 
   Stream<Todo> todo(String id) {
-    return _repository
-        .todos()
-        .map((entities) => entities.firstWhere(
-              (entity) => entity.id == id,
-              orElse: () => null,
-            ))
-        .map((entity) => entity != null ? Todo.fromEntity(entity) : null);
+    return _interactor.todo(id);
   }
 
   void close() {
-    _sinks.forEach((sink) => sink.close());
+    deleteTodo.close();
+    updateTodo.close();
+    _subscriptions.forEach((subscription) => subscription.cancel());
   }
 }

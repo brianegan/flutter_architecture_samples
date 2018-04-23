@@ -3,6 +3,7 @@
 // in the LICENSE file.
 
 import 'package:bloc_flutter_sample/main.dart' as app;
+import 'package:blocs/blocs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
@@ -10,7 +11,9 @@ import 'package:firebase_flutter_repository/user_repository.dart';
 
 void main() {
   app.main(
-    todosRepository: new FirestoreReactiveTodosRepository(Firestore.instance),
+    todosInteractor: new TodosInteractor(
+      new FirestoreReactiveTodosRepository(Firestore.instance),
+    ),
     userRepository: new FirebaseUserRepository(FirebaseAuth.instance),
   );
 }
