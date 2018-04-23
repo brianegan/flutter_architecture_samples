@@ -7,11 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:mvi_base/mvi_base.dart';
+import 'package:mvi_flutter_sample/dependency_injection.dart';
 
 class StatsCounter extends StatefulWidget {
-  final TodosInteractor interactor;
+  final MviPresenter<StatsModel> Function() initPresenter;
 
-  StatsCounter({Key key, @required this.interactor})
+  StatsCounter({Key key, this.initPresenter})
       : super(key: key ?? ArchSampleKeys.statsCounter);
 
   @override
@@ -24,9 +25,14 @@ class StatsCounterState extends State<StatsCounter> {
   StatsPresenter presenter;
 
   @override
-  void initState() {
-    super.initState();
-    presenter = new StatsPresenter(widget.interactor);
+  void didChangeDependencies() {
+    presenter = widget.initPresenter != null
+        ? widget.initPresenter()
+        : new StatsPresenter(Injector.of(context).todosInteractor);
+
+    presenter.setUp();
+
+    super.didChangeDependencies();
   }
 
   @override

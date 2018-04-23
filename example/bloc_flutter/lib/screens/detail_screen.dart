@@ -11,11 +11,11 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final TodoBloc Function() buildBloc;
+  final TodoBloc Function() initBloc;
 
   DetailScreen({
     @required this.todoId,
-    @required this.buildBloc,
+    @required this.initBloc,
   }) : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -30,7 +30,7 @@ class DetailScreenState extends State<DetailScreen> {
   @override
   void initState() {
     super.initState();
-    todoBloc = widget.buildBloc();
+    todoBloc = widget.initBloc();
   }
 
   @override

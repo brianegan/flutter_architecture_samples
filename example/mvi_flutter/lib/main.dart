@@ -30,10 +30,7 @@ void main({
       ],
       routes: {
         ArchSampleRoutes.home: (context) {
-          return new HomeScreen(
-            todosInteractor: Injector.of(context).todosInteractor,
-            userInteractor: Injector.of(context).userInteractor,
-          );
+          return new HomeScreen();
         },
         ArchSampleRoutes.addTodo: (context) {
           return new AddEditScreen(

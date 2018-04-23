@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_flutter_sample/dependency_injection.dart';
 import 'package:mvi_flutter_sample/screens/detail_screen.dart';
 import 'package:mvi_flutter_sample/widgets/loading.dart';
 import 'package:mvi_flutter_sample/widgets/todo_item.dart';
@@ -50,10 +49,7 @@ class TodoList extends StatelessWidget {
             Navigator.of(context).push(
               new MaterialPageRoute(
                 builder: (_) {
-                  return new DetailScreen(
-                    todoId: todo.id,
-                    interactor: Injector.of(context).todosInteractor,
-                  );
+                  return new DetailScreen(todoId: todo.id);
                 },
               ),
             ).then((todo) {

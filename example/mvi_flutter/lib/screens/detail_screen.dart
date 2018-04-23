@@ -6,17 +6,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:mvi_base/mvi_base.dart';
+import 'package:mvi_flutter_sample/dependency_injection.dart';
 import 'package:mvi_flutter_sample/screens/add_edit_screen.dart';
 import 'package:mvi_flutter_sample/widgets/loading.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final TodosInteractor interactor;
+  final MviPresenter<Todo> Function(DetailView) initPresenter;
 
   DetailScreen({
+    Key key,
     @required this.todoId,
-    @required this.interactor,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+    this.initPresenter,
+  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
   DetailScreenState createState() {
@@ -25,17 +27,21 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> with DetailView {
-  DetailPresenter presenter;
+  MviPresenter<Todo> presenter;
 
   @override
-  void initState() {
-    presenter = new DetailPresenter(
-      id: widget.todoId,
-      view: this,
-      interactor: widget.interactor,
-    )..setUp();
+  void didChangeDependencies() {
+    presenter = widget.initPresenter != null
+        ? widget.initPresenter(this)
+        : new DetailPresenter(
+            id: widget.todoId,
+            view: this,
+            interactor: Injector.of(context).todosInteractor,
+          );
 
-    super.initState();
+    presenter.setUp();
+
+    super.didChangeDependencies();
   }
 
   @override
