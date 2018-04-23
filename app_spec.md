@@ -115,11 +115,15 @@ Note that after the first request to the network, it's never hit again. In addit
 
 ## Testing
 
+### Unit / Widget tests
+
 Please include tests with your app! How easy it is to test an architecture is an important consideration when choosing which approach will work best for your project or team.
 
-You do not need to write an exhaustive suite of Widget tests, but if the architecture lends itself to easy widget testing, please include a demonstration! 
+You do not need to write an exhaustive suite of Widget tests, but if the architecture lends itself to easy widget testing, please include a demonstration!
 
-When Flutter Driver is a bit more stable, we will create a series of smoke tests that can be run against each app. 
+### Integration Tests
+
+All samples should pass the integration test suite. Please see the `integration_tests` folder for more information, and check out the `test_driver` folder in an existing example as a reference.
 
 ## Routing
 
