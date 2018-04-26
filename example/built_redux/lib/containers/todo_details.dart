@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -16,11 +16,11 @@ class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
 
   @override
   Widget build(BuildContext context, Todo todo, AppActions actions) {
-    return new DetailsScreen(
+    return DetailsScreen(
       todo: todo,
       onDelete: () => actions.deleteTodoAction(todo.id),
       toggleCompleted: (isComplete) {
-        actions.updateTodoAction(new UpdateTodoActionPayload(
+        actions.updateTodoAction(UpdateTodoActionPayload(
           id,
           todo.rebuild((b) => b..complete = isComplete),
         ));
@@ -32,7 +32,7 @@ class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
   Todo connect(AppState state) {
     return state.todos.firstWhere(
       (todo) => todo.id == id,
-      orElse: () => new Todo("Nothing Here"),
+      orElse: () => Todo("Nothing Here"),
     );
   }
 }

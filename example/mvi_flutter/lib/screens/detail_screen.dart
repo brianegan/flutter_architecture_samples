@@ -22,7 +22,7 @@ class DetailScreen extends StatefulWidget {
 
   @override
   DetailScreenState createState() {
-    return new DetailScreenState();
+    return DetailScreenState();
   }
 }
 
@@ -33,7 +33,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
   void didChangeDependencies() {
     presenter = widget.initPresenter != null
         ? widget.initPresenter(this)
-        : new DetailPresenter(
+        : DetailPresenter(
             id: widget.todoId,
             view: this,
             interactor: Injector.of(context).todosInteractor,
@@ -53,21 +53,21 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
 
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder<Todo>(
+    return StreamBuilder<Todo>(
       stream: presenter.where((todo) => todo != null),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return new LoadingSpinner();
+        if (!snapshot.hasData) return LoadingSpinner();
 
         final todo = snapshot.data;
 
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(ArchSampleLocalizations.of(context).todoDetails),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(ArchSampleLocalizations.of(context).todoDetails),
             actions: [
-              new IconButton(
+              IconButton(
                 key: ArchSampleKeys.deleteTodoButton,
                 tooltip: ArchSampleLocalizations.of(context).deleteTodo,
-                icon: new Icon(Icons.delete),
+                icon: Icon(Icons.delete),
                 onPressed: () {
                   deleteTodo.add(todo.id);
                   Navigator.pop(context, todo);
@@ -75,16 +75,16 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
               )
             ],
           ),
-          body: new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new ListView(
+          body: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: ListView(
               children: [
-                new Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    new Padding(
-                      padding: new EdgeInsets.only(right: 8.0),
-                      child: new Checkbox(
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Checkbox(
                         value: todo.complete,
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
@@ -93,22 +93,22 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                         },
                       ),
                     ),
-                    new Expanded(
-                      child: new Column(
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          new Padding(
-                            padding: new EdgeInsets.only(
+                          Padding(
+                            padding: EdgeInsets.only(
                               top: 8.0,
                               bottom: 16.0,
                             ),
-                            child: new Text(
+                            child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
                               style: Theme.of(context).textTheme.headline,
                             ),
                           ),
-                          new Text(
+                          Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
                             style: Theme.of(context).textTheme.subhead,
@@ -121,15 +121,15 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
               ],
             ),
           ),
-          floatingActionButton: new FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: new Icon(Icons.edit),
+            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                new MaterialPageRoute(
+                MaterialPageRoute(
                   builder: (context) {
-                    return new AddEditScreen(
+                    return AddEditScreen(
                       todo: todo,
                       updateTodo: updateTodo.add,
                       key: ArchSampleKeys.editTodoScreen,

@@ -17,10 +17,10 @@ class EditTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, OnSaveCallback>(
+    return StoreConnector<AppState, OnSaveCallback>(
       converter: (Store<AppState> store) {
         return (task, note) {
-          store.dispatch(new UpdateTodoAction(
+          store.dispatch(UpdateTodoAction(
             todo.id,
             todo.copyWith(
               task: task,
@@ -30,7 +30,7 @@ class EditTodo extends StatelessWidget {
         };
       },
       builder: (BuildContext context, OnSaveCallback onSave) {
-        return new AddEditScreen(
+        return AddEditScreen(
           key: ArchSampleKeys.editTodoScreen,
           onSave: onSave,
           isEditing: true,

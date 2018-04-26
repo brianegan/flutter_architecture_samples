@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library filter_selector;
@@ -31,7 +31,7 @@ abstract class FilterSelectorViewModel
     AppActions actions,
     VisibilityFilter activeFilter,
   ) {
-    return new FilterSelectorViewModel((b) => b
+    return FilterSelectorViewModel((b) => b
       ..onFilterSelected = (filter) {
         actions.updateFilterAction(filter);
       }
@@ -56,7 +56,7 @@ class FilterSelector
   ) {
     return builder(
       context,
-      new FilterSelectorViewModel.from(
+      FilterSelectorViewModel.from(
         actions,
         activeFilter,
       ),

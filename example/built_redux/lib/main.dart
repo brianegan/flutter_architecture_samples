@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library built_redux_sample;
@@ -17,14 +17,14 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 void main() {
-  runApp(new BuiltReduxApp());
+  runApp(BuiltReduxApp());
 }
 
 class BuiltReduxApp extends StatefulWidget {
-  final store = new Store<AppState, AppStateBuilder, AppActions>(
+  final store = Store<AppState, AppStateBuilder, AppActions>(
     reducerBuilder.build(),
-    new AppState.loading(),
-    new AppActions(),
+    AppState.loading(),
+    AppActions(),
     middleware: [
       createStoreTodosMiddleware(),
     ],
@@ -32,7 +32,7 @@ class BuiltReduxApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new BuiltReduxAppState();
+    return BuiltReduxAppState();
   }
 }
 
@@ -52,21 +52,21 @@ class BuiltReduxAppState extends State<BuiltReduxApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new ReduxProvider(
+    return ReduxProvider(
       store: store,
-      child: new MaterialApp(
-        title: new BuiltReduxLocalizations().appTitle,
+      child: MaterialApp(
+        title: BuiltReduxLocalizations().appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
-          new BuiltReduxLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
+          BuiltReduxLocalizationsDelegate(),
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            return new HomeScreen(key: ArchSampleKeys.homeScreen);
+            return HomeScreen(key: ArchSampleKeys.homeScreen);
           },
           ArchSampleRoutes.addTodo: (context) {
-            return new AddTodo();
+            return AddTodo();
           },
         },
       ),

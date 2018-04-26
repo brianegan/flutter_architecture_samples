@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -19,7 +19,7 @@ part of actions;
 // ignore_for_file: sort_constructors_first
 
 Serializer<UpdateTodoActionPayload> _$updateTodoActionPayloadSerializer =
-    new _$UpdateTodoActionPayloadSerializer();
+    _$UpdateTodoActionPayloadSerializer();
 
 class _$UpdateTodoActionPayloadSerializer
     implements StructuredSerializer<UpdateTodoActionPayload> {
@@ -49,7 +49,7 @@ class _$UpdateTodoActionPayloadSerializer
   UpdateTodoActionPayload deserialize(
       Serializers serializers, Iterable serialized,
       {FullType specifiedType: FullType.unspecified}) {
-    final result = new UpdateTodoActionPayloadBuilder();
+    final result = UpdateTodoActionPayloadBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -80,14 +80,13 @@ class _$UpdateTodoActionPayload extends UpdateTodoActionPayload {
 
   factory _$UpdateTodoActionPayload(
           [void updates(UpdateTodoActionPayloadBuilder b)]) =>
-      (new UpdateTodoActionPayloadBuilder()..update(updates)).build();
+      (UpdateTodoActionPayloadBuilder()..update(updates)).build();
 
   _$UpdateTodoActionPayload._({this.id, this.updatedTodo}) : super._() {
     if (id == null)
-      throw new BuiltValueNullFieldError('UpdateTodoActionPayload', 'id');
+      throw BuiltValueNullFieldError('UpdateTodoActionPayload', 'id');
     if (updatedTodo == null)
-      throw new BuiltValueNullFieldError(
-          'UpdateTodoActionPayload', 'updatedTodo');
+      throw BuiltValueNullFieldError('UpdateTodoActionPayload', 'updatedTodo');
   }
 
   @override
@@ -97,7 +96,7 @@ class _$UpdateTodoActionPayload extends UpdateTodoActionPayload {
 
   @override
   UpdateTodoActionPayloadBuilder toBuilder() =>
-      new UpdateTodoActionPayloadBuilder()..replace(this);
+      UpdateTodoActionPayloadBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -133,7 +132,7 @@ class UpdateTodoActionPayloadBuilder
 
   TodoBuilder _updatedTodo;
 
-  TodoBuilder get updatedTodo => _$this._updatedTodo ??= new TodoBuilder();
+  TodoBuilder get updatedTodo => _$this._updatedTodo ??= TodoBuilder();
 
   set updatedTodo(TodoBuilder updatedTodo) => _$this._updatedTodo = updatedTodo;
 
@@ -150,7 +149,7 @@ class UpdateTodoActionPayloadBuilder
 
   @override
   void replace(UpdateTodoActionPayload other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$UpdateTodoActionPayload;
   }
 
@@ -164,15 +163,14 @@ class UpdateTodoActionPayloadBuilder
     _$UpdateTodoActionPayload _$result;
     try {
       _$result = _$v ??
-          new _$UpdateTodoActionPayload._(
-              id: id, updatedTodo: updatedTodo.build());
+          _$UpdateTodoActionPayload._(id: id, updatedTodo: updatedTodo.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'updatedTodo';
         updatedTodo.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'UpdateTodoActionPayload', _$failedField, e.toString());
       }
       rethrow;
@@ -187,31 +185,30 @@ class UpdateTodoActionPayloadBuilder
 // **************************************************************************
 
 class _$AppActions extends AppActions {
-  factory _$AppActions() => new _$AppActions._();
+  factory _$AppActions() => _$AppActions._();
 
   _$AppActions._() : super._();
 
   final ActionDispatcher<Todo> addTodoAction =
-      new ActionDispatcher<Todo>('AppActions-addTodoAction');
+      ActionDispatcher<Todo>('AppActions-addTodoAction');
   final ActionDispatcher<Null> clearCompletedAction =
-      new ActionDispatcher<Null>('AppActions-clearCompletedAction');
+      ActionDispatcher<Null>('AppActions-clearCompletedAction');
   final ActionDispatcher<String> deleteTodoAction =
-      new ActionDispatcher<String>('AppActions-deleteTodoAction');
+      ActionDispatcher<String>('AppActions-deleteTodoAction');
   final ActionDispatcher<Null> fetchTodosAction =
-      new ActionDispatcher<Null>('AppActions-fetchTodosAction');
+      ActionDispatcher<Null>('AppActions-fetchTodosAction');
   final ActionDispatcher<Null> toggleAllAction =
-      new ActionDispatcher<Null>('AppActions-toggleAllAction');
+      ActionDispatcher<Null>('AppActions-toggleAllAction');
   final ActionDispatcher<List<Todo>> loadTodosSuccess =
-      new ActionDispatcher<List<Todo>>('AppActions-loadTodosSuccess');
+      ActionDispatcher<List<Todo>>('AppActions-loadTodosSuccess');
   final ActionDispatcher<Object> loadTodosFailure =
-      new ActionDispatcher<Object>('AppActions-loadTodosFailure');
+      ActionDispatcher<Object>('AppActions-loadTodosFailure');
   final ActionDispatcher<VisibilityFilter> updateFilterAction =
-      new ActionDispatcher<VisibilityFilter>('AppActions-updateFilterAction');
+      ActionDispatcher<VisibilityFilter>('AppActions-updateFilterAction');
   final ActionDispatcher<AppTab> updateTabAction =
-      new ActionDispatcher<AppTab>('AppActions-updateTabAction');
+      ActionDispatcher<AppTab>('AppActions-updateTabAction');
   final ActionDispatcher<UpdateTodoActionPayload> updateTodoAction =
-      new ActionDispatcher<UpdateTodoActionPayload>(
-          'AppActions-updateTodoAction');
+      ActionDispatcher<UpdateTodoActionPayload>('AppActions-updateTodoAction');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -230,23 +227,23 @@ class _$AppActions extends AppActions {
 
 class AppActionsNames {
   static final ActionName<Todo> addTodoAction =
-      new ActionName<Todo>('AppActions-addTodoAction');
+      ActionName<Todo>('AppActions-addTodoAction');
   static final ActionName<Null> clearCompletedAction =
-      new ActionName<Null>('AppActions-clearCompletedAction');
+      ActionName<Null>('AppActions-clearCompletedAction');
   static final ActionName<String> deleteTodoAction =
-      new ActionName<String>('AppActions-deleteTodoAction');
+      ActionName<String>('AppActions-deleteTodoAction');
   static final ActionName<Null> fetchTodosAction =
-      new ActionName<Null>('AppActions-fetchTodosAction');
+      ActionName<Null>('AppActions-fetchTodosAction');
   static final ActionName<Null> toggleAllAction =
-      new ActionName<Null>('AppActions-toggleAllAction');
+      ActionName<Null>('AppActions-toggleAllAction');
   static final ActionName<List<Todo>> loadTodosSuccess =
-      new ActionName<List<Todo>>('AppActions-loadTodosSuccess');
+      ActionName<List<Todo>>('AppActions-loadTodosSuccess');
   static final ActionName<Object> loadTodosFailure =
-      new ActionName<Object>('AppActions-loadTodosFailure');
+      ActionName<Object>('AppActions-loadTodosFailure');
   static final ActionName<VisibilityFilter> updateFilterAction =
-      new ActionName<VisibilityFilter>('AppActions-updateFilterAction');
+      ActionName<VisibilityFilter>('AppActions-updateFilterAction');
   static final ActionName<AppTab> updateTabAction =
-      new ActionName<AppTab>('AppActions-updateTabAction');
+      ActionName<AppTab>('AppActions-updateTabAction');
   static final ActionName<UpdateTodoActionPayload> updateTodoAction =
-      new ActionName<UpdateTodoActionPayload>('AppActions-updateTodoAction');
+      ActionName<UpdateTodoActionPayload>('AppActions-updateTodoAction');
 }

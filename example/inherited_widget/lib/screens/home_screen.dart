@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new HomeScreenState();
+    return HomeScreenState();
   }
 }
 
@@ -29,16 +29,16 @@ class HomeScreenState extends State<HomeScreen> {
     final container = StateContainer.of(context);
     final state = container.state;
 
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(InheritedWidgetLocalizations.of(context).appTitle),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(InheritedWidgetLocalizations.of(context).appTitle),
         actions: [
-          new FilterButton(
+          FilterButton(
             isActive: activeTab == AppTab.todos,
             activeFilter: state.activeFilter,
             onSelected: container.updateFilter,
           ),
-          new ExtraActionsButton(
+          ExtraActionsButton(
             allComplete: state.allComplete,
             hasCompletedTodos: state.hasCompletedTodos,
             onSelected: (action) {
@@ -51,30 +51,30 @@ class HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: activeTab == AppTab.todos ? new TodoList() : new StatsCounter(),
-      floatingActionButton: new FloatingActionButton(
+      body: activeTab == AppTab.todos ? TodoList() : StatsCounter(),
+      floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.addTodoFab,
         onPressed: () {
           Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
         },
-        child: new Icon(Icons.add),
+        child: Icon(Icons.add),
         tooltip: ArchSampleLocalizations.of(context).addTodo,
       ),
-      bottomNavigationBar: new BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         key: ArchSampleKeys.tabs,
         currentIndex: AppTab.values.indexOf(activeTab),
         onTap: (index) {
           _updateTab(AppTab.values[index]);
         },
         items: AppTab.values.map((tab) {
-          return new BottomNavigationBarItem(
-            icon: new Icon(
+          return BottomNavigationBarItem(
+            icon: Icon(
               tab == AppTab.todos ? Icons.list : Icons.show_chart,
               key: tab == AppTab.stats
                   ? ArchSampleKeys.statsTab
                   : ArchSampleKeys.todoTab,
             ),
-            title: new Text(
+            title: Text(
               tab == AppTab.stats
                   ? ArchSampleLocalizations.of(context).stats
                   : ArchSampleLocalizations.of(context).todos,

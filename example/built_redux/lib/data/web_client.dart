@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -18,33 +18,33 @@ class WebClient {
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<Todo>> fetchTodos() async {
-    return new Future.delayed(
+    return Future.delayed(
         delay,
         () => [
-              new Todo.builder(
+              Todo.builder(
                 (b) => b
                   ..task = 'Buy food for da kitty'
                   ..note = 'With the chickeny bits!'
                   ..id = '1',
               ),
-              new Todo.builder(
+              Todo.builder(
                 (b) => b
                   ..task = 'Find a Red Sea dive trip'
                   ..note = 'Echo vs MY Dream'
                   ..id = '2',
               ),
-              new Todo.builder(
+              Todo.builder(
                 (b) => b
                   ..task = 'Book flights to Egypt'
                   ..complete = true
                   ..id = '3',
               ),
-              new Todo.builder(
+              Todo.builder(
                 (b) => b
                   ..task = 'Decide on accommodation'
                   ..id = '4',
               ),
-              new Todo.builder(
+              Todo.builder(
                 (b) => b
                   ..task = 'Sip Margaritas'
                   ..note = 'on the beach'
@@ -57,6 +57,6 @@ class WebClient {
   /// Mock that returns true or false for success or failure. In this case,
   /// it will "Always Succeed"
   Future<bool> postTodos(List<Todo> todos) async {
-    return new Future.value(true);
+    return Future.value(true);
   }
 }

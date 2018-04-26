@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -28,16 +28,16 @@ AppTab _$appTabValueOf(String name) {
     case 'stats':
       return _$stats;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
-final BuiltSet<AppTab> _$appTabValues = new BuiltSet<AppTab>(const <AppTab>[
+final BuiltSet<AppTab> _$appTabValues = BuiltSet<AppTab>(const <AppTab>[
   _$todos,
   _$stats,
 ]);
 
-Serializer<AppTab> _$appTabSerializer = new _$AppTabSerializer();
+Serializer<AppTab> _$appTabSerializer = _$AppTabSerializer();
 
 class _$AppTabSerializer implements PrimitiveSerializer<AppTab> {
   @override

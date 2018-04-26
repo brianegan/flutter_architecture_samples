@@ -1,14 +1,14 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:fire_redux_sample/actions/actions.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/presentation/add_edit_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/models/models.dart';
-import 'package:fire_redux_sample/presentation/add_edit_screen.dart';
 
 class EditTodo extends StatelessWidget {
   final Todo todo;
@@ -17,10 +17,10 @@ class EditTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, OnSaveCallback>(
+    return StoreConnector<AppState, OnSaveCallback>(
       converter: (Store<AppState> store) {
         return (task, note) {
-          store.dispatch(new UpdateTodoAction(
+          store.dispatch(UpdateTodoAction(
             todo.id,
             todo.copyWith(
               task: task,
@@ -30,7 +30,7 @@ class EditTodo extends StatelessWidget {
         };
       },
       builder: (BuildContext context, OnSaveCallback onSave) {
-        return new AddEditScreen(
+        return AddEditScreen(
           key: ArchSampleKeys.editTodoScreen,
           onSave: onSave,
           isEditing: true,

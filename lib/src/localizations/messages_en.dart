@@ -10,7 +10,7 @@
 import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 
-final messages = new MessageLookup();
+final messages = MessageLookup();
 
 // ignore: unused_element
 final _keepAnalysisHappy = Intl.defaultLocale;

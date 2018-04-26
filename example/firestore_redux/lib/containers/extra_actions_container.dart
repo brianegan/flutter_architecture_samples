@@ -16,11 +16,11 @@ class ExtraActionsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return StoreConnector<AppState, _ViewModel>(
       distinct: true,
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return new ExtraActionsButton(
+        return ExtraActionsButton(
           allComplete: vm.allComplete,
           onSelected: vm.onActionSelected,
         );
@@ -39,12 +39,12 @@ class _ViewModel {
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return _ViewModel(
       onActionSelected: (action) {
         if (action == ExtraAction.clearCompleted) {
-          store.dispatch(new ClearCompletedAction());
+          store.dispatch(ClearCompletedAction());
         } else if (action == ExtraAction.toggleAllComplete) {
-          store.dispatch(new ToggleAllAction());
+          store.dispatch(ToggleAllAction());
         }
       },
       allComplete: allCompleteSelector(todosSelector(store.state)),

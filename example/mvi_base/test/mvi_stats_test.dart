@@ -13,21 +13,20 @@ class MockTodosInteractor extends Mock implements TodosInteractor {}
 void main() {
   group('MviStats', () {
     test('should stream the number of active and completed todos', () {
-      final interactor = new MockTodosInteractor();
+      final interactor = MockTodosInteractor();
       final todos = [
-        new Todo('Hi', complete: true),
-        new Todo('There', complete: true),
-        new Todo('Friend'),
+        Todo('Hi', complete: true),
+        Todo('There', complete: true),
+        Todo('Friend'),
       ];
 
-      when(interactor.todos)
-          .thenAnswer((_) => new Stream.fromIterable([todos]));
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
-      final presenter = new StatsPresenter(interactor);
+      final presenter = StatsPresenter(interactor);
 
       expect(
         presenter,
-        emitsThrough(new StatsModel(1, 2)),
+        emitsThrough(StatsModel(1, 2)),
       );
     });
   });

@@ -39,7 +39,7 @@ class TodoEntity {
   }
 
   static TodoEntity fromJson(Map<String, Object> json) {
-    return new TodoEntity(
+    return TodoEntity(
       json["task"] as String,
       json["id"] as String,
       json["note"] as String,

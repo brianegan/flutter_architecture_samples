@@ -97,7 +97,7 @@ main() {
 
       // This is a hacky way to check if the tapping the checkbox was
       // successful. Would be better to have an `isChecked` method from the
-      // driver.
+      // driver or perhaps need to write a custom Matcher.
       expect(await stats.numActive, 1);
       expect(await stats.numCompleted, 3);
     });

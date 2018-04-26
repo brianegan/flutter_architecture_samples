@@ -33,12 +33,12 @@ class TodosListBloc {
     // StreamControllers have both a Sink and a Stream. We'll expose the Sinks
     // publicly so users can send information to the Bloc. We'll use the Streams
     // internally to react to that user input.
-    final addTodoController = new StreamController<Todo>(sync: true);
-    final clearCompletedController = new PublishSubject<void>(sync: true);
-    final deleteTodoController = new StreamController<String>(sync: true);
-    final toggleAllController = new PublishSubject<void>(sync: true);
-    final updateTodoController = new StreamController<Todo>(sync: true);
-    final updateFilterController = new BehaviorSubject<VisibilityFilter>(
+    final addTodoController = StreamController<Todo>(sync: true);
+    final clearCompletedController = PublishSubject<void>(sync: true);
+    final deleteTodoController = StreamController<String>(sync: true);
+    final toggleAllController = PublishSubject<void>(sync: true);
+    final updateTodoController = StreamController<Todo>(sync: true);
+    final updateFilterController = BehaviorSubject<VisibilityFilter>(
       seedValue: VisibilityFilter.all,
       sync: true,
     );
@@ -68,7 +68,7 @@ class TodosListBloc {
     // Every time the todos or the filter changes the visible items will emit
     // once again. We also convert the normal Stream into a BehaviorSubject
     // so the Stream can be listened to multiple times
-    final visibleTodosController = new BehaviorSubject<List<Todo>>();
+    final visibleTodosController = BehaviorSubject<List<Todo>>();
 
     Observable
         .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
@@ -78,7 +78,7 @@ class TodosListBloc {
         )
         .pipe(visibleTodosController);
 
-    return new TodosListBloc._(
+    return TodosListBloc._(
       addTodoController,
       deleteTodoController,
       updateFilterController,

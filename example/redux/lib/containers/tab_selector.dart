@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
@@ -16,23 +16,23 @@ class TabSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return StoreConnector<AppState, _ViewModel>(
       distinct: true,
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return new BottomNavigationBar(
+        return BottomNavigationBar(
           key: ArchSampleKeys.tabs,
           currentIndex: AppTab.values.indexOf(vm.activeTab),
           onTap: vm.onTabSelected,
           items: AppTab.values.map((tab) {
-            return new BottomNavigationBarItem(
-              icon: new Icon(
+            return BottomNavigationBarItem(
+              icon: Icon(
                 tab == AppTab.todos ? Icons.list : Icons.show_chart,
                 key: tab == AppTab.todos
                     ? ArchSampleKeys.todoTab
                     : ArchSampleKeys.statsTab,
               ),
-              title: new Text(tab == AppTab.stats
+              title: Text(tab == AppTab.stats
                   ? ArchSampleLocalizations.of(context).stats
                   : ArchSampleLocalizations.of(context).todos),
             );
@@ -53,10 +53,10 @@ class _ViewModel {
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return _ViewModel(
       activeTab: store.state.activeTab,
       onTabSelected: (index) {
-        store.dispatch(new UpdateTabAction((AppTab.values[index])));
+        store.dispatch(UpdateTabAction((AppTab.values[index])));
       },
     );
   }

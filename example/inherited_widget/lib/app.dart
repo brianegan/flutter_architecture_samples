@@ -11,16 +11,16 @@ import 'package:inherited_widget_sample/screens/home_screen.dart';
 class InheritedWidgetApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: new InheritedWidgetLocalizations().appTitle,
+    return MaterialApp(
+      title: InheritedWidgetLocalizations().appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchSampleLocalizationsDelegate(),
-        new InheritedWidgetLocalizationsDelegate(),
+        ArchSampleLocalizationsDelegate(),
+        InheritedWidgetLocalizationsDelegate(),
       ],
       routes: {
-        ArchSampleRoutes.home: (context) => new HomeScreen(),
-        ArchSampleRoutes.addTodo: (context) => new AddEditScreen(),
+        ArchSampleRoutes.home: (context) => HomeScreen(),
+        ArchSampleRoutes.addTodo: (context) => AddEditScreen(),
       },
     );
   }

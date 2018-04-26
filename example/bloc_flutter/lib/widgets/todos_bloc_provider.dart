@@ -14,7 +14,7 @@ class TodosBlocProvider extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TodosBlocProviderState createState() => new _TodosBlocProviderState();
+  _TodosBlocProviderState createState() => _TodosBlocProviderState();
 
   static TodosListBloc of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(_TodosBlocProvider)
@@ -26,7 +26,7 @@ class TodosBlocProvider extends StatefulWidget {
 class _TodosBlocProviderState extends State<TodosBlocProvider> {
   @override
   Widget build(BuildContext context) {
-    return new _TodosBlocProvider(bloc: widget.bloc, child: widget.child);
+    return _TodosBlocProvider(bloc: widget.bloc, child: widget.child);
   }
 
   @override

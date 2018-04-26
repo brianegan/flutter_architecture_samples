@@ -10,9 +10,9 @@ import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 main() {
   group('FileStorage', () {
-    final todos = [new TodoEntity("Task", "1", "Hallo", false)];
+    final todos = [TodoEntity("Task", "1", "Hallo", false)];
     final directory = Directory.systemTemp.createTemp('__storage_test__');
-    final storage = new FileStorage(
+    final storage = FileStorage(
       '_test_tag_',
       () => directory,
     );

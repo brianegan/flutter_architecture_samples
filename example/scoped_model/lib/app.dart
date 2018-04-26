@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -21,21 +21,21 @@ class ScopedModelApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var app = new MaterialApp(
-      title: new ScopedModelLocalizations().appTitle,
+    var app = MaterialApp(
+      title: ScopedModelLocalizations().appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchSampleLocalizationsDelegate(),
-        new ScopedModelLocalizationsDelegate(),
+        ArchSampleLocalizationsDelegate(),
+        ScopedModelLocalizationsDelegate(),
       ],
       routes: {
-        ArchSampleRoutes.home: (context) => new HomeScreen(),
-        ArchSampleRoutes.addTodo: (context) => new AddEditScreen(),
+        ArchSampleRoutes.home: (context) => HomeScreen(),
+        ArchSampleRoutes.addTodo: (context) => AddEditScreen(),
       },
     );
 
-    return new ScopedModel<TodoListModel>(
-      model: new TodoListModel(
+    return ScopedModel<TodoListModel>(
+      model: TodoListModel(
         repository: repository,
       ),
       child: app,

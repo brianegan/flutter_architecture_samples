@@ -6,8 +6,8 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 
 final loadingReducer = combineReducers<bool>([
-  new TypedReducer<bool, TodosLoadedAction>(_setLoaded),
-  new TypedReducer<bool, TodosNotLoadedAction>(_setLoaded),
+  TypedReducer<bool, TodosLoadedAction>(_setLoaded),
+  TypedReducer<bool, TodosNotLoadedAction>(_setLoaded),
 ]);
 
 bool _setLoaded(bool state, action) {

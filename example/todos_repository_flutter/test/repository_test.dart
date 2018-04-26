@@ -19,15 +19,15 @@ class MockWebClient extends Mock implements WebClient {}
 main() {
   group('TodosRepository', () {
     List<TodoEntity> createTodos() {
-      return [new TodoEntity("Task", "1", "Hallo", false)];
+      return [TodoEntity("Task", "1", "Hallo", false)];
     }
 
     test(
         'should load todos from File Storage if they exist without calling the web client',
         () {
-      final fileStorage = new MockFileStorage();
-      final webClient = new MockWebClient();
-      final repository = new TodosRepositoryFlutter(
+      final fileStorage = MockFileStorage();
+      final webClient = MockWebClient();
+      final repository = TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
@@ -36,7 +36,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(fileStorage.loadTodos()).thenReturn(new Future.value(todos));
+      when(fileStorage.loadTodos()).thenReturn(Future.value(todos));
 
       expect(repository.loadTodos(), completion(todos));
       verifyNever(webClient.fetchTodos());
@@ -45,9 +45,9 @@ main() {
     test(
         'should fetch todos from the Web Client if the file storage throws a synchronous error',
         () async {
-      final fileStorage = new MockFileStorage();
-      final webClient = new MockWebClient();
-      final repository = new TodosRepositoryFlutter(
+      final fileStorage = MockFileStorage();
+      final webClient = MockWebClient();
+      final repository = TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
@@ -56,7 +56,7 @@ main() {
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web client to be called instead.
       when(fileStorage.loadTodos()).thenThrow("Uh ohhhh");
-      when(webClient.fetchTodos()).thenReturn(new Future.value(todos));
+      when(webClient.fetchTodos()).thenReturn(Future.value(todos));
 
       // We check that the correct todos were returned, and that the
       // webClient.fetchTodos method was in fact called!
@@ -67,33 +67,33 @@ main() {
     test(
         'should fetch todos from the Web Client if the File storage returns an async error',
         () async {
-      final fileStorage = new MockFileStorage();
-      final webClient = new MockWebClient();
-      final repository = new TodosRepositoryFlutter(
+      final fileStorage = MockFileStorage();
+      final webClient = MockWebClient();
+      final repository = TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
 
-      when(fileStorage.loadTodos()).thenThrow(new Exception("Oh no."));
-      when(webClient.fetchTodos()).thenReturn(new Future.value(todos));
+      when(fileStorage.loadTodos()).thenThrow(Exception("Oh no."));
+      when(webClient.fetchTodos()).thenReturn(Future.value(todos));
 
       expect(await repository.loadTodos(), todos);
       verify(webClient.fetchTodos());
     });
 
     test('should persist the todos to local disk and the web client', () {
-      final fileStorage = new MockFileStorage();
-      final webClient = new MockWebClient();
-      final repository = new TodosRepositoryFlutter(
+      final fileStorage = MockFileStorage();
+      final webClient = MockWebClient();
+      final repository = TodosRepositoryFlutter(
         fileStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
 
       when(fileStorage.saveTodos(todos))
-          .thenReturn(new Future.value(new File('falsch')));
-      when(webClient.postTodos(todos)).thenReturn(new Future.value(true));
+          .thenReturn(Future.value(File('falsch')));
+      when(webClient.postTodos(todos)).thenReturn(Future.value(true));
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

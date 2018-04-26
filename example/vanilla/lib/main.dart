@@ -9,13 +9,13 @@ import 'package:vanilla/app.dart';
 
 void main() {
   runApp(
-    new VanillaApp(
-      repository: new TodosRepositoryFlutter(
-        fileStorage: new FileStorage(
+    VanillaApp(
+      repository: TodosRepositoryFlutter(
+        fileStorage: FileStorage(
           "vanilla_app",
           getApplicationDocumentsDirectory,
         ),
-        webClient: new WebClient(),
+        webClient: WebClient(),
       ),
     ),
   );

@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:meta/meta.dart';
@@ -18,7 +18,7 @@ class AppState {
       this.activeTab = AppTab.todos,
       this.activeFilter = VisibilityFilter.all});
 
-  factory AppState.loading() => new AppState(isLoading: true);
+  factory AppState.loading() => AppState(isLoading: true);
 
   AppState copyWith({
     bool isLoading,
@@ -26,7 +26,7 @@ class AppState {
     AppTab activeTab,
     VisibilityFilter activeFilter,
   }) {
-    return new AppState(
+    return AppState(
       isLoading: isLoading ?? this.isLoading,
       todos: todos ?? this.todos,
       activeTab: activeTab ?? this.activeTab,

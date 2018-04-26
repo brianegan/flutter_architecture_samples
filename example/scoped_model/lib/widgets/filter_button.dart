@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -14,19 +14,19 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new AnimatedOpacity(
+    return AnimatedOpacity(
       opacity: isActive ? 1.0 : 0.0,
-      duration: new Duration(milliseconds: 150),
-      child: new ScopedModelDescendant<TodoListModel>(
+      duration: Duration(milliseconds: 150),
+      child: ScopedModelDescendant<TodoListModel>(
         builder: (BuildContext context, Widget child, TodoListModel model) {
-          return new PopupMenuButton<VisibilityFilter>(
+          return PopupMenuButton<VisibilityFilter>(
             key: ArchSampleKeys.filterButton,
             tooltip: ArchSampleLocalizations.of(context).filterTodos,
             onSelected: (filter) {
               model.activeFilter = filter;
             },
             itemBuilder: (BuildContext context) => _items(context, model),
-            icon: new Icon(Icons.filter_list),
+            icon: Icon(Icons.filter_list),
           );
         },
       ),
@@ -43,30 +43,30 @@ class FilterButton extends StatelessWidget {
     final defaultStyle = Theme.of(context).textTheme.body1;
 
     return [
-      new PopupMenuItem<VisibilityFilter>(
+      PopupMenuItem<VisibilityFilter>(
         key: ArchSampleKeys.allFilter,
         value: VisibilityFilter.all,
-        child: new Text(
+        child: Text(
           ArchSampleLocalizations.of(context).showAll,
           style: model.activeFilter == VisibilityFilter.all
               ? activeStyle
               : defaultStyle,
         ),
       ),
-      new PopupMenuItem<VisibilityFilter>(
+      PopupMenuItem<VisibilityFilter>(
         key: ArchSampleKeys.activeFilter,
         value: VisibilityFilter.active,
-        child: new Text(
+        child: Text(
           ArchSampleLocalizations.of(context).showActive,
           style: model.activeFilter == VisibilityFilter.active
               ? activeStyle
               : defaultStyle,
         ),
       ),
-      new PopupMenuItem<VisibilityFilter>(
+      PopupMenuItem<VisibilityFilter>(
         key: ArchSampleKeys.completedFilter,
         value: VisibilityFilter.completed,
-        child: new Text(
+        child: Text(
           ArchSampleLocalizations.of(context).showCompleted,
           style: model.activeFilter == VisibilityFilter.completed
               ? activeStyle

@@ -16,7 +16,7 @@ class StatsCounter extends StatefulWidget {
 
   @override
   StatsCounterState createState() {
-    return new StatsCounterState();
+    return StatsCounterState();
   }
 }
 
@@ -31,41 +31,41 @@ class StatsCounterState extends State<StatsCounter> {
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: new Column(
+    return Center(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          new Padding(
-            padding: new EdgeInsets.only(bottom: 8.0),
-            child: new Text(
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text(
               ArchSampleLocalizations.of(context).completedTodos,
               style: Theme.of(context).textTheme.title,
             ),
           ),
-          new Padding(
-            padding: new EdgeInsets.only(bottom: 24.0),
-            child: new StreamBuilder<int>(
+          Padding(
+            padding: EdgeInsets.only(bottom: 24.0),
+            child: StreamBuilder<int>(
               stream: bloc.numComplete,
-              builder: (context, snapshot) => new Text(
+              builder: (context, snapshot) => Text(
                     '${snapshot.data ?? 0}',
                     key: ArchSampleKeys.statsNumCompleted,
                     style: Theme.of(context).textTheme.subhead,
                   ),
             ),
           ),
-          new Padding(
-            padding: new EdgeInsets.only(bottom: 8.0),
-            child: new Text(
+          Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text(
               ArchSampleLocalizations.of(context).activeTodos,
               style: Theme.of(context).textTheme.title,
             ),
           ),
-          new Padding(
-            padding: new EdgeInsets.only(bottom: 24.0),
-            child: new StreamBuilder<int>(
+          Padding(
+            padding: EdgeInsets.only(bottom: 24.0),
+            child: StreamBuilder<int>(
               stream: bloc.numActive,
               builder: (context, snapshot) {
-                return new Text(
+                return Text(
                   "${snapshot.data ?? 0}",
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,

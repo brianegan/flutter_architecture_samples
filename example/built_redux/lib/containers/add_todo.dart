@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -13,10 +13,10 @@ class AddTodo extends StoreConnector<AppState, AppActions, Null> {
 
   @override
   Widget build(BuildContext context, Null ignored, AppActions actions) {
-    return new AddEditScreen(
+    return AddEditScreen(
         isEditing: false,
         onSave: (String task, String note) {
-          actions.addTodoAction(new Todo.builder((b) {
+          actions.addTodoAction(Todo.builder((b) {
             return b
               ..task = task
               ..note = note;

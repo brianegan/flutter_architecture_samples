@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/cupertino.dart';
@@ -18,40 +18,40 @@ class StatsCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Center(
-      child: new ScopedModelDescendant<TodoListModel>(
+    return Center(
+      child: ScopedModelDescendant<TodoListModel>(
           builder: (context, child, model) {
         var numCompleted = model.todos.where(isCompleted).toList().length;
         var numActive = model.todos.where(isActive).toList().length;
 
-        return new Column(
+        return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            new Padding(
-              padding: new EdgeInsets.only(bottom: 8.0),
-              child: new Text(
+            Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text(
                 ArchSampleLocalizations.of(context).completedTodos,
                 style: Theme.of(context).textTheme.title,
               ),
             ),
-            new Padding(
-              padding: new EdgeInsets.only(bottom: 24.0),
-              child: new Text(
+            Padding(
+              padding: EdgeInsets.only(bottom: 24.0),
+              child: Text(
                 '$numCompleted',
                 key: ArchSampleKeys.statsNumCompleted,
                 style: Theme.of(context).textTheme.subhead,
               ),
             ),
-            new Padding(
-              padding: new EdgeInsets.only(bottom: 8.0),
-              child: new Text(
+            Padding(
+              padding: EdgeInsets.only(bottom: 8.0),
+              child: Text(
                 ArchSampleLocalizations.of(context).activeTodos,
                 style: Theme.of(context).textTheme.title,
               ),
             ),
-            new Padding(
-              padding: new EdgeInsets.only(bottom: 24.0),
-              child: new Text(
+            Padding(
+              padding: EdgeInsets.only(bottom: 24.0),
+              child: Text(
                 "$numActive",
                 key: ArchSampleKeys.statsNumActive,
                 style: Theme.of(context).textTheme.subhead,

@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 
 class BlocLocalizations {
   static BlocLocalizations of(BuildContext context) {
-    return Localizations.of<BlocLocalizations>(
-        context, BlocLocalizations);
+    return Localizations.of<BlocLocalizations>(context, BlocLocalizations);
   }
 
   String get appTitle => "MVI Example";
@@ -19,7 +18,7 @@ class InheritedWidgetLocalizationsDelegate
     extends LocalizationsDelegate<BlocLocalizations> {
   @override
   Future<BlocLocalizations> load(Locale locale) =>
-      new Future(() => new BlocLocalizations());
+      Future(() => BlocLocalizations());
 
   @override
   bool shouldReload(InheritedWidgetLocalizationsDelegate old) => false;

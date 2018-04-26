@@ -17,7 +17,7 @@ class StatsCounter extends StatefulWidget {
 
   @override
   StatsCounterState createState() {
-    return new StatsCounterState();
+    return StatsCounterState();
   }
 }
 
@@ -28,7 +28,7 @@ class StatsCounterState extends State<StatsCounter> {
   void didChangeDependencies() {
     presenter = widget.initPresenter != null
         ? widget.initPresenter()
-        : new StatsPresenter(Injector.of(context).todosInteractor);
+        : StatsPresenter(Injector.of(context).todosInteractor);
 
     presenter.setUp();
 
@@ -43,39 +43,39 @@ class StatsCounterState extends State<StatsCounter> {
 
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder<StatsModel>(
+    return StreamBuilder<StatsModel>(
       stream: presenter,
       initialData: presenter.latest,
       builder: (context, snapshot) {
-        return new Center(
-          child: new Column(
+        return Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 8.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
                   ArchSampleLocalizations.of(context).completedTodos,
                   style: Theme.of(context).textTheme.title,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 24.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: Text(
                   '${snapshot.data?.numComplete ?? 0}',
                   key: ArchSampleKeys.statsNumCompleted,
                   style: Theme.of(context).textTheme.subhead,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 8.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
                   ArchSampleLocalizations.of(context).activeTodos,
                   style: Theme.of(context).textTheme.title,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 24.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: Text(
                   "${snapshot.data?.numActive ?? 0}",
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,

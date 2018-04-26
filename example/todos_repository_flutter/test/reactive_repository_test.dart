@@ -15,31 +15,35 @@ main() {
   group('ReactiveTodosRepository', () {
     List<TodoEntity> createTodos([String task = "Task"]) {
       return [
-        new TodoEntity(task, "1", "Hallo", false),
-        new TodoEntity(task, "2", "Friend", false),
-        new TodoEntity(task, "3", "Yo", false),
+        TodoEntity(task, "1", "Hallo", false),
+        TodoEntity(task, "2", "Friend", false),
+        TodoEntity(task, "3", "Yo", false),
       ];
     }
 
     test('should load todos from the base repo and send them to the client',
         () {
       final todos = createTodos();
-      final repository = new MockTodosRepository();
-      final reactiveRepository = new ReactiveTodosRepositoryFlutter(
-          repository: repository, seedValue: todos);
+      final repository = MockTodosRepository();
+      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+        repository: repository,
+        seedValue: todos,
+      );
 
-      when(repository.loadTodos()).thenReturn(new Future.value([]));
+      when(repository.loadTodos()).thenReturn(Future.value(<TodoEntity>[]));
 
       expect(reactiveRepository.todos(), emits(todos));
     });
 
     test('should only load from the base repo once', () {
       final todos = createTodos();
-      final repository = new MockTodosRepository();
-      final reactiveRepository = new ReactiveTodosRepositoryFlutter(
-          repository: repository, seedValue: todos);
+      final repository = MockTodosRepository();
+      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+        repository: repository,
+        seedValue: todos,
+      );
 
-      when(repository.loadTodos()).thenReturn(new Future.value([]));
+      when(repository.loadTodos()).thenReturn(Future.value(todos));
 
       expect(reactiveRepository.todos(), emits(todos));
       expect(reactiveRepository.todos(), emits(todos));
@@ -47,40 +51,39 @@ main() {
       verify(repository.loadTodos()).called(1);
     });
 
-    test('should add new todos to the repository and emit the change',
-        () async {
+    test('should add todos to the repository and emit the change', () async {
       final todos = createTodos();
-      final repository = new MockTodosRepository();
-      final reactiveRepository = new ReactiveTodosRepositoryFlutter(
+      final repository = MockTodosRepository();
+      final reactiveRepository = ReactiveTodosRepositoryFlutter(
         repository: repository,
-        seedValue: todos,
+        seedValue: [],
       );
 
-      when(repository.loadTodos()).thenReturn(new Future.value([]));
-      when(repository.saveTodos(todos)).thenReturn(new Future.value());
+      when(repository.loadTodos()).thenReturn(new Future.value(<TodoEntity>[]));
+      when(repository.saveTodos(todos)).thenReturn(Future.value());
 
       await reactiveRepository.addNewTodo(todos.first);
 
-      verify(repository.saveTodos(any));
-      expect(reactiveRepository.todos(), emits(todos..add(todos.first)));
+      verify(repository.saveTodos(typed(any)));
+      expect(reactiveRepository.todos(), emits([todos.first]));
     });
 
     test('should update a todo in the repository and emit the change',
         () async {
       final todos = createTodos();
-      final repository = new MockTodosRepository();
-      final reactiveRepository = new ReactiveTodosRepositoryFlutter(
+      final repository = MockTodosRepository();
+      final reactiveRepository = ReactiveTodosRepositoryFlutter(
         repository: repository,
         seedValue: todos,
       );
-      final update = createTodos("New task");
+      final update = createTodos("task");
 
-      when(repository.loadTodos()).thenReturn(new Future.value([]));
-      when(repository.saveTodos(any)).thenReturn(new Future.value());
+      when(repository.loadTodos()).thenReturn(Future.value(todos));
+      when(repository.saveTodos(typed(any))).thenReturn(Future.value());
 
       await reactiveRepository.updateTodo(update.first);
 
-      verify(repository.saveTodos(any));
+      verify(repository.saveTodos(typed(any)));
       expect(
         reactiveRepository.todos(),
         emits([update[0], todos[1], todos[2]]),
@@ -88,20 +91,20 @@ main() {
     });
 
     test('should remove todos from the repo and emit the change', () async {
-      final repository = new MockTodosRepository();
+      final repository = MockTodosRepository();
       final todos = createTodos();
-      final reactiveRepository = new ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveTodosRepositoryFlutter(
         repository: repository,
         seedValue: todos,
       );
-      final future = new Future.value([]);
+      final future = Future.value(todos);
 
       when(repository.loadTodos()).thenReturn(future);
-      when(repository.saveTodos(any)).thenReturn(new Future.value());
+      when(repository.saveTodos(typed(any))).thenReturn(Future.value());
 
       await reactiveRepository.deleteTodo([todos.first.id, todos.last.id]);
 
-      verify(repository.saveTodos(any));
+      verify(repository.saveTodos(typed(any)));
       expect(reactiveRepository.todos(), emits([todos[1]]));
     });
   });

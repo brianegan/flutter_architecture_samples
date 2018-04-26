@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -11,11 +11,11 @@ import 'package:vanilla/models.dart';
 import 'package:vanilla/widgets/typedefs.dart';
 
 class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   static final GlobalKey<FormFieldState<String>> taskKey =
-      new GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
   static final GlobalKey<FormFieldState<String>> noteKey =
-      new GlobalKey<FormFieldState<String>>();
+      GlobalKey<FormFieldState<String>>();
 
   final Todo todo;
   final TodoAdder addTodo;
@@ -26,44 +26,43 @@ class AddEditScreen extends StatelessWidget {
     @required this.addTodo,
     @required this.updateTodo,
     this.todo,
-  })
-      : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(isEditing
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(isEditing
             ? ArchSampleLocalizations.of(context).editTodo
             : ArchSampleLocalizations.of(context).addTodo),
       ),
-      body: new Padding(
-        padding: new EdgeInsets.all(16.0),
-        child: new Form(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
           key: formKey,
           autovalidate: false,
           onWillPop: () {
-            return new Future(() => true);
+            return Future(() => true);
           },
-          child: new ListView(
+          child: ListView(
             children: [
-              new TextFormField(
+              TextFormField(
                 initialValue: todo != null ? todo.task : '',
                 key: taskKey,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
-                decoration: new InputDecoration(
+                decoration: InputDecoration(
                     hintText: ArchSampleLocalizations.of(context).newTodoHint),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
               ),
-              new TextFormField(
+              TextFormField(
                 initialValue: todo != null ? todo.note : '',
                 key: noteKey,
                 maxLines: 10,
                 style: Theme.of(context).textTheme.subhead,
-                decoration: new InputDecoration(
+                decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
               )
@@ -71,11 +70,11 @@ class AddEditScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
           tooltip: isEditing
               ? ArchSampleLocalizations.of(context).saveChanges
               : ArchSampleLocalizations.of(context).addTodo,
-          child: new Icon(isEditing ? Icons.check : Icons.add),
+          child: Icon(isEditing ? Icons.check : Icons.add),
           onPressed: () {
             final form = formKey.currentState;
             if (form.validate()) {
@@ -85,7 +84,7 @@ class AddEditScreen extends StatelessWidget {
               if (isEditing) {
                 updateTodo(todo, task: task, note: note);
               } else {
-                addTodo(new Todo(
+                addTodo(Todo(
                   task,
                   note: note,
                 ));

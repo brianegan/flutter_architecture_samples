@@ -11,9 +11,9 @@ class User {
 
   User(this.displayName);
 
-  UserEntity toEntity() => new UserEntity(displayName: displayName);
+  UserEntity toEntity() => UserEntity(displayName: displayName);
 
-  static User fromEntity(UserEntity entity) => new User(entity.displayName);
+  static User fromEntity(UserEntity entity) => User(entity.displayName);
 
   @override
   String toString() {
@@ -23,9 +23,9 @@ class User {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is User &&
-              runtimeType == other.runtimeType &&
-              displayName == other.displayName;
+      other is User &&
+          runtimeType == other.runtimeType &&
+          displayName == other.displayName;
 
   @override
   int get hashCode => displayName.hashCode;

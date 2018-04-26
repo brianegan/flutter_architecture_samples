@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -18,7 +18,7 @@ part of serializers;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(AppState.serializer)
       ..add(AppTab.serializer)
       ..add(ExtraAction.serializer)
@@ -26,5 +26,5 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(VisibilityFilter.serializer)
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(Todo)]),
-          () => new ListBuilder<Todo>()))
+          () => ListBuilder<Todo>()))
     .build();

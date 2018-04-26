@@ -22,13 +22,13 @@ List<Middleware<AppState>> createStoreTodosMiddleware([
   final loadTodos = _createLoadTodos(repository);
 
   return [
-    new TypedMiddleware<AppState, LoadTodosAction>(loadTodos),
-    new TypedMiddleware<AppState, AddTodoAction>(saveTodos),
-    new TypedMiddleware<AppState, ClearCompletedAction>(saveTodos),
-    new TypedMiddleware<AppState, ToggleAllAction>(saveTodos),
-    new TypedMiddleware<AppState, UpdateTodoAction>(saveTodos),
-    new TypedMiddleware<AppState, TodosLoadedAction>(saveTodos),
-    new TypedMiddleware<AppState, DeleteTodoAction>(saveTodos),
+    TypedMiddleware<AppState, LoadTodosAction>(loadTodos),
+    TypedMiddleware<AppState, AddTodoAction>(saveTodos),
+    TypedMiddleware<AppState, ClearCompletedAction>(saveTodos),
+    TypedMiddleware<AppState, ToggleAllAction>(saveTodos),
+    TypedMiddleware<AppState, UpdateTodoAction>(saveTodos),
+    TypedMiddleware<AppState, TodosLoadedAction>(saveTodos),
+    TypedMiddleware<AppState, DeleteTodoAction>(saveTodos),
   ];
 }
 
@@ -47,12 +47,12 @@ Middleware<AppState> _createLoadTodos(TodosRepository repository) {
     repository.loadTodos().then(
       (todos) {
         store.dispatch(
-          new TodosLoadedAction(
+          TodosLoadedAction(
             todos.map(Todo.fromEntity).toList(),
           ),
         );
       },
-    ).catchError((_) => store.dispatch(new TodosNotLoadedAction()));
+    ).catchError((_) => store.dispatch(TodosNotLoadedAction()));
 
     next(action);
   };

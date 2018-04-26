@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -13,10 +13,10 @@ class FilteredTodos extends StoreConnector<AppState, AppActions, List<Todo>> {
 
   @override
   Widget build(BuildContext context, List<Todo> state, AppActions actions) {
-    return new TodoList(
+    return TodoList(
       todos: state,
       onCheckboxChanged: (todo, complete) {
-        actions.updateTodoAction(new UpdateTodoActionPayload(
+        actions.updateTodoAction(UpdateTodoActionPayload(
             todo.id, todo.rebuild((b) => b..complete = complete)));
       },
       onRemove: (todo) {

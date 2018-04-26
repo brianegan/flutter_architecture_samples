@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -18,7 +18,7 @@ part of app_state;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<AppState> _$appStateSerializer = new _$AppStateSerializer();
+Serializer<AppState> _$appStateSerializer = _$AppStateSerializer();
 
 class _$AppStateSerializer implements StructuredSerializer<AppState> {
   @override
@@ -51,7 +51,7 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
   @override
   AppState deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType: FullType.unspecified}) {
-    final result = new AppStateBuilder();
+    final result = AppStateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -100,17 +100,17 @@ class _$AppState extends AppState {
   List<Todo> __filteredTodosSelector;
 
   factory _$AppState([void updates(AppStateBuilder b)]) =>
-      (new AppStateBuilder()..update(updates)).build();
+      (AppStateBuilder()..update(updates)).build();
 
   _$AppState._({this.isLoading, this.todos, this.activeTab, this.activeFilter})
       : super._() {
     if (isLoading == null)
-      throw new BuiltValueNullFieldError('AppState', 'isLoading');
-    if (todos == null) throw new BuiltValueNullFieldError('AppState', 'todos');
+      throw BuiltValueNullFieldError('AppState', 'isLoading');
+    if (todos == null) throw BuiltValueNullFieldError('AppState', 'todos');
     if (activeTab == null)
-      throw new BuiltValueNullFieldError('AppState', 'activeTab');
+      throw BuiltValueNullFieldError('AppState', 'activeTab');
     if (activeFilter == null)
-      throw new BuiltValueNullFieldError('AppState', 'activeFilter');
+      throw BuiltValueNullFieldError('AppState', 'activeFilter');
   }
 
   @override
@@ -133,7 +133,7 @@ class _$AppState extends AppState {
       (toBuilder()..update(updates)).build();
 
   @override
-  AppStateBuilder toBuilder() => new AppStateBuilder()..replace(this);
+  AppStateBuilder toBuilder() => AppStateBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -175,7 +175,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   ListBuilder<Todo> _todos;
 
-  ListBuilder<Todo> get todos => _$this._todos ??= new ListBuilder<Todo>();
+  ListBuilder<Todo> get todos => _$this._todos ??= ListBuilder<Todo>();
 
   set todos(ListBuilder<Todo> todos) => _$this._todos = todos;
 
@@ -207,7 +207,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   @override
   void replace(AppState other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$AppState;
   }
 
@@ -221,7 +221,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     _$AppState _$result;
     try {
       _$result = _$v ??
-          new _$AppState._(
+          _$AppState._(
               isLoading: isLoading,
               todos: todos.build(),
               activeTab: activeTab,
@@ -232,7 +232,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
         _$failedField = 'todos';
         todos.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             'AppState', _$failedField, e.toString());
       }
       rethrow;

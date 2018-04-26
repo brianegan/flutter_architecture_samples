@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
@@ -8,30 +8,30 @@ import 'package:inherited_widget_sample/models.dart';
 main() {
   group('AppState', () {
     test('should check if there are completed todos', () {
-      final state = new AppState(todos: [
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+      final state = AppState(todos: [
+        Todo('a'),
+        Todo('b'),
+        Todo('c', complete: true),
       ]);
 
       expect(state.hasCompletedTodos, true);
     });
 
     test('should calculate the number of active todos', () {
-      final state = new AppState(todos: [
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+      final state = AppState(todos: [
+        Todo('a'),
+        Todo('b'),
+        Todo('c', complete: true),
       ]);
 
       expect(state.numActive, 2);
     });
 
     test('should calculate the number of completed todos', () {
-      final state = new AppState(todos: [
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+      final state = AppState(todos: [
+        Todo('a'),
+        Todo('b'),
+        Todo('c', complete: true),
       ]);
 
       expect(state.numCompleted, 1);
@@ -39,26 +39,25 @@ main() {
 
     test('should return all todos if the VisibilityFilter is all', () {
       final todos = [
-        new Todo('a'),
-        new Todo('b'),
-        new Todo('c', complete: true),
+        Todo('a'),
+        Todo('b'),
+        Todo('c', complete: true),
       ];
-      final state =
-          new AppState(todos: todos, activeFilter: VisibilityFilter.all);
+      final state = AppState(todos: todos, activeFilter: VisibilityFilter.all);
 
       expect(state.filteredTodos, todos);
     });
 
     test('should return active todos if the VisibilityFilter is active', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = Todo('a');
+      final todo2 = Todo('b');
+      final todo3 = Todo('c', complete: true);
       final todos = [
         todo1,
         todo2,
         todo3,
       ];
-      final state = new AppState(
+      final state = AppState(
         todos: todos,
         activeFilter: VisibilityFilter.active,
       );
@@ -71,15 +70,15 @@ main() {
 
     test('should return completed todos if the VisibilityFilter is completed',
         () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = Todo('a');
+      final todo2 = Todo('b');
+      final todo3 = Todo('c', complete: true);
       final todos = [
         todo1,
         todo2,
         todo3,
       ];
-      final state = new AppState(
+      final state = AppState(
         todos: todos,
         activeFilter: VisibilityFilter.completed,
       );
@@ -88,15 +87,15 @@ main() {
     });
 
     test('should clear the completed todos', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = Todo('a');
+      final todo2 = Todo('b');
+      final todo3 = Todo('c', complete: true);
       final todos = [
         todo1,
         todo2,
         todo3,
       ];
-      final state = new AppState(
+      final state = AppState(
         todos: todos,
       );
 
@@ -109,15 +108,15 @@ main() {
     });
 
     test('toggle all as complete or incomplete', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = Todo('a');
+      final todo2 = Todo('b');
+      final todo3 = Todo('c', complete: true);
       final todos = [
         todo1,
         todo2,
         todo3,
       ];
-      final state = new AppState(
+      final state = AppState(
         todos: todos,
       );
 

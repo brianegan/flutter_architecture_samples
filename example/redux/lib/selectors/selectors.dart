@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter_architecture_samples/optional.dart';
@@ -39,8 +39,8 @@ List<Todo> filteredTodosSelector(
 
 Optional<Todo> todoSelector(List<Todo> todos, String id) {
   try {
-    return new Optional.of(todos.firstWhere((todo) => todo.id == id));
+    return Optional.of(todos.firstWhere((todo) => todo.id == id));
   } catch (e) {
-    return new Optional.absent();
+    return Optional.absent();
   }
 }

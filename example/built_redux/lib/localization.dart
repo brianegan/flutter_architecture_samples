@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -21,7 +21,7 @@ class BuiltReduxLocalizationsDelegate
     extends LocalizationsDelegate<BuiltReduxLocalizations> {
   @override
   Future<BuiltReduxLocalizations> load(Locale locale) =>
-      new Future(() => new BuiltReduxLocalizations());
+      Future(() => BuiltReduxLocalizations());
 
   @override
   bool shouldReload(BuiltReduxLocalizationsDelegate old) => false;

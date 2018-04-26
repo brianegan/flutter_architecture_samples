@@ -29,27 +29,27 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? new LoadingSpinner(key: ArchSampleKeys.todosLoading)
+        ? LoadingSpinner(key: ArchSampleKeys.todosLoading)
         : _buildList(todos);
   }
 
   ListView _buildList(List<Todo> todos) {
-    return new ListView.builder(
+    return ListView.builder(
       key: ArchSampleKeys.todoList,
       itemCount: todos.length,
       itemBuilder: (BuildContext context, int index) {
         final todo = todos[index];
 
-        return new TodoItem(
+        return TodoItem(
           todo: todo,
           onDismissed: (direction) {
             _removeTodo(context, todo);
           },
           onTap: () {
             Navigator.of(context).push(
-              new MaterialPageRoute(
+              MaterialPageRoute(
                 builder: (_) {
-                  return new DetailScreen(todoId: todo.id);
+                  return DetailScreen(todoId: todo.id);
                 },
               ),
             ).then((todo) {
@@ -73,16 +73,16 @@ class TodoList extends StatelessWidget {
   }
 
   void _showUndoSnackbar(BuildContext context, Todo todo) {
-    final snackBar = new SnackBar(
+    final snackBar = SnackBar(
       key: ArchSampleKeys.snackbar,
-      duration: new Duration(seconds: 2),
+      duration: Duration(seconds: 2),
       backgroundColor: Theme.of(context).backgroundColor,
-      content: new Text(
+      content: Text(
         ArchSampleLocalizations.of(context).todoDeleted(todo.task),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      action: new SnackBarAction(
+      action: SnackBarAction(
         key: ArchSampleKeys.snackbarAction(todo.id),
         label: ArchSampleLocalizations.of(context).undo,
         onPressed: () {

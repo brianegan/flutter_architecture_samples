@@ -44,8 +44,8 @@ List<Todo> filteredTodosSelector(
 
 Optional<Todo> todoSelector(List<Todo> todos, String id) {
   try {
-    return new Optional.of(todos.firstWhere((todo) => todo.id == id));
+    return Optional.of(todos.firstWhere((todo) => todo.id == id));
   } catch (e) {
-    return new Optional.absent();
+    return Optional.absent();
   }
 }

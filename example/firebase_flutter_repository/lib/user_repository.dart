@@ -16,7 +16,7 @@ class FirebaseUserRepository implements UserRepository {
   Future<UserEntity> login() async {
     final firebaseUser = await auth.signInAnonymously();
 
-    return new UserEntity(
+    return UserEntity(
       id: firebaseUser.uid,
       displayName: firebaseUser.displayName,
       photoUrl: firebaseUser.photoUrl,

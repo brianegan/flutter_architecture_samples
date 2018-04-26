@@ -14,28 +14,26 @@ class MockTodosListInteractor extends Mock implements TodosInteractor {}
 void main() {
   group('TodosListBloc', () {
     test('should display all todos by default', () {
-      final interactor = new MockTodosListInteractor();
-      final todos = [new Todo('Hallo')];
+      final interactor = MockTodosListInteractor();
+      final todos = [Todo('Hallo')];
 
-      when(interactor.todos)
-          .thenAnswer((_) => new Stream.fromIterable([todos]));
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
 
       expect(bloc.visibleTodos, emits(todos));
     });
 
     test('should display completed todos', () {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
       final todos = [
-        new Todo('Hallo'),
-        new Todo('Friend', complete: true),
+        Todo('Hallo'),
+        Todo('Friend', complete: true),
       ];
 
-      when(interactor.todos)
-          .thenAnswer((_) => new Stream.fromIterable([todos]));
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.updateFilter.add(VisibilityFilter.completed);
 
       expect(
@@ -45,16 +43,15 @@ void main() {
     });
 
     test('should display active todos', () {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
       final todos = [
-        new Todo('Hallo'),
-        new Todo('Friend', complete: true),
+        Todo('Hallo'),
+        Todo('Friend', complete: true),
       ];
 
-      when(interactor.todos)
-          .thenAnswer((_) => new Stream.fromIterable([todos]));
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.updateFilter.add(VisibilityFilter.active);
 
       expect(
@@ -64,16 +61,15 @@ void main() {
     });
 
     test('should stream the current visibility filter', () {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
       final todos = [
-        new Todo('Hallo'),
-        new Todo('Friend', complete: true),
+        Todo('Hallo'),
+        Todo('Friend', complete: true),
       ];
 
-      when(interactor.todos)
-          .thenAnswer((_) => new Stream.fromIterable([todos]));
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
 
       bloc.updateFilter.add(VisibilityFilter.completed);
 
@@ -84,82 +80,81 @@ void main() {
     });
 
     test('allComplete should stream from the interactor', () {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
 
       when(interactor.todos)
-          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+          .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
       when(interactor.allComplete)
-          .thenAnswer((_) => new Stream.fromIterable([false]));
+          .thenAnswer((_) => Stream.fromIterable([false]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
 
       expect(bloc.allComplete, emits(false));
     });
 
     test('hasCompletedTodos should stream from the interactor', () {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
 
       when(interactor.todos)
-          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+          .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
       when(interactor.hasCompletedTodos)
-          .thenAnswer((_) => new Stream.fromIterable([true]));
+          .thenAnswer((_) => Stream.fromIterable([true]));
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
 
       expect(bloc.hasCompletedTodos, emits(true));
     });
 
     test('should add todos to the interactor', () async {
-      final interactor = new MockTodosListInteractor();
-      final todo = new Todo('AddMe');
+      final interactor = MockTodosListInteractor();
+      final todo = Todo('AddMe');
 
-      when(interactor.todos).thenAnswer((_) => new Stream.fromIterable([
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([
             [todo]
           ]));
-      when(interactor.addNewTodo(todo)).thenReturn(new Future.value());
+      when(interactor.addNewTodo(todo)).thenReturn(Future.value());
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.addTodo.add(todo);
 
       verify(interactor.addNewTodo(todo));
     });
 
     test('should send deletions to the interactor', () async {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
 
       when(interactor.todos)
-          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
-      when(interactor.deleteTodo('1')).thenReturn(new Future.value());
+          .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.deleteTodo('1')).thenReturn(Future.value());
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.deleteTodo.add('1');
 
       verify(interactor.deleteTodo('1'));
     });
 
     test('should remove completed todos from the interactor', () async {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
 
       when(interactor.todos)
-          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
-      when(interactor.clearCompleted(null))
-          .thenAnswer((_) => new Future.value());
+          .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
+      when(interactor.clearCompleted(null)).thenAnswer((_) => Future.value());
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.clearCompleted.add(null);
 
       verify(interactor.clearCompleted(null));
     });
 
     test('should toggle all with the interactor', () async {
-      final interactor = new MockTodosListInteractor();
+      final interactor = MockTodosListInteractor();
 
       when(interactor.todos)
-          .thenAnswer((_) => new Stream<List<Todo>>.fromIterable([[]]));
+          .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
       when(interactor.toggleAll(null))
-          .thenAnswer((_) => new Future<List<dynamic>>.value());
+          .thenAnswer((_) => Future<List<dynamic>>.value());
 
-      final bloc = new TodosListBloc(interactor);
+      final bloc = TodosListBloc(interactor);
       bloc.toggleAll.add(null);
 
       verify(interactor.toggleAll(null));

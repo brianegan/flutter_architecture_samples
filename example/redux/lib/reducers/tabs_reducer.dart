@@ -7,7 +7,7 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 
 final tabsReducer = combineReducers<AppTab>([
-  new TypedReducer<AppTab, UpdateTabAction>(_activeTabReducer),
+  TypedReducer<AppTab, UpdateTabAction>(_activeTabReducer),
 ]);
 
 AppTab _activeTabReducer(AppTab activeTab, UpdateTabAction action) {

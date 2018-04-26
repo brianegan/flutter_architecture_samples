@@ -20,7 +20,7 @@ class DetailScreen extends StatefulWidget {
 
   @override
   DetailScreenState createState() {
-    return new DetailScreenState();
+    return DetailScreenState();
   }
 }
 
@@ -41,21 +41,21 @@ class DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return new StreamBuilder<Todo>(
+    return StreamBuilder<Todo>(
       stream: todoBloc.todo(widget.todoId).where((todo) => todo != null),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) return new LoadingSpinner();
+        if (!snapshot.hasData) return LoadingSpinner();
 
         final todo = snapshot.data;
 
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(ArchSampleLocalizations.of(context).todoDetails),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(ArchSampleLocalizations.of(context).todoDetails),
             actions: [
-              new IconButton(
+              IconButton(
                 key: ArchSampleKeys.deleteTodoButton,
                 tooltip: ArchSampleLocalizations.of(context).deleteTodo,
-                icon: new Icon(Icons.delete),
+                icon: Icon(Icons.delete),
                 onPressed: () {
                   todoBloc.deleteTodo.add(todo.id);
                   Navigator.pop(context, todo);
@@ -63,16 +63,16 @@ class DetailScreenState extends State<DetailScreen> {
               )
             ],
           ),
-          body: new Padding(
-            padding: new EdgeInsets.all(16.0),
-            child: new ListView(
+          body: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: ListView(
               children: [
-                new Row(
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    new Padding(
-                      padding: new EdgeInsets.only(right: 8.0),
-                      child: new Checkbox(
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Checkbox(
                         value: todo.complete,
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
@@ -81,22 +81,22 @@ class DetailScreenState extends State<DetailScreen> {
                         },
                       ),
                     ),
-                    new Expanded(
-                      child: new Column(
+                    Expanded(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          new Padding(
-                            padding: new EdgeInsets.only(
+                          Padding(
+                            padding: EdgeInsets.only(
                               top: 8.0,
                               bottom: 16.0,
                             ),
-                            child: new Text(
+                            child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
                               style: Theme.of(context).textTheme.headline,
                             ),
                           ),
-                          new Text(
+                          Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
                             style: Theme.of(context).textTheme.subhead,
@@ -109,15 +109,15 @@ class DetailScreenState extends State<DetailScreen> {
               ],
             ),
           ),
-          floatingActionButton: new FloatingActionButton(
+          floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: new Icon(Icons.edit),
+            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                new MaterialPageRoute(
+                MaterialPageRoute(
                   builder: (context) {
-                    return new AddEditScreen(
+                    return AddEditScreen(
                       todo: todo,
                       updateTodo: todoBloc.updateTodo.add,
                       key: ArchSampleKeys.editTodoScreen,

@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:collection';
@@ -19,7 +19,7 @@ class Optional<T> extends IterableBase<T> {
   ///
   /// Throws [ArgumentError] if [value] is null.
   Optional.of(T value) : this._value = value {
-    if (this._value == null) throw new ArgumentError('Must not be null.');
+    if (this._value == null) throw ArgumentError('Must not be null.');
   }
 
   /// Constructs an Optional of the given [value].
@@ -38,7 +38,7 @@ class Optional<T> extends IterableBase<T> {
   /// Throws [StateError] if [value] is null.
   T get value {
     if (this._value == null) {
-      throw new StateError('value called on absent Optional.');
+      throw StateError('value called on absent Optional.');
     }
     return _value;
   }
@@ -64,7 +64,7 @@ class Optional<T> extends IterableBase<T> {
   /// Throws [ArgumentError] if [defaultValue] is null.
   T or(T defaultValue) {
     if (defaultValue == null) {
-      throw new ArgumentError('defaultValue must not be null.');
+      throw ArgumentError('defaultValue must not be null.');
     }
     return _value == null ? defaultValue : _value;
   }
@@ -79,13 +79,13 @@ class Optional<T> extends IterableBase<T> {
   /// The transformer must not return [null]. If it does, an [ArgumentError] is thrown.
   Optional<S> transform<S>(S transformer(T value)) {
     return _value == null
-        ? new Optional.absent()
-        : new Optional.of(transformer(_value));
+        ? Optional.absent()
+        : Optional.of(transformer(_value));
   }
 
   @override
   Iterator<T> get iterator =>
-      isPresent ? <T>[_value].iterator : new Iterable<T>.empty().iterator;
+      isPresent ? <T>[_value].iterator : Iterable<T>.empty().iterator;
 
   /// Delegates to the underlying [value] hashCode.
   int get hashCode => _value.hashCode;

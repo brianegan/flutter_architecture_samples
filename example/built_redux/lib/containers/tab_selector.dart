@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -19,21 +19,21 @@ class TabSelector extends StoreConnector<AppState, AppActions, AppTab> {
 
   @override
   Widget build(BuildContext context, AppTab activeTab, AppActions action) {
-    return new BottomNavigationBar(
+    return BottomNavigationBar(
       key: ArchSampleKeys.tabs,
       currentIndex: AppTab.toIndex(activeTab),
       onTap: (index) {
         action.updateTabAction(AppTab.fromIndex(index));
       },
       items: AppTab.values.map((tab) {
-        return new BottomNavigationBarItem(
-          icon: new Icon(
+        return BottomNavigationBarItem(
+          icon: Icon(
             tab == AppTab.todos ? Icons.list : Icons.show_chart,
             key: tab == AppTab.stats
                 ? ArchSampleKeys.statsTab
                 : ArchSampleKeys.todoTab,
           ),
-          title: new Text(tab == AppTab.stats
+          title: Text(tab == AppTab.stats
               ? ArchSampleLocalizations.of(context).stats
               : ArchSampleLocalizations.of(context).todos),
         );

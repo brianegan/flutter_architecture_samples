@@ -17,7 +17,7 @@ class StatsBloc {
   );
 
   factory StatsBloc(TodosInteractor interactor) {
-    return new StatsBloc._(
+    return StatsBloc._(
       interactor.todos.map(_numActive),
       interactor.todos.map(_numComplete),
     );

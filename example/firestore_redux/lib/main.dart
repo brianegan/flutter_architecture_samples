@@ -19,9 +19,11 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-void main(
-    [ReactiveTodosRepository todosRepository, UserRepository userRepository]) {
-  runApp(new ReduxApp(
+void main([
+  ReactiveTodosRepository todosRepository,
+  UserRepository userRepository,
+]) {
+  runApp(ReduxApp(
     todosRepository: todosRepository,
     userRepository: userRepository,
   ));
@@ -34,41 +36,40 @@ class ReduxApp extends StatelessWidget {
     Key key,
     ReactiveTodosRepository todosRepository,
     UserRepository userRepository,
-  })
-      : store = new Store<AppState>(
+  })  : store = Store<AppState>(
           appReducer,
-          initialState: new AppState.loading(),
+          initialState: AppState.loading(),
           middleware: createStoreTodosMiddleware(
             todosRepository ??
-                new FirestoreReactiveTodosRepository(Firestore.instance),
-            userRepository ?? new FirebaseUserRepository(FirebaseAuth.instance),
+                FirestoreReactiveTodosRepository(Firestore.instance),
+            userRepository ?? FirebaseUserRepository(FirebaseAuth.instance),
           ),
         ),
         super(key: key) {
-    store.dispatch(new InitAppAction());
+    store.dispatch(InitAppAction());
   }
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
+    return StoreProvider(
       store: store,
-      child: new MaterialApp(
-        title: new FirestoreReduxLocalizations().appTitle,
+      child: MaterialApp(
+        title: FirestoreReduxLocalizations().appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
-          new FirestoreReduxLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
+          FirestoreReduxLocalizationsDelegate(),
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            return new StoreBuilder<AppState>(
+            return StoreBuilder<AppState>(
               builder: (context, store) {
-                return new HomeScreen();
+                return HomeScreen();
               },
             );
           },
           ArchSampleRoutes.addTodo: (context) {
-            return new AddTodo();
+            return AddTodo();
           },
         },
       ),

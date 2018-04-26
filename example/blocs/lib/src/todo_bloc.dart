@@ -23,8 +23,8 @@ class TodoBloc {
   );
 
   factory TodoBloc(TodosInteractor interactor) {
-    final removeTodoController = new StreamController<String>(sync: true);
-    final updateTodoController = new StreamController<Todo>(sync: true);
+    final removeTodoController = StreamController<String>(sync: true);
+    final updateTodoController = StreamController<Todo>(sync: true);
     final subscriptions = <StreamSubscription<dynamic>>[
       // When a user updates an item, update the repository
       updateTodoController.stream.listen(interactor.updateTodo),
@@ -33,7 +33,7 @@ class TodoBloc {
       removeTodoController.stream.listen(interactor.deleteTodo),
     ];
 
-    return new TodoBloc._(
+    return TodoBloc._(
       removeTodoController,
       updateTodoController,
       interactor,

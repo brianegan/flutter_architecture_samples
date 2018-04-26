@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -16,11 +16,11 @@ class EditTodo extends StoreConnector<AppState, AppActions, Null> {
 
   @override
   Widget build(BuildContext context, _, AppActions actions) {
-    return new AddEditScreen(
+    return AddEditScreen(
       key: ArchSampleKeys.editTodoScreen,
       isEditing: true,
       onSave: (task, note) {
-        actions.updateTodoAction(new UpdateTodoActionPayload(
+        actions.updateTodoAction(UpdateTodoActionPayload(
             todo.id,
             todo.rebuild((b) => b
               ..task = task

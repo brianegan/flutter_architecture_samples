@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -31,19 +31,19 @@ VisibilityFilter _$visibilityFilterValueOf(String name) {
     case 'completed':
       return _$completed;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<VisibilityFilter> _$visibilityFilterValues =
-    new BuiltSet<VisibilityFilter>(const <VisibilityFilter>[
+    BuiltSet<VisibilityFilter>(const <VisibilityFilter>[
   _$all,
   _$active,
   _$completed,
 ]);
 
 Serializer<VisibilityFilter> _$visibilityFilterSerializer =
-    new _$VisibilityFilterSerializer();
+    _$VisibilityFilterSerializer();
 
 class _$VisibilityFilterSerializer
     implements PrimitiveSerializer<VisibilityFilter> {
