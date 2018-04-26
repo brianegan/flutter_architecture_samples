@@ -8,20 +8,13 @@ import 'package:blocs/src/models/models.dart';
 import 'package:blocs/src/todos_interactor.dart';
 
 class StatsBloc {
-  final Stream<int> numActive;
-  final Stream<int> numComplete;
+  final TodosInteractor _interactor;
 
-  StatsBloc._(
-    this.numActive,
-    this.numComplete,
-  );
+  StatsBloc(TodosInteractor interactor) : _interactor = interactor;
 
-  factory StatsBloc(TodosInteractor interactor) {
-    return StatsBloc._(
-      interactor.todos.map(_numActive),
-      interactor.todos.map(_numComplete),
-    );
-  }
+  Stream<int> get numActive => _interactor.todos.map(_numActive);
+
+  Stream<int> get numComplete => _interactor.todos.map(_numComplete);
 
   static int _numActive(List<Todo> todos) {
     return todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);

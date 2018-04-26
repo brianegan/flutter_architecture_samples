@@ -56,8 +56,7 @@ class TodoList extends StatelessWidget {
           onCheckboxChanged: (complete) {
             TodosBlocProvider
                 .of(context)
-                .updateTodo
-                .add(todo.copyWith(complete: !todo.complete));
+                .updateTodo(todo.copyWith(complete: !todo.complete));
           },
         );
       },
@@ -65,7 +64,7 @@ class TodoList extends StatelessWidget {
   }
 
   void _removeTodo(BuildContext context, Todo todo) {
-    TodosBlocProvider.of(context).deleteTodo.add(todo.id);
+    TodosBlocProvider.of(context).deleteTodo(todo.id);
 
     _showUndoSnackbar(context, todo);
   }
@@ -84,7 +83,7 @@ class TodoList extends StatelessWidget {
         key: ArchSampleKeys.snackbarAction(todo.id),
         label: ArchSampleLocalizations.of(context).undo,
         onPressed: () {
-          TodosBlocProvider.of(context).addTodo.add(todo);
+          TodosBlocProvider.of(context).addTodo(todo);
         },
       ),
     );

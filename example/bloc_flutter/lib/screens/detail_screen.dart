@@ -35,7 +35,6 @@ class DetailScreenState extends State<DetailScreen> {
 
   @override
   void dispose() {
-    todoBloc.close();
     super.dispose();
   }
 
@@ -57,7 +56,7 @@ class DetailScreenState extends State<DetailScreen> {
                 tooltip: ArchSampleLocalizations.of(context).deleteTodo,
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  todoBloc.deleteTodo.add(todo.id);
+                  todoBloc.deleteTodo(todo.id);
                   Navigator.pop(context, todo);
                 },
               )
@@ -76,8 +75,8 @@ class DetailScreenState extends State<DetailScreen> {
                         value: todo.complete,
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
-                          todoBloc.updateTodo
-                              .add(todo.copyWith(complete: !todo.complete));
+                          todoBloc.updateTodo(
+                              todo.copyWith(complete: !todo.complete));
                         },
                       ),
                     ),
@@ -119,7 +118,7 @@ class DetailScreenState extends State<DetailScreen> {
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
-                      updateTodo: todoBloc.updateTodo.add,
+                      updateTodo: todoBloc.updateTodo,
                       key: ArchSampleKeys.editTodoScreen,
                     );
                   },

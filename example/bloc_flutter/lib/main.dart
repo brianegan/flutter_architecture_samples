@@ -40,7 +40,7 @@ void main({
           },
           ArchSampleRoutes.addTodo: (context) {
             return AddEditScreen(
-              addTodo: TodosBlocProvider.of(context).addTodo.add,
+              addTodo: TodosBlocProvider.of(context).addTodo,
             );
           },
         },

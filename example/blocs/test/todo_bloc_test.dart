@@ -26,7 +26,7 @@ void main() {
       when(interactor.deleteTodo('1')).thenReturn(Future.value());
 
       final bloc = TodoBloc(interactor);
-      bloc.deleteTodo.add('1');
+      bloc.deleteTodo('1');
 
       verify(interactor.deleteTodo('1'));
     });
@@ -39,7 +39,7 @@ void main() {
       when(interactor.updateTodo(update)).thenReturn(Future.value());
 
       final bloc = TodoBloc(interactor);
-      bloc.updateTodo.add(update);
+      bloc.updateTodo(update);
 
       verify(interactor.updateTodo(update));
     });

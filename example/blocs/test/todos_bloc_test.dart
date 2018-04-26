@@ -34,7 +34,7 @@ void main() {
       when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
       final bloc = TodosListBloc(interactor);
-      bloc.updateFilter.add(VisibilityFilter.completed);
+      bloc.updateFilter(VisibilityFilter.completed);
 
       expect(
         bloc.visibleTodos,
@@ -52,7 +52,7 @@ void main() {
       when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
 
       final bloc = TodosListBloc(interactor);
-      bloc.updateFilter.add(VisibilityFilter.active);
+      bloc.updateFilter(VisibilityFilter.active);
 
       expect(
         bloc.visibleTodos,
@@ -71,7 +71,7 @@ void main() {
 
       final bloc = TodosListBloc(interactor);
 
-      bloc.updateFilter.add(VisibilityFilter.completed);
+      bloc.updateFilter(VisibilityFilter.completed);
 
       expect(
         bloc.activeFilter,
@@ -115,7 +115,7 @@ void main() {
       when(interactor.addNewTodo(todo)).thenReturn(Future.value());
 
       final bloc = TodosListBloc(interactor);
-      bloc.addTodo.add(todo);
+      bloc.addTodo(todo);
 
       verify(interactor.addNewTodo(todo));
     });
@@ -128,7 +128,7 @@ void main() {
       when(interactor.deleteTodo('1')).thenReturn(Future.value());
 
       final bloc = TodosListBloc(interactor);
-      bloc.deleteTodo.add('1');
+      bloc.deleteTodo('1');
 
       verify(interactor.deleteTodo('1'));
     });
@@ -141,7 +141,7 @@ void main() {
       when(interactor.clearCompleted(null)).thenAnswer((_) => Future.value());
 
       final bloc = TodosListBloc(interactor);
-      bloc.clearCompleted.add(null);
+      bloc.clearCompleted();
 
       verify(interactor.clearCompleted(null));
     });
@@ -155,7 +155,7 @@ void main() {
           .thenAnswer((_) => Future<List<dynamic>>.value());
 
       final bloc = TodosListBloc(interactor);
-      bloc.toggleAll.add(null);
+      bloc.toggleAll();
 
       verify(interactor.toggleAll(null));
     });

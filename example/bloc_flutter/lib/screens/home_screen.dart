@@ -132,7 +132,7 @@ class HomeScreenState extends State<HomeScreen> {
           return FilterButton(
             isActive: activeTabSnapshot.data == AppTab.todos,
             activeFilter: snapshot.data ?? VisibilityFilter.all,
-            onSelected: todosBloc.updateFilter.add,
+            onSelected: todosBloc.updateFilter,
           );
         },
       ),
@@ -153,9 +153,9 @@ class HomeScreenState extends State<HomeScreen> {
             hasCompletedTodos: snapshot.data?.hasCompletedTodos ?? false,
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
-                todosBloc.toggleAll.add(null);
+                todosBloc.toggleAll();
               } else if (action == ExtraAction.clearCompleted) {
-                todosBloc.clearCompleted.add(null);
+                todosBloc.clearCompleted();
               }
             },
           );
