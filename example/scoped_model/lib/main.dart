@@ -15,7 +15,7 @@ void main() {
     ),
   );
 
-  runApp(new ScopedModelApp(
+  runApp(ScopedModelApp(
     repository: todoRepo,
   ));
 }

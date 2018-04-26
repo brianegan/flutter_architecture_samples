@@ -10,35 +10,35 @@ class MockTodosInteractor extends Mock implements TodosInteractor {}
 void main() {
   group('TodoBloc', () {
     test('should get the todo from the interactor', () {
-      final interactor = new MockTodosInteractor();
-      final bloc = new TodoBloc(interactor);
-      final todo = new Todo('Hallo');
+      final interactor = MockTodosInteractor();
+      final bloc = TodoBloc(interactor);
+      final todo = Todo('Hallo');
 
-      when(interactor.todo('2')).thenReturn(new Stream.fromIterable([todo]));
+      when(interactor.todo('2')).thenReturn(Stream.fromIterable([todo]));
 
       expect(bloc.todo('2'), emits(todo));
     });
 
     test('should send deletions to the repo', () async {
-      final interactor = new MockTodosInteractor();
+      final interactor = MockTodosInteractor();
 
-      when(interactor.todos).thenReturn(new Stream.fromIterable([[]]));
-      when(interactor.deleteTodo('1')).thenReturn(new Future.value());
+      when(interactor.todos).thenReturn(Stream.fromIterable([[]]));
+      when(interactor.deleteTodo('1')).thenReturn(Future.value());
 
-      final bloc = new TodoBloc(interactor);
+      final bloc = TodoBloc(interactor);
       bloc.deleteTodo.add('1');
 
       verify(interactor.deleteTodo('1'));
     });
 
     test('should send updates to the repo', () async {
-      final interactor = new MockTodosInteractor();
-      final update = new Todo('Waaaat');
+      final interactor = MockTodosInteractor();
+      final update = Todo('Waaaat');
 
-      when(interactor.todos).thenReturn(new Stream.empty());
-      when(interactor.updateTodo(update)).thenReturn(new Future.value());
+      when(interactor.todos).thenReturn(Stream.empty());
+      when(interactor.updateTodo(update)).thenReturn(Future.value());
 
-      final bloc = new TodoBloc(interactor);
+      final bloc = TodoBloc(interactor);
       bloc.updateTodo.add(update);
 
       verify(interactor.updateTodo(update));

@@ -1,14 +1,14 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:fire_redux_sample/actions/actions.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/presentation/filter_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:fire_redux_sample/models/models.dart';
-import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/presentation/filter_button.dart';
 
 class FilterSelector extends StatelessWidget {
   final bool visible;
@@ -17,11 +17,11 @@ class FilterSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return StoreConnector<AppState, _ViewModel>(
       distinct: true,
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return new FilterButton(
+        return FilterButton(
           visible: visible,
           activeFilter: vm.activeFilter,
           onSelected: vm.onFilterSelected,
@@ -41,9 +41,9 @@ class _ViewModel {
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return _ViewModel(
       onFilterSelected: (filter) {
-        store.dispatch(new UpdateFilterAction(filter));
+        store.dispatch(UpdateFilterAction(filter));
       },
       activeFilter: store.state.activeFilter,
     );

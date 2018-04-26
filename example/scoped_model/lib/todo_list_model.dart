@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -35,12 +35,12 @@ class TodoListModel extends Model {
 
   /// Wraps [ModelFinder.of] for this [Model]. See [ModelFinder.of] for more
   static TodoListModel of(BuildContext context) =>
-      new ModelFinder<TodoListModel>().of(context);
+      ModelFinder<TodoListModel>().of(context);
 
   @override
   void addListener(VoidCallback listener) {
     super.addListener(listener);
-    // update data for every new subscriber, especially for the first one
+    // update data for every subscriber, especially for the first one
     loadTodos();
   }
 

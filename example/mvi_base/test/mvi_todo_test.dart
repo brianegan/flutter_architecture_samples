@@ -15,15 +15,14 @@ void main() {
   group('MviTodo', () {
     group('Presenter', () {
       test('should load a todo', () {
-        final interactor = new MockTodosInteractor();
-        final todo = new Todo("Hallo");
+        final interactor = MockTodosInteractor();
+        final todo = Todo("Hallo");
 
-        when(interactor.todo(todo.id))
-            .thenReturn(new Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
 
-        final presenter = new DetailPresenter(
+        final presenter = DetailPresenter(
           id: todo.id,
-          view: new DetailView(),
+          view: DetailView(),
           interactor: interactor,
         );
 
@@ -31,14 +30,13 @@ void main() {
       });
 
       test('should send deletions to the interactor', () async {
-        final interactor = new MockTodosInteractor();
-        final todo = new Todo("Hallo");
-        final view = new DetailView();
+        final interactor = MockTodosInteractor();
+        final todo = Todo("Hallo");
+        final view = DetailView();
 
-        when(interactor.todo(todo.id))
-            .thenReturn(new Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
 
-        final presenter = new DetailPresenter(
+        final presenter = DetailPresenter(
           id: todo.id,
           view: view,
           interactor: interactor,
@@ -50,14 +48,13 @@ void main() {
       });
 
       test('should send updates to the interactor', () async {
-        final interactor = new MockTodosInteractor();
-        final todo = new Todo("Hallo");
-        final view = new DetailView();
+        final interactor = MockTodosInteractor();
+        final todo = Todo("Hallo");
+        final view = DetailView();
 
-        when(interactor.todo(todo.id))
-            .thenReturn(new Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
 
-        final presenter = new DetailPresenter(
+        final presenter = DetailPresenter(
           id: todo.id,
           view: view,
           interactor: interactor,
@@ -71,7 +68,7 @@ void main() {
 
     group('View', () {
       test('should clean up after itself', () async {
-        final view = new DetailView();
+        final view = DetailView();
 
         view.tearDown();
 

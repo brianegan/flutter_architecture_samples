@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
@@ -16,7 +16,7 @@ class AppLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, bool>(
+    return StoreConnector<AppState, bool>(
       distinct: true,
       converter: (Store<AppState> store) => isLoadingSelector(store.state),
       builder: builder,

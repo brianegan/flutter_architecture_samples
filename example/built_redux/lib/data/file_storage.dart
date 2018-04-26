@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -37,7 +37,7 @@ class FileStorage {
       json.encode(
         serializers.serializeWith(
           AppState.serializer,
-          new AppState.fromTodos(todos),
+          AppState.fromTodos(todos),
         ),
       ),
     );
@@ -46,7 +46,7 @@ class FileStorage {
   Future<File> _getLocalFile() async {
     final dir = await getDirectory();
 
-    return new File('${dir.path}/FlutterMvcFileStorage__$tag.json');
+    return File('${dir.path}/FlutterMvcFileStorage__$tag.json');
   }
 
   Future<FileSystemEntity> clean() async {

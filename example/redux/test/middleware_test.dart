@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
@@ -16,41 +16,41 @@ class MockTodosRepository extends Mock implements TodosRepository {}
 main() {
   group('Save State Middleware', () {
     test('should load the todos in response to a LoadTodosAction', () {
-      final repository = new MockTodosRepository();
-      final store = new Store<AppState>(
+      final repository = MockTodosRepository();
+      final store = Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
+        initialState: AppState.loading(),
         middleware: createStoreTodosMiddleware(repository),
       );
       final todos = [
-        new Todo("Moin"),
+        TodoEntity("Moin", "1", "Note", false),
       ];
 
-      when(repository.loadTodos()).thenReturn(new Future.value(todos));
+      when(repository.loadTodos()).thenReturn(Future.value(todos));
 
-      store.dispatch(new LoadTodosAction());
+      store.dispatch(LoadTodosAction());
 
       verify(repository.loadTodos());
     });
 
     test('should save the state on every update action', () {
-      final repository = new MockTodosRepository();
-      final store = new Store<AppState>(
+      final repository = MockTodosRepository();
+      final store = Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
+        initialState: AppState.loading(),
         middleware: createStoreTodosMiddleware(repository),
       );
-      final todo = new Todo("Hallo");
+      final todo = Todo("Hallo");
 
-      store.dispatch(new AddTodoAction(todo));
-      store.dispatch(new ClearCompletedAction());
-      store.dispatch(new ToggleAllAction());
-      store.dispatch(new TodosLoadedAction([new Todo("Hi")]));
-      store.dispatch(new ToggleAllAction());
-      store.dispatch(new UpdateTodoAction("", new Todo("")));
-      store.dispatch(new DeleteTodoAction(""));
+      store.dispatch(AddTodoAction(todo));
+      store.dispatch(ClearCompletedAction());
+      store.dispatch(ToggleAllAction());
+      store.dispatch(TodosLoadedAction([Todo("Hi")]));
+      store.dispatch(ToggleAllAction());
+      store.dispatch(UpdateTodoAction("", Todo("")));
+      store.dispatch(DeleteTodoAction(""));
 
-      verify(repository.saveTodos(any)).called(7);
+      verify(repository.saveTodos(typed(any))).called(7);
     });
   });
 }

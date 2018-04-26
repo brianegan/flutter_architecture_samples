@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
@@ -15,10 +15,10 @@ class Stats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return new StatsCounter(
+        return StatsCounter(
           numActive: vm.numActive,
           numCompleted: vm.numCompleted,
         );
@@ -34,7 +34,7 @@ class _ViewModel {
   _ViewModel({@required this.numCompleted, @required this.numActive});
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return _ViewModel(
       numActive: numActiveSelector(todosSelector(store.state)),
       numCompleted: numCompletedSelector(todosSelector(store.state)),
     );

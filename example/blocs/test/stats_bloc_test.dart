@@ -12,31 +12,31 @@ class MockTodosInteractor extends Mock implements TodosInteractor {}
 void main() {
   group('StatsBloc', () {
     test('should stream the number of active todos', () {
-      final interactor = new MockTodosInteractor();
+      final interactor = MockTodosInteractor();
       final todos = [
-        new Todo("Hallo", complete: true),
-        new Todo("Friend"),
+        Todo("Hallo", complete: true),
+        Todo("Friend"),
       ];
-      final source = new BehaviorSubject<List<Todo>>(seedValue: todos);
+      final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
       when(interactor.todos).thenReturn(source.stream);
 
-      final bloc = new StatsBloc(interactor);
+      final bloc = StatsBloc(interactor);
 
       expect(bloc.numActive, emits(1));
     });
 
     test('should stream the number of completed todos', () {
-      final interactor = new MockTodosInteractor();
+      final interactor = MockTodosInteractor();
       final todos = [
-        new Todo("Hallo", complete: true),
-        new Todo("Friend", complete: true),
+        Todo("Hallo", complete: true),
+        Todo("Friend", complete: true),
       ];
-      final source = new BehaviorSubject<List<Todo>>(seedValue: todos);
+      final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
       when(interactor.todos).thenReturn(source.stream);
 
-      final bloc = new StatsBloc(interactor);
+      final bloc = StatsBloc(interactor);
 
       expect(bloc.numComplete, emits(2));
     });

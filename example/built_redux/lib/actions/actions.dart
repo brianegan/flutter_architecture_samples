@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library actions;
@@ -25,7 +25,7 @@ abstract class AppActions extends ReduxActions {
 
   AppActions._();
 
-  factory AppActions() => new _$AppActions();
+  factory AppActions() => _$AppActions();
 }
 
 abstract class UpdateTodoActionPayload
@@ -40,7 +40,7 @@ abstract class UpdateTodoActionPayload
   UpdateTodoActionPayload._();
 
   factory UpdateTodoActionPayload(String id, Todo updatedTodo) =>
-      new _$UpdateTodoActionPayload._(
+      _$UpdateTodoActionPayload._(
         id: id,
         updatedTodo: updatedTodo,
       );

@@ -11,9 +11,9 @@ import 'package:firebase_flutter_repository/user_repository.dart';
 
 void main() {
   app.main(
-    todosInteractor: new TodosInteractor(
-      new FirestoreReactiveTodosRepository(Firestore.instance),
+    todosInteractor: TodosInteractor(
+      FirestoreReactiveTodosRepository(Firestore.instance),
     ),
-    userRepository: new FirebaseUserRepository(FirebaseAuth.instance),
+    userRepository: FirebaseUserRepository(FirebaseAuth.instance),
   );
 }

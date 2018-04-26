@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library app_state;
@@ -27,17 +27,17 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   AppState._();
 
-  factory AppState([updates(AppStateBuilder b)]) => new _$AppState((b) => b
+  factory AppState([updates(AppStateBuilder b)]) => _$AppState((b) => b
     ..isLoading = false
-    ..todos = new ListBuilder<Todo>([])
+    ..todos = ListBuilder<Todo>([])
     ..activeTab = AppTab.todos
     ..activeFilter = VisibilityFilter.all
     ..update(updates));
 
-  factory AppState.loading() => new AppState((b) => b..isLoading = true);
+  factory AppState.loading() => AppState((b) => b..isLoading = true);
 
   factory AppState.fromTodos(List<Todo> todos) =>
-      new AppState((b) => b..todos = new ListBuilder<Todo>(todos));
+      AppState((b) => b..todos = ListBuilder<Todo>(todos));
 
   /// [numCompletedSelector] memoizes and returns the number of complete todos.
   @memoized
@@ -69,9 +69,9 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   Optional<Todo> todoSelector(String id) {
     try {
-      return new Optional.of(todos.firstWhere((todo) => todo.id == id));
+      return Optional.of(todos.firstWhere((todo) => todo.id == id));
     } catch (e) {
-      return new Optional.absent();
+      return Optional.absent();
     }
   }
 }

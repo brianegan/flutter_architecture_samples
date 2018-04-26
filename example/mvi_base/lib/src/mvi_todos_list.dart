@@ -29,7 +29,7 @@ class TodosListModel {
     this.user,
   });
 
-  factory TodosListModel.initial() => new TodosListModel(loading: true);
+  factory TodosListModel.initial() => TodosListModel(loading: true);
 
   @override
   String toString() {
@@ -59,12 +59,17 @@ class TodosListModel {
 }
 
 class TodosListView implements MviView {
-  final addTodo = new StreamController<Todo>.broadcast(sync: true);
-  final deleteTodo = new StreamController<String>.broadcast(sync: true);
-  final clearCompleted = new StreamController<void>.broadcast(sync: true);
-  final toggleAll = new StreamController<void>.broadcast(sync: true);
-  final updateTodo = new StreamController<Todo>.broadcast(sync: true);
-  final updateFilter = new BehaviorSubject<VisibilityFilter>(
+  final addTodo = StreamController<Todo>.broadcast(sync: true);
+
+  final deleteTodo = StreamController<String>.broadcast(sync: true);
+
+  final clearCompleted = StreamController<void>.broadcast(sync: true);
+
+  final toggleAll = StreamController<void>.broadcast(sync: true);
+
+  final updateTodo = StreamController<Todo>.broadcast(sync: true);
+
+  final updateFilter = BehaviorSubject<VisibilityFilter>(
     seedValue: VisibilityFilter.all,
   );
 
@@ -91,7 +96,7 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
   })  : _view = view,
         _interactor = todosInteractor,
         super(
-          initialModel: new TodosListModel.initial(),
+          initialModel: TodosListModel.initial(),
           stream: _buildStream(view, todosInteractor, userInteractor),
         );
 
@@ -111,7 +116,7 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
     TodosInteractor interactor,
     UserInteractor repository,
   ) {
-    return new Observable.defer(() async* {
+    return Observable.defer(() async* {
       yield await repository.login();
     }).flatMap((user) {
       return Observable.combineLatest4(
@@ -124,7 +129,7 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
           _filterTodos,
         ),
         (activeFilter, allComplete, hasCompletedTodos, visibleTodos) {
-          return new TodosListModel(
+          return TodosListModel(
             user: user,
             activeFilter: activeFilter,
             allComplete: allComplete,

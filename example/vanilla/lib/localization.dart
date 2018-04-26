@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -19,7 +19,7 @@ class VanillaLocalizationsDelegate
     extends LocalizationsDelegate<VanillaLocalizations> {
   @override
   Future<VanillaLocalizations> load(Locale locale) =>
-      new Future(() => new VanillaLocalizations());
+      Future(() => VanillaLocalizations());
 
   @override
   bool shouldReload(VanillaLocalizationsDelegate old) => false;

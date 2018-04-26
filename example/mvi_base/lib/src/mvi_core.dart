@@ -18,7 +18,7 @@ abstract class MviDisposable {
 // StreamControllers
 abstract class MviView implements MviDisposable {}
 
-// A class that takes intents from the View and converts them into new view
+// A class that takes intents from the View and converts them into view
 // state or side effects.
 class MviPresenter<ViewModel> extends Stream<ViewModel>
     implements MviDisposable {
@@ -47,7 +47,7 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
     StreamSubscription<ViewState> subscription;
     BehaviorSubject<ViewState> _subject;
 
-    _subject = new BehaviorSubject<ViewState>(
+    _subject = BehaviorSubject<ViewState>(
       seedValue: initialState,
       onListen: () {
         subscription = model.listen(

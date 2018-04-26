@@ -14,13 +14,13 @@ class MockUserRepository extends Mock implements UserRepository {}
 void main() {
   group('UserInteractor', () {
     test('should convert repo entities into Todos', () async {
-      final repository = new MockUserRepository();
-      final interactor = new UserInteractor(repository);
+      final repository = MockUserRepository();
+      final interactor = UserInteractor(repository);
 
-      when(repository.login()).thenAnswer(
-          (_) => new Future.value(new UserEntity(displayName: 'Frida')));
+      when(repository.login())
+          .thenAnswer((_) => Future.value(UserEntity(displayName: 'Frida')));
 
-      expect(await interactor.login(), new User('Frida'));
+      expect(await interactor.login(), User('Frida'));
     });
   });
 }

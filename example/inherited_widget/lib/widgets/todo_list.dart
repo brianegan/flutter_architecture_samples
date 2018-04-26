@@ -16,14 +16,14 @@ class TodoList extends StatelessWidget {
   Widget build(BuildContext context) {
     final container = StateContainer.of(context);
 
-    return new Container(
+    return Container(
       child: container.state.isLoading ? _buildLoading : _buildList(container),
     );
   }
 
   Center get _buildLoading {
-    return new Center(
-      child: new CircularProgressIndicator(
+    return Center(
+      child: CircularProgressIndicator(
         key: ArchSampleKeys.todosLoading,
       ),
     );
@@ -32,22 +32,22 @@ class TodoList extends StatelessWidget {
   ListView _buildList(StateContainerState container) {
     final todos = container.state.filteredTodos;
 
-    return new ListView.builder(
+    return ListView.builder(
       key: ArchSampleKeys.todoList,
       itemCount: todos.length,
       itemBuilder: (BuildContext context, int index) {
         final todo = todos[index];
 
-        return new TodoItem(
+        return TodoItem(
           todo: todo,
           onDismissed: (direction) {
             _removeTodo(context, todo);
           },
           onTap: () {
             Navigator.of(context).push(
-              new MaterialPageRoute(
+              MaterialPageRoute(
                 builder: (_) {
-                  return new DetailScreen(
+                  return DetailScreen(
                     todo: todo,
                   );
                 },
@@ -73,16 +73,16 @@ class TodoList extends StatelessWidget {
   }
 
   void _showUndoSnackbar(BuildContext context, Todo todo) {
-    final snackBar = new SnackBar(
+    final snackBar = SnackBar(
       key: ArchSampleKeys.snackbar,
-      duration: new Duration(seconds: 2),
+      duration: Duration(seconds: 2),
       backgroundColor: Theme.of(context).backgroundColor,
-      content: new Text(
+      content: Text(
         ArchSampleLocalizations.of(context).todoDeleted(todo.task),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      action: new SnackBarAction(
+      action: SnackBarAction(
         key: ArchSampleKeys.snackbarAction(todo.id),
         label: ArchSampleLocalizations.of(context).undo,
         onPressed: () {

@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/containers/action_selector.dart';
@@ -19,34 +19,34 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new ActiveTab(
+    return ActiveTab(
       builder: (BuildContext context, AppTab activeTab) {
-        return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(BuiltReduxLocalizations.of(context).appTitle),
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(BuiltReduxLocalizations.of(context).appTitle),
             actions: [
-              new FilterSelector(
+              FilterSelector(
                 builder: (context, vm) {
-                  return new FilterButton(
+                  return FilterButton(
                     visible: activeTab == AppTab.todos,
                     activeFilter: vm.activeFilter,
                     onSelected: vm.onFilterSelected,
                   );
                 },
               ),
-              new ExtraActionSelector()
+              ExtraActionSelector()
             ],
           ),
-          body: activeTab == AppTab.todos ? new FilteredTodos() : new Stats(),
-          floatingActionButton: new FloatingActionButton(
+          body: activeTab == AppTab.todos ? FilteredTodos() : Stats(),
+          floatingActionButton: FloatingActionButton(
             key: ArchSampleKeys.addTodoFab,
             onPressed: () {
               Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
             },
-            child: new Icon(Icons.add),
+            child: Icon(Icons.add),
             tooltip: ArchSampleLocalizations.of(context).addTodo,
           ),
-          bottomNavigationBar: new TabSelector(),
+          bottomNavigationBar: TabSelector(),
         );
       },
     );

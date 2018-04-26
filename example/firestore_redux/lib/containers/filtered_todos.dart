@@ -1,25 +1,25 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:fire_redux_sample/actions/actions.dart';
+import 'package:fire_redux_sample/models/models.dart';
+import 'package:fire_redux_sample/presentation/todo_list.dart';
+import 'package:fire_redux_sample/selectors/selectors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:fire_redux_sample/models/models.dart';
-import 'package:fire_redux_sample/actions/actions.dart';
-import 'package:fire_redux_sample/selectors/selectors.dart';
-import 'package:fire_redux_sample/presentation/todo_list.dart';
 
 class FilteredTodos extends StatelessWidget {
   FilteredTodos({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, _ViewModel>(
+    return StoreConnector<AppState, _ViewModel>(
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
-        return new TodoList(
+        return TodoList(
           todos: vm.todos,
           onCheckboxChanged: vm.onCheckboxChanged,
           onRemove: vm.onRemove,
@@ -46,23 +46,23 @@ class _ViewModel {
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
-    return new _ViewModel(
+    return _ViewModel(
       todos: filteredTodosSelector(
         todosSelector(store.state),
         activeFilterSelector(store.state),
       ),
       loading: store.state.isLoading,
       onCheckboxChanged: (todo, complete) {
-        store.dispatch(new UpdateTodoAction(
+        store.dispatch(UpdateTodoAction(
           todo.id,
           todo.copyWith(complete: !todo.complete),
         ));
       },
       onRemove: (todo) {
-        store.dispatch(new DeleteTodoAction(todo.id));
+        store.dispatch(DeleteTodoAction(todo.id));
       },
       onUndoRemove: (todo) {
-        store.dispatch(new AddTodoAction(todo));
+        store.dispatch(AddTodoAction(todo));
       },
     );
   }

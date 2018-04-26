@@ -12,23 +12,23 @@ import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 void main() {
   app.main(
-    todosRepository: new TodosInteractor(
-      new ReactiveTodosRepositoryFlutter(
-        repository: new TodosRepositoryFlutter(
-          fileStorage: new FileStorage(
+    todosRepository: TodosInteractor(
+      ReactiveTodosRepositoryFlutter(
+        repository: TodosRepositoryFlutter(
+          fileStorage: FileStorage(
             '__bloc_local_storage',
             getApplicationDocumentsDirectory,
           ),
         ),
       ),
     ),
-    userInteractor: new UserInteractor(AnonymousUserRepository()),
+    userInteractor: UserInteractor(AnonymousUserRepository()),
   );
 }
 
 class AnonymousUserRepository implements UserRepository {
   @override
   Future<UserEntity> login() {
-    return new Future.value(new UserEntity(id: 'anonymous'));
+    return Future.value(UserEntity(id: 'anonymous'));
   }
 }

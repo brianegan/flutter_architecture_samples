@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -16,27 +16,25 @@ class ExtraActionsButton extends StatelessWidget {
     this.allComplete = false,
     this.hasCompletedTodos = true,
     Key key,
-  })
-      : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return new PopupMenuButton<ExtraAction>(
+    return PopupMenuButton<ExtraAction>(
       key: ArchSampleKeys.extraActionsButton,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => <PopupMenuItem<ExtraAction>>[
-            new PopupMenuItem<ExtraAction>(
+            PopupMenuItem<ExtraAction>(
               key: ArchSampleKeys.toggleAll,
               value: ExtraAction.toggleAllComplete,
-              child: new Text(allComplete
+              child: Text(allComplete
                   ? ArchSampleLocalizations.of(context).markAllIncomplete
                   : ArchSampleLocalizations.of(context).markAllComplete),
             ),
-            new PopupMenuItem<ExtraAction>(
+            PopupMenuItem<ExtraAction>(
               key: ArchSampleKeys.clearCompleted,
               value: ExtraAction.clearCompleted,
-              child:
-                  new Text(ArchSampleLocalizations.of(context).clearCompleted),
+              child: Text(ArchSampleLocalizations.of(context).clearCompleted),
             ),
           ],
     );

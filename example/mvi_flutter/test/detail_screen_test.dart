@@ -13,13 +13,13 @@ import 'package:mvi_flutter_sample/screens/detail_screen.dart';
 void main() {
   group('DetailScreen', () {
     testWidgets('should render the Task and Note', (tester) async {
-      final todo = new Todo('Hallo', note: 'Hello');
-      final presenter = new MockDetailPresenter(todo);
-      final screen = new MaterialApp(
+      final todo = Todo('Hallo', note: 'Hello');
+      final presenter = MockDetailPresenter(todo);
+      final screen = MaterialApp(
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
         ],
-        home: new DetailScreen(
+        home: DetailScreen(
           todoId: todo.id,
           initPresenter: (view) => presenter,
         ),
@@ -33,13 +33,13 @@ void main() {
     });
 
     testWidgets('should be checked when todo complete', (tester) async {
-      final todo = new Todo('Hallo', note: 'Hello', complete: true);
-      final presenter = new MockDetailPresenter(todo);
-      final screen = new MaterialApp(
+      final todo = Todo('Hallo', note: 'Hello', complete: true);
+      final presenter = MockDetailPresenter(todo);
+      final screen = MaterialApp(
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
         ],
-        home: new DetailScreen(
+        home: DetailScreen(
           todoId: todo.id,
           initPresenter: (view) => presenter,
         ),
@@ -55,13 +55,13 @@ void main() {
     });
 
     testWidgets('should not be checked when incomplete', (tester) async {
-      final todo = new Todo('Hallo', note: 'Hello', complete: false);
-      final presenter = new MockDetailPresenter(todo);
-      final screen = new MaterialApp(
+      final todo = Todo('Hallo', note: 'Hello', complete: false);
+      final presenter = MockDetailPresenter(todo);
+      final screen = MaterialApp(
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
         ],
-        home: new DetailScreen(
+        home: DetailScreen(
           todoId: todo.id,
           initPresenter: (view) => presenter,
         ),
@@ -77,14 +77,14 @@ void main() {
     });
 
     testWidgets('should delete the todo', (tester) async {
-      final todo = new Todo('Hallo');
-      final presenter = new MockDetailPresenter(todo);
-      final key = new GlobalKey<DetailScreenState>();
-      final screen = new MaterialApp(
+      final todo = Todo('Hallo');
+      final presenter = MockDetailPresenter(todo);
+      final key = GlobalKey<DetailScreenState>();
+      final screen = MaterialApp(
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
         ],
-        home: new DetailScreen(
+        home: DetailScreen(
           key: key,
           todoId: todo.id,
           initPresenter: (view) => presenter,
@@ -105,14 +105,14 @@ void main() {
     });
 
     testWidgets('should update a todo', (tester) async {
-      final todo = new Todo('Hallo');
-      final presenter = new MockDetailPresenter(todo);
-      final key = new GlobalKey<DetailScreenState>();
-      final screen = new MaterialApp(
+      final todo = Todo('Hallo');
+      final presenter = MockDetailPresenter(todo);
+      final key = GlobalKey<DetailScreenState>();
+      final screen = MaterialApp(
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
         ],
-        home: new DetailScreen(
+        home: DetailScreen(
           key: key,
           todoId: todo.id,
           initPresenter: (view) => presenter,
@@ -140,12 +140,12 @@ void main() {
 class MockDetailPresenter extends MviPresenter<Todo> {
   MockDetailPresenter(Todo todo)
       : super(
-          stream: new Stream.fromIterable([todo]),
+          stream: Stream.fromIterable([todo]),
           initialModel: todo,
         );
 }
 
-Matcher get isChecked => new CheckedMatcher(true);
+Matcher get isChecked => CheckedMatcher(true);
 
 class CheckedMatcher extends Matcher {
   final bool checked;

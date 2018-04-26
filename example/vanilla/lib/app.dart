@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
@@ -18,12 +18,12 @@ class VanillaApp extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new VanillaAppState();
+    return VanillaAppState();
   }
 }
 
 class VanillaAppState extends State<VanillaApp> {
-  AppState appState = new AppState.loading();
+  AppState appState = AppState.loading();
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class VanillaAppState extends State<VanillaApp> {
 
     widget.repository.loadTodos().then((loadedTodos) {
       setState(() {
-        appState = new AppState(
+        appState = AppState(
           todos: loadedTodos.map(Todo.fromEntity).toList(),
         );
       });
@@ -44,16 +44,16 @@ class VanillaAppState extends State<VanillaApp> {
 
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: new VanillaLocalizations().appTitle,
+    return MaterialApp(
+      title: VanillaLocalizations().appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchSampleLocalizationsDelegate(),
-        new VanillaLocalizationsDelegate(),
+        ArchSampleLocalizationsDelegate(),
+        VanillaLocalizationsDelegate(),
       ],
       routes: {
         ArchSampleRoutes.home: (context) {
-          return new HomeScreen(
+          return HomeScreen(
             appState: appState,
             updateTodo: updateTodo,
             addTodo: addTodo,
@@ -63,7 +63,7 @@ class VanillaAppState extends State<VanillaApp> {
           );
         },
         ArchSampleRoutes.addTodo: (context) {
-          return new AddEditScreen(
+          return AddEditScreen(
             key: ArchSampleKeys.addTodoScreen,
             addTodo: addTodo,
             updateTodo: updateTodo,

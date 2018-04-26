@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library stats;
@@ -28,14 +28,14 @@ class Stats extends StoreConnector<AppState, AppActions, StatsProps> {
 
   @override
   StatsProps connect(AppState state) {
-    return new StatsProps((b) => b
+    return StatsProps((b) => b
       ..numCompleted = state.numCompletedSelector
       ..numActive = state.numActiveSelector);
   }
 
   @override
   Widget build(BuildContext context, StatsProps props, AppActions actions) {
-    return new StatsCounter(
+    return StatsCounter(
       numActive: props.numActive,
       numCompleted: props.numCompleted,
     );

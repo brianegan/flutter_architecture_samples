@@ -18,22 +18,22 @@ void main({
   // ignore: deprecated_member_use
   MaterialPageRoute.debugEnableFadingRoutes = true;
 
-  runApp(new Injector(
+  runApp(Injector(
     todosInteractor: todosRepository,
     userInteractor: userInteractor,
-    child: new MaterialApp(
-      title: new BlocLocalizations().appTitle,
+    child: MaterialApp(
+      title: BlocLocalizations().appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchSampleLocalizationsDelegate(),
-        new InheritedWidgetLocalizationsDelegate(),
+        ArchSampleLocalizationsDelegate(),
+        InheritedWidgetLocalizationsDelegate(),
       ],
       routes: {
         ArchSampleRoutes.home: (context) {
-          return new HomeScreen();
+          return HomeScreen();
         },
         ArchSampleRoutes.addTodo: (context) {
-          return new AddEditScreen(
+          return AddEditScreen(
             addTodo: Injector.of(context).todosInteractor.addNewTodo,
           );
         },

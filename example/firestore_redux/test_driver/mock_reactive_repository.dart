@@ -12,13 +12,13 @@ class MockUserRepository implements UserRepository {
   Future<UserEntity> login([
     delayAuth = const Duration(milliseconds: 200),
   ]) {
-    return new Future<UserEntity>.delayed(delayAuth);
+    return Future<UserEntity>.delayed(delayAuth);
   }
 }
 
 class MockReactiveTodosRepository implements ReactiveTodosRepository {
   // ignore: close_sinks
-  final controller = new StreamController<List<TodoEntity>>();
+  final controller = StreamController<List<TodoEntity>>();
   List<TodoEntity> _todos = [];
 
   @override

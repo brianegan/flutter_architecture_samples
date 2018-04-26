@@ -22,22 +22,22 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Dismissible(
+    return Dismissible(
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: onDismissed,
-      child: new ListTile(
+      child: ListTile(
         onTap: onTap,
-        leading: new Checkbox(
+        leading: Checkbox(
           key: ArchSampleKeys.todoItemCheckbox(todo.id),
           value: todo.complete,
           onChanged: onCheckboxChanged,
         ),
-        title: new Text(
+        title: Text(
           todo.task,
           key: ArchSampleKeys.todoItemTask(todo.id),
           style: Theme.of(context).textTheme.title,
         ),
-        subtitle: new Text(
+        subtitle: Text(
           todo.note,
           key: ArchSampleKeys.todoItemNote(todo.id),
           maxLines: 1,

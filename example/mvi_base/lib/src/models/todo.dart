@@ -2,8 +2,8 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:mvi_base/src/uuid.dart';
 import 'package:meta/meta.dart';
+import 'package:mvi_base/src/uuid.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 @immutable
@@ -15,10 +15,10 @@ class Todo {
 
   Todo(this.task, {this.complete = false, String note = '', String id})
       : this.note = note ?? '',
-        this.id = id ?? new Uuid().generateV4();
+        this.id = id ?? Uuid().generateV4();
 
   Todo copyWith({bool complete, String id, String note, String task}) {
-    return new Todo(
+    return Todo(
       task ?? this.task,
       complete: complete ?? this.complete,
       id: id ?? this.id,
@@ -46,15 +46,15 @@ class Todo {
   }
 
   TodoEntity toEntity() {
-    return new TodoEntity(task, id, note, complete);
+    return TodoEntity(task, id, note, complete);
   }
 
   static Todo fromEntity(TodoEntity entity) {
-    return new Todo(
+    return Todo(
       entity.task,
       complete: entity.complete ?? false,
       note: entity.note,
-      id: entity.id ?? new Uuid().generateV4(),
+      id: entity.id ?? Uuid().generateV4(),
     );
   }
 }

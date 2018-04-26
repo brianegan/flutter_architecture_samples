@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -22,18 +22,18 @@ main() {
     test(
         'should load todos from File Storage if they exist without calling the web service',
         () {
-      final fileStorage = new MockFileStorage();
-      final webService = new MockWebService();
-      final todosService = new TodosRepository(
+      final fileStorage = MockFileStorage();
+      final webService = MockWebService();
+      final todosService = TodosRepository(
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [new Todo("Task")];
+      final todos = [Todo("Task")];
 
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(fileStorage.loadTodos()).thenReturn(new Future.value(todos));
+      when(fileStorage.loadTodos()).thenReturn(Future.value(todos));
 
       expect(todosService.loadTodos(), completion(todos));
       verifyNever(webService.fetchTodos());
@@ -42,18 +42,18 @@ main() {
     test(
         'should fetch todos from the Web Service if the file storage throws a synchronous error',
         () async {
-      final fileStorage = new MockFileStorage();
-      final webService = new MockWebService();
-      final todosService = new TodosRepository(
+      final fileStorage = MockFileStorage();
+      final webService = MockWebService();
+      final todosService = TodosRepository(
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [new Todo("Task")];
+      final todos = [Todo("Task")];
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
       when(fileStorage.loadTodos()).thenReturn("");
-      when(webService.fetchTodos()).thenReturn(new Future.value(todos));
+      when(webService.fetchTodos()).thenReturn(Future.value(todos));
 
       // We check that the correct todos were returned, and that the
       // webService.fetchTodos method was in fact called!
@@ -64,33 +64,32 @@ main() {
     test(
         'should fetch todos from the Web Service if the File storage returns an async error',
         () async {
-      final fileStorage = new MockFileStorage();
-      final webService = new MockWebService();
-      final todosService = new TodosRepository(
+      final fileStorage = MockFileStorage();
+      final webService = MockWebService();
+      final todosService = TodosRepository(
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [new Todo("Task")];
+      final todos = [Todo("Task")];
 
-      when(fileStorage.loadTodos())
-          .thenAnswer((_) => new Future.error("Oh no"));
-      when(webService.fetchTodos()).thenReturn(new Future.value(todos));
+      when(fileStorage.loadTodos()).thenAnswer((_) => Future.error("Oh no"));
+      when(webService.fetchTodos()).thenReturn(Future.value(todos));
 
       expect(await todosService.loadTodos(), todos);
       verify(webService.fetchTodos());
     });
 
     test('should persist the todos to local disk and the web service', () {
-      final fileStorage = new MockFileStorage();
-      final webService = new MockWebService();
-      final todosService = new TodosRepository(
+      final fileStorage = MockFileStorage();
+      final webService = MockWebService();
+      final todosService = TodosRepository(
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [new Todo("Task")];
+      final todos = [Todo("Task")];
 
-      when(fileStorage.saveTodos(todos)).thenReturn(new Future.value("Cool"));
-      when(webService.postTodos(todos)).thenReturn(new Future.value("Beans."));
+      when(fileStorage.saveTodos(todos)).thenReturn(Future.value("Cool"));
+      when(webService.postTodos(todos)).thenReturn(Future.value("Beans."));
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

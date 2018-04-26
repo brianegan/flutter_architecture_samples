@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -16,7 +16,7 @@ class ExtraActionSelector extends StoreConnector<AppState, AppActions, bool> {
 
   @override
   Widget build(BuildContext context, bool allComplete, AppActions actions) {
-    return new ExtraActionsButton(
+    return ExtraActionsButton(
       allComplete: allComplete,
       onSelected: (action) {
         if (action == ExtraAction.clearCompleted) {

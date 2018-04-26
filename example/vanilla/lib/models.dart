@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter_architecture_samples/uuid.dart';
@@ -14,7 +14,7 @@ class AppState {
     this.todos = const [],
   });
 
-  factory AppState.loading() => new AppState(isLoading: true);
+  factory AppState.loading() => AppState(isLoading: true);
 
   bool get allComplete => todos.every((todo) => todo.complete);
 
@@ -75,7 +75,7 @@ class Todo {
   String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? new Uuid().generateV4();
+      : this.id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>
@@ -97,15 +97,15 @@ class Todo {
   }
 
   TodoEntity toEntity() {
-    return new TodoEntity(task, id, note, complete);
+    return TodoEntity(task, id, note, complete);
   }
 
   static Todo fromEntity(TodoEntity entity) {
-    return new Todo(
+    return Todo(
       entity.task,
       complete: entity.complete ?? false,
       note: entity.note,
-      id: entity.id ?? new Uuid().generateV4(),
+      id: entity.id ?? Uuid().generateV4(),
     );
   }
 }

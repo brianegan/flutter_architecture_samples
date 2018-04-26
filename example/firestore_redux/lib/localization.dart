@@ -21,7 +21,7 @@ class FirestoreReduxLocalizationsDelegate
     extends LocalizationsDelegate<FirestoreReduxLocalizations> {
   @override
   Future<FirestoreReduxLocalizations> load(Locale locale) =>
-      new Future(() => new FirestoreReduxLocalizations());
+      Future(() => FirestoreReduxLocalizations());
 
   @override
   bool shouldReload(FirestoreReduxLocalizationsDelegate old) => false;

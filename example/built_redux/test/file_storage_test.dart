@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:io';
@@ -10,9 +10,9 @@ import 'package:test/test.dart';
 
 main() {
   group('FileStorage', () {
-    final todos = [new Todo("Yep")];
+    final todos = [Todo("Yep")];
     final directory = Directory.systemTemp.createTemp('__storage_test__');
-    final storage = new FileStorage(
+    final storage = FileStorage(
       '_test_tag_',
       () => directory,
     );

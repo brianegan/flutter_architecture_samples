@@ -13,25 +13,25 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
   UserRepository userRepository,
 ) {
   return [
-    new TypedMiddleware<AppState, InitAppAction>(
+    TypedMiddleware<AppState, InitAppAction>(
       _firestoreSignIn(userRepository),
     ),
-    new TypedMiddleware<AppState, ConnectToDataSourceAction>(
+    TypedMiddleware<AppState, ConnectToDataSourceAction>(
       _firestoreConnect(todosRepository),
     ),
-    new TypedMiddleware<AppState, AddTodoAction>(
+    TypedMiddleware<AppState, AddTodoAction>(
       _firestoreSaveNewTodo(todosRepository),
     ),
-    new TypedMiddleware<AppState, DeleteTodoAction>(
+    TypedMiddleware<AppState, DeleteTodoAction>(
       _firestoreDeleteTodo(todosRepository),
     ),
-    new TypedMiddleware<AppState, UpdateTodoAction>(
+    TypedMiddleware<AppState, UpdateTodoAction>(
       _firestoreUpdateTodo(todosRepository),
     ),
-    new TypedMiddleware<AppState, ToggleAllAction>(
+    TypedMiddleware<AppState, ToggleAllAction>(
       _firestoreToggleAll(todosRepository),
     ),
-    new TypedMiddleware<AppState, ClearCompletedAction>(
+    TypedMiddleware<AppState, ClearCompletedAction>(
       _firestoreClearCompleted(todosRepository),
     ),
   ];
@@ -48,7 +48,7 @@ void Function(
     next(action);
 
     repository.login().then((_) {
-      store.dispatch(new ConnectToDataSourceAction());
+      store.dispatch(ConnectToDataSourceAction());
     });
   };
 }
@@ -64,7 +64,7 @@ void Function(
     next(action);
 
     repository.todos().listen((todos) {
-      store.dispatch(new LoadTodosAction(todos.map(Todo.fromEntity).toList()));
+      store.dispatch(LoadTodosAction(todos.map(Todo.fromEntity).toList()));
     });
   };
 }

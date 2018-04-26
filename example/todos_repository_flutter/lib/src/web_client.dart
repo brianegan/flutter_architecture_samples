@@ -19,34 +19,34 @@ class WebClient {
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
   Future<List<TodoEntity>> fetchTodos() async {
-    return new Future.delayed(
+    return Future.delayed(
         delay,
         () => [
-              new TodoEntity(
+              TodoEntity(
                 'Buy food for da kitty',
                 '1',
                 'With the chickeny bits!',
                 false,
               ),
-              new TodoEntity(
+              TodoEntity(
                 'Find a Red Sea dive trip',
                 '2',
                 'Echo vs MY Dream',
                 false,
               ),
-              new TodoEntity(
+              TodoEntity(
                 'Book flights to Egypt',
                 '3',
                 '',
                 true,
               ),
-              new TodoEntity(
+              TodoEntity(
                 'Decide on accommodation',
                 '4',
                 '',
                 false,
               ),
-              new TodoEntity(
+              TodoEntity(
                 'Sip Margaritas',
                 '5',
                 'on the beach',
@@ -58,6 +58,6 @@ class WebClient {
   /// Mock that returns true or false for success or failure. In this case,
   /// it will "Always Succeed"
   Future<bool> postTodos(List<TodoEntity> todos) async {
-    return new Future.value(true);
+    return Future.value(true);
   }
 }

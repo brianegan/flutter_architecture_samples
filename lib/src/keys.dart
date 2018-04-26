@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
@@ -9,16 +9,16 @@ class ArchSampleKeys {
   static final homeScreen = const Key('__homeScreen__');
   static final addTodoFab = const Key('__addTodoFab__');
   static final snackbar = const Key('__snackbar__');
-  static Key snackbarAction(String id) => new Key('__snackbar_action_${id}__');
+  static Key snackbarAction(String id) => Key('__snackbar_action_${id}__');
 
   // Todos
   static final todoList = const Key('__todoList__');
   static final todosLoading = const Key('__todosLoading__');
-  static final todoItem = (String id) => new Key('TodoItem__${id}');
+  static final todoItem = (String id) => Key('TodoItem__${id}');
   static final todoItemCheckbox =
-      (String id) => new Key('TodoItem__${id}__Checkbox');
-  static final todoItemTask = (String id) => new Key('TodoItem__${id}__Task');
-  static final todoItemNote = (String id) => new Key('TodoItem__${id}__Note');
+      (String id) => Key('TodoItem__${id}__Checkbox');
+  static final todoItemTask = (String id) => Key('TodoItem__${id}__Task');
+  static final todoItemNote = (String id) => Key('TodoItem__${id}__Note');
 
   // Tabs
   static final tabs = const Key('__tabs__');
@@ -46,9 +46,9 @@ class ArchSampleKeys {
   static final editTodoFab = const Key('__editTodoFab__');
   static final deleteTodoButton = const Key('__deleteTodoFab__');
   static final todoDetailsScreen = const Key('__todoDetailsScreen__');
-  static final detailsTodoItemCheckbox = new Key('DetailsTodo__Checkbox');
-  static final detailsTodoItemTask = new Key('DetailsTodo__Task');
-  static final detailsTodoItemNote = new Key('DetailsTodo__Note');
+  static final detailsTodoItemCheckbox = Key('DetailsTodo__Checkbox');
+  static final detailsTodoItemTask = Key('DetailsTodo__Task');
+  static final detailsTodoItemNote = Key('DetailsTodo__Note');
 
   // Add Screen
   static final addTodoScreen = const Key('__addTodoScreen__');

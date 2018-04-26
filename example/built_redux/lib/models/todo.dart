@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 library todo;
@@ -24,17 +24,17 @@ abstract class Todo implements Built<Todo, TodoBuilder> {
   Todo._();
 
   factory Todo(String task) {
-    return new _$Todo._(
+    return _$Todo._(
       task: task,
       complete: false,
       note: '',
-      id: new Uuid().generateV4(),
+      id: Uuid().generateV4(),
     );
   }
 
   factory Todo.builder([updates(TodoBuilder b)]) {
-    final builder = new TodoBuilder()
-      ..id = new Uuid().generateV4()
+    final builder = TodoBuilder()
+      ..id = Uuid().generateV4()
       ..complete = false
       ..note = ''
       ..update(updates);

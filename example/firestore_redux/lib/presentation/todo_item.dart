@@ -1,11 +1,11 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-import 'package:fire_redux_sample/models/models.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
@@ -22,28 +22,28 @@ class TodoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Dismissible(
+    return Dismissible(
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: onDismissed,
-      child: new ListTile(
+      child: ListTile(
         onTap: onTap,
-        leading: new Checkbox(
+        leading: Checkbox(
           key: ArchSampleKeys.todoItemCheckbox(todo.id),
           value: todo.complete,
           onChanged: onCheckboxChanged,
         ),
-        title: new Hero(
+        title: Hero(
           tag: todo.task + '__heroTag',
-          child: new Container(
+          child: Container(
             width: MediaQuery.of(context).size.width,
-            child: new Text(
+            child: Text(
               todo.task,
               key: ArchSampleKeys.todoItemTask(todo.id),
               style: Theme.of(context).textTheme.title,
             ),
           ),
         ),
-        subtitle: new Text(
+        subtitle: Text(
           todo.note,
           key: ArchSampleKeys.todoItemNote(todo.id),
           maxLines: 1,

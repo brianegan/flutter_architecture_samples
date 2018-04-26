@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -29,17 +29,17 @@ ExtraAction _$extraActionValueOf(String name) {
     case 'clearCompleted':
       return _$clearCompleted;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<ExtraAction> _$extraActionValues =
-    new BuiltSet<ExtraAction>(const <ExtraAction>[
+    BuiltSet<ExtraAction>(const <ExtraAction>[
   _$toggleAllComplete,
   _$clearCompleted,
 ]);
 
-Serializer<ExtraAction> _$extraActionSerializer = new _$ExtraActionSerializer();
+Serializer<ExtraAction> _$extraActionSerializer = _$ExtraActionSerializer();
 
 class _$ExtraActionSerializer implements PrimitiveSerializer<ExtraAction> {
   @override

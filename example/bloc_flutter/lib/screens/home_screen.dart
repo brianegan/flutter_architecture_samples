@@ -29,7 +29,7 @@ class HomeScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new HomeScreenState();
+    return HomeScreenState();
   }
 }
 
@@ -41,8 +41,8 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    usersBloc = new UserBloc(widget.repository);
-    tabController = new StreamController<AppTab>();
+    usersBloc = UserBloc(widget.repository);
+    tabController = StreamController<AppTab>();
   }
 
   @override
@@ -55,16 +55,16 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final todosBloc = TodosBlocProvider.of(context);
 
-    return new StreamBuilder<UserEntity>(
+    return StreamBuilder<UserEntity>(
       stream: usersBloc.login(),
       builder: (context, userSnapshot) {
-        return new StreamBuilder<AppTab>(
+        return StreamBuilder<AppTab>(
           initialData: AppTab.todos,
           stream: tabController.stream,
           builder: (context, activeTabSnapshot) {
-            return new Scaffold(
-              appBar: new AppBar(
-                title: new Text(BlocLocalizations.of(context).appTitle),
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(BlocLocalizations.of(context).appTitle),
                 actions: _buildActions(
                   todosBloc,
                   activeTabSnapshot,
@@ -73,37 +73,37 @@ class HomeScreenState extends State<HomeScreen> {
               ),
               body: userSnapshot.hasData
                   ? activeTabSnapshot.data == AppTab.todos
-                      ? new TodoList()
-                      : new StatsCounter(
-                          buildBloc: () => new StatsBloc(
-                              Injector.of(context).todosInteractor),
+                      ? TodoList()
+                      : StatsCounter(
+                          buildBloc: () =>
+                              StatsBloc(Injector.of(context).todosInteractor),
                         )
-                  : new LoadingSpinner(
+                  : LoadingSpinner(
                       key: ArchSampleKeys.todosLoading,
                     ),
-              floatingActionButton: new FloatingActionButton(
+              floatingActionButton: FloatingActionButton(
                 key: ArchSampleKeys.addTodoFab,
                 onPressed: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
                 },
-                child: new Icon(Icons.add),
+                child: Icon(Icons.add),
                 tooltip: ArchSampleLocalizations.of(context).addTodo,
               ),
-              bottomNavigationBar: new BottomNavigationBar(
+              bottomNavigationBar: BottomNavigationBar(
                 key: ArchSampleKeys.tabs,
                 currentIndex: AppTab.values.indexOf(activeTabSnapshot.data),
                 onTap: (index) {
                   tabController.add(AppTab.values[index]);
                 },
                 items: AppTab.values.map((tab) {
-                  return new BottomNavigationBarItem(
-                    icon: new Icon(
+                  return BottomNavigationBarItem(
+                    icon: Icon(
                       tab == AppTab.todos ? Icons.list : Icons.show_chart,
                       key: tab == AppTab.stats
                           ? ArchSampleKeys.statsTab
                           : ArchSampleKeys.todoTab,
                     ),
-                    title: new Text(
+                    title: Text(
                       tab == AppTab.stats
                           ? ArchSampleLocalizations.of(context).stats
                           : ArchSampleLocalizations.of(context).todos,
@@ -126,29 +126,29 @@ class HomeScreenState extends State<HomeScreen> {
     if (!hasData) return [];
 
     return [
-      new StreamBuilder<VisibilityFilter>(
+      StreamBuilder<VisibilityFilter>(
         stream: todosBloc.activeFilter,
         builder: (context, snapshot) {
-          return new FilterButton(
+          return FilterButton(
             isActive: activeTabSnapshot.data == AppTab.todos,
             activeFilter: snapshot.data ?? VisibilityFilter.all,
             onSelected: todosBloc.updateFilter.add,
           );
         },
       ),
-      new StreamBuilder<ExtraActionsButtonViewModel>(
+      StreamBuilder<ExtraActionsButtonViewModel>(
         stream: Observable.combineLatest2(
           todosBloc.allComplete,
           todosBloc.hasCompletedTodos,
           (allComplete, hasCompletedTodos) {
-            return new ExtraActionsButtonViewModel(
+            return ExtraActionsButtonViewModel(
               allComplete,
               hasCompletedTodos,
             );
           },
         ),
         builder: (context, snapshot) {
-          return new ExtraActionsButton(
+          return ExtraActionsButton(
             allComplete: snapshot.data?.allComplete ?? false,
             hasCompletedTodos: snapshot.data?.hasCompletedTodos ?? false,
             onSelected: (action) {

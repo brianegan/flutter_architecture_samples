@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/foundation.dart';
@@ -20,19 +20,18 @@ class DetailScreen extends StatelessWidget {
     @required this.addTodo,
     @required this.updateTodo,
     @required this.onDelete,
-  })
-      : super(key: ArchSampleKeys.todoDetailsScreen);
+  }) : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text(ArchSampleLocalizations.of(context).todoDetails),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(ArchSampleLocalizations.of(context).todoDetails),
         actions: [
-          new IconButton(
+          IconButton(
             key: ArchSampleKeys.deleteTodoButton,
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
-            icon: new Icon(Icons.delete),
+            icon: Icon(Icons.delete),
             onPressed: () {
               onDelete();
               Navigator.pop(context, todo);
@@ -40,16 +39,16 @@ class DetailScreen extends StatelessWidget {
           )
         ],
       ),
-      body: new Padding(
-        padding: new EdgeInsets.all(16.0),
-        child: new ListView(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: ListView(
           children: [
-            new Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                new Padding(
-                  padding: new EdgeInsets.only(right: 8.0),
-                  child: new Checkbox(
+                Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Checkbox(
                     value: todo.complete,
                     key: ArchSampleKeys.detailsTodoItemCheckbox,
                     onChanged: (complete) {
@@ -57,22 +56,22 @@ class DetailScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                new Expanded(
-                  child: new Column(
+                Expanded(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      new Padding(
-                        padding: new EdgeInsets.only(
+                      Padding(
+                        padding: EdgeInsets.only(
                           top: 8.0,
                           bottom: 16.0,
                         ),
-                        child: new Text(
+                        child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
                           style: Theme.of(context).textTheme.headline,
                         ),
                       ),
-                      new Text(
+                      Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
@@ -85,15 +84,15 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: new FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         tooltip: ArchSampleLocalizations.of(context).editTodo,
-        child: new Icon(Icons.edit),
+        child: Icon(Icons.edit),
         key: ArchSampleKeys.editTodoFab,
         onPressed: () {
           Navigator.of(context).push(
-            new MaterialPageRoute(
+            MaterialPageRoute(
               builder: (context) {
-                return new AddEditScreen(
+                return AddEditScreen(
                   key: ArchSampleKeys.editTodoScreen,
                   updateTodo: updateTodo,
                   addTodo: addTodo,

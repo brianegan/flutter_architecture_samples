@@ -7,7 +7,7 @@ import 'package:inherited_widget_sample/app.dart';
 import 'package:inherited_widget_sample/state_container.dart';
 
 void main() {
-  runApp(new StateContainer(
-    child: new InheritedWidgetApp(),
+  runApp(StateContainer(
+    child: InheritedWidgetApp(),
   ));
 }

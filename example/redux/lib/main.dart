@@ -15,38 +15,38 @@ import 'package:redux_sample/presentation/home_screen.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 
 void main() {
-  runApp(new ReduxApp());
+  runApp(ReduxApp());
 }
 
 class ReduxApp extends StatelessWidget {
-  final store = new Store<AppState>(
+  final store = Store<AppState>(
     appReducer,
-    initialState: new AppState.loading(),
+    initialState: AppState.loading(),
     middleware: createStoreTodosMiddleware(),
   );
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider(
+    return StoreProvider(
       store: store,
-      child: new MaterialApp(
-        title: new ReduxLocalizations().appTitle,
+      child: MaterialApp(
+        title: ReduxLocalizations().appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
-          new ArchSampleLocalizationsDelegate(),
-          new ReduxLocalizationsDelegate(),
+          ArchSampleLocalizationsDelegate(),
+          ReduxLocalizationsDelegate(),
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            return new StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(new LoadTodosAction()),
+            return StoreBuilder<AppState>(
+              onInit: (store) => store.dispatch(LoadTodosAction()),
               builder: (context, store) {
-                return new HomeScreen();
+                return HomeScreen();
               },
             );
           },
           ArchSampleRoutes.addTodo: (context) {
-            return new AddTodo();
+            return AddTodo();
           },
         },
       ),

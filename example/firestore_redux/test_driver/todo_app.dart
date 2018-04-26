@@ -10,5 +10,5 @@ import 'mock_reactive_repository.dart';
 void main() {
   enableFlutterDriverExtension();
 
-  app.main(new MockReactiveTodosRepository(), new MockUserRepository());
+  app.main(MockReactiveTodosRepository(), MockUserRepository());
 }

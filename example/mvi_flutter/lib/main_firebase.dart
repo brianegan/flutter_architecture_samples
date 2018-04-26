@@ -11,11 +11,11 @@ import 'package:mvi_flutter_sample/main.dart' as app;
 
 void main() {
   app.main(
-    todosRepository: new TodosInteractor(
-      new FirestoreReactiveTodosRepository(Firestore.instance),
+    todosRepository: TodosInteractor(
+      FirestoreReactiveTodosRepository(Firestore.instance),
     ),
-    userInteractor: new UserInteractor(
-      new FirebaseUserRepository(FirebaseAuth.instance),
+    userInteractor: UserInteractor(
+      FirebaseUserRepository(FirebaseAuth.instance),
     ),
   );
 }

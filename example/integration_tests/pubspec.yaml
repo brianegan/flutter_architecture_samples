@@ -1,6 +1,9 @@
 name: integration_tests
 description: An integration test suite for the Flutter Architecture Samples
 
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter

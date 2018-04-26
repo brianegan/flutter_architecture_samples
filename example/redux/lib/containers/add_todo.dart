@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
@@ -15,17 +15,17 @@ class AddTodo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<AppState, OnSaveCallback>(
+    return StoreConnector<AppState, OnSaveCallback>(
       converter: (Store<AppState> store) {
         return (task, note) {
-          store.dispatch(new AddTodoAction(new Todo(
+          store.dispatch(AddTodoAction(Todo(
             task,
             note: note,
           )));
         };
       },
       builder: (BuildContext context, OnSaveCallback onSave) {
-        return new AddEditScreen(
+        return AddEditScreen(
           key: ArchSampleKeys.addTodoScreen,
           onSave: onSave,
           isEditing: false,

@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
@@ -26,16 +26,15 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
 
   factory _$FilterSelectorViewModel(
           [void updates(FilterSelectorViewModelBuilder b)]) =>
-      (new FilterSelectorViewModelBuilder()..update(updates)).build();
+      (FilterSelectorViewModelBuilder()..update(updates)).build();
 
   _$FilterSelectorViewModel._({this.onFilterSelected, this.activeFilter})
       : super._() {
     if (onFilterSelected == null)
-      throw new BuiltValueNullFieldError(
+      throw BuiltValueNullFieldError(
           'FilterSelectorViewModel', 'onFilterSelected');
     if (activeFilter == null)
-      throw new BuiltValueNullFieldError(
-          'FilterSelectorViewModel', 'activeFilter');
+      throw BuiltValueNullFieldError('FilterSelectorViewModel', 'activeFilter');
   }
 
   @override
@@ -45,7 +44,7 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
 
   @override
   FilterSelectorViewModelBuilder toBuilder() =>
-      new FilterSelectorViewModelBuilder()..replace(this);
+      FilterSelectorViewModelBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -101,7 +100,7 @@ class FilterSelectorViewModelBuilder
 
   @override
   void replace(FilterSelectorViewModel other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$FilterSelectorViewModel;
   }
 
@@ -113,7 +112,7 @@ class FilterSelectorViewModelBuilder
   @override
   _$FilterSelectorViewModel build() {
     final _$result = _$v ??
-        new _$FilterSelectorViewModel._(
+        _$FilterSelectorViewModel._(
             onFilterSelected: onFilterSelected, activeFilter: activeFilter);
     replace(_$result);
     return _$result;

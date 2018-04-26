@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/models/models.dart';
@@ -23,18 +23,18 @@ class FilterButton extends StatelessWidget {
         .body1
         .copyWith(color: Theme.of(context).accentColor);
 
-    return new AnimatedOpacity(
+    return AnimatedOpacity(
       opacity: visible ? 1.0 : 0.0,
-      duration: new Duration(milliseconds: 150),
-      child: new PopupMenuButton<VisibilityFilter>(
+      duration: Duration(milliseconds: 150),
+      child: PopupMenuButton<VisibilityFilter>(
         key: ArchSampleKeys.filterButton,
         tooltip: ArchSampleLocalizations.of(context).filterTodos,
         onSelected: onSelected,
         itemBuilder: (BuildContext context) =>
             <PopupMenuItem<VisibilityFilter>>[
-              new PopupMenuItem<VisibilityFilter>(
+              PopupMenuItem<VisibilityFilter>(
                 value: VisibilityFilter.all,
-                child: new Text(
+                child: Text(
                   ArchSampleLocalizations.of(context).showAll,
                   key: ArchSampleKeys.allFilter,
                   style: activeFilter == VisibilityFilter.all
@@ -42,9 +42,9 @@ class FilterButton extends StatelessWidget {
                       : defaultStyle,
                 ),
               ),
-              new PopupMenuItem<VisibilityFilter>(
+              PopupMenuItem<VisibilityFilter>(
                 value: VisibilityFilter.active,
-                child: new Text(
+                child: Text(
                   ArchSampleLocalizations.of(context).showActive,
                   key: ArchSampleKeys.activeFilter,
                   style: activeFilter == VisibilityFilter.active
@@ -52,9 +52,9 @@ class FilterButton extends StatelessWidget {
                       : defaultStyle,
                 ),
               ),
-              new PopupMenuItem<VisibilityFilter>(
+              PopupMenuItem<VisibilityFilter>(
                 value: VisibilityFilter.completed,
-                child: new Text(
+                child: Text(
                   ArchSampleLocalizations.of(context).showCompleted,
                   key: ArchSampleKeys.completedFilter,
                   style: activeFilter == VisibilityFilter.completed
@@ -63,7 +63,7 @@ class FilterButton extends StatelessWidget {
                 ),
               ),
             ],
-        icon: new Icon(Icons.filter_list),
+        icon: Icon(Icons.filter_list),
       ),
     );
   }

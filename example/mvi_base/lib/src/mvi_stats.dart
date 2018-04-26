@@ -12,7 +12,7 @@ class StatsPresenter extends MviPresenter<StatsModel> {
           stream: Observable.combineLatest2(
             interactor.todos.map(_numActive),
             interactor.todos.map(_numComplete),
-            (numActive, numComplete) => new StatsModel(numActive, numComplete),
+            (numActive, numComplete) => StatsModel(numActive, numComplete),
           ),
         );
 

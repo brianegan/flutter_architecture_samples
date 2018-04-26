@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux/built_redux.dart';
@@ -11,11 +11,11 @@ import 'package:test/test.dart';
 main() {
   group('State Reducer', () {
     test('should add a todo to the list in response to an AddTodoAction', () {
-      final todo = new Todo("Hallo");
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final todo = Todo("Hallo");
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState(),
-        new AppActions(),
+        AppState(),
+        AppActions(),
       );
 
       store.actions.addTodoAction(todo);
@@ -24,11 +24,11 @@ main() {
     });
 
     test('should remove from the list in response to a DeleteTodoAction', () {
-      final todo = new Todo("Hallo");
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final todo = Todo("Hallo");
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState.fromTodos([todo]),
-        new AppActions(),
+        AppState.fromTodos([todo]),
+        AppActions(),
       );
 
       expect(store.state.todos, [todo]);
@@ -39,31 +39,31 @@ main() {
     });
 
     test('should update a todo in response to an UpdateTodoAction', () {
-      final todo = new Todo("Hallo");
+      final todo = Todo("Hallo");
       final updatedTodo = todo.rebuild((b) => b.task = "Tschuss");
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState.fromTodos([todo]),
-        new AppActions(),
+        AppState.fromTodos([todo]),
+        AppActions(),
       );
 
       store.actions
-          .updateTodoAction(new UpdateTodoActionPayload(todo.id, updatedTodo));
+          .updateTodoAction(UpdateTodoActionPayload(todo.id, updatedTodo));
 
       expect(store.state.todos, [updatedTodo]);
     });
 
     test('should clear completed todos', () {
-      final todo1 = new Todo("Hallo");
-      final todo2 = new Todo.builder(
+      final todo1 = Todo("Hallo");
+      final todo2 = Todo.builder(
         (b) => b
           ..task = "Tschüss"
           ..complete = true,
       );
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState.fromTodos([todo1, todo2]),
-        new AppActions(),
+        AppState.fromTodos([todo1, todo2]),
+        AppActions(),
       );
 
       expect(store.state.todos, [todo1, todo2]);
@@ -74,16 +74,16 @@ main() {
     });
 
     test('should mark all as completed if some todos are incomplete', () {
-      final todo1 = new Todo("Hallo");
-      final todo2 = new Todo.builder(
+      final todo1 = Todo("Hallo");
+      final todo2 = Todo.builder(
         (b) => b
           ..task = "Tschüss"
           ..complete = true,
       );
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState.fromTodos([todo1, todo2]),
-        new AppActions(),
+        AppState.fromTodos([todo1, todo2]),
+        AppActions(),
       );
 
       expect(store.state.todos, [todo1, todo2]);
@@ -94,20 +94,20 @@ main() {
     });
 
     test('should mark all as incomplete if all todos are complete', () {
-      final todo1 = new Todo.builder(
+      final todo1 = Todo.builder(
         (b) => b
           ..task = "Hallo"
           ..complete = true,
       );
-      final todo2 = new Todo.builder(
+      final todo2 = Todo.builder(
         (b) => b
           ..task = "Tschüss"
           ..complete = true,
       );
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState.fromTodos([todo1, todo2]),
-        new AppActions(),
+        AppState.fromTodos([todo1, todo2]),
+        AppActions(),
       );
 
       expect(store.state.todos, [todo1, todo2]);
@@ -119,10 +119,10 @@ main() {
     });
 
     test('should update the VisibilityFilter', () {
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState(),
-        new AppActions(),
+        AppState(),
+        AppActions(),
       );
 
       store.actions.updateFilterAction(VisibilityFilter.completed);
@@ -131,10 +131,10 @@ main() {
     });
 
     test('should update the AppTab', () {
-      final store = new Store<AppState, AppStateBuilder, AppActions>(
+      final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
-        new AppState(),
-        new AppActions(),
+        AppState(),
+        AppActions(),
       );
 
       store.actions.updateTabAction(AppTab.stats);

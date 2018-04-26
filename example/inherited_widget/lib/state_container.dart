@@ -33,7 +33,7 @@ class StateContainer extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new StateContainerState();
+    return StateContainerState();
   }
 }
 
@@ -45,12 +45,12 @@ class StateContainerState extends State<StateContainer> {
     if (widget.state != null) {
       state = widget.state;
     } else {
-      state = new AppState.loading();
+      state = AppState.loading();
     }
 
     widget.repository.loadTodos().then((loadedTodos) {
       setState(() {
-        state = new AppState(
+        state = AppState(
           todos: loadedTodos.map(Todo.fromEntity).toList(),
         );
       });
@@ -118,7 +118,7 @@ class StateContainerState extends State<StateContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return new _InheritedStateContainer(
+    return _InheritedStateContainer(
       data: this,
       child: widget.child,
     );
@@ -132,8 +132,7 @@ class _InheritedStateContainer extends InheritedWidget {
     Key key,
     @required this.data,
     @required Widget child,
-  })
-      : super(key: key, child: child);
+  }) : super(key: key, child: child);
 
   // Note: we could get fancy here and compare whether the old AppState is
   // different than the current AppState. However, since we know this is the

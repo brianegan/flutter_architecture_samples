@@ -25,7 +25,7 @@ class FileStorage {
   Future<List<TodoEntity>> loadTodos() async {
     final file = await _getLocalFile();
     final string = await file.readAsString();
-    final json = new JsonDecoder().convert(string);
+    final json = JsonDecoder().convert(string);
     final todos = (json['todos'])
         .map<TodoEntity>((todo) => TodoEntity.fromJson(todo))
         .toList();
@@ -36,7 +36,7 @@ class FileStorage {
   Future<File> saveTodos(List<TodoEntity> todos) async {
     final file = await _getLocalFile();
 
-    return file.writeAsString(new JsonEncoder().convert({
+    return file.writeAsString(JsonEncoder().convert({
       'todos': todos.map((todo) => todo.toJson()).toList(),
     }));
   }
@@ -44,7 +44,7 @@ class FileStorage {
   Future<File> _getLocalFile() async {
     final dir = await getDirectory();
 
-    return new File('${dir.path}/ArchSampleStorage__$tag.json');
+    return File('${dir.path}/ArchSampleStorage__$tag.json');
   }
 
   Future<FileSystemEntity> clean() async {

@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'package:built_redux_sample/containers/app_loading.dart';
@@ -21,26 +21,25 @@ class TodoList extends StatelessWidget {
     @required this.onCheckboxChanged,
     @required this.onRemove,
     @required this.onUndoRemove,
-  })
-      : super(key: ArchSampleKeys.todoList);
+  }) : super(key: ArchSampleKeys.todoList);
 
   @override
   Widget build(BuildContext context) {
-    return new AppLoading(builder: (context, loading) {
+    return AppLoading(builder: (context, loading) {
       return loading
-          ? new Center(
+          ? Center(
               key: ArchSampleKeys.todosLoading,
-              child: new CircularProgressIndicator(
+              child: CircularProgressIndicator(
                 key: ArchSampleKeys.statsLoading,
               ))
-          : new Container(
-              child: new ListView.builder(
+          : Container(
+              child: ListView.builder(
                 key: ArchSampleKeys.todoList,
                 itemCount: todos.length,
                 itemBuilder: (BuildContext context, int index) {
                   final todo = todos[index];
 
-                  return new TodoItem(
+                  return TodoItem(
                     todo: todo,
                     onDismissed: (direction) {
                       _removeTodo(context, todo);
@@ -59,16 +58,16 @@ class TodoList extends StatelessWidget {
   void _removeTodo(BuildContext context, Todo todo) {
     onRemove(todo);
 
-    Scaffold.of(context).showSnackBar(new SnackBar(
+    Scaffold.of(context).showSnackBar(SnackBar(
         key: ArchSampleKeys.snackbar,
-        duration: new Duration(seconds: 2),
+        duration: Duration(seconds: 2),
         backgroundColor: Theme.of(context).backgroundColor,
-        content: new Text(
+        content: Text(
           ArchSampleLocalizations.of(context).todoDeleted(todo.task),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        action: new SnackBarAction(
+        action: SnackBarAction(
           label: ArchSampleLocalizations.of(context).undo,
           onPressed: () => onUndoRemove(todo),
         )));
@@ -76,9 +75,9 @@ class TodoList extends StatelessWidget {
 
   void _onTodoTap(BuildContext context, Todo todo) {
     Navigator.of(context).push(
-      new MaterialPageRoute(
+      MaterialPageRoute(
         builder: (_) {
-          return new TodoDetails(
+          return TodoDetails(
             id: todo.id,
           );
         },
@@ -86,16 +85,16 @@ class TodoList extends StatelessWidget {
     ).then((removedTodo) {
       if (removedTodo != null) {
         Scaffold.of(context).showSnackBar(
-              new SnackBar(
+              SnackBar(
                 key: ArchSampleKeys.snackbar,
-                duration: new Duration(seconds: 2),
+                duration: Duration(seconds: 2),
                 backgroundColor: Theme.of(context).backgroundColor,
-                content: new Text(
+                content: Text(
                   ArchSampleLocalizations.of(context).todoDeleted(todo.task),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                action: new SnackBarAction(
+                action: SnackBarAction(
                   label: ArchSampleLocalizations.of(context).undo,
                   onPressed: () {
                     onUndoRemove(todo);

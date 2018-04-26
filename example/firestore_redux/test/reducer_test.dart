@@ -12,44 +12,44 @@ import 'package:redux/redux.dart';
 main() {
   group('State Reducer', () {
     test('should load todos into store', () {
-      final todo1 = new Todo('a');
-      final todo2 = new Todo('b');
-      final todo3 = new Todo('c', complete: true);
+      final todo1 = Todo('a');
+      final todo2 = Todo('b');
+      final todo3 = Todo('c', complete: true);
       final todos = [
         todo1,
         todo2,
         todo3,
       ];
-      final store = new Store<AppState>(
+      final store = Store<AppState>(
         appReducer,
-        initialState: new AppState.loading(),
+        initialState: AppState.loading(),
       );
 
       expect(todosSelector(store.state), []);
 
-      store.dispatch(new LoadTodosAction(todos));
+      store.dispatch(LoadTodosAction(todos));
 
       expect(todosSelector(store.state), todos);
     });
 
     test('should update the VisibilityFilter', () {
-      final store = new Store<AppState>(
+      final store = Store<AppState>(
         appReducer,
-        initialState: new AppState(activeFilter: VisibilityFilter.active),
+        initialState: AppState(activeFilter: VisibilityFilter.active),
       );
 
-      store.dispatch(new UpdateFilterAction(VisibilityFilter.completed));
+      store.dispatch(UpdateFilterAction(VisibilityFilter.completed));
 
       expect(store.state.activeFilter, VisibilityFilter.completed);
     });
 
     test('should update the AppTab', () {
-      final store = new Store<AppState>(
+      final store = Store<AppState>(
         appReducer,
-        initialState: new AppState(activeTab: AppTab.todos),
+        initialState: AppState(activeTab: AppTab.todos),
       );
 
-      store.dispatch(new UpdateTabAction(AppTab.stats));
+      store.dispatch(UpdateTabAction(AppTab.stats));
 
       expect(store.state.activeTab, AppTab.stats);
     });

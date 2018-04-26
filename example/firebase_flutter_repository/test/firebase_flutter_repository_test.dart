@@ -15,24 +15,25 @@ import 'package:todos_repository/todos_repository.dart';
 main() {
   group('FirebaseUserRepository', () {
     test('should log the user in anonymously', () async {
-      final auth = new MockFirebaseAuth();
-      final repository = new FirebaseUserRepository(auth);
+      final auth = MockFirebaseAuth();
+      final repository = FirebaseUserRepository(auth);
 
-      when(auth.signInAnonymously()).thenReturn(new MockFirebaseUser());
+      when(auth.signInAnonymously())
+          .thenReturn(new Future.value(MockFirebaseUser()));
 
       final entity = await repository.login();
 
-      expect(entity, new isInstanceOf<UserEntity>());
+      expect(entity, isInstanceOf<UserEntity>());
     });
   });
 
   group('FirebaseReactiveTodosRepository', () {
-    test('should send new todos to firestore', () {
-      final firestore = new MockFirestore();
-      final collection = new MockCollectionReference();
-      final document = new MockDocumentReference();
-      final repository = new FirestoreReactiveTodosRepository(firestore);
-      final todo = new TodoEntity('A', '1', '', true);
+    test('should send todos to firestore', () {
+      final firestore = MockFirestore();
+      final collection = MockCollectionReference();
+      final document = MockDocumentReference();
+      final repository = FirestoreReactiveTodosRepository(firestore);
+      final todo = TodoEntity('A', '1', '', true);
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
@@ -44,11 +45,11 @@ main() {
     });
 
     test('should update todos on firestore', () {
-      final firestore = new MockFirestore();
-      final collection = new MockCollectionReference();
-      final document = new MockDocumentReference();
-      final repository = new FirestoreReactiveTodosRepository(firestore);
-      final todo = new TodoEntity('A', '1', '', true);
+      final firestore = MockFirestore();
+      final collection = MockCollectionReference();
+      final document = MockDocumentReference();
+      final repository = FirestoreReactiveTodosRepository(firestore);
+      final todo = TodoEntity('A', '1', '', true);
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
@@ -60,13 +61,13 @@ main() {
     });
 
     test('should listen for updates to the collection', () {
-      final todo = new TodoEntity('A', '1', '', true);
-      final firestore = new MockFirestore();
-      final collection = new MockCollectionReference();
-      final snapshot = new MockQuerySnapshot();
-      final snapshots = new Stream.fromIterable([snapshot]);
-      final document = new MockDocumentSnapshot(todo.toJson());
-      final repository = new FirestoreReactiveTodosRepository(firestore);
+      final todo = TodoEntity('A', '1', '', true);
+      final firestore = MockFirestore();
+      final collection = MockCollectionReference();
+      final snapshot = MockQuerySnapshot();
+      final snapshots = Stream.fromIterable([snapshot]);
+      final document = MockDocumentSnapshot(todo.toJson());
+      final repository = FirestoreReactiveTodosRepository(firestore);
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
@@ -77,23 +78,23 @@ main() {
       expect(repository.todos(), emits([todo]));
     });
 
-    test('should delete todos on firestore', () {
+    test('should delete todos on firestore', () async {
       final todoA = 'A';
       final todoB = 'B';
-      final firestore = new MockFirestore();
-      final collection = new MockCollectionReference();
-      final documentA = new MockDocumentReference();
-      final documentB = new MockDocumentReference();
-      final repository = new FirestoreReactiveTodosRepository(firestore);
+      final firestore = MockFirestore();
+      final collection = MockCollectionReference();
+      final documentA = MockDocumentReference();
+      final documentB = MockDocumentReference();
+      final repository = FirestoreReactiveTodosRepository(firestore);
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
       when(collection.document(todoA)).thenReturn(documentA);
       when(collection.document(todoB)).thenReturn(documentB);
-      when(documentA.delete()).thenReturn(new Future.value());
-      when(documentB.delete()).thenReturn(new Future.value());
+      when(documentA.delete()).thenReturn(Future.value());
+      when(documentB.delete()).thenReturn(Future.value());
 
-      repository.deleteTodo([todoA, todoB]);
+      await repository.deleteTodo([todoA, todoB]);
 
       verify(documentA.delete());
       verify(documentB.delete());
