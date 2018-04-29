@@ -32,12 +32,6 @@ This sample makes use of the [dartea](https://pub.dartlang.org/packages/dartea) 
 ## Key concepts
 The heart of the MVU application are three yellow boxes on the diagram. First, the state of the app (Model) is mapped to the widgets tree (View). Second, events from the UI are translated into Messages and goes to the Update function (together with current app state). Update function is the brain of the app. It contains all the presentation logic, and it MUST be [pure](https://en.wikipedia.org/wiki/Pure_function). All the side-effects (such as database queries, http requests and etc) must be isolated using Commands and Subscriptions.
 
-### Pros
-* #### Easy to understand and to maintain
-    All the app state is in one immutable object (Model), all the app logic is in one pure function (Update), all the view rendering logic is in one pure function (View)
-* #### Super easy to test
-    Pure functions are perfect for testing. Basically we only need to test `update` function, but we also can easily test View function with Flutter. And we do not need any mocks! Simple inputs - simple outputs.
-
 ### Code structure conventions
 Every screen or component consists of `Model` and two main functions `update` and `view`. Optionally it may have `init` function, which creates initial state of a `Model`, and `subscription` function, which is subscribed to the events from the outside world and translates them to the `messages`.
 For every screen we have thise files:
