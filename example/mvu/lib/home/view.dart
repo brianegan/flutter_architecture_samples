@@ -26,7 +26,7 @@ List<Widget> _getAppBarActions(
         (m) => dispatch(new TodosMsg(m)), body.model);
     var filterMenu = todos.buildFilterMenu(
         context, (m) => dispatch(new TodosMsg(m)), body.model);
-    return [extraActions, filterMenu];
+    return [filterMenu, extraActions];
   }
   if (body.tag == AppTab.stats) {
     var extraActions = stats.buildExtraActionsMenu(
