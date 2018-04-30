@@ -23,7 +23,7 @@ Upd<TodosModel, TodosMessage> update(TodosMessage msg, TodosModel model) {
   }
   if (msg is RemoveTodo) {
     var updatedModel = _removeTodo(model, msg.todo.id);
-    return Upd(updatedModel, effects: repo.removeTodo(msg.todo.toEntity()));
+    return Upd(updatedModel, effects: repoCmds.removeCmd(msg.todo.toEntity()));
   }
   if (msg is UndoRemoveItem) {
     var updatedModel = model.rebuild((b) => b.items.add(msg.item));
@@ -51,8 +51,8 @@ Upd<TodosModel, TodosMessage> update(TodosMessage msg, TodosModel model) {
 }
 
 Upd<TodosModel, TodosMessage> _loadTodos(TodosModel model) {
-  var loadCmd = repo.createLoadCommand(
-      (items) => new OnTodosLoaded(items), (exc) => new OnTodosLoadError(exc));
+  var loadCmd = repoCmds.loadTodosCmd((items) => new OnTodosLoaded(items),
+      onError: (exc) => new OnTodosLoadError(exc));
   var updatedModel = model.rebuild((b) => b
     ..isLoading = true
     ..loadingError = null);
@@ -120,4 +120,4 @@ TodosModel _updateTodoItem(TodosModel model, TodoModel updatedTodo) {
 }
 
 Cmd<TodosMessage> _saveTodosCmd(TodosModel model) =>
-    repo.createSaveCommand(model.items.map((t) => t.toEntity()).toList());
+    repoCmds.saveAllCmd(model.items.map((t) => t.toEntity()).toList());

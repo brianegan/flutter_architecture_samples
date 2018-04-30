@@ -3,7 +3,7 @@ library todos;
 import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 
-import 'package:mvu/common/repository_commands.dart' as repo;
+import 'package:mvu/common/repository_commands.dart' show repoCmds;
 import 'package:mvu/common/router.dart' as router;
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:dartea/dartea.dart';

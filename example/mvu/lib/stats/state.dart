@@ -13,7 +13,7 @@ Upd<StatsModel, StatsMessage> update(StatsMessage msg, StatsModel model) {
   if (msg is LoadStats) {
     var updatedModel = model.rebuild((b) => b..loading = true);
     var loadCmd =
-        repo.createPositiveLoadCommand((items) => new OnStatsLoaded(items));
+        repoCmds.loadTodosCmd((items) => new OnStatsLoaded(items));
     return new Upd(updatedModel, effects: loadCmd);
   }
   if (msg is OnStatsLoaded) {
@@ -63,4 +63,4 @@ Upd<StatsModel, StatsMessage> _toggleAll(
 }
 
 Cmd<StatsMessage> _saveItems(StatsModel model) =>
-    repo.createSaveCommand(model.items.map((x) => x.toEntity()).toList());
+    repoCmds.saveAllCmd(model.items.map((x) => x.toEntity()).toList());

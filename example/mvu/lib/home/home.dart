@@ -8,7 +8,7 @@ import 'package:dartea/dartea.dart';
 import 'package:mvu/localization.dart';
 import 'package:mvu/home/types.dart';
 import 'package:mvu/todos/types.dart';
-import 'package:mvu/common/repository_commands.dart' as repo;
+import 'package:mvu/common/repository_commands.dart';
 import 'package:mvu/todos/todos.dart' as todos;
 import 'package:mvu/stats/stats.dart' as stats;
 import 'package:mvu/common/router.dart' as router;
@@ -20,14 +20,14 @@ part 'view.dart';
 Program<AppTab, HomeModel, HomeMessage> createProgram() => new Program(init, update, view, subscribe: _repoSubscription);
 
 Cmd<HomeMessage> _repoSubscription(HomeModel _) =>
-    repo.subscribe((event) {
-      if (event is repo.OnTodoAdded) {
+    repoCmds.subscribe((event) {
+      if (event is OnTodoAdded) {
         return TodosMsg(OnTodoItemChanged(created: event.entity));
       }
-      if (event is repo.OnTodoChanged) {
+      if (event is OnTodoChanged) {
         return TodosMsg(OnTodoItemChanged(updated: event.entity));
       }
-      if (event is repo.OnTodoRemoved) {
+      if (event is OnTodoRemoved) {
         return TodosMsg(OnTodoItemChanged(removed: event.entity));
       }
     });

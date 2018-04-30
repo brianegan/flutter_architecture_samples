@@ -16,7 +16,7 @@ Program<TodoModel, DetailsModel, DetailsMessage> createProgram() =>
     new Program(init, update, view, subscribe: _repoSubscription);
 
 Cmd<DetailsMessage> _repoSubscription(DetailsModel _) =>
-    repo.subscribe((event) {
+    repo.repoCmds.subscribe((event) {
       if (event is repo.OnTodoAdded) {
         return null;
       }

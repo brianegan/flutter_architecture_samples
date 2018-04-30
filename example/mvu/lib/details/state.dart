@@ -9,14 +9,14 @@ Upd<DetailsModel, DetailsMessage> init(TodoModel todo) {
 Upd<DetailsModel, DetailsMessage> update(
     DetailsMessage msg, DetailsModel model) {
   if (msg is Remove) {
-    var removeCmd = repo.removeTodo<DetailsMessage>(model.todo.toEntity());
+    var removeCmd = repo.repoCmds.removeCmd<DetailsMessage>(model.todo.toEntity());
     return new Upd(model, effects: removeCmd);
   }
   if (msg is ToggleCompleted) {
     var updatedModel =
         model.rebuild((b) => b.todo.update((t) => t.complete = !t.complete));
     return new Upd(updatedModel,
-        effects: repo.saveTodo(updatedModel.todo.toEntity()));
+        effects: repo.repoCmds.saveCmd(updatedModel.todo.toEntity()));
   }
   if (msg is Edit) {
     var navigateCmd = router.goToEditTodoScreen<DetailsMessage>(model.todo);
