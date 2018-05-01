@@ -12,6 +12,20 @@ import 'package:inherited_widget_sample/widgets/filter_button.dart';
 import 'package:inherited_widget_sample/widgets/stats_counter.dart';
 import 'package:inherited_widget_sample/widgets/todo_list.dart';
 
+class HomeScreenWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Column(
+      children: <Widget>[
+        new Container(
+          child: new Text("Rebuilt?"),
+        ),
+        new Expanded(child: new HomeScreen()),
+      ],
+    );
+  }
+}
+
 class HomeScreen extends StatefulWidget {
   HomeScreen() : super(key: ArchSampleKeys.homeScreen);
 

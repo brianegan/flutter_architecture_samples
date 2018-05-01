@@ -19,7 +19,7 @@ class InheritedWidgetApp extends StatelessWidget {
         InheritedWidgetLocalizationsDelegate(),
       ],
       routes: {
-        ArchSampleRoutes.home: (context) => HomeScreen(),
+        ArchSampleRoutes.home: (context) => HomeScreenWrapper(),
         ArchSampleRoutes.addTodo: (context) => AddEditScreen(),
       },
     );
