@@ -9,11 +9,11 @@ Upd<StatsModel, StatsMessage> init() {
   return new Upd(model, effects: new Cmd.ofMsg(new LoadStats()));
 }
 
-Upd<StatsModel, StatsMessage> update(StatsMessage msg, StatsModel model) {
+Upd<StatsModel, StatsMessage> update(
+    CmdRepository repo, StatsMessage msg, StatsModel model) {
   if (msg is LoadStats) {
     var updatedModel = model.rebuild((b) => b..loading = true);
-    var loadCmd =
-        repoCmds.loadTodosCmd((items) => new OnStatsLoaded(items));
+    var loadCmd = repo.loadTodosCmd((items) => new OnStatsLoaded(items));
     return new Upd(updatedModel, effects: loadCmd);
   }
   if (msg is OnStatsLoaded) {
@@ -23,12 +23,12 @@ Upd<StatsModel, StatsMessage> update(StatsMessage msg, StatsModel model) {
     return Upd(updatedModel);
   }
   if (msg is ToggleAllMessage) {
-    return _toggleAll(model, msg);
+    return _toggleAll(repo, model, msg);
   }
   if (msg is CleareCompletedMessage) {
     var updatedModel = model.rebuild((b) => b.items.where((t) => !t.complete));
     updatedModel = _calculateStats(updatedModel);
-    return new Upd(updatedModel, effects: _saveItems(updatedModel));
+    return new Upd(updatedModel, effects: _saveItems(repo, updatedModel));
   }
   return new Upd(model);
 }
@@ -50,7 +50,7 @@ StatsModel _calculateStats(StatsModel model) {
 }
 
 Upd<StatsModel, StatsMessage> _toggleAll(
-    StatsModel model, ToggleAllMessage msg) {
+    CmdRepository repo, StatsModel model, ToggleAllMessage msg) {
   var setComplete = model.items.any((x) => !x.complete);
   var activeCount = setComplete ? 0 : model.items.length;
   var completedCount = setComplete ? model.items.length : 0;
@@ -59,8 +59,8 @@ Upd<StatsModel, StatsMessage> _toggleAll(
     ..items.map((t) => t.rebuild((x) => x..complete = setComplete))
     ..activeCount = activeCount
     ..completedCount = completedCount);
-  return Upd(updatedModel, effects: _saveItems(updatedModel));
+  return Upd(updatedModel, effects: _saveItems(repo, updatedModel));
 }
 
-Cmd<StatsMessage> _saveItems(StatsModel model) =>
-    repoCmds.saveAllCmd(model.items.map((x) => x.toEntity()).toList());
+Cmd<StatsMessage> _saveItems(CmdRepository repo, StatsModel model) =>
+    repo.saveAllCmd(model.items.map((x) => x.toEntity()).toList());

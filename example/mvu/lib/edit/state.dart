@@ -9,11 +9,11 @@ Upd<EditTodoModel, EditTodoMessage> init(TodoEntity todo) {
 }
 
 Upd<EditTodoModel, EditTodoMessage> update(
-    EditTodoMessage msg, EditTodoModel model) {
+    CmdRepository repo, EditTodoMessage msg, EditTodoModel model) {
   if (msg is Save && model.task.text.isNotEmpty) {
     var updateCmd = model.id.isEmpty
-        ? repo.repoCmds.createCmd((t) => OnSaved(t), model.task.text, model.note.text)
-        : repo.repoCmds.updateDetailsCmd(
+        ? repo.createCmd((t) => OnSaved(t), model.task.text, model.note.text)
+        : repo.updateDetailsCmd(
             (t) => OnSaved(t), model.id, model.task.text, model.note.text);
     return new Upd(model, effects: updateCmd);
   }

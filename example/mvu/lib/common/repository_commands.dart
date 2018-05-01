@@ -7,36 +7,38 @@ import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 import 'package:flutter_architecture_samples/uuid.dart';
 import 'package:dartea/dartea.dart';
 
-const _internalRepository = const TodosRepositoryFlutter(
-  fileStorage: const FileStorage(
-    "mvu_app",
-    getApplicationDocumentsDirectory,
-  ),
-  webClient: const WebClient(),
-);
-
-final repoCmds = CmdRepository(_internalRepository);
-
 abstract class RepositoryEvent {}
 
-class OnTodoAdded implements RepositoryEvent {
+class RepoOnTodoAdded implements RepositoryEvent {
   final TodoEntity entity;
-  OnTodoAdded(this.entity);
+  RepoOnTodoAdded(this.entity);
 }
 
-class OnTodoRemoved implements RepositoryEvent {
+class RepoOnTodoRemoved implements RepositoryEvent {
   final TodoEntity entity;
-  OnTodoRemoved(this.entity);
+  RepoOnTodoRemoved(this.entity);
 }
 
-class OnTodoChanged implements RepositoryEvent {
+class RepoOnTodoChanged implements RepositoryEvent {
   final TodoEntity entity;
-  OnTodoChanged(this.entity);
+  RepoOnTodoChanged(this.entity);
 }
 
-class CmdRepository {
+abstract class CmdRepository {
+  Cmd<TMsg> subscribe<TModel, TMsg>(TMsg mapMsg(RepositoryEvent m));
+  Cmd<T> loadTodosCmd<T>(T onSuccess(List<TodoEntity> items),
+      {T onError(Exception exc)});
+  Cmd<T> saveAllCmd<T>(List<TodoEntity> entities, {T onSuccess()});
+  Cmd<T> removeCmd<T>(TodoEntity todo, {T onSuccess()});
+  Cmd<T> saveCmd<T>(TodoEntity todo, {T onSuccess()});
+  Cmd<T> createCmd<T>(T onSuccess(TodoEntity todo), String task, String note);
+  Cmd<T> updateDetailsCmd<T>(
+      T onSuccess(TodoEntity todo), String id, String task, String note);
+}
+
+class TodosCmdRepository implements CmdRepository {
   final TodosRepository _repo;
-  CmdRepository(this._repo);
+  TodosCmdRepository(this._repo);
 
   final StreamController<RepositoryEvent> _changesStreamController =
       new StreamController<RepositoryEvent>.broadcast();
@@ -64,7 +66,7 @@ class CmdRepository {
       Cmd.ofFutureAction<T>(() async {
         var todos = await _repo.loadTodos();
         await _repo.saveTodos(todos.where((x) => x.id != todo.id).toList());
-        _changesStreamController.add(OnTodoRemoved(todo));
+        _changesStreamController.add(RepoOnTodoRemoved(todo));
       }, onSuccess: onSuccess);
 
   Cmd<T> saveCmd<T>(TodoEntity todo, {T onSuccess()}) =>
@@ -72,7 +74,7 @@ class CmdRepository {
         var todos = await _repo.loadTodos();
         await _repo
             .saveTodos(todos.map((x) => x.id == todo.id ? todo : x).toList());
-        _changesStreamController.add(OnTodoChanged(todo));
+        _changesStreamController.add(RepoOnTodoChanged(todo));
       }, onSuccess: onSuccess);
 
   Cmd<T> createCmd<T>(T onSuccess(TodoEntity todo), String task, String note) =>
@@ -81,7 +83,7 @@ class CmdRepository {
         var todos = await _repo.loadTodos()
           ..add(todo);
         await _repo.saveTodos(todos);
-        _changesStreamController.add(OnTodoAdded(todo));
+        _changesStreamController.add(RepoOnTodoAdded(todo));
         return todo;
       }, onSuccess: onSuccess);
 
@@ -95,7 +97,17 @@ class CmdRepository {
             .toList();
         await _repo.saveTodos(updated);
         var updatedTodo = updated.firstWhere((x) => x.id == id);
-        _changesStreamController.add(OnTodoChanged(updatedTodo));
+        _changesStreamController.add(RepoOnTodoChanged(updatedTodo));
         return updatedTodo;
       }, onSuccess: onSuccess);
 }
+
+const _internalRepository = const TodosRepositoryFlutter(
+  fileStorage: const FileStorage(
+    "mvu_app",
+    getApplicationDocumentsDirectory,
+  ),
+  webClient: const WebClient(),
+);
+
+final CmdRepository repoCmds = TodosCmdRepository(_internalRepository);

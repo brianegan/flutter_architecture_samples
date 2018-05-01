@@ -8,9 +8,10 @@ Upd<TodosModel, TodosMessage> init(VisibilityFilter filter) {
   return new Upd(model, effects: new Cmd.ofMsg(new LoadTodos()));
 }
 
-Upd<TodosModel, TodosMessage> update(TodosMessage msg, TodosModel model) {
+Upd<TodosModel, TodosMessage> update(
+    CmdRepository repo, TodosMessage msg, TodosModel model) {
   if (msg is LoadTodos) {
-    return _loadTodos(model);
+    return _loadTodos(repo, model);
   }
   if (msg is OnTodosLoaded) {
     return _onTodosLoaded(model, msg);
@@ -19,26 +20,26 @@ Upd<TodosModel, TodosMessage> update(TodosMessage msg, TodosModel model) {
     return _onLoadingError(model, msg);
   }
   if (msg is UpdateTodo) {
-    return _toggleTodo(model, msg);
+    return _toggleTodo(repo, model, msg);
   }
   if (msg is RemoveTodo) {
     var updatedModel = _removeTodo(model, msg.todo.id);
-    return Upd(updatedModel, effects: repoCmds.removeCmd(msg.todo.toEntity()));
+    return Upd(updatedModel, effects: repo.removeCmd(msg.todo.toEntity()));
   }
   if (msg is UndoRemoveItem) {
     var updatedModel = model.rebuild((b) => b.items.add(msg.item));
-    return new Upd(updatedModel, effects: _saveTodosCmd(updatedModel));
+    return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
   }
   if (msg is FilterChanged) {
     var updatedModel = model.rebuild((b) => b..filter = msg.value);
     return new Upd(updatedModel);
   }
   if (msg is ToggleAllMessage) {
-    return _toggleAll(model, msg);
+    return _toggleAll(repo, model, msg);
   }
   if (msg is CleareCompletedMessage) {
     var updatedModel = model.rebuild((b) => b.items.where((t) => !t.complete));
-    return new Upd(updatedModel, effects: _saveTodosCmd(updatedModel));
+    return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
   }
   if (msg is ShowDetailsMessage) {
     var navigateCmd = router.goToDetailsScreen<TodosMessage>(msg.todo);
@@ -50,8 +51,8 @@ Upd<TodosModel, TodosMessage> update(TodosMessage msg, TodosModel model) {
   return new Upd(model);
 }
 
-Upd<TodosModel, TodosMessage> _loadTodos(TodosModel model) {
-  var loadCmd = repoCmds.loadTodosCmd((items) => new OnTodosLoaded(items),
+Upd<TodosModel, TodosMessage> _loadTodos(CmdRepository repo, TodosModel model) {
+  var loadCmd = repo.loadTodosCmd((items) => new OnTodosLoaded(items),
       onError: (exc) => new OnTodosLoadError(exc));
   var updatedModel = model.rebuild((b) => b
     ..isLoading = true
@@ -77,18 +78,19 @@ Upd<TodosModel, TodosMessage> _onLoadingError(
   return new Upd(updatedModel);
 }
 
-Upd<TodosModel, TodosMessage> _toggleTodo(TodosModel model, UpdateTodo msg) {
+Upd<TodosModel, TodosMessage> _toggleTodo(
+    CmdRepository repo, TodosModel model, UpdateTodo msg) {
   var updatedTodo = msg.todo.rebuild((b) => b..complete = msg.value);
   var updatedModel = _updateTodoItem(model, updatedTodo);
-  return new Upd(updatedModel, effects: _saveTodosCmd(updatedModel));
+  return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
 }
 
 Upd<TodosModel, TodosMessage> _toggleAll(
-    TodosModel model, ToggleAllMessage msg) {
+    CmdRepository repo, TodosModel model, ToggleAllMessage msg) {
   var setComplete = model.items.any((x) => !x.complete);
   var updatedModel = model.rebuild(
       (b) => b.items.map((t) => t.rebuild((x) => x..complete = setComplete)));
-  return new Upd(updatedModel, effects: _saveTodosCmd(updatedModel));
+  return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
 }
 
 TodosModel _removeTodo(TodosModel model, String id) =>
@@ -119,5 +121,5 @@ TodosModel _updateTodoItem(TodosModel model, TodoModel updatedTodo) {
       (b) => b.items.map((x) => x.id == updatedTodo.id ? updatedTodo : x));
 }
 
-Cmd<TodosMessage> _saveTodosCmd(TodosModel model) =>
-    repoCmds.saveAllCmd(model.items.map((t) => t.toEntity()).toList());
+Cmd<TodosMessage> _saveTodosCmd(CmdRepository repo, TodosModel model) =>
+    repo.saveAllCmd(model.items.map((t) => t.toEntity()).toList());

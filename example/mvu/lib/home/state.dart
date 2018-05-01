@@ -23,7 +23,7 @@ Upd<HomeModel, HomeMessage> update(HomeMessage msg, HomeModel model) {
   }
 
   if (msg is TodosMsg && model.body.tag == AppTab.todos) {
-    var updatedTodos = todos.update(msg.message, model.body.model);
+    var updatedTodos = todos.update(repoCmds, msg.message, model.body.model);
     var updatedModel =
         model.rebuild((b) => b..body = new TodosBody(updatedTodos.model));
     var effects = Cmd.fmap((m) => new TodosMsg(m), updatedTodos.effects);
@@ -31,7 +31,7 @@ Upd<HomeModel, HomeMessage> update(HomeMessage msg, HomeModel model) {
   }
 
   if (msg is StatsMsg && model.body.tag == AppTab.stats) {
-    var updatedStats = stats.update(msg.message, model.body.model);
+    var updatedStats = stats.update(repoCmds, msg.message, model.body.model);
     var updatedModel =
         model.rebuild((b) => b..body = new StatsBody(updatedStats.model));
     return new Upd(updatedModel,

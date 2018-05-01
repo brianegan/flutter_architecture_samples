@@ -7,6 +7,7 @@ import 'package:mvu/home/home.dart' as home;
 import 'package:mvu/home/types.dart';
 import 'package:mvu/edit/edit.dart' as edit;
 import 'Localization.dart';
+import 'package:mvu/common/repository_commands.dart' show repoCmds;
 
 void main() {
   runApp(new MyApp());
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         },
       ),
       routes: {
-        ArchSampleRoutes.addTodo: (_) => edit.createProgram().buildWith()
+        ArchSampleRoutes.addTodo: (_) =>
+            edit.createProgram(repoCmds).buildWith()
       },
     );
   }

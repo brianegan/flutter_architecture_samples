@@ -6,24 +6,26 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:dartea/dartea.dart';
 import 'package:mvu/details/types.dart';
 import 'package:mvu/common/todo_model.dart';
-import 'package:mvu/common/repository_commands.dart' as repo;
+import 'package:mvu/common/repository_commands.dart';
 import 'package:mvu/common/router.dart' as router;
 
 part 'state.dart';
 part 'view.dart';
 
-Program<TodoModel, DetailsModel, DetailsMessage> createProgram() =>
-    new Program(init, update, view, subscribe: _repoSubscription);
+Program<TodoModel, DetailsModel, DetailsMessage> createProgram(
+        CmdRepository repo) =>
+    new Program(init, (msg, model) => update(repo, msg, model), view,
+        subscribe: (_) => _repoSubscription(repo));
 
-Cmd<DetailsMessage> _repoSubscription(DetailsModel _) =>
-    repo.repoCmds.subscribe((event) {
-      if (event is repo.OnTodoAdded) {
+Cmd<DetailsMessage> _repoSubscription(CmdRepository repo) =>
+    repo.subscribe((event) {
+      if (event is RepoOnTodoAdded) {
         return null;
       }
-      if (event is repo.OnTodoChanged) {
+      if (event is RepoOnTodoChanged) {
         return OnTodoChanged(event.entity);
       }
-      if (event is repo.OnTodoRemoved) {
+      if (event is RepoOnTodoRemoved) {
         return OnTodoRemoved(event.entity);
       }
     });

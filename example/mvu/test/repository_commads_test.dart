@@ -1,10 +1,8 @@
-import 'dart:async';
-
-import 'package:dartea/dartea.dart';
 import 'package:test/test.dart';
 
 import 'package:mvu/common/repository_commands.dart';
 import 'package:todos_repository/todos_repository.dart';
+import 'cmd_runner.dart';
 import 'data.dart';
 
 void main() {
@@ -15,8 +13,8 @@ void main() {
   setUp(() {
     todosRepository = InMemoryTodosRepository(initialItems: createTodos());
     brokenCmdRepository =
-        CmdRepository(InMemoryTodosRepository(isBrokern: true));
-    cmdRepository = CmdRepository(todosRepository);
+        TodosCmdRepository(InMemoryTodosRepository(isBrokern: true));
+    cmdRepository = TodosCmdRepository(todosRepository);
     runner = CmdRunner();
   });
 
@@ -102,30 +100,6 @@ void main() {
   });
 }
 
-class InMemoryTodosRepository implements TodosRepository {
-  List<TodoEntity> items = List();
-  final bool isBrokern;
-  InMemoryTodosRepository(
-      {Iterable<TodoEntity> initialItems, this.isBrokern = false}) {
-    if (initialItems != null) {
-      items.addAll(initialItems);
-    }
-  }
-  @override
-  Future<List<TodoEntity>> loadTodos() {
-    if (isBrokern) {
-      throw Exception('repo is broken');
-    }
-    return Future.value(items.toList());
-  }
-
-  @override
-  Future saveTodos(List<TodoEntity> todos) => Future.sync(() {
-        items.clear();
-        items.addAll(todos);
-      });
-}
-
 abstract class Message {}
 
 class OnLoadSuccess implements Message {
@@ -139,12 +113,3 @@ class OnLoadError implements Message {
 }
 
 class OnSaveSuccess implements Message {}
-
-class CmdRunner<T> {
-  final List<T> producedMessages = List();
-  void run(Cmd<T> cmd) {
-    for (var effect in cmd) {
-      effect((m) => producedMessages.add(m));
-    }
-  }
-}

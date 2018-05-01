@@ -21,13 +21,13 @@ Program<AppTab, HomeModel, HomeMessage> createProgram() => new Program(init, upd
 
 Cmd<HomeMessage> _repoSubscription(HomeModel _) =>
     repoCmds.subscribe((event) {
-      if (event is OnTodoAdded) {
+      if (event is RepoOnTodoAdded) {
         return TodosMsg(OnTodoItemChanged(created: event.entity));
       }
-      if (event is OnTodoChanged) {
+      if (event is RepoOnTodoChanged) {
         return TodosMsg(OnTodoItemChanged(updated: event.entity));
       }
-      if (event is OnTodoRemoved) {
+      if (event is RepoOnTodoRemoved) {
         return TodosMsg(OnTodoItemChanged(removed: event.entity));
       }
     });

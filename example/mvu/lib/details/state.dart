@@ -1,22 +1,21 @@
 part of details;
 
 Upd<DetailsModel, DetailsMessage> init(TodoModel todo) {
-  var model = new DetailsModel((b) => b
-    ..todo = todo.toBuilder());
+  var model = new DetailsModel((b) => b..todo = todo.toBuilder());
   return new Upd(model);
 }
 
 Upd<DetailsModel, DetailsMessage> update(
-    DetailsMessage msg, DetailsModel model) {
+    CmdRepository repo, DetailsMessage msg, DetailsModel model) {
   if (msg is Remove) {
-    var removeCmd = repo.repoCmds.removeCmd<DetailsMessage>(model.todo.toEntity());
+    var removeCmd = repo.removeCmd<DetailsMessage>(model.todo.toEntity());
     return new Upd(model, effects: removeCmd);
   }
   if (msg is ToggleCompleted) {
     var updatedModel =
         model.rebuild((b) => b.todo.update((t) => t.complete = !t.complete));
     return new Upd(updatedModel,
-        effects: repo.repoCmds.saveCmd(updatedModel.todo.toEntity()));
+        effects: repo.saveCmd(updatedModel.todo.toEntity()));
   }
   if (msg is Edit) {
     var navigateCmd = router.goToEditTodoScreen<DetailsMessage>(model.todo);
