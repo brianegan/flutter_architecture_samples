@@ -28,7 +28,7 @@ class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
 
   @override
   Stream<List<TodoEntity>> todos() {
-    return firestore.collection(path).snapshots.map((snapshot) {
+    return firestore.collection(path).snapshots().map((snapshot) {
       return snapshot.documents.map((doc) {
         return TodoEntity(
           doc['task'],

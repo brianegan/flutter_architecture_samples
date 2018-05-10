@@ -6,8 +6,8 @@ dependencies:
     sdk: flutter
   todos_repository:
     path: ../todos_repository
-  firebase_auth: 0.5.3
-  cloud_firestore: 0.5.1
+  firebase_auth: 0.5.9
+  cloud_firestore: 0.7.0
 
 dev_dependencies:
   mockito: ">=2.2.0 <3.0.0"
