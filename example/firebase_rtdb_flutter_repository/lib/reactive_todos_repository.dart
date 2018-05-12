@@ -26,25 +26,6 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
     }));
   }
 
-//  @override
-  Stream<List<TodoEntity>> xtodos() {
-    return firebase.reference().child(path).onValue.map((event) {
-      List<TodoEntity> todos = [];
-      if (event.snapshot != null && event.snapshot.value != null) {
-        event.snapshot.value.forEach((key, todoMap) {
-          TodoEntity todoEntity = TodoEntity(
-            todoMap['task'],
-            key,
-            todoMap['note'] ?? '',
-            todoMap['complete'] ?? false,
-          );
-          todos.add(todoEntity);
-        });
-      }
-      return todos;
-    });
-  }
-
   @override
   Stream<List<TodoEntity>> todos() {
     return firebase.reference().child(path).onValue.map((event) {
