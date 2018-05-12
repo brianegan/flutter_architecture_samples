@@ -31,7 +31,8 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
     return firebase.reference().child(path).onValue.map((event) {
       if (event.snapshot == null || event.snapshot.value == null) return [];
       return Map
-          .castFrom(event.snapshot.value.map((key, doc) {
+          .castFrom<dynamic, dynamic, String, TodoEntity>(
+              event.snapshot.value.map((key, doc) {
             return MapEntry(
                 key,
                 TodoEntity(
@@ -42,8 +43,7 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
                 ));
           }))
           .values
-          .toList()
-          .cast();
+          .toList();
     });
   }
 

@@ -69,24 +69,21 @@ main() {
       final firebaseDatabase = MockFirebaseDatabase();
       final reference = MockDatabaseReference();
       final collection = MockDatabaseReference();
+      final document = todo.toJson();
+      final documentMap = {todo.id: document};
       final event = MockEvent();
-      final map = Stream.fromIterable([event]);
-      final todoMap = {todo.id: todo.toJson()};
-      final document = {
-        "key": FirebaseReactiveTodosRepository.path,
-        "value": todoMap
-      };
-      final snapshot = MockDataSnapshot(document);
-
+      final eventIterator = Stream.fromIterable([event]);
+      final data = {"key": todo.id, "value": documentMap};
+      final snapshot = MockDataSnapshot(data);
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
       when(firebaseDatabase.reference()).thenReturn(reference);
       when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.onValue).thenReturn(map);
+      when(collection.onValue).thenReturn(eventIterator);
       when(event.snapshot).thenReturn(snapshot);
-      when(snapshot.key).thenReturn(FirebaseReactiveTodosRepository.path);
-      when(snapshot.value).thenReturn(todoMap);
+      when(snapshot.key).thenReturn(todo.id); // not used
+      when(snapshot.value).thenReturn(documentMap);
 
       expect(repository.todos(), emits([todo]));
     });
