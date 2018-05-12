@@ -30,20 +30,18 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   Stream<List<TodoEntity>> todos() {
     return firebase.reference().child(path).onValue.map((event) {
       if (event.snapshot == null || event.snapshot.value == null) return [];
-      return Map
-          .castFrom<dynamic, dynamic, String, TodoEntity>(
-              event.snapshot.value.map((key, doc) {
-            return MapEntry(
-                key,
-                TodoEntity(
-                  doc['task'],
-                  key,
-                  doc['note'] ?? '',
-                  doc['complete'] ?? false,
-                ));
-          }))
-          .values
-          .toList();
+      final Map<dynamic, dynamic> value = event.snapshot.value;
+      final todoMap = value.map((key, doc) {
+        return MapEntry(
+            key,
+            TodoEntity(
+              doc['task'],
+              key,
+              doc['note'] ?? '',
+              doc['complete'] ?? false,
+            ));
+      });
+      return todoMap.values.toList();
     });
   }
 
