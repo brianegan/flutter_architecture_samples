@@ -30,50 +30,63 @@ main() {
   group('FirebaseReactiveTodosRepository', () {
     test('should send todos to firebase database', () {
       final firebaseDatabase = MockFirebaseDatabase();
-      final collection = MockCollectionReference();
-      final document = MockDocumentReference();
+      final reference = MockDatabaseReference();
+      final collection = MockDatabaseReference();
+      final document = MockDatabaseReference();
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
       final todo = TodoEntity('A', '1', '', true);
 
-      when(firebaseDatabase.collection(FirebaseReactiveTodosRepository.path))
+      when(firebaseDatabase.reference()).thenReturn(reference);
+      when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.document(todo.id)).thenReturn(document);
+      when(collection.child(todo.id)).thenReturn(document);
 
       repository.addNewTodo(todo);
 
-      verify(document.setData(todo.toJson()));
+      verify(document.set(todo.toJson()));
     });
 
-    test('should update todos on firebaseDatabase', () {
+    test('should update todos on firebase database', () {
       final firebaseDatabase = MockFirebaseDatabase();
-      final collection = MockCollectionReference();
-      final document = MockDocumentReference();
+      final reference = MockDatabaseReference();
+      final collection = MockDatabaseReference();
+      final document = MockDatabaseReference();
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
       final todo = TodoEntity('A', '1', '', true);
 
-      when(firebaseDatabase.collection(FirebaseReactiveTodosRepository.path))
+      when(firebaseDatabase.reference()).thenReturn(reference);
+      when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.document(todo.id)).thenReturn(document);
+      when(collection.child(todo.id)).thenReturn(document);
 
       repository.updateTodo(todo);
 
-      verify(document.updateData(todo.toJson()));
+      verify(document.set(todo.toJson()));
     });
 
     test('should listen for updates to the collection', () {
       final todo = TodoEntity('A', '1', '', true);
       final firebaseDatabase = MockFirebaseDatabase();
-      final collection = MockCollectionReference();
-      final snapshot = MockQuerySnapshot();
-      final snapshots = Stream.fromIterable([snapshot]);
-      final document = MockDocumentSnapshot(todo.toJson());
+      final reference = MockDatabaseReference();
+      final collection = MockDatabaseReference();
+      final event = MockEvent();
+      final map = Stream.fromIterable([event]);
+      final todoMap = {todo.id: todo.toJson()};
+      final document = {
+        "key": FirebaseReactiveTodosRepository.path,
+        "value": todoMap
+      };
+      final snapshot = MockDataSnapshot(document);
+
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
-      when(firebaseDatabase.collection(FirebaseReactiveTodosRepository.path))
+      when(firebaseDatabase.reference()).thenReturn(reference);
+      when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.snapshots).thenReturn(snapshots);
-      when(snapshot.documents).thenReturn([document]);
-      when(document.documentID).thenReturn(todo.id);
+      when(collection.onValue).thenReturn(map);
+      when(event.snapshot).thenReturn(snapshot);
+      when(snapshot.key).thenReturn(FirebaseReactiveTodosRepository.path);
+      when(snapshot.value).thenReturn(todoMap);
 
       expect(repository.todos(), emits([todo]));
     });
@@ -82,22 +95,24 @@ main() {
       final todoA = 'A';
       final todoB = 'B';
       final firebaseDatabase = MockFirebaseDatabase();
-      final collection = MockCollectionReference();
-      final documentA = MockDocumentReference();
-      final documentB = MockDocumentReference();
+      final reference = MockDatabaseReference();
+      final collection = MockDatabaseReference();
+      final documentA = MockDatabaseReference();
+      final documentB = MockDatabaseReference();
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
-      when(firebaseDatabase.collection(FirebaseReactiveTodosRepository.path))
+      when(firebaseDatabase.reference()).thenReturn(reference);
+      when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.document(todoA)).thenReturn(documentA);
-      when(collection.document(todoB)).thenReturn(documentB);
-      when(documentA.delete()).thenReturn(Future.value());
-      when(documentB.delete()).thenReturn(Future.value());
+      when(collection.child(todoA)).thenReturn(documentA);
+      when(collection.child(todoB)).thenReturn(documentB);
+      when(documentA.set(null)).thenReturn(Future.value());
+      when(documentB.set(null)).thenReturn(Future.value());
 
       await repository.deleteTodo([todoA, todoB]);
 
-      verify(documentA.delete());
-      verify(documentB.delete());
+      verify(documentA.set(null));
+      verify(documentB.set(null));
     });
   });
 }
@@ -106,18 +121,14 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 class MockFirebaseDatabase extends Mock implements FirebaseDatabase {}
 
-class MockCollectionReference extends Mock implements CollectionReference {}
+class MockDatabaseReference extends Mock implements DatabaseReference {}
 
-class MockDocumentSnapshot extends Mock implements DocumentSnapshot {
-  final Map<String, dynamic> data;
+class MockEvent extends Mock implements Event {}
 
-  MockDocumentSnapshot([this.data]);
+class MockDataSnapshot extends Mock implements DataSnapshot {
+  final Map<dynamic, dynamic> data;
 
-  dynamic operator [](String key) => data[key];
+  MockDataSnapshot([this.data]);
 }
-
-class MockDocumentReference extends Mock implements DocumentReference {}
-
-class MockQuerySnapshot extends Mock implements QuerySnapshot {}
 
 class MockFirebaseUser extends Mock implements FirebaseUser {}

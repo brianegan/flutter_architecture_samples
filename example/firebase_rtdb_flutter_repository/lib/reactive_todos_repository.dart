@@ -11,11 +11,8 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   static const String path = 'todo';
 
   final FirebaseDatabase firebase;
-  DatabaseReference todosReference;
 
-  FirebaseReactiveTodosRepository(this.firebase) {
-    todosReference = firebase.reference().child(path);
-  }
+  const FirebaseReactiveTodosRepository(this.firebase);
 
   @override
   Future<void> addNewTodo(TodoEntity todo) {
@@ -25,21 +22,19 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   @override
   Future<void> deleteTodo(List<String> idList) async {
     await Future.wait<void>(idList.map((id) {
-      return todosReference.child(id).set(null);
+      return firebase.reference().child(path).child(id).set(null);
     }));
   }
 
-  @override
-  Stream<List<TodoEntity>> todos() {
-    return todosReference.onValue.map((event) {
+//  @override
+  Stream<List<TodoEntity>> xtodos() {
+    return firebase.reference().child(path).onValue.map((event) {
       List<TodoEntity> todos = [];
       if (event.snapshot != null && event.snapshot.value != null) {
-        event.snapshot.value.forEach((k, v) {
-          Map<String, dynamic> todoMap = {};
-          convertSnapshotValueToJsonMap(v, todoMap);
+        event.snapshot.value.forEach((key, todoMap) {
           TodoEntity todoEntity = TodoEntity(
             todoMap['task'],
-            todoMap['id'],
+            key,
             todoMap['note'] ?? '',
             todoMap['complete'] ?? false,
           );
@@ -51,13 +46,28 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
   }
 
   @override
-  Future<void> updateTodo(TodoEntity todo) {
-    return todosReference.child(todo.id).set(todo.toJson());
+  Stream<List<TodoEntity>> todos() {
+    return firebase.reference().child(path).onValue.map((event) {
+      if (event.snapshot == null || event.snapshot.value == null) return [];
+      return Map
+          .castFrom(event.snapshot.value.map((key, doc) {
+            return MapEntry(
+                key,
+                TodoEntity(
+                  doc['task'],
+                  key,
+                  doc['note'] ?? '',
+                  doc['complete'] ?? false,
+                ));
+          }))
+          .values
+          .toList()
+          .cast();
+    });
   }
 
-  void convertSnapshotValueToJsonMap(Map value, Map<String, dynamic> jsonMap) {
-    value.forEach((k, v) {
-      jsonMap[k] = v;
-    });
+  @override
+  Future<void> updateTodo(TodoEntity todo) {
+    return firebase.reference().child(path).child(todo.id).set(todo.toJson());
   }
 }
