@@ -25,7 +25,6 @@ class RepoOnTodoChanged implements RepositoryEvent {
 }
 
 abstract class CmdRepository {
-  Cmd<TMsg> subscribe<TModel, TMsg>(TMsg mapMsg(RepositoryEvent m));
   Cmd<T> loadTodosCmd<T>(T onSuccess(List<TodoEntity> items),
       {T onError(Exception exc)});
   Cmd<T> saveAllCmd<T>(List<TodoEntity> entities, {T onSuccess()});
@@ -34,6 +33,7 @@ abstract class CmdRepository {
   Cmd<T> createCmd<T>(T onSuccess(TodoEntity todo), String task, String note);
   Cmd<T> updateDetailsCmd<T>(
       T onSuccess(TodoEntity todo), String id, String task, String note);
+  Stream<RepositoryEvent> get events;
 }
 
 class TodosCmdRepository implements CmdRepository {
@@ -43,34 +43,24 @@ class TodosCmdRepository implements CmdRepository {
   final StreamController<RepositoryEvent> _changesStreamController =
       new StreamController<RepositoryEvent>.broadcast();
 
-  Cmd<TMsg> subscribe<TModel, TMsg>(TMsg mapMsg(RepositoryEvent m)) {
-    Sub<TMsg> sub = (Dispatch<TMsg> dispatch) {
-      _changesStreamController.stream.listen((m) {
-        var mappedMsg = mapMsg(m);
-        if (mappedMsg != null) {
-          dispatch(mappedMsg);
-        }
-      });
-    };
-    return new Cmd.ofSub(sub);
-  }
+  Stream<RepositoryEvent> get events => _changesStreamController.stream;
 
   Cmd<T> loadTodosCmd<T>(T onSuccess(List<TodoEntity> items),
           {T onError(Exception exc)}) =>
-      Cmd.ofFutureFunc(_repo.loadTodos, onSuccess: onSuccess, onError: onError);
+      Cmd.ofAsyncFunc(_repo.loadTodos, onSuccess: onSuccess, onError: onError);
 
   Cmd<T> saveAllCmd<T>(List<TodoEntity> entities, {T onSuccess()}) => Cmd
-      .ofFutureAction<T>(() => _repo.saveTodos(entities), onSuccess: onSuccess);
+      .ofAsyncAction<T>(() => _repo.saveTodos(entities), onSuccess: onSuccess);
 
   Cmd<T> removeCmd<T>(TodoEntity todo, {T onSuccess()}) =>
-      Cmd.ofFutureAction<T>(() async {
+      Cmd.ofAsyncAction<T>(() async {
         var todos = await _repo.loadTodos();
         await _repo.saveTodos(todos.where((x) => x.id != todo.id).toList());
         _changesStreamController.add(RepoOnTodoRemoved(todo));
       }, onSuccess: onSuccess);
 
   Cmd<T> saveCmd<T>(TodoEntity todo, {T onSuccess()}) =>
-      Cmd.ofFutureAction<T>(() async {
+      Cmd.ofAsyncAction<T>(() async {
         var todos = await _repo.loadTodos();
         await _repo
             .saveTodos(todos.map((x) => x.id == todo.id ? todo : x).toList());
@@ -78,7 +68,7 @@ class TodosCmdRepository implements CmdRepository {
       }, onSuccess: onSuccess);
 
   Cmd<T> createCmd<T>(T onSuccess(TodoEntity todo), String task, String note) =>
-      Cmd.ofFutureFunc(() async {
+      Cmd.ofAsyncFunc(() async {
         var todo = new TodoEntity(task, new Uuid().generateV4(), note, false);
         var todos = await _repo.loadTodos()
           ..add(todo);
@@ -89,7 +79,7 @@ class TodosCmdRepository implements CmdRepository {
 
   Cmd<T> updateDetailsCmd<T>(
           T onSuccess(TodoEntity todo), String id, String task, String note) =>
-      Cmd.ofFutureFunc(() async {
+      Cmd.ofAsyncFunc(() async {
         var todos = await _repo.loadTodos();
         var updated = todos
             .map((x) =>

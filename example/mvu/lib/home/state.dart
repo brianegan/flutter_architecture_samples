@@ -17,9 +17,17 @@ Upd<HomeModel, HomeMessage> update(HomeMessage msg, HomeModel model) {
     return new Upd(updated, effects: body.effects);
   }
 
-  if (msg is CraeteNewTodo) {
+  if (msg is CreateNewTodo) {
     var navCmd = router.goToCreateNewScreen<HomeMessage>();
     return Upd(model, effects: navCmd);
+  }
+
+  if (msg is OnNewTodoCreated) {
+    if (model.body.tag == AppTab.todos) {
+      return Upd(model, effects:  new Cmd.ofMsg(TodosMsg(OnTodoItemChanged(created: msg.entity))));
+    } else if (model.body.tag == AppTab.stats) {
+      return Upd(model, effects:  new Cmd.ofMsg(StatsMsg(OnNewTaskCreated(msg.entity))));
+    }
   }
 
   if (msg is TodosMsg && model.body.tag == AppTab.todos) {

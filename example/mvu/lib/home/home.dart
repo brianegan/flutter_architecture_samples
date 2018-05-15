@@ -1,5 +1,7 @@
 library home;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:dartea/dartea.dart';
 import 'package:mvu/localization.dart';
 import 'package:mvu/home/types.dart';
+import 'package:mvu/stats/types.dart';
 import 'package:mvu/todos/types.dart';
 import 'package:mvu/common/repository_commands.dart';
 import 'package:mvu/todos/todos.dart' as todos;
@@ -17,17 +20,28 @@ import 'package:mvu/common/snackbar.dart' as snackbar;
 part 'state.dart';
 part 'view.dart';
 
-Program<AppTab, HomeModel, HomeMessage> createProgram() => new Program(init, update, view, subscribe: _repoSubscription);
+Program<HomeModel, HomeMessage, StreamSubscription<RepositoryEvent>>
+    createProgram(AppTab initTab) =>
+        new Program(() => init(initTab), update, view,
+            subscription: _repoSubscription);
 
-Cmd<HomeMessage> _repoSubscription(HomeModel _) =>
-    repoCmds.subscribe((event) {
-      if (event is RepoOnTodoAdded) {
-        return TodosMsg(OnTodoItemChanged(created: event.entity));
-      }
-      if (event is RepoOnTodoChanged) {
-        return TodosMsg(OnTodoItemChanged(updated: event.entity));
-      }
-      if (event is RepoOnTodoRemoved) {
-        return TodosMsg(OnTodoItemChanged(removed: event.entity));
-      }
-    });
+StreamSubscription<RepositoryEvent> _repoSubscription(
+    StreamSubscription<RepositoryEvent> currentSub,
+    Dispatch<HomeMessage> dispatch,
+    HomeModel model) {
+  if (currentSub != null) {
+    return currentSub;
+  }
+  final sub = repoCmds.events.listen((event) {
+    if (event is RepoOnTodoAdded) {
+      dispatch(OnNewTodoCreated(event.entity));
+    }
+    if (event is RepoOnTodoChanged) {
+      dispatch(TodosMsg(OnTodoItemChanged(updated: event.entity)));
+    }
+    if (event is RepoOnTodoRemoved) {
+      dispatch(TodosMsg(OnTodoItemChanged(removed: event.entity)));
+    }
+  });
+  return sub;
+}

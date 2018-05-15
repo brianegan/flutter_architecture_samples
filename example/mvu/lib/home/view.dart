@@ -11,7 +11,7 @@ Widget view(
     body: new Builder(builder: (ctx) => _body(ctx, dispatch, model.body)),
     floatingActionButton: new FloatingActionButton(
       key: ArchSampleKeys.addTodoFab,
-      onPressed: () => dispatch(CraeteNewTodo()),
+      onPressed: () => dispatch(CreateNewTodo()),
       child: new Icon(Icons.add),
       tooltip: ArchSampleLocalizations.of(context).addTodo,
     ),

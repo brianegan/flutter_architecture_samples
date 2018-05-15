@@ -25,12 +25,12 @@ class MyApp extends StatelessWidget {
       home: new Builder(
         builder: (c) {
           router.init(c);
-          return home.createProgram().buildWith(initArg: AppTab.todos);
+          return home.createProgram(AppTab.todos).build();
         },
       ),
       routes: {
         ArchSampleRoutes.addTodo: (_) =>
-            edit.createProgram(repoCmds).buildWith()
+            edit.createProgram(repoCmds).build()
       },
     );
   }

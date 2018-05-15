@@ -9,7 +9,7 @@ void init(BuildContext context) {
 }
 
 Cmd<TMsg> showUndoCmd<TMsg>(String task, TMsg onUndo()) {
-  return new Cmd.ofSub((Dispatch<TMsg> dispatch) {
+  return new Cmd.ofEffect((Dispatch<TMsg> dispatch) {
     _scaffoldState.showSnackBar(
       new SnackBar(
         key: ArchSampleKeys.snackbar,

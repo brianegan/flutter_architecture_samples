@@ -2,6 +2,7 @@ import 'package:built_value/built_value.dart';
 
 import 'package:mvu/todos/types.dart';
 import 'package:mvu/stats/types.dart';
+import 'package:todos_repository/todos_repository.dart';
 
 part 'types.g.dart';
 
@@ -15,7 +16,12 @@ class TabChangedMessage implements HomeMessage {
   TabChangedMessage(this.value);
 }
 
-class CraeteNewTodo implements HomeMessage {}
+class CreateNewTodo implements HomeMessage {}
+
+class OnNewTodoCreated implements HomeMessage {
+  final TodoEntity entity;
+  OnNewTodoCreated(this.entity);
+}
 
 class TodosMsg implements HomeMessage {
   final TodosMessage message;

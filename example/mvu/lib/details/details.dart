@@ -1,5 +1,7 @@
 library details;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
@@ -12,20 +14,26 @@ import 'package:mvu/common/router.dart' as router;
 part 'state.dart';
 part 'view.dart';
 
-Program<TodoModel, DetailsModel, DetailsMessage> createProgram(
-        CmdRepository repo) =>
-    new Program(init, (msg, model) => update(repo, msg, model), view,
-        subscribe: (_) => _repoSubscription(repo));
+Program<DetailsModel, DetailsMessage, StreamSubscription<RepositoryEvent>>
+    createProgram(CmdRepository repo, TodoModel todo) => Program(
+        () => init(todo), (msg, model) => update(repo, msg, model), view,
+        subscription: (s, d, m) => _repoSubscription(repo, s, d, m));
 
-Cmd<DetailsMessage> _repoSubscription(CmdRepository repo) =>
-    repo.subscribe((event) {
-      if (event is RepoOnTodoAdded) {
-        return null;
-      }
-      if (event is RepoOnTodoChanged) {
-        return OnTodoChanged(event.entity);
-      }
-      if (event is RepoOnTodoRemoved) {
-        return OnTodoRemoved(event.entity);
-      }
-    });
+StreamSubscription<RepositoryEvent> _repoSubscription(
+    CmdRepository repo,
+    StreamSubscription<RepositoryEvent> currentSub,
+    Dispatch<DetailsMessage> dispatch,
+    DetailsModel model) {
+  if (currentSub != null) {
+    return currentSub;
+  }
+  final sub = repo.events.listen((event) {
+    if (event is RepoOnTodoChanged) {
+      dispatch(OnTodoChanged(event.entity));
+    }
+    if (event is RepoOnTodoRemoved) {
+      dispatch(OnTodoRemoved(event.entity));
+    }
+  });
+  return sub;
+}
