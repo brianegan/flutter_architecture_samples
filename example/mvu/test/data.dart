@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:mvu/common/repository_commands.dart';
 import 'package:dartea/dartea.dart';
 import 'package:todos_repository/todos_repository.dart';
-import 'package:mvu/common/repository_commands.dart';
 
 List<TodoEntity> createTodos({bool complete}) => [
       new TodoEntity('Buy milk', '1', 'soy', complete ?? false),
@@ -92,9 +91,6 @@ class TestTodosCmdRepository implements CmdRepository {
   }
 
   @override
-  Cmd<TMsg> subscribe<TModel, TMsg>(TMsg Function(RepositoryEvent m) mapMsg) {}
-
-  @override
   Cmd<T> updateDetailsCmd<T>(T Function(TodoEntity todo) onSuccess, String id,
       String task, String note) {
     createdEffects.add(UpdateDetailsEffect(id, task, note));
@@ -103,6 +99,9 @@ class TestTodosCmdRepository implements CmdRepository {
   }
 
   void invalidate() => createdEffects.clear();
+
+  @override
+  Stream<RepositoryEvent> get events => events.asBroadcastStream();
 }
 
 abstract class RepoEffect {}

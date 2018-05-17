@@ -19,6 +19,11 @@ class ToggleAllMessage implements StatsMessage {}
 
 class CleareCompletedMessage implements StatsMessage {}
 
+class OnNewTaskCreated implements StatsMessage {
+  final TodoEntity entity;
+  OnNewTaskCreated(this.entity);
+}
+
 abstract class StatsModel implements Built<StatsModel, StatsModelBuilder> {
   BuiltList<TodoModel> get items;
   bool get loading;
