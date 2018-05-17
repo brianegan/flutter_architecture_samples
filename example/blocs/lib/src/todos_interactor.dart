@@ -7,6 +7,11 @@ import 'dart:async';
 import 'package:blocs/blocs.dart';
 import 'package:todos_repository/todos_repository.dart';
 
+// The "Use Case" part of the domain layer. It is built to talk to the
+// repository layer and convert Entities into the Domain Models found in the
+// models directory and vice-versa.
+//
+// This class was introduced to reduce duplication in various blocs.
 class TodosInteractor {
   final ReactiveTodosRepository repository;
 

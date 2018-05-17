@@ -13,16 +13,10 @@ class TodoBloc {
   TodoBloc(TodosInteractor interactor) : _interactor = interactor;
 
   // Inputs
-  void deleteTodo(String id) {
-    _interactor.deleteTodo(id);
-  }
+  void deleteTodo(String id) => _interactor.deleteTodo(id);
 
-  void updateTodo(Todo todo) {
-    _interactor.updateTodo(todo);
-  }
+  void updateTodo(Todo todo) => _interactor.updateTodo(todo);
 
   // Outputs
-  Stream<Todo> todo(String id) {
-    return _interactor.todo(id);
-  }
+  Stream<Todo> todo(String id) => _interactor.todo(id);
 }

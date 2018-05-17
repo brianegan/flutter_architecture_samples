@@ -12,15 +12,10 @@ class StatsBloc {
 
   StatsBloc(TodosInteractor interactor) : _interactor = interactor;
 
-  Stream<int> get numActive => _interactor.todos.map(_numActive);
+  // Outputs
+  Stream<int> get numActive => _interactor.todos.map((List<Todo> todos) =>
+      todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum));
 
-  Stream<int> get numComplete => _interactor.todos.map(_numComplete);
-
-  static int _numActive(List<Todo> todos) {
-    return todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
-  }
-
-  static int _numComplete(List<Todo> todos) {
-    return todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum);
-  }
+  Stream<int> get numComplete => _interactor.todos.map((List<Todo> todos) =>
+      todos.fold(0, (sum, todo) => todo.complete ? ++sum : sum));
 }
