@@ -61,5 +61,6 @@ All of these ideas and even some of the language are directly influenced by two 
   * [Larry King](https://github.com/kinggolf)
   * [Frank Harper](https://github.com/franklinharper)
   * [Pavel Shilyagov](https://github.com/p69)
+  * [Maurice McCabe](https://github.com/mmcc007)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
