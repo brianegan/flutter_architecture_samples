@@ -33,7 +33,7 @@ class TodoItem extends StatelessWidget {
           onChanged: onCheckboxChanged,
         ),
         title: Hero(
-          tag: todo.task + '__heroTag',
+          tag: '${todo.id}__heroTag',
           child: Container(
             width: MediaQuery.of(context).size.width,
             child: Text(

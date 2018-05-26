@@ -58,7 +58,7 @@ class DetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Hero(
-                        tag: todo.task + '__heroTag',
+                        tag: '${todo.id}__heroTag',
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(
