@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of stats;
@@ -25,13 +21,13 @@ class _$StatsProps extends StatsProps {
   final int numActive;
 
   factory _$StatsProps([void updates(StatsPropsBuilder b)]) =>
-      (StatsPropsBuilder()..update(updates)).build();
+      (new StatsPropsBuilder()..update(updates)).build();
 
   _$StatsProps._({this.numCompleted, this.numActive}) : super._() {
     if (numCompleted == null)
-      throw BuiltValueNullFieldError('StatsProps', 'numCompleted');
+      throw new BuiltValueNullFieldError('StatsProps', 'numCompleted');
     if (numActive == null)
-      throw BuiltValueNullFieldError('StatsProps', 'numActive');
+      throw new BuiltValueNullFieldError('StatsProps', 'numActive');
   }
 
   @override
@@ -39,7 +35,7 @@ class _$StatsProps extends StatsProps {
       (toBuilder()..update(updates)).build();
 
   @override
-  StatsPropsBuilder toBuilder() => StatsPropsBuilder()..replace(this);
+  StatsPropsBuilder toBuilder() => new StatsPropsBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -66,15 +62,11 @@ class StatsPropsBuilder implements Builder<StatsProps, StatsPropsBuilder> {
   _$StatsProps _$v;
 
   int _numCompleted;
-
   int get numCompleted => _$this._numCompleted;
-
   set numCompleted(int numCompleted) => _$this._numCompleted = numCompleted;
 
   int _numActive;
-
   int get numActive => _$this._numActive;
-
   set numActive(int numActive) => _$this._numActive = numActive;
 
   StatsPropsBuilder();
@@ -90,7 +82,7 @@ class StatsPropsBuilder implements Builder<StatsProps, StatsPropsBuilder> {
 
   @override
   void replace(StatsProps other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$StatsProps;
   }
 
@@ -101,8 +93,8 @@ class StatsPropsBuilder implements Builder<StatsProps, StatsPropsBuilder> {
 
   @override
   _$StatsProps build() {
-    final _$result =
-        _$v ?? _$StatsProps._(numCompleted: numCompleted, numActive: numActive);
+    final _$result = _$v ??
+        new _$StatsProps._(numCompleted: numCompleted, numActive: numActive);
     replace(_$result);
     return _$result;
   }
