@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of filter_selector;
@@ -26,15 +22,16 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
 
   factory _$FilterSelectorViewModel(
           [void updates(FilterSelectorViewModelBuilder b)]) =>
-      (FilterSelectorViewModelBuilder()..update(updates)).build();
+      (new FilterSelectorViewModelBuilder()..update(updates)).build();
 
   _$FilterSelectorViewModel._({this.onFilterSelected, this.activeFilter})
       : super._() {
     if (onFilterSelected == null)
-      throw BuiltValueNullFieldError(
+      throw new BuiltValueNullFieldError(
           'FilterSelectorViewModel', 'onFilterSelected');
     if (activeFilter == null)
-      throw BuiltValueNullFieldError('FilterSelectorViewModel', 'activeFilter');
+      throw new BuiltValueNullFieldError(
+          'FilterSelectorViewModel', 'activeFilter');
   }
 
   @override
@@ -44,7 +41,7 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
 
   @override
   FilterSelectorViewModelBuilder toBuilder() =>
-      FilterSelectorViewModelBuilder()..replace(this);
+      new FilterSelectorViewModelBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -74,16 +71,12 @@ class FilterSelectorViewModelBuilder
   _$FilterSelectorViewModel _$v;
 
   OnFilterSelected _onFilterSelected;
-
   OnFilterSelected get onFilterSelected => _$this._onFilterSelected;
-
   set onFilterSelected(OnFilterSelected onFilterSelected) =>
       _$this._onFilterSelected = onFilterSelected;
 
   VisibilityFilter _activeFilter;
-
   VisibilityFilter get activeFilter => _$this._activeFilter;
-
   set activeFilter(VisibilityFilter activeFilter) =>
       _$this._activeFilter = activeFilter;
 
@@ -100,7 +93,7 @@ class FilterSelectorViewModelBuilder
 
   @override
   void replace(FilterSelectorViewModel other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$FilterSelectorViewModel;
   }
 
@@ -112,7 +105,7 @@ class FilterSelectorViewModelBuilder
   @override
   _$FilterSelectorViewModel build() {
     final _$result = _$v ??
-        _$FilterSelectorViewModel._(
+        new _$FilterSelectorViewModel._(
             onFilterSelected: onFilterSelected, activeFilter: activeFilter);
     replace(_$result);
     return _$result;

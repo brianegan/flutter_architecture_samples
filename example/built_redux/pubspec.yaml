@@ -5,8 +5,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_built_redux: ^0.4.0
-  built_redux: ^7.0.0
-  built_value: ^5.0.0
+  built_redux: 7.4.1-dev
+  built_value: ^5.2.0
   built_collection: ^3.0.0
   flutter_architecture_samples:
     path: ../../
@@ -14,9 +14,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build: '>=0.10.0 <0.12.0'
-  build_runner: ^0.6.0  
-  built_value_generator: ^5.0.0
+  build: ^0.12.0
+  build_runner: ^0.8.0
+  built_value_generator: ^5.2.0
   source_gen: ^0.7.0
   test: ^0.12.0
   mockito: ">=2.2.0 <3.0.0"

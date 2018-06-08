@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of todo;
@@ -18,7 +14,7 @@ part of todo;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<Todo> _$todoSerializer = _$TodoSerializer();
+Serializer<Todo> _$todoSerializer = new _$TodoSerializer();
 
 class _$TodoSerializer implements StructuredSerializer<Todo> {
   @override
@@ -47,7 +43,7 @@ class _$TodoSerializer implements StructuredSerializer<Todo> {
   @override
   Todo deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType: FullType.unspecified}) {
-    final result = TodoBuilder();
+    final result = new TodoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -89,13 +85,14 @@ class _$Todo extends Todo {
   final String task;
 
   factory _$Todo([void updates(TodoBuilder b)]) =>
-      (TodoBuilder()..update(updates)).build();
+      (new TodoBuilder()..update(updates)).build();
 
   _$Todo._({this.complete, this.id, this.note, this.task}) : super._() {
-    if (complete == null) throw BuiltValueNullFieldError('Todo', 'complete');
-    if (id == null) throw BuiltValueNullFieldError('Todo', 'id');
-    if (note == null) throw BuiltValueNullFieldError('Todo', 'note');
-    if (task == null) throw BuiltValueNullFieldError('Todo', 'task');
+    if (complete == null)
+      throw new BuiltValueNullFieldError('Todo', 'complete');
+    if (id == null) throw new BuiltValueNullFieldError('Todo', 'id');
+    if (note == null) throw new BuiltValueNullFieldError('Todo', 'note');
+    if (task == null) throw new BuiltValueNullFieldError('Todo', 'task');
   }
 
   @override
@@ -103,7 +100,7 @@ class _$Todo extends Todo {
       (toBuilder()..update(updates)).build();
 
   @override
-  TodoBuilder toBuilder() => TodoBuilder()..replace(this);
+  TodoBuilder toBuilder() => new TodoBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -137,27 +134,19 @@ class TodoBuilder implements Builder<Todo, TodoBuilder> {
   _$Todo _$v;
 
   bool _complete;
-
   bool get complete => _$this._complete;
-
   set complete(bool complete) => _$this._complete = complete;
 
   String _id;
-
   String get id => _$this._id;
-
   set id(String id) => _$this._id = id;
 
   String _note;
-
   String get note => _$this._note;
-
   set note(String note) => _$this._note = note;
 
   String _task;
-
   String get task => _$this._task;
-
   set task(String task) => _$this._task = task;
 
   TodoBuilder();
@@ -175,7 +164,7 @@ class TodoBuilder implements Builder<Todo, TodoBuilder> {
 
   @override
   void replace(Todo other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$Todo;
   }
 
@@ -187,7 +176,7 @@ class TodoBuilder implements Builder<Todo, TodoBuilder> {
   @override
   _$Todo build() {
     final _$result =
-        _$v ?? _$Todo._(complete: complete, id: id, note: note, task: task);
+        _$v ?? new _$Todo._(complete: complete, id: id, note: note, task: task);
     replace(_$result);
     return _$result;
   }

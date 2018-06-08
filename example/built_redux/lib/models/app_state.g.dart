@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of app_state;
@@ -18,7 +14,7 @@ part of app_state;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializer<AppState> _$appStateSerializer = _$AppStateSerializer();
+Serializer<AppState> _$appStateSerializer = new _$AppStateSerializer();
 
 class _$AppStateSerializer implements StructuredSerializer<AppState> {
   @override
@@ -51,7 +47,7 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
   @override
   AppState deserialize(Serializers serializers, Iterable serialized,
       {FullType specifiedType: FullType.unspecified}) {
-    final result = AppStateBuilder();
+    final result = new AppStateBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -100,17 +96,17 @@ class _$AppState extends AppState {
   List<Todo> __filteredTodosSelector;
 
   factory _$AppState([void updates(AppStateBuilder b)]) =>
-      (AppStateBuilder()..update(updates)).build();
+      (new AppStateBuilder()..update(updates)).build();
 
   _$AppState._({this.isLoading, this.todos, this.activeTab, this.activeFilter})
       : super._() {
     if (isLoading == null)
-      throw BuiltValueNullFieldError('AppState', 'isLoading');
-    if (todos == null) throw BuiltValueNullFieldError('AppState', 'todos');
+      throw new BuiltValueNullFieldError('AppState', 'isLoading');
+    if (todos == null) throw new BuiltValueNullFieldError('AppState', 'todos');
     if (activeTab == null)
-      throw BuiltValueNullFieldError('AppState', 'activeTab');
+      throw new BuiltValueNullFieldError('AppState', 'activeTab');
     if (activeFilter == null)
-      throw BuiltValueNullFieldError('AppState', 'activeFilter');
+      throw new BuiltValueNullFieldError('AppState', 'activeFilter');
   }
 
   @override
@@ -133,7 +129,7 @@ class _$AppState extends AppState {
       (toBuilder()..update(updates)).build();
 
   @override
-  AppStateBuilder toBuilder() => AppStateBuilder()..replace(this);
+  AppStateBuilder toBuilder() => new AppStateBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -168,27 +164,19 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   _$AppState _$v;
 
   bool _isLoading;
-
   bool get isLoading => _$this._isLoading;
-
   set isLoading(bool isLoading) => _$this._isLoading = isLoading;
 
   ListBuilder<Todo> _todos;
-
-  ListBuilder<Todo> get todos => _$this._todos ??= ListBuilder<Todo>();
-
+  ListBuilder<Todo> get todos => _$this._todos ??= new ListBuilder<Todo>();
   set todos(ListBuilder<Todo> todos) => _$this._todos = todos;
 
   AppTab _activeTab;
-
   AppTab get activeTab => _$this._activeTab;
-
   set activeTab(AppTab activeTab) => _$this._activeTab = activeTab;
 
   VisibilityFilter _activeFilter;
-
   VisibilityFilter get activeFilter => _$this._activeFilter;
-
   set activeFilter(VisibilityFilter activeFilter) =>
       _$this._activeFilter = activeFilter;
 
@@ -207,7 +195,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
 
   @override
   void replace(AppState other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) throw new ArgumentError.notNull('other');
     _$v = other as _$AppState;
   }
 
@@ -221,7 +209,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     _$AppState _$result;
     try {
       _$result = _$v ??
-          _$AppState._(
+          new _$AppState._(
               isLoading: isLoading,
               todos: todos.build(),
               activeTab: activeTab,
@@ -232,7 +220,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
         _$failedField = 'todos';
         todos.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(
+        throw new BuiltValueNestedFieldError(
             'AppState', _$failedField, e.toString());
       }
       rethrow;

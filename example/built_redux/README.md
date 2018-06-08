@@ -7,7 +7,7 @@ An example Todo app created with [built_value](https://pub.dartlang.org/packages
   * Most of the Key Concepts from the [Redux Example](../example/redux) apply to this example as well, but the implementations are slightly different.
   * To enforce immutability, `built_redux` apps require you to use a `built_value` Value Object.
   * To increase discoverability, all actions are created using `built_redux` and attached to the `Store`.
-  * To use `built_value` and `built_redux`, you must add a `build` file / step to your project.
+  * To use `built_value` and `built_redux`, you must add a `build.yaml` file to your project.
   * To help with Type Safety, Reducers and Middleware can be created with `ReducerBuilder` and `MiddlewareBuilder` classes.
   
 ## Enforcing Immutability
@@ -20,11 +20,9 @@ The Value classes can not be directly modified, but instead must be updated by c
 
 One benefit of `built_redux` is that it attaches all possible actions to your store. This makes it very easy to see which actions are available for dispatch within your IDE using autocompletion.
 
-## Build Script
+## Build.yaml
 
-In order to use `built_redux` and `built_value`, you need to include a `tool/build.dart` file in your project. Whenever you update your Value Classes or Redux Actions you'll need to run the build script. You can also create a `tool/watch.dart` script that will rebuild every time you make updates, and this tends to be much faster overall.
-
-Examples of the `build` and `watch` scripts can be found within the `tool` folder of this example.
+In order to use `built_redux` and `built_value`, you need to create a `build.yaml` file in your project. Whenever you update your Value Classes or Redux Actions you'll need to run the build command: `flutter pub pub run build_runner build`. Instead of running the `build` command, you can run the `watch` command: `flutter pub pub run build_runner watch`. This will watch for changes and trigger a rebuild every time you make updates. This tends to be much faster overall.
 
 ## Type Safety in Reducers and Middleware
 
