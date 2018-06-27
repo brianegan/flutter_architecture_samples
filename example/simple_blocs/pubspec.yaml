@@ -1,5 +1,5 @@
-name: mvi_base
-description: The MI parts of an MVI app.
+name: simple_blocs
+description: The Business Logic Components for a Todo App - Simplfied
 
 environment:
   sdk: '>=2.0.0-dev.28.0 <3.0.0'
@@ -10,5 +10,5 @@ dependencies:
   rxdart: 0.18.0
 
 dev_dependencies:
-  test: ^0.12.33
+  test: ^0.12.0
   mockito: "^2.2.3"

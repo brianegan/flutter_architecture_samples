@@ -7,7 +7,7 @@ environment:
 dependencies:
   todos_repository:
     path: ../todos_repository
-  rxdart: 0.16.6
+  rxdart: 0.18.0
 
 dev_dependencies:
   test: ^0.12.0
