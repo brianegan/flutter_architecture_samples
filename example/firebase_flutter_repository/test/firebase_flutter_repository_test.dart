@@ -71,7 +71,7 @@ main() {
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.snapshots).thenReturn(snapshots);
+      when(collection.snapshots()).thenReturn(snapshots);
       when(snapshot.documents).thenReturn([document]);
       when(document.documentID).thenReturn(todo.id);
 
