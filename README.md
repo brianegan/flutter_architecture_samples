@@ -12,7 +12,7 @@ You can use the samples in this project as a learning reference, or as a startin
 
 ### Current Samples
 
-To run the samples, please use the `beta` channel and Dart 1 for now. We'll update to Dart 2 soon!
+Examples have been updated to Dart 2.
 
   * [Lifting State Up (Vanilla) Example](example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
   * [InheritedWidget Example](example/inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
