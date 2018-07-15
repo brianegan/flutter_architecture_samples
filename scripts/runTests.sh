@@ -12,6 +12,11 @@ runTests () {
   cd $1;
   if [ -f "pubspec.yaml" ] && [ -d "test" ]
   then
+    grep build_runner pubspec.yaml 2>&1 > /dev/null
+    if [ $? -eq 0 ]; then
+      # not necessary since already checked-in
+      flutter packages pub run build_runner build
+    fi
     flutter test --coverage
     escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
     if [ -d "coverage" ]
