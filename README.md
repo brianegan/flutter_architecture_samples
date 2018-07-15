@@ -1,6 +1,6 @@
 # flutter_architecture_samples
 
-[![Build Status](https://travis-ci.org/mmcc007/flutter_architecture_examples.svg?branch=master)](https://travis-ci.org/mmcc007/flutter_architecture_examples)
+[![Build Status](https://travis-ci.org/mmcc007/flutter_architecture_samples.svg?branch=master)](https://travis-ci.org/mmcc007/flutter_architecture_samples)
 [![Coverage Status](https://coveralls.io/repos/github/mmcc007/flutter_architecture_samples/badge.svg?branch=master)](https://coveralls.io/github/mmcc007/flutter_architecture_samples?branch=master)
 
 <img align="right" src="assets/todo-list.png" alt="List of Todos Screen">
