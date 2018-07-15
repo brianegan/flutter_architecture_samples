@@ -1,0 +1,29 @@
+os:
+  - linux
+sudo: false
+addons:
+  apt:
+    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+    sources:
+      - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+    packages:
+      - libstdc++6
+      - fonts-droid
+env:
+  - FLUTTER_VERSION=beta
+  - FLUTTER_VERSION=dev
+matrix:
+  allow_failures:
+    - env: FLUTTER_VERSION=dev
+before_script:
+  - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
+  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+  - flutter doctor
+  - gem install coveralls-lcov
+script:
+  - bash scripts/runTests.sh
+after_success:
+  - coveralls-lcov lcov.info
+cache:
+  directories:
+    - $HOME/.pub-cache
