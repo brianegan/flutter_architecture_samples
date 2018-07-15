@@ -12,7 +12,6 @@ runTests () {
   cd $1;
   if [ -f "pubspec.yaml" ] && [ -d "test" ]
   then
-    echo "testing in $1"
     flutter test --coverage
     escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
     if [ -d "coverage" ]
