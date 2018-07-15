@@ -28,5 +28,7 @@ runTests () {
   fi
 }
 export -f runTests
-rm lcov.info
+if [ -f "lcov.info" ]; then
+  rm lcov.info
+fi
 find . -maxdepth 2 -type d -exec bash -c 'runTests "$0"' {} \;
