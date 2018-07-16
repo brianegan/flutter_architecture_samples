@@ -8,6 +8,7 @@ runTests () {
     echo "running tests in $1"
     # check if build_runner needs to be run
     if grep build_runner pubspec.yaml > /dev/null; then
+      flutter packages get
       flutter packages pub run build_runner build --delete-conflicting-outputs
     fi
     # run tests with coverage
