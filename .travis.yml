@@ -21,7 +21,7 @@ before_script:
   - flutter doctor
   - gem install coveralls-lcov
 script:
-  - bash scripts/runTests.sh
+  - scripts/runTests.sh
 after_success:
   - coveralls-lcov lcov.info
 cache:

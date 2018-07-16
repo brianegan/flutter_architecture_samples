@@ -1,39 +1,29 @@
 #!/usr/bin/env bash
-runTests () {
-  unameOut="$(uname -s)"
-  case "${unameOut}" in
-      Linux*)     machine=Linux;;
-      Darwin*)    machine=Mac;;
-      CYGWIN*)    machine=Cygwin;;
-      MINGW*)     machine=MinGw;;
-      *)          machine="UNKNOWN:${unameOut}"
-  esac
 
+# runs tests for a package that has tests
+# does not run integration tests
+runTests () {
   cd $1;
-  if [ -f "pubspec.yaml" ] && [ -d "test" ]
-  then
-    grep build_runner pubspec.yaml 2>&1 > /dev/null
-    if [ $? -eq 0 ]; then
-      # not necessary since already checked-in
-      flutter packages pub run build_runner build
+  if [ -f "pubspec.yaml" ] && [ -d "test" ]; then
+    echo "running tests in $1"
+    # check if build_runner needs to be run
+    if grep build_runner pubspec.yaml > /dev/null; then
+      flutter packages pub run build_runner build --delete-conflicting-outputs
     fi
+    # run tests with coverage
     flutter test --coverage
-    escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
-    if [ -d "coverage" ]
-    then
-      if [ ${machine} == "Mac" ]
-      then
-        sed -i '' "s/lib/$escapedPath\/lib/g" coverage/lcov.info
-      else
-        # for linux use
-        sed -i "s/lib/$escapedPath\/lib/g" coverage/lcov.info
-        fi
-      cat coverage/lcov.info >> ../../lcov.info
+    if [ -d "coverage" ]; then
+      # combine line coverage info from package tests to a common file
+      escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
+      sed "s/^SF:lib/SF:$escapedPath\/lib/g" coverage/lcov.info >> $2/lcov.info
     fi
   fi
 }
 export -f runTests
+# if running locally
 if [ -f "lcov.info" ]; then
   rm lcov.info
 fi
-find . -maxdepth 2 -type d -exec bash -c 'runTests "$0"' {} \;
+# expects to find most packages at second directory level
+find . -maxdepth 2 -type d -exec bash -c 'runTests "$0" `pwd`' {} \;
+# find exits with 0
