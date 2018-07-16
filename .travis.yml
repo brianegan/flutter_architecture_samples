@@ -9,14 +9,8 @@ addons:
     packages:
       - libstdc++6
       - fonts-droid
-env:
-  - FLUTTER_VERSION=beta
-  - FLUTTER_VERSION=dev
-matrix:
-  allow_failures:
-    - env: FLUTTER_VERSION=dev
 before_script:
-  - git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
+  - git clone https://github.com/flutter/flutter.git -b beta
   - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
   - gem install coveralls-lcov
