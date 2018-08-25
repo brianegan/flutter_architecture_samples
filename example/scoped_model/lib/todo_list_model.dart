@@ -33,9 +33,9 @@ class TodoListModel extends Model {
   TodoListModel({@required this.repository, VisibilityFilter activeFilter})
       : this._activeFilter = activeFilter ?? VisibilityFilter.all;
 
-  /// Wraps [ModelFinder.of] for this [Model]. See [ModelFinder.of] for more
+  /// Wraps [ScopedModel.of] for this [Model]. See [ScopedModel.of] for more
   static TodoListModel of(BuildContext context) =>
-      ModelFinder<TodoListModel>().of(context);
+      ScopedModel.of<TodoListModel>(context);
 
   @override
   void addListener(VoidCallback listener) {
