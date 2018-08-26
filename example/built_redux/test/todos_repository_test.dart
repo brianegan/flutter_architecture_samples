@@ -72,8 +72,9 @@ main() {
       );
       final todos = [Todo("Task")];
 
-      when(fileStorage.loadTodos()).thenAnswer((_) => Future.error("Oh no"));
-      when(webService.fetchTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos())
+          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
+      when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await todosService.loadTodos(), todos);
       verify(webService.fetchTodos());
@@ -88,8 +89,8 @@ main() {
       );
       final todos = [Todo("Task")];
 
-      when(fileStorage.saveTodos(todos)).thenReturn(Future.value("Cool"));
-      when(webService.postTodos(todos)).thenReturn(Future.value("Beans."));
+      when(fileStorage.saveTodos(todos)).thenAnswer((_) async => null);
+      when(webService.postTodos(todos)).thenAnswer((_) async => true);
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

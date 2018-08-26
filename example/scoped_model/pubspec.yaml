@@ -2,7 +2,7 @@ name: scoped_model_sample
 description: A new Flutter project.
 
 dependencies:
-  scoped_model: ">=0.1.1 <0.2.0"
+  scoped_model: ^0.3.0
   todos_repository_flutter:
     path: ../todos_repository_flutter
   flutter_architecture_samples:
