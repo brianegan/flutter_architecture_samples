@@ -29,19 +29,19 @@ runTests () {
       # pure dart
       echo "run dart tests"
       pub get
-          testFile="test/all_tests.dart"
-          echo $testFile
-          dart --preview-dart-2 --pause-isolates-on-exit --enable-vm-service=8111 $testFile &
-          sleep 5
-          pub global run coverage:collect_coverage --uri=http://localhost:8111 -o coverage.json --resume-isolates
-          pub global run coverage:format_coverage --packages=.packages -i coverage.json --report-on lib --lcov > lcov.info
-          if [ -f "lcov.info" ]; then
-            # combine line coverage info from package tests to a common file
-            escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
-            sed "s/^SF:.*lib/SF:$escapedPath\/lib/g" lcov.info >> $2/lcov.info
-            rm lcov.info
-          fi
-          rm -f coverage.json
+      testFile="test/all_tests.dart"
+      echo $testFile
+      dart --preview-dart-2 --pause-isolates-on-exit --enable-vm-service=8111 $testFile &
+      sleep 5
+      pub global run coverage:collect_coverage --uri=http://localhost:8111 -o coverage.json --resume-isolates
+      pub global run coverage:format_coverage --packages=.packages -i coverage.json --report-on lib --lcov > lcov.info
+      if [ -f "lcov.info" ]; then
+        # combine line coverage info from package tests to a common file
+        escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
+        sed "s/^SF:.*lib/SF:$escapedPath\/lib/g" lcov.info >> $2/lcov.info
+        rm lcov.info
+      fi
+      rm -f coverage.json
     fi
   fi
 }
