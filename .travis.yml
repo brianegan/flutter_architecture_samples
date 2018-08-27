@@ -13,6 +13,7 @@ before_script:
   - git clone https://github.com/flutter/flutter.git -b beta
   - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
+  - pub global activate coverage
   - gem install coveralls-lcov
 script:
   - scripts/runTests.sh
