@@ -8,14 +8,18 @@ runTests () {
     echo "running tests in $1"
     # check if build_runner needs to be run
     if grep build_runner pubspec.yaml > /dev/null; then
-      pub get
-      pub run build_runner build --delete-conflicting-outputs
+      flutter packages get
+      flutter packages pub run build_runner build --delete-conflicting-outputs
     fi
     # run tests with coverage
     if grep flutter pubspec.yaml > /dev/null; then
       echo "run flutter tests"
       rm -rf "coverage"
-      flutter test --coverage
+      if [ -f "test/all_tests.dart" ]; then
+        flutter test --coverage test/all_tests.dart
+      else
+        flutter test --coverage
+      fi
       if [ -d "coverage" ]; then
         # combine line coverage info from package tests to a common file
         escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
