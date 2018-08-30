@@ -33,7 +33,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(fileStorage.loadTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(todosService.loadTodos(), completion(todos));
       verifyNever(webService.fetchTodos());
@@ -53,7 +53,7 @@ main() {
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
       when(fileStorage.loadTodos()).thenReturn("");
-      when(webService.fetchTodos()).thenReturn(Future.value(todos));
+      when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
       // webService.fetchTodos method was in fact called!

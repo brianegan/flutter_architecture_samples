@@ -35,7 +35,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(service.loadTodos()).thenReturn(Future.value(todos));
+      when(service.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       store.actions.fetchTodosAction();
 
@@ -58,7 +58,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(service.loadTodos()).thenReturn(Future.value(todos));
+      when(service.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       store.actions.fetchTodosAction();
 
@@ -76,7 +76,7 @@ main() {
       );
       final todos = [Todo("Task")];
 
-      when(service.saveTodos(todos)).thenReturn(Future.value(todos));
+      when(service.saveTodos(todos)).thenAnswer((_) => Future.value(todos));
 
       // Dispatch all actions that update our Todos. We expect each to
       // trigger a call to our Storage Service.

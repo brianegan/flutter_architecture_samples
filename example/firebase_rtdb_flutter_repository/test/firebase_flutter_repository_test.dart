@@ -19,7 +19,7 @@ main() {
       final repository = FirebaseUserRepository(auth);
 
       when(auth.signInAnonymously())
-          .thenReturn(new Future.value(MockFirebaseUser()));
+          .thenAnswer((_) => Future.value(MockFirebaseUser()));
 
       final entity = await repository.login();
 
@@ -80,7 +80,7 @@ main() {
       when(firebaseDatabase.reference()).thenReturn(reference);
       when(reference.child(FirebaseReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.onValue).thenReturn(eventIterator);
+      when(collection.onValue).thenAnswer((_) => eventIterator);
       when(event.snapshot).thenReturn(snapshot);
       when(snapshot.key).thenReturn(todo.id); // not used
       when(snapshot.value).thenReturn(documentMap);
@@ -103,8 +103,8 @@ main() {
           .thenReturn(collection);
       when(collection.child(todoA)).thenReturn(documentA);
       when(collection.child(todoB)).thenReturn(documentB);
-      when(documentA.set(null)).thenReturn(Future.value());
-      when(documentB.set(null)).thenReturn(Future.value());
+      when(documentA.set(null)).thenAnswer((_) => Future.value());
+      when(documentB.set(null)).thenAnswer((_) => Future.value());
 
       await repository.deleteTodo([todoA, todoB]);
 

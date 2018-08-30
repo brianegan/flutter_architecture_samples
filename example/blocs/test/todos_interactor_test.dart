@@ -95,7 +95,8 @@ void main() {
       final todo = Todo("AddMe");
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
-      when(repository.addNewTodo(todo.toEntity())).thenReturn(Future.value());
+      when(repository.addNewTodo(todo.toEntity()))
+          .thenAnswer((_) => Future.value());
 
       interactor.addNewTodo(todo);
 
@@ -107,7 +108,7 @@ void main() {
       final interactor = TodosInteractor(repository);
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
-      when(repository.deleteTodo(["1"])).thenReturn(Future.value());
+      when(repository.deleteTodo(["1"])).thenAnswer((_) => Future.value());
 
       interactor.deleteTodo("1");
 
@@ -123,7 +124,7 @@ void main() {
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
-      when(repository.deleteTodo(["2"])).thenReturn(Future.sync(() {}));
+      when(repository.deleteTodo(["2"])).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.clearCompleted();
 
@@ -142,8 +143,9 @@ void main() {
         sync: true,
       );
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(Future.sync(() {}));
+      when(repository.todos()).thenAnswer((_) => source.stream);
+      when(repository.updateTodo(e1Update))
+          .thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -163,9 +165,11 @@ void main() {
         sync: true,
       );
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(Future.sync(() {}));
-      when(repository.updateTodo(e2Update)).thenReturn(Future.sync(() {}));
+      when(repository.todos()).thenAnswer((_) => source.stream);
+      when(repository.updateTodo(e1Update))
+          .thenAnswer((_) => Future.sync(() {}));
+      when(repository.updateTodo(e2Update))
+          .thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -186,9 +190,11 @@ void main() {
         sync: true,
       );
 
-      when(repository.todos()).thenReturn(source.stream);
-      when(repository.updateTodo(e1Update)).thenReturn(Future.sync(() {}));
-      when(repository.updateTodo(e2Update)).thenReturn(Future.sync(() {}));
+      when(repository.todos()).thenAnswer((_) => source.stream);
+      when(repository.updateTodo(e1Update))
+          .thenAnswer((_) => Future.sync(() {}));
+      when(repository.updateTodo(e2Update))
+          .thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 

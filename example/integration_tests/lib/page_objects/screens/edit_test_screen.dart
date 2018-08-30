@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -19,9 +19,7 @@ class EditTestScreen extends TestScreen {
   Future<bool> isReady({Duration timeout}) =>
       widgetExists(driver, _editScreenFinder);
 
-  Future<Null> tapBackButton() async {
+  Future<void> tapBackButton() async {
     await driver.tap(_backButtonFinder);
-
-    return this;
   }
 }

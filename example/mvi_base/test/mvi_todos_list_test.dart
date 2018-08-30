@@ -52,10 +52,11 @@ void main() {
         final view = TodosListView();
         final todos = [Todo('Hi')];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([false]));
+            .thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -80,10 +81,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([false]));
+            .thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -106,10 +108,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([false]));
+            .thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -132,10 +135,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([false]));
+            .thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -157,10 +161,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([true]));
+            .thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -182,10 +187,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([true]));
+            .thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -206,10 +212,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([true]));
+            .thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -230,10 +237,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([true]));
+            .thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -254,10 +262,11 @@ void main() {
           Todo("Friend", complete: true),
         ];
 
-        when(interactor.todos).thenReturn(Stream.fromIterable([todos]));
-        when(interactor.allComplete).thenReturn(Stream.fromIterable([false]));
+        when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
+        when(interactor.allComplete)
+            .thenAnswer((_) => Stream.fromIterable([false]));
         when(interactor.hasCompletedTodos)
-            .thenReturn(Stream.fromIterable([true]));
+            .thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,

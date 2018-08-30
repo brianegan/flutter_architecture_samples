@@ -30,7 +30,8 @@ main() {
         seedValue: todos,
       );
 
-      when(repository.loadTodos()).thenReturn(Future.value(<TodoEntity>[]));
+      when(repository.loadTodos())
+          .thenAnswer((_) => Future.value(<TodoEntity>[]));
 
       expect(reactiveRepository.todos(), emits(todos));
     });
@@ -43,7 +44,7 @@ main() {
         seedValue: todos,
       );
 
-      when(repository.loadTodos()).thenReturn(Future.value(todos));
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(reactiveRepository.todos(), emits(todos));
       expect(reactiveRepository.todos(), emits(todos));
@@ -59,8 +60,9 @@ main() {
         seedValue: [],
       );
 
-      when(repository.loadTodos()).thenReturn(new Future.value(<TodoEntity>[]));
-      when(repository.saveTodos(todos)).thenReturn(Future.value());
+      when(repository.loadTodos())
+          .thenAnswer((_) => new Future.value(<TodoEntity>[]));
+      when(repository.saveTodos(todos)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.addNewTodo(todos.first);
 
@@ -78,8 +80,8 @@ main() {
       );
       final update = createTodos("task");
 
-      when(repository.loadTodos()).thenReturn(Future.value(todos));
-      when(repository.saveTodos(typed(any))).thenReturn(Future.value());
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
+      when(repository.saveTodos(typed(any))).thenAnswer((_) => Future.value());
 
       await reactiveRepository.updateTodo(update.first);
 
@@ -99,8 +101,8 @@ main() {
       );
       final future = Future.value(todos);
 
-      when(repository.loadTodos()).thenReturn(future);
-      when(repository.saveTodos(typed(any))).thenReturn(Future.value());
+      when(repository.loadTodos()).thenAnswer((_) => future);
+      when(repository.saveTodos(typed(any))).thenAnswer((_) => Future.value());
 
       await reactiveRepository.deleteTodo([todos.first.id, todos.last.id]);
 

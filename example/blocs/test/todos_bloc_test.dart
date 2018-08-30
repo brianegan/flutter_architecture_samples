@@ -112,7 +112,7 @@ void main() {
       when(interactor.todos).thenAnswer((_) => Stream.fromIterable([
             [todo]
           ]));
-      when(interactor.addNewTodo(todo)).thenReturn(Future.value());
+      when(interactor.addNewTodo(todo)).thenAnswer((_) => Future.value());
 
       final bloc = TodosListBloc(interactor);
       bloc.addTodo.add(todo);
@@ -125,7 +125,7 @@ void main() {
 
       when(interactor.todos)
           .thenAnswer((_) => Stream<List<Todo>>.fromIterable([[]]));
-      when(interactor.deleteTodo('1')).thenReturn(Future.value());
+      when(interactor.deleteTodo('1')).thenAnswer((_) => Future.value());
 
       final bloc = TodosListBloc(interactor);
       bloc.deleteTodo.add('1');

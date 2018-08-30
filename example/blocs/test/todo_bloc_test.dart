@@ -14,7 +14,7 @@ void main() {
       final bloc = TodoBloc(interactor);
       final todo = Todo('Hallo');
 
-      when(interactor.todo('2')).thenReturn(Stream.fromIterable([todo]));
+      when(interactor.todo('2')).thenAnswer((_) => Stream.fromIterable([todo]));
 
       expect(bloc.todo('2'), emits(todo));
     });
@@ -22,8 +22,8 @@ void main() {
     test('should send deletions to the repo', () async {
       final interactor = MockTodosInteractor();
 
-      when(interactor.todos).thenReturn(Stream.fromIterable([[]]));
-      when(interactor.deleteTodo('1')).thenReturn(Future.value());
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([[]]));
+      when(interactor.deleteTodo('1')).thenAnswer((_) => Future.value());
 
       final bloc = TodoBloc(interactor);
       bloc.deleteTodo.add('1');
@@ -35,8 +35,8 @@ void main() {
       final interactor = MockTodosInteractor();
       final update = Todo('Waaaat');
 
-      when(interactor.todos).thenReturn(Stream.empty());
-      when(interactor.updateTodo(update)).thenReturn(Future.value());
+      when(interactor.todos).thenAnswer((_) => Stream.empty());
+      when(interactor.updateTodo(update)).thenAnswer((_) => Future.value());
 
       final bloc = TodoBloc(interactor);
       bloc.updateTodo.add(update);

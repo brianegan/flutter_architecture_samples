@@ -26,7 +26,7 @@ main() {
         TodoEntity("Moin", "1", "Note", false),
       ];
 
-      when(repository.loadTodos()).thenReturn(Future.value(todos));
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       store.dispatch(LoadTodosAction());
 

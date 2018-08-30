@@ -20,7 +20,7 @@ void main() {
       ];
       final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
-      when(interactor.todos).thenReturn(source.stream);
+      when(interactor.todos).thenAnswer((_) => source.stream);
 
       expect(bloc.numActive, emits(1));
     });
@@ -34,7 +34,7 @@ void main() {
       ];
       final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
-      when(interactor.todos).thenReturn(source.stream);
+      when(interactor.todos).thenAnswer((_) => source.stream);
 
       expect(bloc.numComplete, emits(2));
     });

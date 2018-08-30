@@ -14,7 +14,7 @@ void main() {
       final bloc = TodoBloc(interactor);
       final todo = Todo('Hallo');
 
-      when(interactor.todo('2')).thenReturn(Stream.fromIterable([todo]));
+      when(interactor.todo('2')).thenAnswer((_) => Stream.fromIterable([todo]));
 
       expect(bloc.todo('2'), emits(todo));
     });
@@ -23,8 +23,8 @@ void main() {
       final interactor = MockTodosInteractor();
       final bloc = TodoBloc(interactor);
 
-      when(interactor.todos).thenReturn(Stream.fromIterable([[]]));
-      when(interactor.deleteTodo('1')).thenReturn(Future.value());
+      when(interactor.todos).thenAnswer((_) => Stream.fromIterable([[]]));
+      when(interactor.deleteTodo('1')).thenAnswer((_) => Future.value());
 
       bloc.deleteTodo('1');
 
@@ -36,8 +36,8 @@ void main() {
       final update = Todo('Waaaat');
       final bloc = TodoBloc(interactor);
 
-      when(interactor.todos).thenReturn(Stream.empty());
-      when(interactor.updateTodo(update)).thenReturn(Future.value());
+      when(interactor.todos).thenAnswer((_) => Stream.empty());
+      when(interactor.updateTodo(update)).thenAnswer((_) => Future.value());
 
       bloc.updateTodo(update);
 

@@ -18,7 +18,8 @@ void main() {
         final interactor = MockTodosInteractor();
         final todo = Todo("Hallo");
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -34,7 +35,8 @@ void main() {
         final todo = Todo("Hallo");
         final view = DetailView();
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -52,7 +54,8 @@ void main() {
         final todo = Todo("Hallo");
         final view = DetailView();
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,

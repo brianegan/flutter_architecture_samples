@@ -36,7 +36,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(fileStorage.loadTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(repository.loadTodos(), completion(todos));
       verifyNever(webClient.fetchTodos());
@@ -56,7 +56,7 @@ main() {
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web client to be called instead.
       when(fileStorage.loadTodos()).thenThrow("Uh ohhhh");
-      when(webClient.fetchTodos()).thenReturn(Future.value(todos));
+      when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
       // webClient.fetchTodos method was in fact called!
@@ -76,7 +76,7 @@ main() {
       final todos = createTodos();
 
       when(fileStorage.loadTodos()).thenThrow(Exception("Oh no."));
-      when(webClient.fetchTodos()).thenReturn(Future.value(todos));
+      when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await repository.loadTodos(), todos);
       verify(webClient.fetchTodos());
@@ -92,8 +92,8 @@ main() {
       final todos = createTodos();
 
       when(fileStorage.saveTodos(todos))
-          .thenReturn(Future.value(File('falsch')));
-      when(webClient.postTodos(todos)).thenReturn(Future.value(true));
+          .thenAnswer((_) => Future.value(File('falsch')));
+      when(webClient.postTodos(todos)).thenAnswer((_) => Future.value(true));
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

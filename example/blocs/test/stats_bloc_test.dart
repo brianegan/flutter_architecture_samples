@@ -19,7 +19,7 @@ void main() {
       ];
       final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
-      when(interactor.todos).thenReturn(source.stream);
+      when(interactor.todos).thenAnswer((_) => source.stream);
 
       final bloc = StatsBloc(interactor);
 
@@ -34,7 +34,7 @@ void main() {
       ];
       final source = BehaviorSubject<List<Todo>>(seedValue: todos);
 
-      when(interactor.todos).thenReturn(source.stream);
+      when(interactor.todos).thenAnswer((_) => source.stream);
 
       final bloc = StatsBloc(interactor);
 

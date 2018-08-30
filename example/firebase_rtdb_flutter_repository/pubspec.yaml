@@ -1,6 +1,9 @@
 name: firebase_flutter_repository
 description: A reactive version of the todos repository for Flutter using Firebase Realtime Database
 
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
@@ -10,6 +13,6 @@ dependencies:
   firebase_database: ^0.4.6
 
 dev_dependencies:
-  mockito: ">=2.2.0 <3.0.0"
+  mockito: ^3.0.0
   flutter_test:
     sdk: flutter

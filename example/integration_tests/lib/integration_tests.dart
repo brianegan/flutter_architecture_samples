@@ -43,7 +43,7 @@ main() {
       expect(await detailsScreen.task, isNotEmpty);
       expect(await detailsScreen.note, isNotEmpty);
 
-      final editScreen = await detailsScreen.tapEditTodoButton();
+      final editScreen = detailsScreen.tapEditTodoButton();
 
       expect(await editScreen.isReady(), isTrue);
 

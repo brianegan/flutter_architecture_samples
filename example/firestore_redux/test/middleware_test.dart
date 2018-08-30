@@ -34,19 +34,19 @@ main() {
           ..add(captor),
       );
 
-      when(userRepository.login()).thenReturn(SynchronousFuture(null));
+      when(userRepository.login()).thenAnswer((_) => SynchronousFuture(null));
       when(todosRepository.todos())
-          .thenReturn(StreamController<List<TodoEntity>>().stream);
+          .thenAnswer((_) => StreamController<List<TodoEntity>>().stream);
 
       store.dispatch(InitAppAction());
 
       verify(userRepository.login());
       verify(todosRepository.todos());
       verify(captor.call(
-        typed(any),
+        any,
         isInstanceOf<ConnectToDataSourceAction>(),
-        typed(any),
-      ));
+        any,
+      ) as dynamic);
     });
 
     test('should convert entities to todos', () async {
@@ -63,16 +63,16 @@ main() {
           ..add(captor),
       );
 
-      when(todosRepository.todos()).thenReturn(controller.stream);
+      when(todosRepository.todos()).thenAnswer((_) => controller.stream);
 
       store.dispatch(ConnectToDataSourceAction());
       controller.add([todo.toEntity()]);
 
       verify(captor.call(
-        typed(any),
+        any,
         isInstanceOf<LoadTodosAction>(),
-        typed(any),
-      ));
+        any,
+      ) as dynamic);
     });
 
     test('should send todos to the repository', () {
