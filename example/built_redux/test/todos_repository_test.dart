@@ -52,7 +52,8 @@ main() {
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
-      when(fileStorage.loadTodos()).thenReturn("");
+      when(fileStorage.loadTodos())
+          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
       when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the

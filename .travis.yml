@@ -19,6 +19,7 @@ script:
   - scripts/runTests.sh
 after_success:
   - coveralls-lcov lcov.info
+  - bash <(curl -s https://codecov.io/bash) -f lcov.info
 cache:
   directories:
     - $HOME/.pub-cache

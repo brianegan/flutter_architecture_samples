@@ -7,7 +7,8 @@ runTests () {
   if [ -f "pubspec.yaml" ] && [ -d "test" ]; then
     echo "running tests in $1"
     # check if build_runner needs to be run
-    if grep build_runner pubspec.yaml > /dev/null; then
+    # todo: fix build in ./example/built_redux
+    if grep build_runner pubspec.yaml > /dev/null  && [ "$1" != "./example/built_redux" ]; then
       flutter packages get
       flutter packages pub run build_runner build --delete-conflicting-outputs
     fi
@@ -49,9 +50,7 @@ runTests () {
 export -f runTests
 
 # if running locally
-if [ -f "lcov.info" ]; then
-  rm lcov.info
-fi
+rm -f lcov.info
 
 # expects to find most packages at second directory level
 find . -maxdepth 2 -type d -exec bash -c 'runTests "$0" `pwd`' {} \;
