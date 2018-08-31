@@ -31,7 +31,6 @@ runTests () {
       echo "run dart tests"
       pub get
       testFile="test/all_tests.dart"
-      echo $testFile
       dart --preview-dart-2 --pause-isolates-on-exit --enable-vm-service=8111 $testFile &
       sleep 5
       pub global run coverage:collect_coverage --uri=http://localhost:8111 -o coverage.json --resume-isolates
