@@ -17,7 +17,7 @@ before_script:
 script:
   - scripts/runTests.sh
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -f lcov.info
 cache:
   directories:
     - $HOME/.pub-cache
