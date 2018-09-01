@@ -13,6 +13,7 @@ doc/api/
 
 # coverage
 coverage/
+lcov.info
 
 # tests
 .flutter-plugins

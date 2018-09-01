@@ -14,12 +14,10 @@ before_script:
   - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
   - flutter doctor
   - pub global activate coverage
-  - gem install coveralls-lcov
 script:
   - scripts/runTests.sh
 after_success:
-  - coveralls-lcov lcov.info
-  - bash <(curl -s https://codecov.io/bash) -f lcov.info
+  - bash <(curl -s https://codecov.io/bash)
 cache:
   directories:
     - $HOME/.pub-cache
