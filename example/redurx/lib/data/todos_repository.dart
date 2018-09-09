@@ -21,7 +21,7 @@ class TodosRepository {
 
   const TodosRepository({
     this.fileStorage = const FileStorage(
-      '__built_redux_sample_app__',
+      '__redurx_sample_app__',
       getApplicationDocumentsDirectory,
     ),
     this.webClient = const WebClient(),
