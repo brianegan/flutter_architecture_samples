@@ -12,6 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
+import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 class MockReactiveTodosRepository extends Mock
@@ -44,7 +45,7 @@ main() {
       verify(todosRepository.todos());
       verify(captor.call(
         any,
-        isInstanceOf<ConnectToDataSourceAction>(),
+        TypeMatcher<ConnectToDataSourceAction>(),
         any,
       ) as dynamic);
     });
@@ -70,7 +71,7 @@ main() {
 
       verify(captor.call(
         any,
-        isInstanceOf<LoadTodosAction>(),
+        TypeMatcher<LoadTodosAction>(),
         any,
       ) as dynamic);
     });
