@@ -1,8 +1,8 @@
-import 'package:test/test.dart';
-
+import 'package:mvu/common/todo_model.dart';
 import 'package:mvu/stats/stats.dart';
 import 'package:mvu/stats/types.dart';
-import 'package:mvu/common/todo_model.dart';
+import 'package:test/test.dart';
+
 import 'cmd_runner.dart';
 import 'data.dart';
 
@@ -27,7 +27,7 @@ void main() {
       expect(model.loading, isFalse);
       expect(initEffects, isNotEmpty);
       expect(_cmdRunner.producedMessages,
-          orderedEquals([isInstanceOf<LoadStats>()]));
+          orderedEquals([TypeMatcher<LoadStats>()]));
     });
 
     test('LoadStats: model is in loading state', () {
@@ -41,9 +41,9 @@ void main() {
       expect(updatedModel.loading, isTrue);
       expect(effects, isNotEmpty);
       expect(_cmdRunner.producedMessages,
-          orderedEquals([isInstanceOf<OnStatsLoaded>()]));
+          orderedEquals([TypeMatcher<OnStatsLoaded>()]));
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<LoadTodosEffect>()]));
+          orderedEquals([TypeMatcher<LoadTodosEffect>()]));
     });
 
     test('OnStatsLoaded: stats is displayed', () {
@@ -71,7 +71,7 @@ void main() {
       expect(updatedModel.completedCount, items.length);
       expect(upd.effects, isNotEmpty);
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<SaveAllTodosEffect>()]));
+          orderedEquals([TypeMatcher<SaveAllTodosEffect>()]));
     });
 
     test('ToggleAllMessage(true->false): stats is updated', () {
@@ -115,7 +115,7 @@ void main() {
           everyElement(predicate<TodoModel>((x) => !x.complete)));
       expect(upd.effects, isNotEmpty);
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<SaveAllTodosEffect>()]));
+          orderedEquals([TypeMatcher<SaveAllTodosEffect>()]));
     });
   });
 }

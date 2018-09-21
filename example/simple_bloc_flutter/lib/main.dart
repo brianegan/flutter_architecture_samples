@@ -17,9 +17,6 @@ void main({
   @required TodosInteractor todosInteractor,
   @required UserRepository userRepository,
 }) {
-  // ignore: deprecated_member_use
-  MaterialPageRoute.debugEnableFadingRoutes = true;
-
   runApp(Injector(
     todosInteractor: todosInteractor,
     userRepository: userRepository,

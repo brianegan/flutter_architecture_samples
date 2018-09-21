@@ -50,7 +50,7 @@ main() {
       store.dispatch(UpdateTodoAction("", Todo("")));
       store.dispatch(DeleteTodoAction(""));
 
-      verify(repository.saveTodos(typed(any))).called(7);
+      verify(repository.saveTodos(any)).called(7);
     });
   });
 }

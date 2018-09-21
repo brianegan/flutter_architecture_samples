@@ -15,9 +15,6 @@ import 'package:redux_sample/presentation/home_screen.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 
 void main() {
-  // ignore: deprecated_member_use
-  MaterialPageRoute.debugEnableFadingRoutes = true;
-
   runApp(ReduxApp());
 }
 
