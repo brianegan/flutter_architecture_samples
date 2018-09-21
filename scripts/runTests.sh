@@ -15,7 +15,6 @@ runTests () {
     # run tests with coverage
     if grep flutter pubspec.yaml > /dev/null; then
       echo "run flutter tests"
-      rm -rf "coverage"
       if [ -f "test/all_tests.dart" ]; then
         flutter test --coverage test/all_tests.dart
       else
@@ -25,16 +24,16 @@ runTests () {
         # combine line coverage info from package tests to a common file
         escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
         sed "s/^SF:lib/SF:$escapedPath\/lib/g" coverage/lcov.info >> $2/lcov.info
+        rm -rf "coverage"
       fi
     else
       # pure dart
       echo "run dart tests"
       pub get
       testFile="test/all_tests.dart"
-      dart --pause-isolates-on-exit --enable-vm-service=8111 $testFile &
-      sleep 5
-      pub global run coverage:collect_coverage --uri=http://localhost:8111 -o coverage.json --resume-isolates
-      pub global run coverage:format_coverage --packages=.packages -i coverage.json --report-on lib --lcov > lcov.info
+      pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
+      dart --pause-isolates-on-exit --enable-vm-service=8111 $testFile
+      pub global run coverage:format_coverage --packages=.packages -i coverage.json --report-on lib --lcov --out lcov.info
       if [ -f "lcov.info" ]; then
         # combine line coverage info from package tests to a common file
         escapedPath="$(echo ${1:2} | sed 's/\//\\\//g')"
