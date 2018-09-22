@@ -20,3 +20,7 @@ You can use Middlewares to inject dependencies on Actions. A good call is to use
 It's a little layer above the [StreamBuilder](https://docs.flutter.io/flutter/widgets/StreamBuilder-class.html) using [RxDart](https://github.com/ReactiveX/rxdart), there's not much magic going on without your knowledge in Flutter vanilla. This is a biased comment since I am the author of this implementation, but I believe it is the most pragmatic way among the other solutions without any loss of performance or maintainability.
 
 With a few lines of code you already have reactive components, all your State anytime you have a `BuildContext` and full control over when they should be update avoiding any unnecessary rebuild.
+
+## Testing
+
+There is no special treatment to test your Widgets, they are composed inside the `Connect` like it would be on any `WidgetBuilder`, but with it's sub-state instead of a `context`, this sub-state can be freely mocked as simple plain-old Dart code.
