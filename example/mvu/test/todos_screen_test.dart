@@ -1,10 +1,9 @@
-import 'package:test/test.dart';
 import 'package:built_collection/built_collection.dart';
-
-import 'package:mvu/home/types.dart' show VisibilityFilter;
 import 'package:mvu/common/todo_model.dart';
+import 'package:mvu/home/types.dart' show VisibilityFilter;
 import 'package:mvu/todos/todos.dart';
 import 'package:mvu/todos/types.dart';
+import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 import 'cmd_runner.dart';
@@ -32,7 +31,7 @@ void main() {
         expect(model.items, isEmpty);
         expect(initResult.effects, isNotEmpty);
         expect(_cmdRunner.producedMessages,
-            orderedEquals([isInstanceOf<LoadTodos>()]));
+            orderedEquals([TypeMatcher<LoadTodos>()]));
 
         _cmdRunner.invalidate();
       }
@@ -47,9 +46,9 @@ void main() {
       expect(updatedModel.isLoading, isTrue);
       expect(upd.effects, isNotEmpty);
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<LoadTodosEffect>()]));
+          orderedEquals([TypeMatcher<LoadTodosEffect>()]));
       expect(_cmdRunner.producedMessages,
-          orderedEquals([isInstanceOf<OnTodosLoaded>()]));
+          orderedEquals([TypeMatcher<OnTodosLoaded>()]));
     });
 
     test('OnTodosLoaded: todos are loaded', () {
@@ -90,7 +89,7 @@ void main() {
         expect(updatedTodo, isNotNull);
         expect(updatedTodo.complete, equals(!item.complete));
         expect(upd.effects, isNotEmpty);
-        repoEffectsMatchers.add(isInstanceOf<SaveAllTodosEffect>());
+        repoEffectsMatchers.add(TypeMatcher<SaveAllTodosEffect>());
       }
       expect(_cmdRepo.createdEffects, orderedEquals(repoEffectsMatchers));
     });
@@ -106,7 +105,7 @@ void main() {
         _cmdRunner.run(upd.effects);
 
         expect(updatedModel.items, isNot(contains(item)));
-        repoEffectsMatchers.add(isInstanceOf<RemoveTodoEffect>());
+        repoEffectsMatchers.add(TypeMatcher<RemoveTodoEffect>());
       }
       expect(_cmdRepo.createdEffects, orderedEquals(repoEffectsMatchers));
     });
@@ -148,7 +147,7 @@ void main() {
       expect(upd.model.items,
           everyElement(predicate<TodoModel>((x) => x.complete)));
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<SaveAllTodosEffect>()]));
+          orderedEquals([TypeMatcher<SaveAllTodosEffect>()]));
     });
 
     test('ToggleAllMessage: mark all as incomplete', () {
@@ -173,7 +172,7 @@ void main() {
       expect(upd.model.items,
           everyElement(predicate<TodoModel>((x) => !x.complete)));
       expect(_cmdRepo.createdEffects,
-          orderedEquals([isInstanceOf<SaveAllTodosEffect>()]));
+          orderedEquals([TypeMatcher<SaveAllTodosEffect>()]));
     });
 
     test('ShowDetailsMessage: model is not changed', () {
