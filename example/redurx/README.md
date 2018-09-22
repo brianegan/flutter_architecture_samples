@@ -9,6 +9,7 @@ An example Todo app created with [built_value](https://pub.dartlang.org/packages
   * Unnecessary rebuilds are intolerable, that is why `where` is explicitly set by who knows about the State: you!
   * **Actions** holds it's own **reducers** and can be Asynchronous through **AsyncActions** 
   * **Middlewares** can act *before* and *after* Actions, note that for `AsyncActions` it calls `beforeAction` twice, one for before async execution and other for completed async execution, but before State rebuilding ([#3](https://github.com/leocavalcante/Flutter-ReduRx/issues/3))
+  * **Connect** is composable as any other Widget, not some class you should extend.
   
 ## Dependency injection
   
