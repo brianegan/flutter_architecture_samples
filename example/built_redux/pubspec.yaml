@@ -7,7 +7,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_built_redux: ^0.5.0
+  flutter_built_redux: ^0.6.0
   built_redux: 7.4.5
   built_value: ^5.5.5
   built_collection: ^3.1.3
