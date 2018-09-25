@@ -25,6 +25,7 @@ Examples have been updated to Dart 2.
   * [Firestore Redux Example](example/firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and 
   adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
   * [MVU Example](example/mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
+  * [ReduRx Example](example/redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
 
 ### Supporting Code
 
@@ -65,5 +66,6 @@ All of these ideas and even some of the language are directly influenced by two 
   * [Frank Harper](https://github.com/franklinharper)
   * [Pavel Shilyagov](https://github.com/p69)
   * [Maurice McCabe](https://github.com/mmcc007)
+  * [Leo Cavalcante](https://github.com/leocavalcante)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)

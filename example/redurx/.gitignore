@@ -1,0 +1,7 @@
+.dart_tool/
+.DS_Store
+.flutter-plugins
+.packages
+.pub/
+.vscode/
+build/
