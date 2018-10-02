@@ -14,12 +14,12 @@ matrix:
 
   # Building APK/IPA takes a long time; do not wait for them to finish.
   allow_failures:
-    - env: JOB=RUN-INTEGRATION-TEST-ON-ANDROID
-    - env: JOB=RUN-INTEGRATION-TEST-ON-IOS
+    - env: JOB=DRIVER-ANDROID
+    - env: JOB=DRIVER-OSX
 
   include:
     # Runs unit tests without emulators.
-    - env: JOB=RUN-UNIT-AND-WIDGET-TESTS
+    - env: JOB=TEST
       os: linux
       language: generic
       sudo: false
@@ -40,12 +40,9 @@ matrix:
         - ./script/runTests.sh
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f lcov.info
-      cache:
-        directories:
-          - $HOME/.pub-cache
 
-    # Builds and runs integration test on android.
-    - env: JOB=RUN-INTEGRATION-TEST-ON-ANDROID
+    # Builds and runs driver on android.
+    - env: JOB=DRIVER-ANDROID
       os: linux
       language: android
       before_install:
@@ -70,6 +67,10 @@ matrix:
         - flutter precache
         - yes "y" | flutter doctor --android-licenses
         - flutter upgrade
+        - flutter devices
+        - flutter emulators
+        - export device_id=`flutter devices | grep emulator | awk 'BEGIN {FS="• | •"} {print $2}'`
+        - echo device_id = $device_id
       jdk: oraclejdk8
       sudo: false
       addons:
@@ -81,10 +82,9 @@ matrix:
             - libstdc++6
             - fonts-droid
       script:
-        - ./script/runDriver.sh
+        - ./script/runDriver.sh $device_id
       cache:
         directories:
-        - $HOME/.pub-cache
         - ${TRAVIS_BUILD_DIR}/gradle/caches/
         - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
         - $HOME/.m2
@@ -92,8 +92,8 @@ matrix:
         - $HOME/.gradle/wrapper/
         - $HOME/.android/build-cache
 
-    # Builds and runs integration test on ios.
-    - env: JOB=RUN-INTEGRATION-TEST-IOS
+    # Builds and runs driver on osx.
+    - env: JOB=DRIVER-OSX
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -119,17 +119,14 @@ matrix:
         - flutter precache
         - flutter doctor
         - flutter upgrade
+        - flutter devices
+        - flutter emulators || echo 'ignore exit(1)'
+        - echo ios_simulator_udid = $ios_simulator_udid
+        - export device_id=`flutter devices | grep simulator | awk 'BEGIN {FS="• | •"} {print $2}'`
+        - echo device_id = $device_id
       script:
-        - ./script/runDriver.sh
-      cache:
-        directories:
-        - $HOME/.pub-cache
-        - ${TRAVIS_BUILD_DIR}/gradle/caches/
-        - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
-        - $HOME/.m2
-        - $HOME/.gradle/caches/
-        - $HOME/.gradle/wrapper/
-        - $HOME/.android/build-cache
+        - ./script/runDriver.sh $device_id
+
 cache:
   directories:
     - $HOME/.pub-cache

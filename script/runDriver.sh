@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# runs driver for a package that has a lib/main.dart
+# runs integration tests for a package that has a lib/main.dart
 runDriver () {
   cd $1
   if [ -f "lib/main.dart" ]; then
