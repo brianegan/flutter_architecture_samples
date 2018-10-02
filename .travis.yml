@@ -14,8 +14,8 @@ matrix:
 
   # Building APK/IPA takes a long time; do not wait for them to finish.
   allow_failures:
-    - env: JOB=DRIVER-ANDROID
-    - env: JOB=DRIVER-OSX
+#    - env: JOB=DRIVER-ANDROID
+    - env: JOB=DRIVER-IOS
 
   include:
     # Runs unit tests without emulators.
@@ -41,73 +41,13 @@ matrix:
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f lcov.info
 
-    # Builds and runs driver on android.
-    - env: JOB=DRIVER-ANDROID
-      os: linux
-      language: android
-      before_install:
-        - mkdir "$ANDROID_HOME/licenses" || true
-        - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
-        - yes | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" >/dev/null
-        # Install the rest of tools (e.g., avdmanager)
-        - sdkmanager tools
-        # Install the system image
-        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
-        - sdkmanager --list
-        # Create and start emulator for the script.
-        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
-        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
-      before_script:
-        - android-wait-for-emulator
-        - adb shell input keyevent 82
-
-        # install flutter
-        - git clone https://github.com/flutter/flutter.git -b beta
-        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter precache
-        - yes "y" | flutter doctor --android-licenses
-        - flutter upgrade
-        - flutter devices
-        - flutter emulators
-        - export device_id=`flutter devices | grep emulator | awk 'BEGIN {FS="• | •"} {print $2}'`
-        - echo device_id = $device_id
-      jdk: oraclejdk8
-      sudo: false
-      addons:
-        apt:
-          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-          sources:
-            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-          packages:
-            - libstdc++6
-            - fonts-droid
-      script:
-        - ./script/runDriver.sh $device_id
-      cache:
-        directories:
-        - ${TRAVIS_BUILD_DIR}/gradle/caches/
-        - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
-        - $HOME/.m2
-        - $HOME/.gradle/caches/
-        - $HOME/.gradle/wrapper/
-        - $HOME/.android/build-cache
-
-    # Builds and runs driver on osx.
-    - env: JOB=DRIVER-OSX
+    # Builds and runs driver on ios.
+    - env: JOB=DRIVER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
-      before_install:
-        - xcrun simctl list
-        - |
-          export ios_simulator_udid=ios_simulator_udid=$(
-            xcrun simctl create "testing device" \
-                "com.apple.CoreSimulator.SimDeviceType.${ios_device// /-}" \
-                "com.apple.CoreSimulator.SimRuntime.iOS-${ios_version//./-}"
-          )
-          echo Prelaunching iOS simulator with UDID $ios_simulator_udid
       before_script:
-        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app --args -CurrentDeviceUDID $ios_simulator_udid
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
         - brew update
         - brew install libimobiledevice || echo 'ignore exit(1)'
         - brew install ideviceinstaller
@@ -120,12 +60,8 @@ matrix:
         - flutter doctor
         - flutter upgrade
         - flutter devices
-        - flutter emulators || echo 'ignore exit(1)'
-        - echo ios_simulator_udid = $ios_simulator_udid
-        - export device_id=`flutter devices | grep simulator | awk 'BEGIN {FS="• | •"} {print $2}'`
-        - echo device_id = $device_id
       script:
-        - ./script/runDriver.sh $device_id
+        - ./script/runDriver.sh
 
 cache:
   directories:
