@@ -1,23 +1,135 @@
-os:
-  - linux
-sudo: false
-addons:
-  apt:
-    # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
-    sources:
-      - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
-    packages:
-      - libstdc++6
-      - fonts-droid
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b beta
-  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-  - flutter doctor
-  - pub global activate coverage
-script:
-  - scripts/runTests.sh
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -f lcov.info
+env:
+  global:
+    - ANDROID_API_LEVEL=27
+    - EMULATOR_API_LEVEL=22
+    - ANDROID_BUILD_TOOLS_VERSION=27.0.3
+    - ANDROID_ABI="default;armeabi-v7a"
+    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+    - ios_device="iPhone 7"
+    - ios_version=10.3
+matrix:
+  # This causes the build to complete immediately upon first failure or once
+  # required jobs are green.
+  fast_finish: true
+
+  # Building APK/IPA takes a long time; do not wait for them to finish.
+  allow_failures:
+    - env: JOB=RUN-INTEGRATION-TEST-ON-ANDROID
+    - env: JOB=RUN-INTEGRATION-TEST-ON-IOS
+
+  include:
+    # Runs unit tests without emulators.
+    - env: JOB=RUN-UNIT-AND-WIDGET-TESTS
+      os: linux
+      language: generic
+      sudo: false
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter doctor
+        - pub global activate coverage
+      script:
+        - ./script/runTests.sh
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f lcov.info
+      cache:
+        directories:
+          - $HOME/.pub-cache
+
+    # Builds and runs integration test on android.
+    - env: JOB=RUN-INTEGRATION-TEST-ON-ANDROID
+      os: linux
+      language: android
+      before_install:
+        - mkdir "$ANDROID_HOME/licenses" || true
+        - echo "d56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
+        - yes | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" >/dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Install the system image
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        # Create and start emulator for the script.
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      before_script:
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        # install flutter
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - yes "y" | flutter doctor --android-licenses
+        - flutter upgrade
+      jdk: oraclejdk8
+      sudo: false
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      script:
+        - ./script/runDriver.sh
+      cache:
+        directories:
+        - $HOME/.pub-cache
+        - ${TRAVIS_BUILD_DIR}/gradle/caches/
+        - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
+        - $HOME/.m2
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
+        - $HOME/.android/build-cache
+
+    # Builds and runs integration test on ios.
+    - env: JOB=RUN-INTEGRATION-TEST-IOS
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_install:
+        - xcrun simctl list
+        - |
+          export ios_simulator_udid=ios_simulator_udid=$(
+            xcrun simctl create "testing device" \
+                "com.apple.CoreSimulator.SimDeviceType.${ios_device// /-}" \
+                "com.apple.CoreSimulator.SimRuntime.iOS-${ios_version//./-}"
+          )
+          echo Prelaunching iOS simulator with UDID $ios_simulator_udid
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app --args -CurrentDeviceUDID $ios_simulator_udid
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor
+        - flutter upgrade
+      script:
+        - ./script/runDriver.sh
+      cache:
+        directories:
+        - $HOME/.pub-cache
+        - ${TRAVIS_BUILD_DIR}/gradle/caches/
+        - ${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/
+        - $HOME/.m2
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
+        - $HOME/.android/build-cache
 cache:
   directories:
     - $HOME/.pub-cache

@@ -1,10 +1,11 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
 
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:integration_tests/page_objects/page_objects.dart';
 
 import '../elements/extra_actions_element.dart';
 import '../elements/filters_element.dart';
@@ -19,6 +20,7 @@ class HomeTestScreen extends TestScreen {
   final _todosTabFinder = find.byValueKey('__todoTab__');
   final _statsTabFinder = find.byValueKey('__statsTab__');
   final _snackbarFinder = find.byValueKey('__snackbar__');
+  final _addTodoButtonFinder = find.byValueKey('__addTodoFab__');
 
   HomeTestScreen(FlutterDriver driver) : super(driver);
 
@@ -64,5 +66,11 @@ class HomeTestScreen extends TestScreen {
 
   Future<bool> get snackbarVisible {
     return widgetExists(driver, _snackbarFinder);
+  }
+
+  AddTestScreen tapAddTodoButton() {
+    driver.tap(_addTodoButtonFinder);
+
+    return new AddTestScreen(driver);
   }
 }

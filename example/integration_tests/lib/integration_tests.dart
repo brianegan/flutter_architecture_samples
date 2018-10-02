@@ -117,5 +117,14 @@ main() {
       expect(await homeScreen.stats.numActive, 0);
       expect(await homeScreen.stats.numCompleted, 1);
     });
+
+    test('should be able to add a todo', () async {
+      final addScreen = homeScreen.tapAddTodoButton();
+      final taskName = 'Book flight';
+      await addScreen.enterTask(taskName);
+      await addScreen.tapSaveNewButton();
+      homeScreen.tapTodosTab();
+      expect(await driver.getText(find.text(taskName)), taskName);
+    });
   });
 }
