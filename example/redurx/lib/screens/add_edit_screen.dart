@@ -1,3 +1,4 @@
+import 'package:built_value/built_value.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
@@ -7,15 +8,7 @@ import 'package:redurx_sample/actions/update_todo.dart';
 import 'package:redurx_sample/models/app_state.dart';
 import 'package:redurx_sample/models/todo.dart';
 
-typedef OnSaveCallback = Function(String task, String note);
-
-class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  static final GlobalKey<FormFieldState<String>> _taskKey =
-      GlobalKey<FormFieldState<String>>();
-  static final GlobalKey<FormFieldState<String>> _noteKey =
-      GlobalKey<FormFieldState<String>>();
-
+class AddEditScreen extends StatefulWidget {
   final bool isEditing;
   final Todo todo;
 
@@ -24,6 +17,17 @@ class AddEditScreen extends StatelessWidget {
             key: isEditing
                 ? ArchSampleKeys.editTodoScreen
                 : ArchSampleKeys.addTodoScreen);
+  @override
+  _AddEditScreenState createState() => _AddEditScreenState();
+}
+
+class _AddEditScreenState extends State<AddEditScreen> {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _task;
+  String _note;
+
+  bool get isEditing => widget.isEditing;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +47,8 @@ class AddEditScreen extends StatelessWidget {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: isEditing ? todo.task : '',
-                key: _taskKey,
+                initialValue: isEditing ? widget.todo.task : '',
+                key: ArchSampleKeys.taskField,
                 autofocus: !isEditing,
                 style: textTheme.headline,
                 decoration: InputDecoration(
@@ -55,36 +59,41 @@ class AddEditScreen extends StatelessWidget {
                       ? localizations.emptyTodoError
                       : null;
                 },
+                onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: isEditing ? todo.note : '',
-                key: _noteKey,
+                initialValue: isEditing ? widget.todo.note : '',
+                key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: textTheme.subhead,
                 decoration: InputDecoration(
                   hintText: localizations.notesHint,
                 ),
+                onSaved: (value) => _note = value,
               )
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key:
+            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
           if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
             Provider.dispatch<AppState>(
                 context,
                 isEditing
                     ? UpdateTodo(
-                        todo.id,
-                        todo.rebuild((b) => b
-                          ..task = _taskKey.currentState.value
-                          ..note = _noteKey.currentState.value))
+                        widget.todo.id,
+                        widget.todo.rebuild((b) => b
+                          ..task = _task
+                          ..note = _note))
                     : AddTodo(Todo.builder((b) => b
-                      ..task = _taskKey.currentState.value
-                      ..note = _noteKey.currentState.value)));
+                      ..task = _task
+                      ..note = _note)));
 
             Navigator.pop(context);
           }

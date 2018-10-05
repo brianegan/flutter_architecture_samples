@@ -46,8 +46,6 @@ class DetailsTestScreen extends TestScreen {
   }
 
   Future<Null> tapBackButton() async {
-    await driver.tap(_backButtonFinder);
-
-    return this;
+    return await driver.tap(_backButtonFinder);
   }
 }

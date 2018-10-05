@@ -14,8 +14,8 @@ class StatsElement extends TestElement {
 
   StatsElement(FlutterDriver driver) : super(driver);
 
-  Future<int> get numActive async =>
-      int.parse((await driver.getText(_activeItemsFinder)));
+  Future<int> get numActive async => int.parse((await driver
+      .getText(_activeItemsFinder, timeout: timeout)));
 
   Future<int> get numCompleted async =>
       int.parse((await driver.getText(_completedItemsFinder)));

@@ -23,7 +23,8 @@ class TodoItemElement extends TestElement {
 
   SerializableFinder get _todoItemFinder => find.byValueKey('TodoItem__${id}');
 
-  Future<bool> get isVisible => widgetExists(driver, _todoItemFinder);
+  Future<bool> get isVisible => widgetExists(driver, _todoItemFinder,
+      timeout: timeout);
 
   Future<bool> get isAbsent => widgetAbsent(driver, _todoItemFinder);
 

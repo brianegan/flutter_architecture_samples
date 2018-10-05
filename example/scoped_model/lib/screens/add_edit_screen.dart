@@ -10,61 +10,73 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
 
-class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  static final GlobalKey<FormFieldState<String>> taskKey =
-      GlobalKey<FormFieldState<String>>();
-  static final GlobalKey<FormFieldState<String>> noteKey =
-      GlobalKey<FormFieldState<String>>();
-
+class AddEditScreen extends StatefulWidget {
   final String todoId;
 
   AddEditScreen({
     Key key,
     this.todoId,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  @override
+  _AddEditScreenState createState() => _AddEditScreenState();
+}
+
+class _AddEditScreenState extends State<AddEditScreen> {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _task;
+  String _note;
+
+  bool get isEditing => widget.todoId != null;
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ArchSampleLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing ? localizations.editTodo : localizations.addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           autovalidate: false,
           onWillPop: () {
             return Future(() => true);
           },
           child: ScopedModelDescendant<TodoListModel>(
             builder: (BuildContext context, Widget child, TodoListModel model) {
-              var task = model.todoById(todoId);
+              var task = model.todoById(widget.todoId);
               return ListView(
                 children: [
                   TextFormField(
                     initialValue: task?.task ?? '',
-                    key: taskKey,
-                    autofocus: isEditing ? false : true,
-                    style: Theme.of(context).textTheme.headline,
+                    key: ArchSampleKeys.taskField,
+                    autofocus: !isEditing,
+                    style: textTheme.headline,
                     decoration: InputDecoration(
-                        hintText:
-                            ArchSampleLocalizations.of(context).newTodoHint),
-                    validator: (val) => val.trim().isEmpty
-                        ? ArchSampleLocalizations.of(context).emptyTodoError
-                        : null,
+                      hintText: localizations.newTodoHint,
+                    ),
+                    validator: (val) {
+                      return val.trim().isEmpty
+                          ? localizations.emptyTodoError
+                          : null;
+                    },
+                    onSaved: (value) => _task = value,
                   ),
                   TextFormField(
                     initialValue: task?.note ?? '',
-                    key: noteKey,
+                    key: ArchSampleKeys.noteField,
                     maxLines: 10,
-                    style: Theme.of(context).textTheme.subhead,
+                    style: textTheme.subhead,
                     decoration: InputDecoration(
-                      hintText: ArchSampleLocalizations.of(context).notesHint,
+                      hintText: localizations.notesHint,
                     ),
+                    onSaved: (value) => _note = value,
                   )
                 ],
               );
@@ -75,22 +87,19 @@ class AddEditScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         key:
             isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
-        tooltip: isEditing
-            ? ArchSampleLocalizations.of(context).saveChanges
-            : ArchSampleLocalizations.of(context).addTodo,
+        tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
-          final form = formKey.currentState;
+          final form = _formKey.currentState;
           if (form.validate()) {
-            final task = taskKey.currentState.value;
-            final note = noteKey.currentState.value;
+            form.save();
 
             var model = TodoListModel.of(context);
             if (isEditing) {
-              var todo = model.todoById(todoId);
-              model.updateTodo(todo.copy(task: task, note: note));
+              var todo = model.todoById(widget.todoId);
+              model.updateTodo(todo.copy(task: _task, note: _note));
             } else {
-              model.addTodo(Todo(task, note: note));
+              model.addTodo(Todo(_task, note: _note));
             }
 
             Navigator.pop(context);
@@ -99,6 +108,4 @@ class AddEditScreen extends StatelessWidget {
       ),
     );
   }
-
-  bool get isEditing => todoId != null;
 }

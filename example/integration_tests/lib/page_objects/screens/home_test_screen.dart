@@ -73,4 +73,9 @@ class HomeTestScreen extends TestScreen {
 
     return new AddTestScreen(driver);
   }
+
+  DetailsTestScreen tapTodo(String text) {
+    driver.tap(find.text(text));
+    return DetailsTestScreen(driver);
+  }
 }

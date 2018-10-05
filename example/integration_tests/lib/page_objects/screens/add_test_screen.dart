@@ -14,6 +14,7 @@ class AddTestScreen extends TestScreen {
   final _backButtonFinder = find.byTooltip('Back');
   final _saveNewButtonFinder = find.byValueKey('__saveNewTodo__');
   final _taskFieldFinder = find.byValueKey('__taskField__');
+  final _noteFieldFinder = find.byValueKey('__noteField__');
 
   AddTestScreen(FlutterDriver driver) : super(driver);
 
@@ -27,11 +28,18 @@ class AddTestScreen extends TestScreen {
     return this;
   }
 
-  Future<Null> enterTask(String title) async {
+  Future<Null> enterTask(String task) async {
     // must set focus to 'enable' keyboard even though focus already set
     await driver.tap(_taskFieldFinder);
-    await driver.enterText(title);
-    await driver.waitFor(find.text(title));
+    await driver.enterText(task);
+    await driver.waitFor(find.text(task));
+  }
+
+  Future<Null> enterNote(String note) async {
+    // must set focus to 'enable' keyboard even though focus already set
+    await driver.tap(_noteFieldFinder);
+    await driver.enterText(note);
+    await driver.waitFor(find.text(note));
   }
 
   Future<Null> tapSaveNewButton() async {

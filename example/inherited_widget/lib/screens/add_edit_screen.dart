@@ -9,36 +9,39 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:inherited_widget_sample/models.dart';
 import 'package:inherited_widget_sample/state_container.dart';
 
-class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  static final GlobalKey<FormFieldState<String>> taskKey =
-      GlobalKey<FormFieldState<String>>();
-  static final GlobalKey<FormFieldState<String>> noteKey =
-      GlobalKey<FormFieldState<String>>();
-
+class AddEditScreen extends StatefulWidget {
   final Todo todo;
 
   AddEditScreen({
     Key key,
     this.todo,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  @override
+  _AddEditScreenState createState() => _AddEditScreenState();
+}
+
+class _AddEditScreenState extends State<AddEditScreen> {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _task;
+  String _note;
 
   @override
   Widget build(BuildContext context) {
     final container = StateContainer.of(context);
+    final localizations = ArchSampleLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          isEditing
-              ? ArchSampleLocalizations.of(context).editTodo
-              : ArchSampleLocalizations.of(context).addTodo,
+          isEditing ? localizations.editTodo : localizations.addTodo,
         ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           autovalidate: false,
           onWillPop: () {
             return Future(() => true);
@@ -46,25 +49,29 @@ class AddEditScreen extends StatelessWidget {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: todo != null ? todo.task : '',
-                key: taskKey,
-                autofocus: isEditing ? false : true,
+                initialValue: isEditing ? widget.todo.task : '',
+                key: ArchSampleKeys.taskField,
+                autofocus: !isEditing,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                  hintText: localizations.newTodoHint,
                 ),
-                validator: (val) => val.trim().isEmpty
-                    ? ArchSampleLocalizations.of(context).emptyTodoError
-                    : null,
+                validator: (val) {
+                  return val.trim().isEmpty
+                      ? localizations.emptyTodoError
+                      : null;
+                },
+                onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: todo != null ? todo.note : '',
-                key: noteKey,
+                initialValue: isEditing ? widget.todo.note : '',
+                key: ArchSampleKeys.noteField,
                 maxLines: 10,
-                style: Theme.of(context).textTheme.subhead,
+                style: textTheme.subhead,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).notesHint,
+                  hintText: localizations.notesHint,
                 ),
+                onSaved: (value) => _note = value,
               )
             ],
           ),
@@ -73,22 +80,18 @@ class AddEditScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         key:
             isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
-        tooltip: isEditing
-            ? ArchSampleLocalizations.of(context).saveChanges
-            : ArchSampleLocalizations.of(context).addTodo,
+        tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
-          final form = formKey.currentState;
-          if (form.validate()) {
-            final task = taskKey.currentState.value;
-            final note = noteKey.currentState.value;
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
 
             if (isEditing) {
-              container.updateTodo(todo, task: task, note: note);
+              container.updateTodo(widget.todo, task: _task, note: _note);
             } else {
               container.addTodo(Todo(
-                task,
-                note: note,
+                _task,
+                note: _note,
               ));
             }
 
@@ -99,5 +102,5 @@ class AddEditScreen extends StatelessWidget {
     );
   }
 
-  bool get isEditing => todo != null;
+  bool get isEditing => widget.todo != null;
 }
