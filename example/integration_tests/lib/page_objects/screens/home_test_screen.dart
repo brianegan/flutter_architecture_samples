@@ -41,7 +41,7 @@ class HomeTestScreen extends TestScreen {
   }
 
   TodoListElement tapTodosTab() {
-    driver.tap(_todosTabFinder);
+    driver.tap(_todosTabFinder, timeout: timeout);
 
     return new TodoListElement(driver);
   }
@@ -69,13 +69,13 @@ class HomeTestScreen extends TestScreen {
   }
 
   AddTestScreen tapAddTodoButton() {
-    driver.tap(_addTodoButtonFinder);
+    driver.tap(_addTodoButtonFinder, timeout: timeout);
 
     return new AddTestScreen(driver);
   }
 
   DetailsTestScreen tapTodo(String text) {
-    driver.tap(find.text(text));
+    driver.tap(find.text(text), timeout: timeout);
     return DetailsTestScreen(driver);
   }
 }

@@ -10,6 +10,10 @@ import 'package:test/test.dart';
 import 'page_objects/page_objects.dart';
 
 main() {
+  // increase default driver command timeout from 5 to 20
+  // used by driver commands that have timeouts running on CI
+  final Duration timeout = Duration(seconds: 20);
+
   group('Todo App Test', () {
     FlutterDriver driver;
     HomeTestScreen homeScreen;
@@ -134,7 +138,7 @@ main() {
       // save and return to home screen and find new _todo
       await addScreen.tapSaveNewButton();
       expect(await homeScreen.isReady(), true);
-      expect(await driver.getText(find.text(task)), task);
+      expect(await driver.getText(find.text(task), timeout: timeout), task);
     });
 
     test('should be able to modify a todo', () async {
@@ -160,14 +164,17 @@ main() {
 
       // save and return to details screen
       await editScreen.tapSaveFab();
-        expect(await detailsScreen.isReady(), isTrue);
-        expect(await driver.getText(find.text(taskEdit)), taskEdit);
-        expect(await driver.getText(find.text(noteEdit)), noteEdit);
+      expect(await detailsScreen.isReady(), isTrue);
+      expect(await driver.getText(find.text(taskEdit), timeout: timeout),
+          taskEdit);
+      expect(await driver.getText(find.text(noteEdit), timeout: timeout),
+          noteEdit);
 
       // check shows up on home screen
       await detailsScreen.tapBackButton();
       expect(await homeScreen.isReady(), isTrue);
-      expect(await driver.getText(find.text(taskEdit)), taskEdit);
+      expect(await driver.getText(find.text(taskEdit), timeout: timeout),
+          taskEdit);
     });
   });
 }

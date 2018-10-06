@@ -4,9 +4,9 @@
 runDriver () {
   cd $1
   if [ -f "lib/main.dart" ]; then
-    if isVarSet $localOpt; then
-       runLocalOption $1
-    else
+#    if isVarSet $localOpt; then
+#       runLocalOption $1
+#    else
       echo "running driver in $1"
       # check if build_runner needs to be run
       # todo: fix build_runner in ./example/built_redux
@@ -15,9 +15,14 @@ runDriver () {
         flutter packages pub run build_runner build --delete-conflicting-outputs
       fi
       # todo: get input on MVU project to run with driver for screen input
-      flutter driver test_driver/todo_app.dart
+#      if [ $uname == "Darwin" ]; then
+        flutter driver test_driver/todo_app.dart
+#      else
+        # android emulator not available in travis so just build apk
+#        flutter build apk
+#      fi
     fi
-  fi
+#  fi
 }
 
 # options if running locally
@@ -30,9 +35,8 @@ runLocalOption () {
   "apk")
     flutter build apk
     ;;
-  "clean")
-    flutter clean
-    rm -rf ios/Podfile.lock ios/Pods
+  "driver")
+    flutter driver test_driver/todo_app.dart
     ;;
   *)
     echo "unknown local option $1"
@@ -55,4 +59,5 @@ if isVarSet $1; then
 fi
 
 # expects to find most apps at second directory level
-find . -maxdepth 2 -type d -exec bash -c 'runDriver "$0"' {} \;
+#find . -maxdepth 2 -type d -exec bash -c 'runDriver "$0"' {} \;
+runDriver $1
