@@ -7,10 +7,10 @@ matrix:
   # of required jobs, allowing non-required jobs to continue
   fast_finish: true
 
-  # Building APK/IPA takes a long time; do not wait for them to finish.
+  # todo: MVU project currently fails on add/edit screen so job is allowed to fail
   allow_failures:
-    - env: JOB=DRIVER-ANDROID
-    - env: JOB=DRIVER-IOS
+    - env: JOB=DRIVER-ANDROID-MVU
+    - env: JOB=DRIVER-IOS-MVU
 
   include:
     # Runs unit tests without emulators.
@@ -39,7 +39,7 @@ matrix:
         - bash <(curl -s https://codecov.io/bash) -f lcov.info
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID
+    - env: JOB=DRIVER-ANDROID-BLOC_FLUTTER
       os: linux
       language: android
       android:
@@ -85,11 +85,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        # Todo: suppress flutter output during build
-        - ./script/runDriver.sh
+        - ./script/runDriver.sh ./example/bloc_flutter
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS
+    - env: JOB=DRIVER-IOS-BLOC_FLUTTER
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -108,7 +107,717 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh
+        - ./script/runDriver.sh ./example/bloc_flutter
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-BUILT_REDUX
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/built_redux
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-BUILT_REDUX
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/built_redux
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-FIRESTORE_REDUX
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/firestore_redux
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-FIRESTORE_REDUX
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/firestore_redux
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-INHERITED_WIDGET
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/inherited_widget
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-INHERITED_WIDGET
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/inherited_widget
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-MVI_FLUTTER
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/mvi_flutter
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-MVI_FLUTTER
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/mvi_flutter
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-MVU
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/mvu
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-MVU
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/mvu
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-REDURX
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/redurx
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-REDURX
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/redurx
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-REDUX
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/redux
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-REDUX
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/redux
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-SCOPED_MODEL
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/scoped_model
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-SCOPED_MODEL
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/scoped_model
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-SIMPLE_BLOC_FLUTTER
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/simple_bloc_flutter
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-SIMPLE_BLOC_FLUTTER
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/simple_bloc_flutter
+
+    # Run integration tests on android
+    - env: JOB=DRIVER-ANDROID-VANILLA
+      os: linux
+      language: android
+      android:
+        components:
+          - tools
+          - platform-tools
+          - tools
+          - build-tools-26.0.2
+          - build-tools-26.0.3
+          - build-tools-27.0.3
+      sudo: false
+      licenses:
+          - 'android-sdk-license-.+'
+      before_install:
+        - sdkmanager --list
+        - yes | sdkmanager "platforms;android-26" > /dev/null
+        - yes | sdkmanager "platforms;android-27" > /dev/null
+        # Install the rest of tools (e.g., avdmanager)
+        - sdkmanager tools
+        # Create and start emulator.
+        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" >/dev/null
+        - sdkmanager --list
+        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - fonts-droid
+      before_script:
+        # Wait for emulator to startup.
+        - android-wait-for-emulator
+        - adb shell input keyevent 82
+
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+        - pub global activate coverage
+      script:
+        - ./script/runDriver.sh ./example/vanilla
+
+    # Run integration tests on ios.
+    - env: JOB=DRIVER-IOS-VANILLA
+      os: osx
+      language: generic
+      osx_image: xcode9.0
+      before_script:
+        - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+        - brew update
+        - brew install libimobiledevice || echo 'ignore exit(1)'
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - brew install cocoapods || echo 'ignore exit(1)'
+        - brew link --overwrite cocoapods
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - flutter devices
+      script:
+        - ./script/runDriver.sh ./example/vanilla
 
 cache:
   directories:
