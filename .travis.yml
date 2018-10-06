@@ -3,18 +3,18 @@ env:
     - EMULATOR_API_LEVEL=22
     - ANDROID_ABI="default;armeabi-v7a"
 matrix:
-  # This causes the build to complete immediately upon first failure or success
-  # of required jobs, allowing non-required jobs to continue
+  # This causes the build to complete immediately upon failure or success
+  # of all required jobs, allowing all non-required jobs to continue
   fast_finish: true
 
   # todo: MVU project currently fails on add/edit screen so job is allowed to fail
   allow_failures:
-    - env: JOB=DRIVER-ANDROID-MVU
-    - env: JOB=DRIVER-IOS-MVU
+    - env: JOB=MVU-ANDROID
+    - env: JOB=MVU-IOS
 
   include:
     # Runs unit tests without emulators.
-    - env: JOB=TEST
+    - env: JOB=UNIT-TEST
       os: linux
       language: generic
       sudo: false
@@ -39,7 +39,7 @@ matrix:
         - bash <(curl -s https://codecov.io/bash) -f lcov.info
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-BLOC_FLUTTER
+    - env: JOB=BLOC_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -88,7 +88,7 @@ matrix:
         - ./script/runDriver.sh ./example/bloc_flutter
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-BLOC_FLUTTER
+    - env: JOB=BLOC_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -110,7 +110,7 @@ matrix:
         - ./script/runDriver.sh ./example/bloc_flutter
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-BUILT_REDUX
+    - env: JOB=BUILT_REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -159,7 +159,7 @@ matrix:
         - ./script/runDriver.sh ./example/built_redux
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-BUILT_REDUX
+    - env: JOB=BUILT_REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -181,7 +181,7 @@ matrix:
         - ./script/runDriver.sh ./example/built_redux
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-FIRESTORE_REDUX
+    - env: JOB=FIRESTORE_REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -230,7 +230,7 @@ matrix:
         - ./script/runDriver.sh ./example/firestore_redux
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-FIRESTORE_REDUX
+    - env: JOB=FIRESTORE_REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -252,7 +252,7 @@ matrix:
         - ./script/runDriver.sh ./example/firestore_redux
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-INHERITED_WIDGET
+    - env: JOB=INHERITED_WIDGET-ANDROID
       os: linux
       language: android
       android:
@@ -301,7 +301,7 @@ matrix:
         - ./script/runDriver.sh ./example/inherited_widget
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-INHERITED_WIDGET
+    - env: JOB=INHERITED_WIDGET-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -323,7 +323,7 @@ matrix:
         - ./script/runDriver.sh ./example/inherited_widget
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-MVI_FLUTTER
+    - env: JOB=MVI_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -372,7 +372,7 @@ matrix:
         - ./script/runDriver.sh ./example/mvi_flutter
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-MVI_FLUTTER
+    - env: JOB=MVI_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -394,7 +394,7 @@ matrix:
         - ./script/runDriver.sh ./example/mvi_flutter
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-MVU
+    - env: JOB=MVU-ANDROID
       os: linux
       language: android
       android:
@@ -443,7 +443,7 @@ matrix:
         - ./script/runDriver.sh ./example/mvu
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-MVU
+    - env: JOB=MVU-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -465,7 +465,7 @@ matrix:
         - ./script/runDriver.sh ./example/mvu
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-REDURX
+    - env: JOB=REDURX-ANDROID
       os: linux
       language: android
       android:
@@ -514,7 +514,7 @@ matrix:
         - ./script/runDriver.sh ./example/redurx
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-REDURX
+    - env: JOB=REDURX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -536,7 +536,7 @@ matrix:
         - ./script/runDriver.sh ./example/redurx
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-REDUX
+    - env: JOB=REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -585,7 +585,7 @@ matrix:
         - ./script/runDriver.sh ./example/redux
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-REDUX
+    - env: JOB=REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -607,7 +607,7 @@ matrix:
         - ./script/runDriver.sh ./example/redux
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-SCOPED_MODEL
+    - env: JOB=SCOPED_MODEL-ANDROID
       os: linux
       language: android
       android:
@@ -656,7 +656,7 @@ matrix:
         - ./script/runDriver.sh ./example/scoped_model
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-SCOPED_MODEL
+    - env: JOB=SCOPED_MODEL-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -678,7 +678,7 @@ matrix:
         - ./script/runDriver.sh ./example/scoped_model
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-SIMPLE_BLOC_FLUTTER
+    - env: JOB=SIMPLE_BLOC_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -727,7 +727,7 @@ matrix:
         - ./script/runDriver.sh ./example/simple_bloc_flutter
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-SIMPLE_BLOC_FLUTTER
+    - env: JOB=SIMPLE_BLOC_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -749,7 +749,7 @@ matrix:
         - ./script/runDriver.sh ./example/simple_bloc_flutter
 
     # Run integration tests on android
-    - env: JOB=DRIVER-ANDROID-VANILLA
+    - env: JOB=VANILLA-ANDROID
       os: linux
       language: android
       android:
@@ -798,7 +798,7 @@ matrix:
         - ./script/runDriver.sh ./example/vanilla
 
     # Run integration tests on ios.
-    - env: JOB=DRIVER-IOS-VANILLA
+    - env: JOB=VANILLA-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
