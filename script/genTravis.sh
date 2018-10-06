@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# generate an ios and android travis job for each app
 projects=( bloc_flutter built_redux firestore_redux inherited_widget mvi_flutter mvu redurx redux scoped_model simple_bloc_flutter vanilla )
 
 read -r -d '' header << EOM
@@ -12,14 +13,14 @@ matrix:
   # of all required jobs, allowing all non-required jobs to continue
   fast_finish: true
 
-  # todo: MVU project currently fails on add/edit screen so job is allowed to fail
+  # todo: MVU project currently fails on add/edit screen so MVU jobs are allowed to fail
   allow_failures:
-    - env: JOB=MVU-ANDROID
-    - env: JOB=MVU-IOS
+    - env: MVU-ANDROID
+    - env: MVU-IOS
 
   include:
-    # Runs unit tests without emulators.
-    - env: JOB=UNIT-TEST
+    # Run unit tests without emulators.
+    - env: UNIT-TEST
       os: linux
       language: generic
       sudo: false
@@ -53,7 +54,7 @@ do
 
 	read -r -d '' androidTemplate << EOM
     # Run integration tests on android
-    - env: JOB=$PROJECT-ANDROID
+    - env: $PROJECT-ANDROID
       os: linux
       language: android
       android:
@@ -99,13 +100,13 @@ do
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/$project
+        - travis_retry ./script/ci.sh ./example/$project
 EOM
 	echo "    $androidTemplate"
 	echo
 	read -r -d '' iosTemplate << EOM
     # Run integration tests on ios.
-    - env: JOB=$PROJECT-IOS
+    - env: $PROJECT-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -124,7 +125,7 @@ EOM
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/$project
+        - travis_retry ./script/ci.sh ./example/$project
 EOM
 	echo "    $iosTemplate"
 	echo

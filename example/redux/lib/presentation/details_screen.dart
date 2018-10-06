@@ -12,14 +12,13 @@ class DetailsScreen extends StatelessWidget {
   final Todo todo;
   final Function onDelete;
   final Function(bool) toggleCompleted;
-  final Key key;
 
   DetailsScreen({
     Key key,
     @required this.todo,
     @required this.onDelete,
     @required this.toggleCompleted,
-  }) : key = key ?? ArchSampleKeys.todoDetailsScreen, super(key: key);
+  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {

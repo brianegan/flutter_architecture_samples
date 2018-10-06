@@ -154,7 +154,6 @@ main() {
       // find the _todo text to edit and go to details screen
       final detailsScreen = await homeScreen.tapTodo(task);
       expect(await detailsScreen.isReady(), isTrue);
-//      expect(await detailsScreen.task, isNotEmpty);
 
       // go to edit screen and edit this _todo
       final editScreen = detailsScreen.tapEditTodoButton();

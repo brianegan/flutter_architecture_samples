@@ -9,7 +9,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 abstract class TestScreen {
   // increase default driver command timeout from 5 to 20
   // used by screens that have timeouts running on CI
-  final Duration timeout = Duration(seconds: 20);
+  final Duration timeout = const Duration(seconds: 20);
   final FlutterDriver driver;
 
   TestScreen(this.driver);

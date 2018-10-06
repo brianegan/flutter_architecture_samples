@@ -25,12 +25,12 @@ class DetailsTestScreen extends TestScreen {
   Future<bool> isReady({Duration timeout}) =>
       widgetExists(driver, _detailsScreenFinder, timeout: timeout);
 
-  Future<String> get task => driver.getText(_taskFinder);
+  Future<String> get task => driver.getText(_taskFinder, timeout: timeout);
 
-  Future<String> get note => driver.getText(_noteFinder);
+  Future<String> get note => driver.getText(_noteFinder, timeout: timeout);
 
   Future<DetailsTestScreen> tapCheckbox() async {
-    await driver.tap(_checkboxFinder);
+    await driver.tap(_checkboxFinder, timeout: timeout);
 
     return this;
   }
@@ -42,7 +42,7 @@ class DetailsTestScreen extends TestScreen {
   }
 
   Future<Null> tapDeleteButton() async {
-    await driver.tap(_deleteButtonFinder);
+    await driver.tap(_deleteButtonFinder, timeout: timeout);
   }
 
   Future<Null> tapBackButton() async {

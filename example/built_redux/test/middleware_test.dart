@@ -89,7 +89,7 @@ main() {
         Todo("Update"),
       ));
 
-      verify(service.saveTodos(typed(any))).called(5);
+      verify(service.saveTodos(any)).called(5);
     });
   });
 }

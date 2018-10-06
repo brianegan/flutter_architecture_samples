@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -14,9 +14,9 @@ class StatsElement extends TestElement {
 
   StatsElement(FlutterDriver driver) : super(driver);
 
-  Future<int> get numActive async => int.parse((await driver
-      .getText(_activeItemsFinder, timeout: timeout)));
+  Future<int> get numActive async =>
+      int.parse((await driver.getText(_activeItemsFinder, timeout: timeout)));
 
-  Future<int> get numCompleted async =>
-      int.parse((await driver.getText(_completedItemsFinder)));
+  Future<int> get numCompleted async => int.parse(
+      (await driver.getText(_completedItemsFinder, timeout: timeout)));
 }

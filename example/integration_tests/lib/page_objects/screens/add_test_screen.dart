@@ -23,7 +23,7 @@ class AddTestScreen extends TestScreen {
       widgetExists(driver, _addScreenFinder);
 
   Future<Null> tapBackButton() async {
-    await driver.tap(_backButtonFinder);
+    await driver.tap(_backButtonFinder, timeout: timeout);
 
     return this;
   }

@@ -7,14 +7,14 @@ matrix:
   # of all required jobs, allowing all non-required jobs to continue
   fast_finish: true
 
-  # todo: MVU project currently fails on add/edit screen so job is allowed to fail
+  # todo: MVU project currently fails on add/edit screen so MVU jobs are allowed to fail
   allow_failures:
-    - env: JOB=MVU-ANDROID
-    - env: JOB=MVU-IOS
+    - env: MVU-ANDROID
+    - env: MVU-IOS
 
   include:
-    # Runs unit tests without emulators.
-    - env: JOB=UNIT-TEST
+    # Run unit tests without emulators.
+    - env: UNIT-TEST
       os: linux
       language: generic
       sudo: false
@@ -39,7 +39,7 @@ matrix:
         - bash <(curl -s https://codecov.io/bash) -f lcov.info
 
     # Run integration tests on android
-    - env: JOB=BLOC_FLUTTER-ANDROID
+    - env: BLOC_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -85,10 +85,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/bloc_flutter
+        - travis_retry ./script/ci.sh ./example/bloc_flutter
 
     # Run integration tests on ios.
-    - env: JOB=BLOC_FLUTTER-IOS
+    - env: BLOC_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -107,10 +107,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/bloc_flutter
+        - travis_retry ./script/ci.sh ./example/bloc_flutter
 
     # Run integration tests on android
-    - env: JOB=BUILT_REDUX-ANDROID
+    - env: BUILT_REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -156,10 +156,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/built_redux
+        - travis_retry ./script/ci.sh ./example/built_redux
 
     # Run integration tests on ios.
-    - env: JOB=BUILT_REDUX-IOS
+    - env: BUILT_REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -178,10 +178,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/built_redux
+        - travis_retry ./script/ci.sh ./example/built_redux
 
     # Run integration tests on android
-    - env: JOB=FIRESTORE_REDUX-ANDROID
+    - env: FIRESTORE_REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -227,10 +227,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/firestore_redux
+        - travis_retry ./script/ci.sh ./example/firestore_redux
 
     # Run integration tests on ios.
-    - env: JOB=FIRESTORE_REDUX-IOS
+    - env: FIRESTORE_REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -249,10 +249,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/firestore_redux
+        - travis_retry ./script/ci.sh ./example/firestore_redux
 
     # Run integration tests on android
-    - env: JOB=INHERITED_WIDGET-ANDROID
+    - env: INHERITED_WIDGET-ANDROID
       os: linux
       language: android
       android:
@@ -298,10 +298,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/inherited_widget
+        - travis_retry ./script/ci.sh ./example/inherited_widget
 
     # Run integration tests on ios.
-    - env: JOB=INHERITED_WIDGET-IOS
+    - env: INHERITED_WIDGET-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -320,10 +320,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/inherited_widget
+        - travis_retry ./script/ci.sh ./example/inherited_widget
 
     # Run integration tests on android
-    - env: JOB=MVI_FLUTTER-ANDROID
+    - env: MVI_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -369,10 +369,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/mvi_flutter
+        - travis_retry ./script/ci.sh ./example/mvi_flutter
 
     # Run integration tests on ios.
-    - env: JOB=MVI_FLUTTER-IOS
+    - env: MVI_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -391,10 +391,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/mvi_flutter
+        - travis_retry ./script/ci.sh ./example/mvi_flutter
 
     # Run integration tests on android
-    - env: JOB=MVU-ANDROID
+    - env: MVU-ANDROID
       os: linux
       language: android
       android:
@@ -440,10 +440,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/mvu
+        - travis_retry ./script/ci.sh ./example/mvu
 
     # Run integration tests on ios.
-    - env: JOB=MVU-IOS
+    - env: MVU-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -462,10 +462,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/mvu
+        - travis_retry ./script/ci.sh ./example/mvu
 
     # Run integration tests on android
-    - env: JOB=REDURX-ANDROID
+    - env: REDURX-ANDROID
       os: linux
       language: android
       android:
@@ -511,10 +511,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/redurx
+        - travis_retry ./script/ci.sh ./example/redurx
 
     # Run integration tests on ios.
-    - env: JOB=REDURX-IOS
+    - env: REDURX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -533,10 +533,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/redurx
+        - travis_retry ./script/ci.sh ./example/redurx
 
     # Run integration tests on android
-    - env: JOB=REDUX-ANDROID
+    - env: REDUX-ANDROID
       os: linux
       language: android
       android:
@@ -582,10 +582,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/redux
+        - travis_retry ./script/ci.sh ./example/redux
 
     # Run integration tests on ios.
-    - env: JOB=REDUX-IOS
+    - env: REDUX-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -604,10 +604,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/redux
+        - travis_retry ./script/ci.sh ./example/redux
 
     # Run integration tests on android
-    - env: JOB=SCOPED_MODEL-ANDROID
+    - env: SCOPED_MODEL-ANDROID
       os: linux
       language: android
       android:
@@ -653,10 +653,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/scoped_model
+        - travis_retry ./script/ci.sh ./example/scoped_model
 
     # Run integration tests on ios.
-    - env: JOB=SCOPED_MODEL-IOS
+    - env: SCOPED_MODEL-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -675,10 +675,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/scoped_model
+        - travis_retry ./script/ci.sh ./example/scoped_model
 
     # Run integration tests on android
-    - env: JOB=SIMPLE_BLOC_FLUTTER-ANDROID
+    - env: SIMPLE_BLOC_FLUTTER-ANDROID
       os: linux
       language: android
       android:
@@ -724,10 +724,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/simple_bloc_flutter
+        - travis_retry ./script/ci.sh ./example/simple_bloc_flutter
 
     # Run integration tests on ios.
-    - env: JOB=SIMPLE_BLOC_FLUTTER-IOS
+    - env: SIMPLE_BLOC_FLUTTER-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -746,10 +746,10 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/simple_bloc_flutter
+        - travis_retry ./script/ci.sh ./example/simple_bloc_flutter
 
     # Run integration tests on android
-    - env: JOB=VANILLA-ANDROID
+    - env: VANILLA-ANDROID
       os: linux
       language: android
       android:
@@ -795,10 +795,10 @@ matrix:
         - flutter devices
         - pub global activate coverage
       script:
-        - ./script/runDriver.sh ./example/vanilla
+        - travis_retry ./script/ci.sh ./example/vanilla
 
     # Run integration tests on ios.
-    - env: JOB=VANILLA-IOS
+    - env: VANILLA-IOS
       os: osx
       language: generic
       osx_image: xcode9.0
@@ -817,7 +817,7 @@ matrix:
         - flutter doctor -v
         - flutter devices
       script:
-        - ./script/runDriver.sh ./example/vanilla
+        - travis_retry ./script/ci.sh ./example/vanilla
 
 cache:
   directories:

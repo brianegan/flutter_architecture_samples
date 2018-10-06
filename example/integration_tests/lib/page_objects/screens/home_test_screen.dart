@@ -47,25 +47,25 @@ class HomeTestScreen extends TestScreen {
   }
 
   StatsElement tapStatsTab() {
-    driver.tap(_statsTabFinder);
+    driver.tap(_statsTabFinder, timeout: timeout);
 
     return new StatsElement(driver);
   }
 
   FiltersElement tapFilterButton() {
-    driver.tap(_filterButtonFinder);
+    driver.tap(_filterButtonFinder, timeout: timeout);
 
     return new FiltersElement(driver);
   }
 
   ExtraActionsElement tapExtraActionsButton() {
-    driver.tap(_extraActionsButtonFinder);
+    driver.tap(_extraActionsButtonFinder, timeout: timeout);
 
     return new ExtraActionsElement(driver);
   }
 
   Future<bool> get snackbarVisible {
-    return widgetExists(driver, _snackbarFinder);
+    return widgetExists(driver, _snackbarFinder, timeout: timeout);
   }
 
   AddTestScreen tapAddTodoButton() {

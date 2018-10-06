@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -15,13 +15,13 @@ class ExtraActionsElement extends TestElement {
   ExtraActionsElement(FlutterDriver driver) : super(driver);
 
   Future<ExtraActionsElement> tapToggleAll() async {
-    await driver.tap(_toggleAll);
+    await driver.tap(_toggleAll, timeout: timeout);
 
     return this;
   }
 
   Future<ExtraActionsElement> tapClearCompleted() async {
-    await driver.tap(_clearCompleted);
+    await driver.tap(_clearCompleted, timeout: timeout);
 
     return this;
   }
