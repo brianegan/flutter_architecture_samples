@@ -40,7 +40,9 @@ runDriver () {
             # todo: get input on MVU project to pass screen i/o integration tests
             flutter driver test_driver/todo_app.dart
     fi
+    exitCode=$?
     cd - > /dev/null
+    return $exitCode
 }
 
 allDirs() {

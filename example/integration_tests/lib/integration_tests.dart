@@ -145,7 +145,7 @@ main() {
       final task = 'Plan day trip to pyramids';
       final taskEdit = 'Plan full day trip to pyramids';
       final noteEdit =
-          'Have lunch next to next to Great Pyramid of Giza and take pictures!';
+          'Have lunch next to Great Pyramid of Giza and take pictures!';
 
       // init to home screen
       await homeScreen.tapTodosTab();
