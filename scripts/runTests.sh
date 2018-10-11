@@ -14,7 +14,7 @@ where:
         run a coverage report
         (requires lcov installed)
     --help
-        prints this message
+        print this message
 
 requires code_coverage package
 (install with 'pub global activate coverage')
@@ -88,17 +88,17 @@ case $1 in
         runReport
         ;;
     *)
+        currentDir=`pwd`
         # if no parameter passed
         if [ -z $1 ]; then
             rm -f lcov.info
             dirs=(`find . -maxdepth 2 -type d`)
-            currentDir=`pwd`
             for dir in "${dirs[@]}"; do
                 runTests $dir $currentDir
             done
         else
             if [[ -d "$1" ]]; then
-                runTests $1 `pwd`
+                runTests $1 $currentDir
             else
                 printf "\nError: not a directory: $1"
                 show_help
