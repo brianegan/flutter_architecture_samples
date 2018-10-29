@@ -9,13 +9,7 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 typedef OnSaveCallback = Function(String task, String note);
 
-class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  static final GlobalKey<FormFieldState<String>> _taskKey =
-      GlobalKey<FormFieldState<String>>();
-  static final GlobalKey<FormFieldState<String>> _noteKey =
-      GlobalKey<FormFieldState<String>>();
-
+class AddEditScreen extends StatefulWidget {
   final bool isEditing;
   final Function(String task, String note) onSave;
   final Todo todo;
@@ -23,6 +17,17 @@ class AddEditScreen extends StatelessWidget {
   AddEditScreen(
       {Key key, @required this.onSave, @required this.isEditing, this.todo})
       : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  @override
+  _AddEditScreenState createState() => _AddEditScreenState();
+}
+
+class _AddEditScreenState extends State<AddEditScreen> {
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _task;
+  String _note;
+
+  bool get isEditing => widget.isEditing;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +47,8 @@ class AddEditScreen extends StatelessWidget {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: isEditing ? todo.task : '',
-                key: _taskKey,
+                initialValue: isEditing ? widget.todo.task : '',
+                key: ArchSampleKeys.taskField,
                 autofocus: !isEditing,
                 style: textTheme.headline,
                 decoration: InputDecoration(
@@ -54,29 +59,31 @@ class AddEditScreen extends StatelessWidget {
                       ? localizations.emptyTodoError
                       : null;
                 },
+                onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: isEditing ? todo.note : '',
-                key: _noteKey,
+                initialValue: isEditing ? widget.todo.note : '',
+                key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: textTheme.subhead,
                 decoration: InputDecoration(
                   hintText: localizations.notesHint,
                 ),
+                onSaved: (value) => _note = value,
               )
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key:
+            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            onSave(
-              _taskKey.currentState.value,
-              _noteKey.currentState.value,
-            );
+            _formKey.currentState.save();
+            widget.onSave(_task, _note);
 
             Navigator.pop(context);
           }

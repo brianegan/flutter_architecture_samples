@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -23,31 +23,29 @@ class DetailsTestScreen extends TestScreen {
 
   @override
   Future<bool> isReady({Duration timeout}) =>
-      widgetExists(driver, _detailsScreenFinder);
+      widgetExists(driver, _detailsScreenFinder, timeout: timeout);
 
-  Future<String> get task => driver.getText(_taskFinder);
+  Future<String> get task => driver.getText(_taskFinder, timeout: timeout);
 
-  Future<String> get note => driver.getText(_noteFinder);
+  Future<String> get note => driver.getText(_noteFinder, timeout: timeout);
 
   Future<DetailsTestScreen> tapCheckbox() async {
-    await driver.tap(_checkboxFinder);
+    await driver.tap(_checkboxFinder, timeout: timeout);
 
     return this;
   }
 
   EditTestScreen tapEditTodoButton() {
-    driver.tap(_editTodoFabFinder);
+    driver.tap(_editTodoFabFinder, timeout: timeout);
 
     return new EditTestScreen(driver);
   }
 
   Future<Null> tapDeleteButton() async {
-    await driver.tap(_deleteButtonFinder);
+    await driver.tap(_deleteButtonFinder, timeout: timeout);
   }
 
   Future<Null> tapBackButton() async {
-    await driver.tap(_backButtonFinder);
-
-    return this;
+    return await driver.tap(_backButtonFinder, timeout: timeout);
   }
 }

@@ -10,6 +10,10 @@ import 'package:test/test.dart';
 import 'page_objects/page_objects.dart';
 
 main() {
+  // increase default driver command timeout from 5 to 20
+  // used by driver commands that have timeouts running on CI
+  final Duration timeout = Duration(seconds: 20);
+
   group('Todo App Test', () {
     FlutterDriver driver;
     HomeTestScreen homeScreen;
@@ -116,6 +120,60 @@ main() {
 
       expect(await homeScreen.stats.numActive, 0);
       expect(await homeScreen.stats.numCompleted, 1);
+    });
+
+    test('should be able to add a todo', () async {
+      final task = 'Plan day trip to pyramids';
+      final note = 'Take picture next to Great Pyramid of Giza!';
+
+      // init to home screen
+      await homeScreen.tapTodosTab();
+      expect(await homeScreen.isReady(), isTrue);
+
+      // go to add screen and enter a _todo
+      final addScreen = homeScreen.tapAddTodoButton();
+      await addScreen.enterTask(task);
+      await addScreen.enterNote(note);
+
+      // save and return to home screen and find new _todo
+      await addScreen.tapSaveNewButton();
+      expect(await homeScreen.isReady(), true);
+      expect(await driver.getText(find.text(task), timeout: timeout), task);
+    });
+
+    test('should be able to modify a todo', () async {
+      final task = 'Plan day trip to pyramids';
+      final taskEdit = 'Plan full day trip to pyramids';
+      final noteEdit =
+          'Have lunch next to Great Pyramid of Giza and take pictures!';
+
+      // init to home screen
+      await homeScreen.tapTodosTab();
+      expect(await homeScreen.isReady(), isTrue);
+
+      // find the _todo text to edit and go to details screen
+      final detailsScreen = await homeScreen.tapTodo(task);
+      expect(await detailsScreen.isReady(), isTrue);
+
+      // go to edit screen and edit this _todo
+      final editScreen = detailsScreen.tapEditTodoButton();
+      expect(await editScreen.isReady(), isTrue);
+      await editScreen.editTask(taskEdit);
+      await editScreen.editNote(noteEdit);
+
+      // save and return to details screen
+      await editScreen.tapSaveFab();
+      expect(await detailsScreen.isReady(), isTrue);
+      expect(await driver.getText(find.text(taskEdit), timeout: timeout),
+          taskEdit);
+      expect(await driver.getText(find.text(noteEdit), timeout: timeout),
+          noteEdit);
+
+      // check shows up on home screen
+      await detailsScreen.tapBackButton();
+      expect(await homeScreen.isReady(), isTrue);
+      expect(await driver.getText(find.text(taskEdit), timeout: timeout),
+          taskEdit);
     });
   });
 }

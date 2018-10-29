@@ -66,7 +66,7 @@ main() {
 
       await reactiveRepository.addNewTodo(todos.first);
 
-      verify(repository.saveTodos(typed(any)));
+      verify(repository.saveTodos(any));
       expect(reactiveRepository.todos(), emits([todos.first]));
     });
 
@@ -81,11 +81,11 @@ main() {
       final update = createTodos("task");
 
       when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
-      when(repository.saveTodos(typed(any))).thenAnswer((_) => Future.value());
+      when(repository.saveTodos(any)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.updateTodo(update.first);
 
-      verify(repository.saveTodos(typed(any)));
+      verify(repository.saveTodos(any));
       expect(
         reactiveRepository.todos(),
         emits([update[0], todos[1], todos[2]]),
@@ -102,11 +102,11 @@ main() {
       final future = Future.value(todos);
 
       when(repository.loadTodos()).thenAnswer((_) => future);
-      when(repository.saveTodos(typed(any))).thenAnswer((_) => Future.value());
+      when(repository.saveTodos(any)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.deleteTodo([todos.first.id, todos.last.id]);
 
-      verify(repository.saveTodos(typed(any)));
+      verify(repository.saveTodos(any));
       expect(reactiveRepository.todos(), emits([todos[1]]));
     });
   });

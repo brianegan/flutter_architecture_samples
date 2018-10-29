@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -15,11 +15,13 @@ class FiltersElement extends TestElement {
 
   FiltersElement(FlutterDriver driver) : super(driver);
 
-  Future<Null> tapShowAll() async => await driver.tap(_allFilter);
+  Future<Null> tapShowAll() async =>
+      await driver.tap(_allFilter, timeout: timeout);
 
-  Future<Null> tapShowActive() async => await driver.tap(_activeFilter);
+  Future<Null> tapShowActive() async =>
+      await driver.tap(_activeFilter, timeout: timeout);
 
   Future<Null> tapShowCompleted() async {
-    return await driver.tap(_completedFilter);
+    return await driver.tap(_completedFilter, timeout: timeout);
   }
 }
