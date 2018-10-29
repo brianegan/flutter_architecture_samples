@@ -53,9 +53,12 @@ jobs:
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
         # install flutter
         - git clone https://github.com/flutter/flutter.git -b beta
+	# temporary fix for build problem
+	#- cd flutter; git checkout 0.8.2; cd ..
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter precache
+	- flutter upgrade
         - flutter doctor -v
         # Wait for emulator to finish startup.
         - ./scripts/android-wait-for-emulator.sh
