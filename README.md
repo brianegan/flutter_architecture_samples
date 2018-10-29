@@ -19,6 +19,8 @@ Examples have been updated to Dart 2.
 
   * [Lifting State Up (Vanilla) Example](example/vanilla) - Uses the tools Flutter provides out of the box to manage app state.
   * [InheritedWidget Example](example/inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
+  * [BLoC Example](example/bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Ouputs
+  * ["Simple" BLoC Example](example/simple_bloc_flutter) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
   * [Redux Example](example/redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
   * [built_redux Example](example/built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
   * [scoped_model Example](example/scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
@@ -26,6 +28,7 @@ Examples have been updated to Dart 2.
   adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
   * [MVU Example](example/mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
   * [ReduRx Example](example/redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
+  * [MVI Example](example/mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
 
 ### Supporting Code
 
@@ -60,12 +63,12 @@ All of these ideas and even some of the language are directly influenced by two 
 ## Contributors
 
   * [Brian Egan](https://github.com/brianegan)
+  * [Maurice McCabe](https://github.com/mmcc007)
   * [David Marne](https://github.com/davidmarne)
   * [Pascal Welsch](https://github.com/passsy)
   * [Larry King](https://github.com/kinggolf)
   * [Frank Harper](https://github.com/franklinharper)
   * [Pavel Shilyagov](https://github.com/p69)
-  * [Maurice McCabe](https://github.com/mmcc007)
   * [Leo Cavalcante](https://github.com/leocavalcante)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
