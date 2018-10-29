@@ -58,7 +58,7 @@ jobs:
         # a jar file is missing from the first repository and gradle is not finding it in the second repository
         # switch order of repository search to fix build problem
         # (assumes pinned beta version, at some point in future this fix should be removed and beta unpinned)
-        - cd flutter; git checkout v0.9.4; cd ..
+        - cd flutter; git checkout v0.8.2; cd ..
         - sed -n '21{h; d}; 24{p; x;}; p' flutter/packages/flutter_tools/gradle/flutter.gradle > flutter/packages/flutter_tools/gradle/flutter.gradle
 
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
