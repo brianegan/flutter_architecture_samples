@@ -1,20 +1,20 @@
 jobs:
   include:
 
-    - stage: Unit Testing
-      language: generic
-      os: linux
-      env: UNIT-TESTS
-      before_script:
-        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-        - git clone https://github.com/flutter/flutter.git -b beta
-        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter precache
-        - flutter doctor -v
-        - pub global activate coverage
-      script: ./scripts/runTests.sh
-      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
+#    - stage: Unit Testing
+#      language: generic
+#      os: linux
+#      env: UNIT-TESTS
+#      before_script:
+#        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+#        - git clone https://github.com/flutter/flutter.git -b beta
+#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+#        - flutter precache
+#        - flutter doctor -v
+#        - pub global activate coverage
+#      script: ./scripts/runTests.sh
+#      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
 
     - &integration-test-staging
       stage: Integration Testing
@@ -56,10 +56,10 @@ jobs:
 
         # temporary fix for build problem with beta branch (flutter.gradle is accessing repositories in wrong order)
         # a jar file is missing from the first repository and gradle is not finding it in the second repository
-        # switch order of repository search to fix build problem
+        # switching order of repository search to fix
         # (assumes pinned beta version, at some point in future this fix should be removed and beta unpinned)
-        - cd flutter; git checkout v0.8.2; cd ..
-        - sed -n '21{h; d}; 24{p; x;}; p' flutter/packages/flutter_tools/gradle/flutter.gradle > flutter/packages/flutter_tools/gradle/flutter.gradle
+        - cd flutter; git checkout v0.9.4; cd ..
+        - sed -i -n '21{h; d}; 24{p; x;}; p' flutter/packages/flutter_tools/gradle/flutter.gradle
 
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
