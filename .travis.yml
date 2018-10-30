@@ -1,20 +1,20 @@
 jobs:
   include:
 
-#    - stage: Unit Testing
-#      language: generic
-#      os: linux
-#      env: UNIT-TESTS
-#      before_script:
-#        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-#        - git clone https://github.com/flutter/flutter.git -b beta
-#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-#        - flutter precache
-#        - flutter doctor -v
-#        - pub global activate coverage
-#      script: ./scripts/runTests.sh
-#      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
+    - stage: Unit Testing
+      language: generic
+      os: linux
+      env: All unit and widget tests
+      before_script:
+        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+        - git clone https://github.com/flutter/flutter.git -b beta
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter precache
+        - flutter doctor -v
+        - pub global activate coverage
+      script: ./scripts/runTests.sh
+      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
 
     - &integration-test-staging
       stage: Integration Testing
