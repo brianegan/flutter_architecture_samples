@@ -4,7 +4,7 @@ An example Todo app created with [built_value](https://pub.dartlang.org/packages
 
 ## Key Concepts
 
-  * Most of the Key Concepts from the [Redux Example](../example/redux) apply to this example as well, but the implementations are slightly different.
+  * Most of the Key Concepts from the [Redux Example](../redux) apply to this example as well, but the implementations are slightly different.
   * To enforce immutability, `built_redux` apps require you to use a `built_value` Value Object.
   * To increase discoverability, all actions are created using `built_redux` and attached to the `Store`.
   * To use `built_value` and `built_redux`, you must add a `build.yaml` file to your project.
