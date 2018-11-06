@@ -30,11 +30,12 @@ runTests () {
   cd $1;
   if [ -f "pubspec.yaml" ] && [ -d "test" ]; then
     echo "running tests in $1"
-    flutter packages get || true
+#    flutter packages get || echo "Ignore exit(1)"
+    flutter packages get
    # check if build_runner needs to be run
     # todo: fix build in ./example/built_redux (not regenerating *.g.dart files in dart 2.0)
     if grep build_runner pubspec.yaml > /dev/null  && [ "$1" != "./example/built_redux" ]; then
-      flutter packages pub run build_runner build --delete-conflicting-outputs || error=true
+      flutter packages pub run build_runner build --delete-conflicting-outputs
     fi
 
     escapedPath="$(echo $1 | sed 's/\//\\\//g')"
@@ -111,7 +112,7 @@ case $1 in
 esac
 
 #Fail the build if there was an error
-if [ $error ]
+if [ "$error" = true ] ;
 then
     exit -1
 fi
