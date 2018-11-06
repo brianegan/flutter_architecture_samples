@@ -53,14 +53,6 @@ jobs:
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
         # install flutter
         - git clone https://github.com/flutter/flutter.git -b beta
-
-        # temporary fix for build problem with beta branch (flutter.gradle is accessing repositories in wrong order)
-        # a jar file is missing from the first repository and gradle is not finding it in the second repository
-        # switching order of repository search to fix
-        # (assumes pinned beta version, at some point in future this fix should be removed and beta unpinned)
-        - cd flutter; git checkout v0.9.4; cd ..
-        - sed -i -n '21{h; d}; 24{p; x;}; p' flutter/packages/flutter_tools/gradle/flutter.gradle
-
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter precache
