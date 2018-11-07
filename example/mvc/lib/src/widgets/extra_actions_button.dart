@@ -4,9 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
-//import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
-import 'package:scoped_model_sample/todo_list_model.dart';
 
 import 'package:mvc/src/Controller.dart';
 
@@ -19,7 +17,6 @@ class ExtraActionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    var model = TodoListModel.of(context, rebuildOnChange: true);
     return PopupMenuButton<ExtraAction>(
       key: ArchSampleKeys.extraActionsButton,
       onSelected: (action) {
@@ -35,8 +32,8 @@ class ExtraActionsButton extends StatelessWidget {
               key: ArchSampleKeys.toggleAll,
               value: ExtraAction.toggleAllComplete,
               child: Text(Con.todos.any((it) => !it['complete'])
-                  ? ArchSampleLocalizations.of(context).markAllIncomplete
-                  : ArchSampleLocalizations.of(context).markAllComplete),
+                  ? ArchSampleLocalizations.of(context).markAllComplete
+                  : ArchSampleLocalizations.of(context).markAllIncomplete),
             ),
             PopupMenuItem<ExtraAction>(
               key: ArchSampleKeys.clearCompleted,
