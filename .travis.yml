@@ -113,16 +113,6 @@ jobs:
       env: inherited_widget_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./example/inherited_widget
-#    - <<: *integration-test-staging
-#      os: linux
-#      env: mvc_android
-#      script: travis_retry ./scripts/ci.sh ./example/mvc
-#    - <<: *integration-test-staging
-#      os: osx
-#      osx_image: xcode8.0
-#      env: mvc_ios
-#      before_install: *before_install_osx
-#      script: travis_retry ./scripts/ci.sh ./example/mvc
     - <<: *integration-test-staging
       os: linux
       env: mvi_flutter_android
