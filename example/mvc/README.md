@@ -19,6 +19,7 @@ In many MVC arrangements, the View knows how to ‘talk to’ the Controller, an
 Such a characteristic allows one, for example, to switch out and put in a different Model with little consequence. The 'new' Model need only conform to the API requirements so the Controller can ‘talk to’ it correctly. Conceivably, in turn, a 'new' View could be introduced aligned with the same functions names (same api) so it too correctly 'talks to' the Controller. Each is decoupled from the other two to such a degree that modification of any one component should not adversely effect the other two.
 
 However, the 'lines of communication' can be changed depending on the application's particular needs, but the 'separation of responsibilities' generally remain the same.
+
 ![mvc pattern](https://user-images.githubusercontent.com/32497443/47087587-6614ed00-d1ea-11e8-8fc3-ced0ac6af12a.jpg)
 ![controllermodels](https://user-images.githubusercontent.com/32497443/47764873-a457e500-dc9d-11e8-8d89-2f1b8521335e.jpeg)
 
@@ -68,5 +69,7 @@ In turn, the class, Todo, is called by the class, TodoListModel. It mirrors the 
 
 Further information on the MVC package can be found in the article, [‘Flutter + MVC at Last!’](https://medium.com/p/275a0dc1e730/)
 [![online article](https://user-images.githubusercontent.com/32497443/47087365-c9524f80-d1e9-11e8-85e5-6c8bbabb18cc.png)](https://medium.com/flutter-community/flutter-mvc-at-last-275a0dc1e730)
+
 [Repository (GitHub)](https://github.com/AndriousSolutions/mvc_pattern)
+
 [API Docs](https://pub.dartlang.org/documentation/mvc_pattern/latest/mvc_pattern/mvc_pattern-library.html)
