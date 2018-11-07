@@ -3,16 +3,21 @@
 part of 'types.dart';
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltValueGenerator
 // **************************************************************************
 
 // ignore_for_file: always_put_control_body_on_new_line
 // ignore_for_file: annotate_overrides
 // ignore_for_file: avoid_annotating_with_dynamic
+// ignore_for_file: avoid_catches_without_on_clauses
 // ignore_for_file: avoid_returning_this
+// ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: omit_local_variable_types
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
+// ignore_for_file: unnecessary_const
+// ignore_for_file: unnecessary_new
+// ignore_for_file: test_types_in_equals
 
 class _$StatsModel extends StatsModel {
   @override
@@ -30,14 +35,18 @@ class _$StatsModel extends StatsModel {
   _$StatsModel._(
       {this.items, this.loading, this.activeCount, this.completedCount})
       : super._() {
-    if (items == null)
+    if (items == null) {
       throw new BuiltValueNullFieldError('StatsModel', 'items');
-    if (loading == null)
+    }
+    if (loading == null) {
       throw new BuiltValueNullFieldError('StatsModel', 'loading');
-    if (activeCount == null)
+    }
+    if (activeCount == null) {
       throw new BuiltValueNullFieldError('StatsModel', 'activeCount');
-    if (completedCount == null)
+    }
+    if (completedCount == null) {
       throw new BuiltValueNullFieldError('StatsModel', 'completedCount');
+    }
   }
 
   @override
@@ -48,10 +57,10 @@ class _$StatsModel extends StatsModel {
   StatsModelBuilder toBuilder() => new StatsModelBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! StatsModel) return false;
-    return items == other.items &&
+    return other is StatsModel &&
+        items == other.items &&
         loading == other.loading &&
         activeCount == other.activeCount &&
         completedCount == other.completedCount;
@@ -112,7 +121,9 @@ class StatsModelBuilder implements Builder<StatsModel, StatsModelBuilder> {
 
   @override
   void replace(StatsModel other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$StatsModel;
   }
 
