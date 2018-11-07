@@ -61,6 +61,7 @@ class TodoListModel {
 
   void clearCompleted() {
     _todos.removeWhere((todo) => todo.complete);
+    _uploadItems();
   }
 
   void toggleAll() {
