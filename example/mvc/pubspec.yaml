@@ -3,7 +3,7 @@ description: Contributing to the The Flutter Architecture Samples project demons
 author: Greg Perry <support@andrioussolutions.com>
 homepage: https://github.com/AndriousSolutions/mvc_pattern
 
-version: 0.8.1
+version: 0.8.5
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
