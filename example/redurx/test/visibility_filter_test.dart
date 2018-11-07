@@ -1,7 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:redurx_sample/models/visibility_filter.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('VisibilityFilter', () {
@@ -25,7 +25,7 @@ void main() {
 
     test('should have a serializer', () {
       expect(VisibilityFilter.serializer,
-          isInstanceOf<Serializer<VisibilityFilter>>());
+          TypeMatcher<Serializer<VisibilityFilter>>());
     });
   });
 }

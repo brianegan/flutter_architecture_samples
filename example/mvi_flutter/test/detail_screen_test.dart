@@ -9,9 +9,10 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/screens/detail_screen.dart';
+import 'package:test/test.dart' as test;
 
 void main() {
-  group('DetailScreen', () {
+  test.group('DetailScreen', () {
     testWidgets('should render the Task and Note', (tester) async {
       final todo = Todo('Hallo', note: 'Hello');
       final presenter = MockDetailPresenter(todo);
@@ -72,7 +73,7 @@ void main() {
 
       expect(
         tester.firstWidget(find.byKey(ArchSampleKeys.detailsTodoItemCheckbox)),
-        isNot(isChecked),
+        test.isNot(isChecked),
       );
     });
 
@@ -101,7 +102,7 @@ void main() {
 
       // Expect that the deleteTodoStream emits the current id. The Presenter
       // is responsible for listening to this stream and doing work with it!
-      expect(key.currentState.deleteTodo.stream, emits(todo.id));
+      expect(key.currentState.deleteTodo.stream, test.emits(todo.id));
     });
 
     testWidgets('should update a todo', (tester) async {
@@ -131,7 +132,7 @@ void main() {
       // is responsible for listening to this stream and doing work with it!
       expect(
         key.currentState.updateTodo.stream,
-        emits(todo.copyWith(complete: true)),
+        test.emits(todo.copyWith(complete: true)),
       );
     });
   });
@@ -145,16 +146,16 @@ class MockDetailPresenter extends MviPresenter<Todo> {
         );
 }
 
-Matcher get isChecked => CheckedMatcher(true);
+test.Matcher get isChecked => CheckedMatcher(true);
 
-class CheckedMatcher extends Matcher {
+class CheckedMatcher extends test.Matcher {
   final bool checked;
   bool wasCheckbox = true;
 
   CheckedMatcher(this.checked);
 
   @override
-  Description describe(Description description) {
+  test.Description describe(test.Description description) {
     if (!wasCheckbox) {
       return description.replace('The item was not a checkbox');
     } else {

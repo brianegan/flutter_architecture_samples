@@ -8,8 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
 import 'package:firebase_flutter_repository/user_repository.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 main() {
@@ -23,7 +23,7 @@ main() {
 
       final entity = await repository.login();
 
-      expect(entity, isInstanceOf<UserEntity>());
+      expect(entity, TypeMatcher<UserEntity>());
     });
   });
 

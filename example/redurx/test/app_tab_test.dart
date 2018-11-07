@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:redurx_sample/models/app_tab.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('AppTab', () {

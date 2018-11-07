@@ -9,7 +9,6 @@ import 'package:fire_redux_sample/middleware/store_todos_middleware.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';

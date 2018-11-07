@@ -6,8 +6,8 @@ import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:redux/redux.dart';
+import 'package:test/test.dart';
 
 main() {
   group('State Reducer', () {

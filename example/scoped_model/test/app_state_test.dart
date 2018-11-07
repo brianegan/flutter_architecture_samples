@@ -2,9 +2,9 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter_test/flutter_test.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 main() {

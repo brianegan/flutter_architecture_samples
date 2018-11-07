@@ -4,8 +4,8 @@
 
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:quiver/core.dart';
+import 'package:test/test.dart';
 
 main() {
   group('Selectors', () {

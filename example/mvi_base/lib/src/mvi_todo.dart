@@ -9,7 +9,7 @@ import 'package:mvi_base/src/models/models.dart';
 import 'package:mvi_base/src/mvi_core.dart';
 import 'package:mvi_base/src/todos_interactor.dart';
 
-class DetailView extends MviView {
+mixin DetailView implements MviView {
   final deleteTodo = StreamController<String>.broadcast(sync: true);
 
   final updateTodo = StreamController<Todo>.broadcast(sync: true);
