@@ -5,6 +5,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/andrioussolutions" />
+            android:src="@mipmap/andrioussolutions1" />
     </item>
 </layer-list>
