@@ -21,11 +21,12 @@ class Con extends ControllerMVC {
 
   @override
   void initState() {
-    con = this;
+    _con = this;
   }
+  static Con _con;
 
   /// Allow for easy access to 'the Controller' throughout the application.
-  static Con con;
+  static Con get con => _con;
 
   static List<Map<dynamic, dynamic>> get todos => model.todos;
 
