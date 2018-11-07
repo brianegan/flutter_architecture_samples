@@ -9,7 +9,6 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 import 'package:mvc/src/models.dart';
 import 'package:mvc/src/screens/add_edit_screen.dart';
-//import 'package:mvc/src/todo_list_model.dart';
 
 import 'package:mvc/src/Controller.dart';
 
