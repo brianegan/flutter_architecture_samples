@@ -13,20 +13,22 @@ import 'package:mvc/src/App.dart' show MVCApp;
 /// The Controller answers & responses to 'the events' while the Model execute 'the rules' and manipulates data.
 class Con extends ControllerMVC {
 
+  factory Con(){
+    if(_this == null) _this = Con._();
+    return _this;
+  }
+  static Con _this;
+
+  Con._();
+
+  /// Allow for easy access to 'the Controller' throughout the application.
+  static Con get con => _this;
+
   static final model = Model();
 
   static VisibilityFilter get activeFilter => model.activeFilter;
   static set activeFilter(VisibilityFilter filter) =>
       model.activeFilter = filter;
-
-  @override
-  void initState() {
-    _con = this;
-  }
-  static Con _con;
-
-  /// Allow for easy access to 'the Controller' throughout the application.
-  static Con get con => _con;
 
   static List<Map<dynamic, dynamic>> get todos => model.todos;
 
