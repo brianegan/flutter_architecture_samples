@@ -29,6 +29,7 @@ class HomeView extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
     /// Calls the Controller when this one-time 'init' event occurs.
     /// Not revealing the 'business logic' that then fires inside.
     _con.init();

@@ -37,7 +37,7 @@ class Model {
     todoModel.removeTodo(To.todo(data));
   }
 
-  void undoRemove(Map data){
+  void undoRemove(Map data) {
     data['id'] = null;
     update(data);
   }

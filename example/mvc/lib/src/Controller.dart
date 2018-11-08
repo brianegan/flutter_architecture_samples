@@ -12,9 +12,8 @@ import 'package:mvc/src/App.dart' show MVCApp;
 
 /// The Controller answers & responses to 'the events' while the Model execute 'the rules' and manipulates data.
 class Con extends ControllerMVC {
-
-  factory Con(){
-    if(_this == null) _this = Con._();
+  factory Con() {
+    if (_this == null) _this = Con._();
     return _this;
   }
   static Con _this;
@@ -80,7 +79,7 @@ class Con extends ControllerMVC {
     refresh();
   }
 
-  void undo(Map<String, Object> dataItem){
+  void undo(Map<String, Object> dataItem) {
     /// The Model 'knows' how to undo a remove of an item.
     model.undoRemove(dataItem);
     // In this case, it is the Controller that decides to 'refresh' the View.
