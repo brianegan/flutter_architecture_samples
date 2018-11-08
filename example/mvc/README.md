@@ -3,7 +3,7 @@ MVC was first conceived some forty years ago by a visiting scientist at Xerox Pa
 
 Note, the publicly avaialable package, [mvc_pattern](https://pub.dartlang.org/packages/mvc_pattern), is used to demonstrate the Model-View-Controller design pattern in this particular architecture pattern sample. 
 
-##### The MVC Design Pattern and Other Arichtectures
+##### The MVC Design Pattern and Other Architectures
 Like other design patterns, MVC aims to decouple major aspects generally found in software applications. In the case of MVC, it is three particular features: the Interface, the Event Handling, and the Data. This will generally allow for more efficient and modular code, more code reuse and parallel development. Like most things, it ‘makes life easier’ if you break things down into separate working parts. The bigger the software application; the bigger the importance to implement such design patterns.
 
 ## MVC in a nutshell:
@@ -34,14 +34,16 @@ In the main.dart file, you see the usual **runApp()** function:
 ![01main dart](https://user-images.githubusercontent.com/32497443/47758766-db6ccd00-dc82-11e8-9f83-29c57ad73aa2.jpg)
 ## The Controller
 Looking at just the first few lines of the Controller, you can see a lot is happening here. For example, you can see the [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) in the form of a list of import statements taking in only what the Controller depends on to fulfill its function. And so, it's here where the Model is instantiated as it is only here where it is readily used. The View has no knowledge of the Model nor does it need to at this point.
-![con extends](https://user-images.githubusercontent.com/32497443/47793174-0a6f5700-dcf4-11e8-978c-fa813e5414e0.jpg)
+![controller](https://user-images.githubusercontent.com/32497443/48212521-c5799f00-e349-11e8-9280-e25bb49086a7.png)
 However, note the variable, model, is static and is not 'library-private' (no leading underscore). This allows the developer, if they wish, to externally reference the Model so to access its public functions and properities. Depending on the circumstances, this may be desired. At this point, the developer has that option. Of course, adding an underscore would then change those 'lines of communication'.
 
-The 'VisibiltyFilter' is concerned with 'what' type of 'ToDo' items are displayed (what is displayed) at any one time in this 'ToDo' app. As it happens, this concern is also one of the responsibilities of the Controller, and so this 'filter' is implemented only in the Controller. Finally, note the Controller itself is assigned to a static variable inside its constructor. Doing so, allows for clean and easy access to the Controller throughout the rest of the application:
+The 'VisibiltyFilter' is concerned with 'what' type of 'ToDo' items are displayed (what is displayed) at any one time in this 'ToDo' app. As it happens, this concern is also one of the responsibilities of the Controller, and so this 'filter' is implemented only in the Controller. 
+
+Finally, note the Controller uses a factory constructor. This allows for the Controller to be instantiated once, but referenced everywhere if need be. However, the developer has the option to use a getter instead to access the Controller. Again, doing so allows for easy access to the Controller throughout the rest of the application:
 ![concon](https://user-images.githubusercontent.com/32497443/47794282-8a96bc00-dcf6-11e8-8a7e-3a602649e753.jpg)
 ## The Controller and its Model
 The Controller is fully listed below, and you can see highlighted where the Model is called to retrieve, save and update the data source (whatever that data source may be). The View nor the Controller 'knows' what type of data source it is, or what type of database the data resides in. They don't need to. The Model takes care of that. 
-![controller](https://user-images.githubusercontent.com/32497443/47796637-21657780-dcfb-11e8-92d5-26a61f029342.jpg)
+![controller](https://user-images.githubusercontent.com/32497443/48216483-d5e24780-e352-11e8-8e2c-47e12fac8ba6.png)
 ##### What's in a name? (or API?)
 Looking closely at the code, you can see the Controller's public functions have names that don't always match the Model functions they, in turn, call. This is part of the decoupling that's possible with this design pattern. For instanct, the View need only know the names of the Controller's public functions and public fields (the Controller's API). Retain the Controller's API (In other words, keep those public function names consistant over time), and the Model is able to be changed more freely. Only the Controller would then have to address any Model changes. It's no concern to any other part of the application thus encouraging modular coding.
 ##### How about the Model?
