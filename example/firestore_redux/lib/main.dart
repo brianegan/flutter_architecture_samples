@@ -61,16 +61,8 @@ class ReduxApp extends StatelessWidget {
           FirestoreReduxLocalizationsDelegate(),
         ],
         routes: {
-          ArchSampleRoutes.home: (context) {
-            return StoreBuilder<AppState>(
-              builder: (context, store) {
-                return HomeScreen();
-              },
-            );
-          },
-          ArchSampleRoutes.addTodo: (context) {
-            return AddTodo();
-          },
+          ArchSampleRoutes.home: (context) => HomeScreen(),
+          ArchSampleRoutes.addTodo: (context) => AddTodo(),
         },
       ),
     );

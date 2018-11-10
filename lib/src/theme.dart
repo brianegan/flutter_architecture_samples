@@ -15,6 +15,7 @@ class ArchSampleTheme {
         buttonColor: Colors.grey[800],
         textSelectionColor: Colors.cyan[100],
         backgroundColor: Colors.grey[800],
+        toggleableActiveColor: Colors.cyan[300],
         textTheme: originalTextTheme.copyWith(
             body1:
                 originalBody1.copyWith(decorationColor: Colors.transparent)));

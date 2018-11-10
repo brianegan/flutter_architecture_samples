@@ -38,10 +38,9 @@ class ReduxApp extends StatelessWidget {
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            return StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(LoadTodosAction()),
-              builder: (context, store) {
-                return HomeScreen();
+            return HomeScreen(
+              onInit: () {
+                StoreProvider.of<AppState>(context).dispatch(LoadTodosAction());
               },
             );
           },

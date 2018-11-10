@@ -16,6 +16,7 @@ class Stats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
+      distinct: true,
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
         return StatsCounter(
@@ -38,5 +39,21 @@ class _ViewModel {
       numActive: numActiveSelector(todosSelector(store.state)),
       numCompleted: numCompletedSelector(todosSelector(store.state)),
     );
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is _ViewModel &&
+          runtimeType == other.runtimeType &&
+          numCompleted == other.numCompleted &&
+          numActive == other.numActive;
+
+  @override
+  int get hashCode => numCompleted.hashCode ^ numActive.hashCode;
+
+  @override
+  String toString() {
+    return '_ViewModel{numCompleted: $numCompleted, numActive: $numActive}';
   }
 }

@@ -13,8 +13,23 @@ import 'package:redux_sample/containers/tab_selector.dart';
 import 'package:redux_sample/localization.dart';
 import 'package:redux_sample/models/models.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen() : super(key: ArchSampleKeys.homeScreen);
+class HomeScreen extends StatefulWidget {
+  final void Function() onInit;
+
+  HomeScreen({@required this.onInit}) : super(key: ArchSampleKeys.homeScreen);
+
+  @override
+  HomeScreenState createState() {
+    return new HomeScreenState();
+  }
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    widget.onInit();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
