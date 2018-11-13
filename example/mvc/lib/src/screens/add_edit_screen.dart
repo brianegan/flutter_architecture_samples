@@ -5,7 +5,8 @@
 import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart' show ArchSampleKeys, ArchSampleLocalizations;
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart'
+    show ArchSampleKeys, ArchSampleLocalizations;
 
 /// The 'View' should know nothing of the 'Model.'
 /// The 'View' only knows how to 'talk to' the Controller.

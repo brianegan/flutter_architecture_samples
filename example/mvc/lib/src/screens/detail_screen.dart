@@ -5,7 +5,8 @@
 import 'package:flutter/foundation.dart' show required;
 import 'package:flutter/material.dart';
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart' show ArchSampleKeys, ArchSampleLocalizations;
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart'
+    show ArchSampleKeys, ArchSampleLocalizations;
 
 import 'package:mvc/src/screens/add_edit_screen.dart' show AddEditScreen;
 
