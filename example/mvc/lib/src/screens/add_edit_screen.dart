@@ -2,16 +2,14 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
+import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart' show ArchSampleKeys, ArchSampleLocalizations;
 
 /// The 'View' should know nothing of the 'Model.'
 /// The 'View' only knows how to 'talk to' the Controller.
-//import 'package:scoped_model_sample/models.dart';
-
-import 'package:mvc/src/Controller.dart';
+import 'package:mvc/src/Controller.dart' show Con;
 
 class AddEditScreen extends StatelessWidget {
   static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -33,7 +31,7 @@ class AddEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Return the 'universally recognized' Map object.
     /// The data will only be known through the use of Map objects.
-    Map<String, Object> todo = Con.todoById(todoId);
+    Map<String, Object> todo = _con.todoById(todoId);
 
     return Scaffold(
       appBar: AppBar(
