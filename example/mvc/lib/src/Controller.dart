@@ -99,7 +99,7 @@ class Con extends ControllerMVC {
     refresh();
   }
 
-  static Map<String, Object> todoById(String id) {
+  Map<String, Object> todoById(String id) {
     return model.todoById(id);
   }
 }
