@@ -14,7 +14,10 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mvc/src/Controller.dart';
 
 class MVCApp extends AppMVC {
-  MVCApp() : super(con: Con());
+  MVCApp({Key key}) : super(con: controller, key: key);
+
+  /// An external reference to the Controller if you wish. -gp
+  static final Con controller = Con();
 
   static MaterialApp _app;
 
