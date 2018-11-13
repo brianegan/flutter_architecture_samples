@@ -1,10 +1,10 @@
 # MVC
 MVC was first conceived some forty years ago by a visiting scientist at Xerox Palo Alto Research Laboratory (PARC) in California by the name of, Trygve Reenskaug. Most of the more recent design patterns are reflections of this original. It is hoped, this sample app will successfully convey how one might implement MVC when developing software. 
 
-Note, the publicly avaialable package, [mvc_pattern](https://pub.dartlang.org/packages/mvc_pattern), is used to demonstrate the Model-View-Controller design pattern in this particular architecture pattern sample. 
+Note, the publicly available package, [mvc_pattern](https://pub.dartlang.org/packages/mvc_pattern), is used to demonstrate the Model-View-Controller design pattern in this particular architecture pattern sample. 
 
 ##### The MVC Design Pattern and Other Architectures
-Like other design patterns, MVC aims to decouple major aspects generally found in software applications. In the case of MVC, it is three particular features: the Interface, the Event Handling, and the Data. This will generally allow for more efficient and modular code, more code reuse and parallel development. Like most things, it ‘makes life easier’ if you break things down into separate working parts. The bigger the software application; the bigger the importance to implement such design patterns.
+Like other design patterns, MVC aims to decouple major aspects generally found in software applications. In the case of MVC, it is three particular features: the Interface, the Event Handling, and the Data. This will generally allow for more efficient and modular code, more code reuse and parallel development. Like most things, it ‘makes life easier’ if you break things down into its separate working parts. The bigger the software application; the bigger the importance to implement such design patterns.
 
 ## MVC in a nutshell:
 * Controller responses to system and user events--controlling what's displayed.
@@ -25,7 +25,7 @@ However, the 'lines of communication' can be changed depending on the applicatio
 ## Flutter and MVC
 With the understanding that ‘the Interface’, 'the event handling' and ‘the data’ are now to be separated when using this design pattern, it's currently concluded in this MVC package that the **build()** function found in a typical **Stateful** or **Stateless** Widget will represent 'the View', while anything 'called' inside that function or any 'events' occurring within that function will execute code typically found in 'the Controller.' 
 
-In this sample app for example, the add_edit_screen.dart file involved in adding or editing a 'ToDo' item, is highlighted below where the 'Controller' is referenced. Most references are found within the **build()** function. If, for example, the user pressing a button to add or save a 'ToDo' item, the Controller is called upon (see last arrow) to repsond to the event. 
+In this sample app, for example, the add_edit_screen.dart file involved in adding or editing a 'ToDo' item, is highlighted below where the 'Controller' is referenced. Most references are found within the **build()** function. If, for example, the user presses a button to add or save a 'ToDo' item, the Controller is called upon (see last arrow) to repsond to the event. 
 ![add_edit_screen](https://user-images.githubusercontent.com/32497443/47756814-fedf4a00-dc79-11e8-95b5-13f3b864ce1c.jpg)
 ## Begin Your MVC App
 In the screenshot below, you see the implementation of the MVC library package. The class, MVCApp, extends the class, AppMVC, found in the MVC library package. In this one screenshot, you can also see both the Controller and the View. The class, MVCApp, instantiates the Controller as a parameter to its superclass's constructor while the View is essentially the Widget returned from the **build()** function. 
@@ -52,7 +52,7 @@ Looking at the Model in this sample (see below), and you can see that it itself 
 For full disclosure, I may have taken liberties as I chose to abscond the 'Model' and 'localization' code from Brian Egan's own 'Scoped Model' contribution to possibly accentuate my own. Again, to demonstrate how a MVC's Model, at times, may be used 'to convert' a data source to a format suitable to own its application.
 ![model](https://user-images.githubusercontent.com/32497443/47763415-0234fe80-dc97-11e8-9967-c7a5cef11e32.jpg)
 ##### Map the Data
-In this 'ToDo' app sample, the data is displayed using Dart's own [Map](https://www.dartlang.org/guides/language/language-tour#maps) built-in type (see below). However, the 'repository' offered by all of us contributing to this [Flutter Architecture Samples](http://fluttersamples.com/) project does not. Instead, it uses the class, [TodoEntity](https://github.com/brianegan/flutter_architecture_samples/blob/master/example/todos_repository/lib/src/todo_entity.dart). I merely decided to demonstrate this 'conduit' role sometimes play by a Model. Of course, the rest of the sample app is unaware of the conversion therefore required.
+ We're just using a Map for the View instead of a Middle man class, like a TodoViewModel. In this 'ToDo' app sample, the data is displayed using Dart's own [Map](https://www.dartlang.org/guides/language/language-tour#maps) built-in type (see below). However, the 'repository' offered by all of us contributing to this [Flutter Architecture Samples](http://fluttersamples.com/) project does not. Instead, it uses the class, [TodoEntity](https://github.com/brianegan/flutter_architecture_samples/blob/master/example/todos_repository/lib/src/todo_entity.dart). I decided to demonstrate this 'conduit' role sometimes play by a Model. Of course, the rest of the sample app is unaware of the conversion therefore required.
 ![add_edit_screen2](https://user-images.githubusercontent.com/32497443/47791412-08a39480-dcf0-11e8-864c-69c0725e625d.jpg)
 ##### The Model is the Conduit
 Again, in this particular 'ToDo' app sample, the MVC implementation has the Model play the role of 'conduit.' It's lies between the data repository supplied by the makers of this project and the rest of this application.
