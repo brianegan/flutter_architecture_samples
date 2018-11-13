@@ -2,20 +2,19 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart' show required;
 import 'package:flutter/material.dart';
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart' show ArchSampleKeys, ArchSampleLocalizations;
 
-import 'package:mvc/src/models.dart';
-import 'package:mvc/src/screens/add_edit_screen.dart';
+import 'package:mvc/src/screens/add_edit_screen.dart' show AddEditScreen;
 
-import 'package:mvc/src/Controller.dart';
+import 'package:mvc/src/Controller.dart' show Con;
 
 class DetailScreen extends StatelessWidget {
   final String todoId;
 
-  final con = Con.con;
+  final Con con = Con.con;
 
   DetailScreen({
     @required this.todoId,
@@ -23,8 +22,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // fallback to empty item. When deleting it, it is null before the screen is gone
-    Map todo = Con.todoById(todoId) ?? Todo('');
+    Map todo = con.todoById(todoId);
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).todoDetails),
