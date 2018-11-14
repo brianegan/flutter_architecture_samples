@@ -28,6 +28,7 @@ dev_dependencies:
     sdk: flutter
   integration_tests:
     path: ../integration_tests
+  test: ^1.5.1
 
 dependency_overrides:
   analyzer: ^0.33.0
