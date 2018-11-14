@@ -193,3 +193,4 @@ jobs:
   allow_failures:
     - env: mvu_android
     - env: mvu_ios
+    - env: redurx_android
