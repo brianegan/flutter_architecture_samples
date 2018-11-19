@@ -29,6 +29,8 @@ Examples have been updated to Dart 2.
   * [MVU Example](example/mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
   * [ReduRx Example](example/redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
   * [MVI Example](example/mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
+  * [MVC Example](example/mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
+    
 
 ### Supporting Code
 
@@ -70,5 +72,6 @@ All of these ideas and even some of the language are directly influenced by two 
   * [Frank Harper](https://github.com/franklinharper)
   * [Pavel Shilyagov](https://github.com/p69)
   * [Leo Cavalcante](https://github.com/leocavalcante)
+  * [Greg Perry](https://github.com/AndriousSolutions)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
