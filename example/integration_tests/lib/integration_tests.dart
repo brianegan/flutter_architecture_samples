@@ -10,10 +10,6 @@ import 'package:test/test.dart';
 import 'page_objects/page_objects.dart';
 
 main() {
-  // increase default driver command timeout from 5 to 20
-  // used by driver commands that have timeouts running on CI
-//  final Duration timeout = Duration(seconds: 20);
-
   group('Todo App Test', () {
     FlutterDriver driver;
     HomeTestScreen homeScreen;
