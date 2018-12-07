@@ -48,7 +48,7 @@ Dispatching `Actions` and updating the App State in this rigorous way allows you
   
 ## Updating UI
 
-Whenever your App State changes, as a consequence of dispatching an `Action` for example, you most likely want to update your UI in some way.
+Whenever your App State changes, as a result of an `Action` for example, you most likely want to update your UI in some way.
 
 To do so, connect to the `StoreProvider` using a `StoreConnector` Widget. The job of the `StoreConnector` widget is simple: Take the latest state of the store and convert it into a `ViewModel`. Then, build a Widget tree using this `ViewModel`.
 
