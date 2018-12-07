@@ -15,13 +15,13 @@ class ExtraActionsElement extends TestElement {
   ExtraActionsElement(FlutterDriver driver) : super(driver);
 
   Future<ExtraActionsElement> tapToggleAll() async {
-    await driver.tap(_toggleAll, timeout: timeout);
+    await driver.tap(_toggleAll);
 
     return this;
   }
 
   Future<ExtraActionsElement> tapClearCompleted() async {
-    await driver.tap(_clearCompleted, timeout: timeout);
+    await driver.tap(_clearCompleted);
 
     return this;
   }

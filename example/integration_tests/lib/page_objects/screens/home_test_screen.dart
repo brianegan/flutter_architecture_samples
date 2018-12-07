@@ -41,41 +41,41 @@ class HomeTestScreen extends TestScreen {
   }
 
   TodoListElement tapTodosTab() {
-    driver.tap(_todosTabFinder, timeout: timeout);
+    driver.tap(_todosTabFinder);
 
     return new TodoListElement(driver);
   }
 
   StatsElement tapStatsTab() {
-    driver.tap(_statsTabFinder, timeout: timeout);
+    driver.tap(_statsTabFinder);
 
     return new StatsElement(driver);
   }
 
   FiltersElement tapFilterButton() {
-    driver.tap(_filterButtonFinder, timeout: timeout);
+    driver.tap(_filterButtonFinder);
 
     return new FiltersElement(driver);
   }
 
   ExtraActionsElement tapExtraActionsButton() {
-    driver.tap(_extraActionsButtonFinder, timeout: timeout);
+    driver.tap(_extraActionsButtonFinder);
 
     return new ExtraActionsElement(driver);
   }
 
   Future<bool> get snackbarVisible {
-    return widgetExists(driver, _snackbarFinder, timeout: timeout);
+    return widgetExists(driver, _snackbarFinder);
   }
 
   AddTestScreen tapAddTodoButton() {
-    driver.tap(_addTodoButtonFinder, timeout: timeout);
+    driver.tap(_addTodoButtonFinder);
 
     return new AddTestScreen(driver);
   }
 
   DetailsTestScreen tapTodo(String text) {
-    driver.tap(find.text(text), timeout: timeout);
+    driver.tap(find.text(text));
     return DetailsTestScreen(driver);
   }
 }

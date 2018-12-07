@@ -15,13 +15,11 @@ class FiltersElement extends TestElement {
 
   FiltersElement(FlutterDriver driver) : super(driver);
 
-  Future<Null> tapShowAll() async =>
-      await driver.tap(_allFilter, timeout: timeout);
+  Future<Null> tapShowAll() async => await driver.tap(_allFilter);
 
-  Future<Null> tapShowActive() async =>
-      await driver.tap(_activeFilter, timeout: timeout);
+  Future<Null> tapShowActive() async => await driver.tap(_activeFilter);
 
   Future<Null> tapShowCompleted() async {
-    return await driver.tap(_completedFilter, timeout: timeout);
+    return await driver.tap(_completedFilter);
   }
 }

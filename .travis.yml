@@ -7,7 +7,7 @@ jobs:
       env: All unit and widget tests
       before_script:
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-        - git clone https://github.com/flutter/flutter.git -b beta
+        - git clone https://github.com/flutter/flutter.git -b stable
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter precache
@@ -52,7 +52,7 @@ jobs:
         - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
         # install flutter
-        - git clone https://github.com/flutter/flutter.git -b beta
+        - git clone https://github.com/flutter/flutter.git -b stable
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter precache
@@ -76,7 +76,7 @@ jobs:
         - brew install ios-deploy
         - brew install cocoapods || echo 'ignore exit(1)'
         - brew link --overwrite cocoapods
-        - git clone https://github.com/flutter/flutter.git -b beta
+        - git clone https://github.com/flutter/flutter.git -b stable
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter precache

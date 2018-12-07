@@ -1,5 +1,5 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved. 
-// Use of this source code is governed by the MIT license that can be found 
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
 import 'dart:async';
@@ -24,12 +24,11 @@ class TodoListElement extends TestElement {
     // Since the CircularProgressIndicator runs a continuous animation, if we
     // do not `runUnsynchronized`, this check will never work.
     return driver.runUnsynchronized(() {
-      return widgetExists(driver, _loadingFinder, timeout: timeout);
-    }, timeout: timeout);
+      return widgetExists(driver, _loadingFinder);
+    });
   }
 
-  Future<bool> get isReady => widgetExists(driver, _todoListFinder,
-      timeout: timeout);
+  Future<bool> get isReady => widgetExists(driver, _todoListFinder);
 
   TodoItemElement todoItem(String id) => new TodoItemElement(id, driver);
 
