@@ -12,13 +12,7 @@ import 'package:flutter_architecture_samples/flutter_architecture_samples.dart'
 /// The 'View' only knows how to 'talk to' the Controller.
 import 'package:mvc/src/Controller.dart' show Con;
 
-class AddEditScreen extends StatelessWidget {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  static final GlobalKey<FormFieldState<String>> taskKey =
-      GlobalKey<FormFieldState<String>>();
-  static final GlobalKey<FormFieldState<String>> noteKey =
-      GlobalKey<FormFieldState<String>>();
-
+class AddEditScreen extends StatefulWidget {
   final String todoId;
 
   AddEditScreen({
@@ -26,13 +20,22 @@ class AddEditScreen extends StatelessWidget {
     this.todoId,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
+  @override
+  _AddEditScreenState createState() => _AddEditScreenState();
+}
+
+class _AddEditScreenState extends State<AddEditScreen> {
+  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   final Con _con = Con.con;
+  String _task;
+  String _note;
 
   @override
   Widget build(BuildContext context) {
     /// Return the 'universally recognized' Map object.
     /// The data will only be known through the use of Map objects.
-    Map<String, Object> todo = _con.todoById(todoId);
+    Map<String, Object> todo = _con.todoById(widget.todoId);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,7 +55,7 @@ class AddEditScreen extends StatelessWidget {
             children: [
               TextFormField(
                 initialValue: todo['task'] ?? '',
-                key: taskKey,
+                key: ArchSampleKeys.taskField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
@@ -60,15 +63,17 @@ class AddEditScreen extends StatelessWidget {
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
+                onSaved: (value) => _task = value,
               ),
               TextFormField(
                 initialValue: todo['note'] ?? '',
-                key: noteKey,
+                key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: Theme.of(context).textTheme.subhead,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
+                onSaved: (value) => _note = value,
               )
             ],
           ),
@@ -84,9 +89,14 @@ class AddEditScreen extends StatelessWidget {
         onPressed: () {
           final form = formKey.currentState;
           if (form.validate()) {
-            todo['task'] = taskKey.currentState.value;
-            todo['note'] = noteKey.currentState.value;
-            _con.update(todo);
+            form.save();
+            todo['task'] = _task;
+            todo['note'] = _note;
+            if (isEditing) {
+              _con.update(todo);
+            } else {
+              _con.addTodo(todo);
+            }
             Navigator.pop(context, todo);
           }
         },
@@ -94,5 +104,5 @@ class AddEditScreen extends StatelessWidget {
     );
   }
 
-  bool get isEditing => todoId != null;
+  bool get isEditing => widget.todoId != null;
 }

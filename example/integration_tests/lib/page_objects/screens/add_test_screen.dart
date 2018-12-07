@@ -23,26 +23,26 @@ class AddTestScreen extends TestScreen {
       widgetExists(driver, _addScreenFinder);
 
   Future<Null> tapBackButton() async {
-    await driver.tap(_backButtonFinder, timeout: timeout);
+    await driver.tap(_backButtonFinder);
 
     return this;
   }
 
   Future<Null> enterTask(String task) async {
     // must set focus to 'enable' keyboard even though focus already set
-    await driver.tap(_taskFieldFinder, timeout: timeout);
-    await driver.enterText(task, timeout: timeout);
-    await driver.waitFor(find.text(task), timeout: timeout);
+    await driver.tap(_taskFieldFinder);
+    await driver.enterText(task);
+    await driver.waitFor(find.text(task));
   }
 
   Future<Null> enterNote(String note) async {
     // must set focus to 'enable' keyboard even though focus already set
-    await driver.tap(_noteFieldFinder, timeout: timeout);
-    await driver.enterText(note, timeout: timeout);
-    await driver.waitFor(find.text(note), timeout: timeout);
+    await driver.tap(_noteFieldFinder);
+    await driver.enterText(note);
+    await driver.waitFor(find.text(note));
   }
 
   Future<Null> tapSaveNewButton() async {
-    await driver.tap(_saveNewButtonFinder, timeout: timeout);
+    await driver.tap(_saveNewButtonFinder);
   }
 }

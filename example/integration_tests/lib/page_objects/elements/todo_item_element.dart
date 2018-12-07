@@ -23,27 +23,24 @@ class TodoItemElement extends TestElement {
 
   SerializableFinder get _todoItemFinder => find.byValueKey('TodoItem__${id}');
 
-  Future<bool> get isVisible =>
-      widgetExists(driver, _todoItemFinder, timeout: timeout);
+  Future<bool> get isVisible => widgetExists(driver, _todoItemFinder);
 
-  Future<bool> get isAbsent =>
-      widgetAbsent(driver, _todoItemFinder, timeout: timeout);
+  Future<bool> get isAbsent => widgetAbsent(driver, _todoItemFinder);
 
-  Future<String> get task async =>
-      await driver.getText(_taskFinder, timeout: timeout);
+  Future<String> get task async => await driver.getText(_taskFinder);
 
-  Future<String> get note async => await driver
-      .getText(find.byValueKey('TodoItem__${id}__Note'), timeout: timeout);
+  Future<String> get note async =>
+      await driver.getText(find.byValueKey('TodoItem__${id}__Note'));
 
   Future<TodoItemElement> tapCheckbox() async {
-    await driver.tap(_checkboxFinder, timeout: timeout);
-    await driver.waitUntilNoTransientCallbacks(timeout: timeout);
+    await driver.tap(_checkboxFinder);
+    await driver.waitUntilNoTransientCallbacks();
 
     return this;
   }
 
   DetailsTestScreen tap() {
-    driver.tap(_taskFinder, timeout: timeout);
+    driver.tap(_taskFinder);
 
     return new DetailsTestScreen(driver);
   }

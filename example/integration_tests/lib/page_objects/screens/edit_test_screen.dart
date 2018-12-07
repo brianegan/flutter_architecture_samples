@@ -28,19 +28,19 @@ class EditTestScreen extends TestScreen {
 
   Future<Null> editTask(String task) async {
     // must set focus to 'enable' keyboard even though focus already set
-    await driver.tap(_taskFieldFinder, timeout: timeout);
-    await driver.enterText(task, timeout: timeout);
-    await driver.waitFor(find.text(task), timeout: timeout);
+    await driver.tap(_taskFieldFinder);
+    await driver.enterText(task);
+    await driver.waitFor(find.text(task));
   }
 
   Future<Null> editNote(String note) async {
     // must set focus to 'enable' keyboard even though focus already set
-    await driver.tap(_noteFieldFinder, timeout: timeout);
-    await driver.enterText(note, timeout: timeout);
-    await driver.waitFor(find.text(note), timeout: timeout);
+    await driver.tap(_noteFieldFinder);
+    await driver.enterText(note);
+    await driver.waitFor(find.text(note));
   }
 
   Future<Null> tapSaveFab() async {
-    await driver.tap(_saveFabFinder, timeout: timeout);
+    await driver.tap(_saveFabFinder);
   }
 }
