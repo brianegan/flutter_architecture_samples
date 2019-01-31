@@ -62,6 +62,9 @@ jobs:
         - adb shell input keyevent 82
         - flutter devices
       script: travis_retry ./scripts/ci.sh ./example/bloc_flutter
+      cache:
+        directories:
+          - $HOME/.pub-cache
     - <<: *integration-test-staging
       os: osx
       # use oldest flutter supported version of xcode
@@ -94,6 +97,10 @@ jobs:
 #        - flutter doctor -v
         - flutter devices
       script: travis_retry ./scripts/ci.sh ./example/bloc_flutter
+      cache:
+        directories:
+          - $HOME/.pub-cache
+
     - <<: *integration-test-staging
       os: linux
       env: built_redux_android
