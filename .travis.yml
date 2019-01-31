@@ -1,3 +1,7 @@
+#cache:
+#  directories:
+#    - $HOME/.pub-cache
+
 jobs:
   include:
 
@@ -51,11 +55,19 @@ jobs:
         - sdkmanager --list | head -15
         - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
-        # install flutter
-        - git clone https://github.com/flutter/flutter.git -b stable
-        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter precache
+
+        # install pre-compiled flutter
+        - FLUTTER_CHANNEL=stable
+        - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
+        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
+        - export PATH="$PATH":"$PWD/.pub-cache/bin"
+        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+
+#        # install flutter
+#        - git clone https://github.com/flutter/flutter.git -b stable
+#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+#        - flutter precache
         - flutter doctor -v
         # Wait for emulator to finish startup.
         - ./scripts/android-wait-for-emulator.sh
@@ -100,6 +112,7 @@ jobs:
       cache:
         directories:
           - $HOME/.pub-cache
+          - ~/Library/Caches/CocoaPods
 
     - <<: *integration-test-staging
       os: linux
