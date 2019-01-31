@@ -70,7 +70,9 @@ jobs:
       # Run integration tests on ios
       before_install: &before_install_osx
         - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
-        - brew update
+        # skip homebrew update
+        - export HOMEBREW_NO_AUTO_UPDATE=1
+#        - brew update
         - brew install libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
