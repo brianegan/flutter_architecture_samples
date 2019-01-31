@@ -17,13 +17,21 @@ To listen for real-time changes, it streams `TodoEntity` objects stored in the `
  
 ### Works with `firestore_redux` project
 
-in `main.dart` replace 
+In `main.dart` replace the current implementation of the abstract `ReactiveTodosRepository`
 ```dart
     FirestoreReactiveTodosRepository(Firestore.instance)
 ```
 with 
 ```dart
     FirebaseReactiveTodosRepository(FirebaseDatabase.instance)
+```
+Also in `main.dart` replace the `cloud_firestore` package with the `firebase_database` package. Replace
+```dart
+import 'package:cloud_firestore/cloud_firestore.dart';
+```
+with
+```dart
+import 'package:firebase_database/firebase_database.dart';
 ```
 In `pubspec.yaml` replace
 ```yaml  
