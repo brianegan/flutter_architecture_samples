@@ -28,9 +28,6 @@ dev_dependencies:
   integration_tests:
     path: ../integration_tests
 
-dependency_overrides:
-  analyzer: ^0.34.1
-
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
