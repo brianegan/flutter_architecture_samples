@@ -1,31 +1,36 @@
-name: fire_redux_sample
-description: redux_sample using Firestore
+name: simple_bloc_flutter_sample
+description: A new Flutter project.
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  meta: '>=1.1.0 <2.0.0'
-  redux: ^3.0.0
-  flutter_redux: ^0.5.0
-  flutter:
-    sdk: flutter
-  todos_app_core:
-    path: ../../todos_app_core
+  todos_repository_flutter:
+    path: ../todos_repository_flutter
   firebase_flutter_repository:
     path: ../firebase_flutter_repository
+  todos_app_core:
+    path: ../todos_app_core
+  simple_blocs:
+    path: ../simple_blocs
+  flutter:
+    sdk: flutter
+  rxdart: 0.18.0
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.0
 
 dev_dependencies:
-  test: ^1.3.0
   mockito: ^3.0.0
-  flutter_driver:
-    sdk: flutter
+  test: ^1.3.0
   flutter_test:
+    sdk: flutter
+  flutter_driver:
     sdk: flutter
   integration_tests:
     path: ../integration_tests
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -35,7 +40,7 @@ flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
-  # the Icons class.
+  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

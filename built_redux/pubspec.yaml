@@ -1,36 +1,32 @@
-name: bloc_flutter_sample
-description: A new Flutter project.
+name: built_redux_sample
+description: An example Todo app created with built_redux
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
-  firebase_flutter_repository:
-    path: ../firebase_flutter_repository
-  todos_app_core:
-    path: ../../todos_app_core
-  blocs:
-    path: ../blocs
   flutter:
     sdk: flutter
-  rxdart: 0.18.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.0
+  flutter_built_redux: ^0.6.0
+  built_redux: ^    7.4.5
+  built_value: ^5.5.5
+  built_collection: ^3.1.3
+  todos_app_core:
+    path: ../todos_app_core
 
 dev_dependencies:
-  mockito: ^3.0.0
-  test: ^1.3.0
   flutter_test:
     sdk: flutter
+  build: ^0.12.7+3
+  build_runner: ^0.10.1+1
+  built_value_generator: ^6.1.0
+  source_gen: ^0.9.0+1
+  test: ^1.3.0
+  mockito: ^3.0.0
   flutter_driver:
     sdk: flutter
   integration_tests:
     path: ../integration_tests
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

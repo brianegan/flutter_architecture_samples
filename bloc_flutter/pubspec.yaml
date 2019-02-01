@@ -1,16 +1,25 @@
-name: vanilla
+name: bloc_flutter_sample
 description: A new Flutter project.
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-  todos_app_core:
-    path: ../../todos_app_core
   todos_repository_flutter:
     path: ../todos_repository_flutter
+  firebase_flutter_repository:
+    path: ../firebase_flutter_repository
+  todos_app_core:
+    path: ../todos_app_core
+  blocs:
+    path: ../blocs
+  flutter:
+    sdk: flutter
+  rxdart: 0.18.0
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.0
 
 dev_dependencies:
   mockito: ^3.0.0
@@ -22,6 +31,7 @@ dev_dependencies:
   integration_tests:
     path: ../integration_tests
 
+
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
@@ -30,7 +40,7 @@ flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
-  # the Icons class.
+  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
@@ -39,18 +49,10 @@ flutter:
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/.
+  # https://flutter.io/assets-and-images/#resolution-aware.
 
-  # To add assets from package dependencies, first ensure the asset
-  # is in the lib/ directory of the dependency. Then,
-  # refer to the asset with a path prefixed with
-  # `packages/PACKAGE_NAME/`. The `lib/` is implied, do not
-  # include `lib/` in the asset path.
-  #
-  # Here is an example:
-  #
-  # assets:
-  #  - packages/PACKAGE_NAME/path/to/asset
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -68,3 +70,6 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages

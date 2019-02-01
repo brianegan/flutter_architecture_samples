@@ -1,15 +1,14 @@
-name: scoped_model_sample
+name: inherited_widget_sample
 description: A new Flutter project.
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
-  scoped_model: ^0.3.0
   todos_repository_flutter:
     path: ../todos_repository_flutter
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   flutter:
     sdk: flutter
 
