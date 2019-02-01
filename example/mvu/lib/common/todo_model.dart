@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 
-import 'package:flutter_architecture_samples/uuid.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 part 'todo_model.g.dart';

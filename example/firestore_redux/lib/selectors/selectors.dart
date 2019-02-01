@@ -3,7 +3,7 @@
 // in the LICENSE file.
 
 import 'package:fire_redux_sample/models/models.dart';
-import 'package:flutter_architecture_samples/optional.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 List<Todo> todosSelector(AppState state) => state.todos;
 

@@ -6,7 +6,7 @@ library todo;
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter_architecture_samples/uuid.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 part 'todo.g.dart';
 

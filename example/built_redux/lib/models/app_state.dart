@@ -10,7 +10,7 @@ import 'package:built_redux_sample/models/todo.dart';
 import 'package:built_redux_sample/models/visibility_filter.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter_architecture_samples/optional.dart';
+import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 
 part 'app_state.g.dart';
 
