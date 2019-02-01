@@ -7,8 +7,8 @@ environment:
 dependencies:
   todos_repository_simple:
     path: ../todos_repository_simple
-  firebase_flutter_repository:
-    path: ../firebase_flutter_repository
+  todos_repository_firebase:
+    path: ../todos_repository_firebase
   todos_app_core:
     path: ../todos_app_core
   mvi_base:

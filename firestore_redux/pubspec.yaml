@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   todos_app_core:
     path: ../todos_app_core
-  firebase_flutter_repository:
-    path: ../firebase_flutter_repository
+  todos_repository_firebase:
+    path: ../todos_repository_firebase
 
 dev_dependencies:
   test: ^1.3.0

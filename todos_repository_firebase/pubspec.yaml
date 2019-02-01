@@ -1,5 +1,5 @@
-name: firebase_flutter_repository
-description: A reactive version of the todos repository for Flutter
+name: todos_repository_firebase
+description: An implementation of the todos_repository_core with Firebase's Cloud Firestore as the backing store
 
 environment:
   sdk: '>=2.0.0 <3.0.0'

@@ -11,13 +11,12 @@ import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/home_screen.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
-import 'package:firebase_flutter_repository/user_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
+import 'package:todos_repository_firebase/todos_repository_firebase.dart';
 
 void main([
   ReactiveTodosRepository todosRepository,
