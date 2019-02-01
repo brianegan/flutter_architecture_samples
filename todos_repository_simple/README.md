@@ -1,15 +1,13 @@
-# todos_repository_flutter
+# todos_repository_simple
 
-A concrete implementation of the `todos_repository` for Flutter apps.
+A concrete implementation of the `todos_repository_core` for Flutter apps.
 
 ## Getting Started
-
-The code is in `todos_repository/lib/`.
 
 The tests can be run from the command line
 
 ```
-cd flutter_architecture_samples/todos_repository
+cd flutter_architecture_samples/todos_repository_simple
 flutter test
 ```
 
@@ -20,7 +18,7 @@ flutter test
 
 ## Provides an implementation of the data layer
 
-This library implements the `todos_repository`. It uses a File Storage and Web Client (currently a Mock).
+This library implements the `todos_repository_core`. It uses a File Storage and Web Client (currently a Mock).
 
 This implementation tries first to load the todos from storage, then falls back to web if none are found. It persists changes to both the file system and the web service.
 

@@ -82,7 +82,7 @@ In the present case, Firestore is being used but set up is similar.
 
 ## Summary of changes made to the original redux sample repo.
 
-  1. Added `firebase_flutter_repository` to the `pubspec.yaml`, removed `todos_repository_flutter`.
+  1. Added `firebase_flutter_repository` to the `pubspec.yaml`, removed `todos_repository_simple`.
   2. Limit the responsibility of the Reducers since Firestore is the source of truth.
   3. Change the Middleware to work with a `UserRepository` for auth and `ReactiveTodosRepository` to listen for changes to the Todos and push updates to Firestore.
   4. Add Actions for Login and to Start Listening to Firestore. It's not needed in this app, but we could also add an action to stop listening to Firestore.

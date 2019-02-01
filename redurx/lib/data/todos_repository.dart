@@ -13,7 +13,7 @@ import 'package:redurx_sample/models/todo.dart';
 /// to demonstrate the built_value serializers, which are used in the
 /// FileStorage part of this app.
 ///
-/// Please see the `todos_repository` library for more information about the
+/// Please see the `todos_repository_core` library for more information about the
 /// Repository pattern.
 class TodosRepository {
   final FileStorage fileStorage;

@@ -35,7 +35,7 @@ Examples have been updated to Dart 2.
 ### Supporting Code
 
   * [integration_tests](integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
-  * [todos_repository](todos_repository) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
+  * [todos_repository_simple](todos_repository_simple) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
 
 ### Why a todo app?
 

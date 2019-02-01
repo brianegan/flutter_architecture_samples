@@ -8,7 +8,7 @@ import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/main.dart' as app;
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_flutter/todos_repository_flutter.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 void main() {
   app.main(

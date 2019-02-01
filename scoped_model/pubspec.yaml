@@ -6,8 +6,8 @@ environment:
 
 dependencies:
   scoped_model: ^0.3.0
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
+  todos_repository_simple:
+    path: ../todos_repository_simple
   todos_app_core:
     path: ../todos_app_core
   flutter:

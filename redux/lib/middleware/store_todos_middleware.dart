@@ -8,7 +8,7 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_flutter/todos_repository_flutter.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([
   TodosRepository repository = const TodosRepositoryFlutter(
