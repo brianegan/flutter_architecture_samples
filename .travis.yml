@@ -5,20 +5,30 @@
 jobs:
   include:
 
-#    - stage: Unit Testing
-#      language: generic
-#      os: linux
-#      env: All unit and widget tests
-#      before_script:
-#        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+    - stage: Unit Testing
+      language: generic
+      os: linux
+      env: All unit and widget tests
+      before_script:
+        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+
 #        - git clone https://github.com/flutter/flutter.git -b stable
-#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
 #        - flutter precache
-#        - flutter doctor -v
-#        - pub global activate coverage
-#      script: ./scripts/runTests.sh
-#      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
+
+        # install pre-compiled flutter
+        - FLUTTER_CHANNEL=stable
+        - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
+        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+        - flutter doctor -v
+        - pub global activate coverage
+      script: ./scripts/runTests.sh
+      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
+      cache:
+        directories:
+          - $HOME/.pub-cache
+          - $HOME/.gradle
 
     - &integration-test-staging
       stage: Integration Testing
@@ -56,25 +66,18 @@ jobs:
         - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
 
-        - echo HOME=$HOME
-        - ls -la $HOME
-        - echo PWD=$PWD
-        - ls -la $PWD
+#        - git clone https://github.com/flutter/flutter.git -b stable
+#        - flutter precache
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
         - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
         - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
-        - export PATH="$PATH":"$PWD/.pub-cache/bin"
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
-
-#        # install flutter
-#        - git clone https://github.com/flutter/flutter.git -b stable
-#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-#        - flutter precache
         - flutter doctor -v
-        # skip waiting for emulator... faster to retry
+
+        # skip waiting for emulator... faster to retry later
         # Wait for emulator to finish startup.
 #        - ./scripts/android-wait-for-emulator.sh
 #        - adb shell input keyevent 82
@@ -84,8 +87,6 @@ jobs:
         directories:
           - $HOME/.pub-cache
           - $HOME/.gradle
-          - $PWD/.pub-cache
-          - $PWD/.gradle
 
     - <<: *integration-test-staging
       os: osx
@@ -104,32 +105,23 @@ jobs:
         - brew install cocoapods || echo 'ignore exit(1)'
         - brew link --overwrite cocoapods
 
-        - echo HOME=$HOME
-        - ls -la $HOME
-        - echo PWD=$PWD
-        - ls -la $PWD
+#        - git clone https://github.com/flutter/flutter.git -b stable
+#        - flutter precache
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
         - FLUTTER_VERSION=1.0.0-${FLUTTER_CHANNEL}
         - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
-        - export PATH="$PATH":"$PWD/.pub-cache/bin"
+        - export PATH="$PATH":"$HOME/.pub-cache/bin"
         - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
-
-#        - git clone https://github.com/flutter/flutter.git -b stable
-#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-#        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-#        - flutter precache
-#        - flutter doctor -v
         - flutter devices
       script: travis_retry ./scripts/ci.sh ./example/bloc_flutter
       cache:
         directories:
           - $HOME/.pub-cache
+          - $HOME/.cocoapods
           - $HOME/Library/Caches/CocoaPods
-          - $PWD/.pub-cache
-          - $PWD/Library/Caches/CocoaPods
 
     - <<: *integration-test-staging
       os: linux
