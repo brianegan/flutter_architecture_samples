@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart' show Uuid;
+import 'package:todos_app_core/todos_app_core.dart' show Uuid;
 import 'package:todos_repository/todos_repository.dart' show TodoEntity;
 
 enum AppTab { todos, stats }

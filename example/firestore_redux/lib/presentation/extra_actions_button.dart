@@ -4,7 +4,7 @@
 
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActionsButton extends StatelessWidget {
   final PopupMenuItemSelected<ExtraAction> onSelected;

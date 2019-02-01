@@ -1,4 +1,4 @@
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:meta/meta.dart';
 import 'package:todos_repository/todos_repository.dart';
 

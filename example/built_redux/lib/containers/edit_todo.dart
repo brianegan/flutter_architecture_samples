@@ -6,7 +6,7 @@ import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/add_edit_screen.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 class EditTodo extends StoreConnector<AppState, AppActions, Null> {
