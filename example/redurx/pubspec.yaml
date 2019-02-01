@@ -29,8 +29,5 @@ dev_dependencies:
   integration_tests:
     path: ../integration_tests
 
-dependency_overrides:
-  analyzer: ^0.33.0
-
 flutter:
   uses-material-design: true
