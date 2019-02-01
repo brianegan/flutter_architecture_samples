@@ -8,7 +8,7 @@ import 'package:blocs/blocs.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class MockReactiveTodosRepository extends Mock
     implements ReactiveTodosRepository {}

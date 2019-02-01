@@ -5,8 +5,8 @@ environment:
   sdk: '>=2.0.0-dev.28.0 <3.0.0'
 
 dependencies:
-  todos_repository:
-    path: ../todos_repository
+  todos_repository_core:
+    path: ../todos_repository_core
   rxdart: 0.18.0
 
 dev_dependencies:

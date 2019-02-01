@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:todos_repository/src/todo_entity.dart';
+import 'todo_entity.dart';
 
 /// A class that Loads and Persists todos. The data layer of the app.
 ///

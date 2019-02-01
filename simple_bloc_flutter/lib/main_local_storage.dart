@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'package:simple_bloc_flutter_sample/main.dart' as app;
 import 'package:simple_blocs/simple_blocs.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 void main() {

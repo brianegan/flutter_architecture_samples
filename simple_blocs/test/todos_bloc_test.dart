@@ -4,7 +4,7 @@ import 'package:mockito/mockito.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:simple_blocs/src/models/models.dart';
 import 'package:test/test.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class MockReactiveTodosRepository extends Mock
     implements ReactiveTodosRepository {}

@@ -4,7 +4,7 @@ import 'package:mvu/home/types.dart' show VisibilityFilter;
 import 'package:mvu/todos/todos.dart';
 import 'package:mvu/todos/types.dart';
 import 'package:test/test.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 import 'cmd_runner.dart';
 import 'data.dart';

@@ -1,7 +1,7 @@
 import 'package:built_value/built_value.dart';
 
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 part 'todo_model.g.dart';
 

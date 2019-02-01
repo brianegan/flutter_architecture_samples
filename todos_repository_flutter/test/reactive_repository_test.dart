@@ -6,7 +6,7 @@ import 'dart:async';
 
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 class MockTodosRepository extends Mock implements TodosRepository {}
