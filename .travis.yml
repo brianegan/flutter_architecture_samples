@@ -114,8 +114,6 @@ jobs:
       cache:
         directories:
           - $HOME/.pub-cache
-          - $HOME/.cocoapods
-#          - $HOME/Library/Caches/CocoaPods
 
     - <<: *integration-test-staging
       os: linux
