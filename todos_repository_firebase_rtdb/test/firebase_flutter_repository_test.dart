@@ -6,8 +6,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
-import 'package:firebase_flutter_repository/user_repository.dart';
+import 'package:todos_repository_firebase_rtdb/todos_repository_firebase_rtdb.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';

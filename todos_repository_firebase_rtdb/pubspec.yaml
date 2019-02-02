@@ -1,5 +1,5 @@
-name: firebase_flutter_repository
-description: A reactive version of the todos repository for Flutter using Firebase Realtime Database
+name: todos_repository_firebase_rtdb
+description: An implementation of the todos_repository_core using Firebase Realtime Database
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
