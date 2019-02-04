@@ -5,8 +5,9 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_architecture_samples/src/localizations/messages_all.dart';
 import 'package:intl/intl.dart';
+
+import 'localizations/messages_all.dart';
 
 class ArchSampleLocalizations {
   ArchSampleLocalizations(this.locale);

@@ -1,7 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter_architecture_samples/optional.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redurx_sample/models/app_tab.dart';
 import 'package:redurx_sample/models/todo.dart';
 import 'package:redurx_sample/models/visibility_filter.dart';

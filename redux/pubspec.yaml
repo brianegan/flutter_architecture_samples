@@ -10,8 +10,8 @@ dependencies:
   flutter_redux: ^0.5.3
   flutter:
     sdk: flutter
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../../todos_app_core
   todos_repository_flutter:
     path: ../todos_repository_flutter
 

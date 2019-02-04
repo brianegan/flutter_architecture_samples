@@ -1,6 +1,6 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-import 'package:flutter_architecture_samples/uuid.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 part 'todo.g.dart';
 

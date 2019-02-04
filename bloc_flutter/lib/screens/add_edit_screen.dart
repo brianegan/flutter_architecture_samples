@@ -6,7 +6,7 @@ import 'dart:async';
 
 import 'package:blocs/blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditScreen extends StatefulWidget {
   final Todo todo;

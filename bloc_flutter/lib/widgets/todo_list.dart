@@ -9,7 +9,7 @@ import 'package:bloc_flutter_sample/widgets/todo_item.dart';
 import 'package:bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:blocs/blocs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoList extends StatelessWidget {
   TodoList({Key key}) : super(key: key);

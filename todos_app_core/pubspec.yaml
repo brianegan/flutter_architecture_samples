@@ -1,43 +1,24 @@
-name: mvc
-description: Contributing to the The Flutter Architecture Samples project demonstrating an implementation of the MVC design pattern.k
-author: Greg Perry <support@andrioussolutions.com>
-homepage: https://github.com/AndriousSolutions/mvc_pattern
-
-version: 1.0.0
+name: todos_app_core
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.0.0-dev.28.0 <3.0.0'
 
 dependencies:
+  intl: ^0.15.4
   flutter:
     sdk: flutter
-  scoped_model_sample:
-    path: ../scoped_model
-  todos_app_core:
-    path: ../../todos_app_core
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
-  mvc_pattern:
+  path_provider: ^0.4.1
 
 dev_dependencies:
-  mockito: ^3.0.0
   test: ^1.3.0
-  flutter_test:
-    sdk: flutter
-  flutter_driver:
-    sdk: flutter
-  integration_tests:
-    path: ../integration_tests
-
-# For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+  intl_translation:
 
 # The following section is specific to Flutter.
 flutter:
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
-  # the material Icons class.
+  # the Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
@@ -46,10 +27,18 @@ flutter:
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
+  # https://flutter.io/assets-and-images/.
 
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.io/assets-and-images/#from-packages
+  # To add assets from package dependencies, first ensure the asset
+  # is in the lib/ directory of the dependency. Then,
+  # refer to the asset with a path prefixed with
+  # `packages/PACKAGE_NAME/`. The `lib/` is implied, do not
+  # include `lib/` in the asset path.
+  #
+  # Here is an example:
+  #
+  # assets:
+  #  - packages/PACKAGE_NAME/path/to/asset
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -67,6 +56,3 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.io/custom-fonts/#from-packages

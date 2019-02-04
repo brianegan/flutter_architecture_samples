@@ -8,8 +8,8 @@ dependencies:
   scoped_model: ^0.3.0
   todos_repository_flutter:
     path: ../todos_repository_flutter
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../../todos_app_core
   flutter:
     sdk: flutter
 

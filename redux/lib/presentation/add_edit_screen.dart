@@ -4,7 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/models/models.dart';
 
 typedef OnSaveCallback = Function(String task, String note);
