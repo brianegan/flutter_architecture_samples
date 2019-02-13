@@ -11,8 +11,8 @@ dependencies:
   built_redux: ^    7.4.5
   built_value: ^5.5.5
   built_collection: ^3.1.3
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../todos_app_core
 
 dev_dependencies:
   flutter_test:

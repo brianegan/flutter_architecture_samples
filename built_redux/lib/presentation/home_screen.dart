@@ -12,7 +12,7 @@ import 'package:built_redux_sample/localization.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/filter_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key key}) : super(key: key);

@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
   scoped_model_sample:
     path: ../scoped_model
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../todos_app_core
   todos_repository_flutter:
     path: ../todos_repository_flutter
   mvc_pattern:

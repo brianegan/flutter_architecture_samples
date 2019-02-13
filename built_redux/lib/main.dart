@@ -13,7 +13,7 @@ import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/home_screen.dart';
 import 'package:built_redux_sample/reducers/reducers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 void main() {

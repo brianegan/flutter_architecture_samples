@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
 import 'package:redurx_sample/actions/delete_todo.dart';
 import 'package:redurx_sample/actions/update_todo.dart';

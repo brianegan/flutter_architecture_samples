@@ -6,7 +6,7 @@ import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 typedef OnTabsSelected = void Function(int);

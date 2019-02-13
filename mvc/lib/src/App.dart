@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model_sample/localization.dart';
 
 import 'package:mvc/src/screens/add_edit_screen.dart';
@@ -14,10 +14,10 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:mvc/src/Controller.dart';
 
 class MVCApp extends AppMVC {
-  MVCApp({Key key}) : super(con: controller, key: key);
+  MVCApp({Key key}) : super(con: _controller, key: key);
 
   /// An external reference to the Controller if you wish. -gp
-  static final Con controller = Con();
+  static final Con _controller = Con();
 
   static MaterialApp _app;
 

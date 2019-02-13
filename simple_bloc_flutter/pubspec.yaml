@@ -9,8 +9,8 @@ dependencies:
     path: ../todos_repository_flutter
   firebase_flutter_repository:
     path: ../firebase_flutter_repository
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../todos_app_core
   simple_blocs:
     path: ../simple_blocs
   flutter:
