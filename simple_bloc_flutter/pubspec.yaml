@@ -10,7 +10,7 @@ dependencies:
   firebase_flutter_repository:
     path: ../firebase_flutter_repository
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   simple_blocs:
     path: ../simple_blocs
   flutter:

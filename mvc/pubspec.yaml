@@ -14,7 +14,7 @@ dependencies:
   scoped_model_sample:
     path: ../scoped_model
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   todos_repository_flutter:
     path: ../todos_repository_flutter
   mvc_pattern:

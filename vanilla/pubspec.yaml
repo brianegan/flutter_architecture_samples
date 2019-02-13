@@ -8,7 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   todos_repository_flutter:
     path: ../todos_repository_flutter
 

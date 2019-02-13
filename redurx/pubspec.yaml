@@ -12,7 +12,7 @@ dependencies:
   built_collection: ^4.0.0
   tuple: ^1.0.2
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   todos_repository:
     path: ../todos_repository
 

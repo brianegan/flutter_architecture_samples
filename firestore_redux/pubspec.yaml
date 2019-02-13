@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
   firebase_flutter_repository:
     path: ../firebase_flutter_repository
 

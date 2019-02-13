@@ -12,7 +12,7 @@ dependencies:
   built_value: ^5.5.5
   built_collection: ^3.1.3
   todos_app_core:
-    path: ../../todos_app_core
+    path: ../todos_app_core
 
 dev_dependencies:
   flutter_test:
