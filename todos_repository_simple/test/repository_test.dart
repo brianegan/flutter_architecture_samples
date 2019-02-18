@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_flutter/todos_repository_flutter.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 /// We create two Mocks for our Web Client and File Storage. We will use these
 /// mock classes to verify the behavior of the TodosRepository.

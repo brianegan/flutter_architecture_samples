@@ -10,7 +10,7 @@ import 'todo_entity.dart';
 /// A class that Loads and Persists todos. The data layer of the app.
 ///
 /// How and where it stores the entities should defined in a concrete
-/// implementation, such as todos_repository_flutter or todos_repository_web.
+/// implementation, such as todos_repository_simple or todos_repository_web.
 ///
 /// The domain layer should depend on this abstract class, and each app can
 /// inject the correct implementation depending on the environment, such as

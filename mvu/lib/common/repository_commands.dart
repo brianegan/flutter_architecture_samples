@@ -4,7 +4,7 @@ import 'package:dartea/dartea.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_flutter/todos_repository_flutter.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 abstract class RepositoryEvent {}
 

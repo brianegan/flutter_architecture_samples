@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_flutter/todos_repository_flutter.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 class MockUserRepository implements UserRepository {
   @override
