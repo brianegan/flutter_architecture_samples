@@ -17,7 +17,7 @@ import 'package:simple_bloc_flutter_sample/widgets/stats_counter.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todo_list.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:simple_blocs/simple_blocs.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 enum AppTab { todos, stats }
 

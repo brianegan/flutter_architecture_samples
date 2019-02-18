@@ -4,7 +4,7 @@
 
 import 'package:meta/meta.dart';
 import 'package:mvi_base/src/uuid.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 @immutable
 class Todo {

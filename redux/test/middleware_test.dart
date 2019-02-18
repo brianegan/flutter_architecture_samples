@@ -9,7 +9,7 @@ import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/middleware/store_todos_middleware.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class MockTodosRepository extends Mock implements TodosRepository {}
 

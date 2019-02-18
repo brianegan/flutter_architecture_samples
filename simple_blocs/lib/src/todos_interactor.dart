@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:simple_blocs/simple_blocs.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 // The "Use Case" part of the domain layer. It is built to talk to the
 // repository layer and convert Entities into the Domain Models found in the
