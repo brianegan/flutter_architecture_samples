@@ -3,7 +3,7 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/screens/detail_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/loading.dart';

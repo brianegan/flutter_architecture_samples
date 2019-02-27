@@ -11,8 +11,8 @@ dependencies:
   built_value: ^6.1.2
   built_collection: ^4.0.0
   tuple: ^1.0.2
-  flutter_architecture_samples:
-    path: ../../
+  todos_app_core:
+    path: ../../todos_app_core
   todos_repository:
     path: ../todos_repository
 

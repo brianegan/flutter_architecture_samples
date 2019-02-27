@@ -3,7 +3,7 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/screens/detail_screen.dart';

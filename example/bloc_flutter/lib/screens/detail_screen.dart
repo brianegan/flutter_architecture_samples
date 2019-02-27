@@ -7,7 +7,7 @@ import 'package:bloc_flutter_sample/widgets/loading.dart';
 import 'package:blocs/blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;

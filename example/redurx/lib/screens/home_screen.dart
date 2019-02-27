@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_redurx/flutter_redurx.dart';
 import 'package:redurx_sample/actions/clear_completed.dart';
 import 'package:redurx_sample/actions/toggle_all_complete.dart';

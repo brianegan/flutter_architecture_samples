@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:dartea/dartea.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository/todos_repository.dart';
-
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
-import 'package:flutter_architecture_samples/uuid.dart';
-import 'package:dartea/dartea.dart';
 
 abstract class RepositoryEvent {}
 
