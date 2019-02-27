@@ -33,8 +33,8 @@ runDriver () {
         echo "Running integration tests in $1..."
         flutter packages get
         # check if build_runner needs to be run
-        # todo: fix build_runner in ./example/built_redux
-        if grep build_runner pubspec.yaml > /dev/null  && [ "$1" != "./example/built_redux" ]; then
+        # todo: fix build_runner in ./built_redux
+        if grep build_runner pubspec.yaml > /dev/null  && [ "$1" != "./built_redux" ]; then
             flutter packages pub run build_runner build --delete-conflicting-outputs
         fi
             # todo: get input on MVU project to pass screen i/o integration tests
