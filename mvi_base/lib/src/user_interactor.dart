@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:mvi_base/src/models/user.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class UserInteractor {
   final UserRepository _repository;

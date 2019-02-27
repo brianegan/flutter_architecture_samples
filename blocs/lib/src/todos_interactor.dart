@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:blocs/blocs.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class TodosInteractor {
   final ReactiveTodosRepository repository;

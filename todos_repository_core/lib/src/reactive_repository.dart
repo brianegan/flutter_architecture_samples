@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:todos_repository/src/todo_entity.dart';
+import 'todo_entity.dart';
 
 /// A data layer class works with reactive data sources, such as Firebase. This
 /// class emits a Stream of TodoEntities. The data layer of the app.

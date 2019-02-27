@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:core';
 
 import 'package:meta/meta.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 /// A class that glues together our local file storage and web client. It has a

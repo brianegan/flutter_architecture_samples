@@ -7,7 +7,7 @@ import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([

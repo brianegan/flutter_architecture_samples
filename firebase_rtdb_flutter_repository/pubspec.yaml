@@ -7,8 +7,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  todos_repository:
-    path: ../todos_repository
+  todos_repository_core:
+    path: ../todos_repository_core
   firebase_auth: 0.5.9
   firebase_database: ^0.4.6
 

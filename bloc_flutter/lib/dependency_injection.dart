@@ -9,7 +9,7 @@ library dependency_injector;
 import 'package:blocs/blocs.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 class Injector extends InheritedWidget {
   final TodosInteractor todosInteractor;

@@ -1,4 +1,4 @@
-name: todos_repository
+name: todos_repository_core
 description: An app-agnostic data source that can be used by all implementations
 
 environment:

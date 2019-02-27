@@ -3,7 +3,7 @@ import 'package:built_collection/built_collection.dart';
 
 import 'package:mvu/home/types.dart';
 import 'package:mvu/common/todo_model.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 part 'types.g.dart';
 

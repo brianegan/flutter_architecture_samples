@@ -5,7 +5,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mvc/src/models.dart';
 import 'package:mvc/src/todo_list_model.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 main() {
   group('TodoListModel', () {

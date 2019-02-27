@@ -4,13 +4,9 @@
 
 import 'dart:async';
 
-import 'package:todos_repository/src/todos_repository.dart';
-
 import 'package:path_provider/path_provider.dart';
-
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_flutter/todos_repository_flutter.dart';
-import 'package:todos_repository/todos_repository.dart';
-
 import 'package:mvc/src/models.dart';
 
 class TodoListModel {

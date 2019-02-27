@@ -3,7 +3,7 @@ library edit;
 import 'package:flutter/material.dart';
 
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:dartea/dartea.dart';
 import 'package:mvu/edit/types.dart';
 import 'package:mvu/common/repository_commands.dart' show CmdRepository;

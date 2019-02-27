@@ -7,7 +7,7 @@ import 'dart:core';
 
 import 'package:meta/meta.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:todos_repository/todos_repository.dart';
+import 'package:todos_repository_core/todos_repository_core.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Todos and Persist todos.
