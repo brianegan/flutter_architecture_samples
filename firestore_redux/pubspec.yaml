@@ -24,8 +24,8 @@ dev_dependencies:
     sdk: flutter
   integration_tests:
     path: ../integration_tests
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
+  todos_repository_simple:
+    path: ../todos_repository_simple
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

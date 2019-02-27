@@ -1,4 +1,4 @@
-# todos_repository_flutter
+# todos_repository_simple
 
 A concrete implementation of the `todos_repository` for Flutter apps.
 

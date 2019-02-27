@@ -12,8 +12,8 @@ dependencies:
   dartea: "^0.5.5"
   todos_app_core:
     path: ../todos_app_core
-  todos_repository_flutter:
-    path: ../todos_repository_flutter
+  todos_repository_simple:
+    path: ../todos_repository_simple
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
