@@ -1,6 +1,6 @@
 jobs:
   include:
-
+    
     - stage: Unit Testing
       language: generic
       os: linux
@@ -8,8 +8,8 @@ jobs:
       before_script:
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
 
-#        - git clone https://github.com/flutter/flutter.git -b stable
-#        - flutter precache
+        #        - git clone https://github.com/flutter/flutter.git -b stable
+        #        - flutter precache
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
@@ -61,8 +61,8 @@ jobs:
         - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
         - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
 
-#        - git clone https://github.com/flutter/flutter.git -b stable
-#        - flutter precache
+        #        - git clone https://github.com/flutter/flutter.git -b stable
+        #        - flutter precache
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
@@ -92,15 +92,15 @@ jobs:
         - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
         # skip homebrew update
         - export HOMEBREW_NO_AUTO_UPDATE=1
-#        - brew update
+        #        - brew update
         - brew install libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
         - brew install cocoapods || echo 'ignore exit(1)'
         - brew link --overwrite cocoapods
 
-#        - git clone https://github.com/flutter/flutter.git -b stable
-#        - flutter precache
+        #        - git clone https://github.com/flutter/flutter.git -b stable
+        #        - flutter precache
 
         # install pre-compiled flutter
         - FLUTTER_CHANNEL=stable
@@ -125,6 +125,16 @@ jobs:
       env: built_redux_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./built_redux
+    - <<: *integration-test-staging
+      os: linux
+      env: bloc_library_android
+      script: travis_retry ./scripts/ci.sh ./bloc_library
+    - <<: *integration-test-staging
+      os: osx
+      osx_image: xcode8.0
+      env: bloc_library_ios
+      before_install: *before_install_osx
+      script: travis_retry ./scripts/ci.sh ./bloc_library
     - <<: *integration-test-staging
       os: linux
       env: firestore_redux_android
