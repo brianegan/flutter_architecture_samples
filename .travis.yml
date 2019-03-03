@@ -147,6 +147,16 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./firestore_redux
     - <<: *integration-test-staging
       os: linux
+      env: frideos_library_android
+      script: travis_retry ./scripts/ci.sh ./frideos_library
+    - <<: *integration-test-staging
+      os: osx
+      osx_image: xcode8.0
+      env: frideos_library_ios
+      before_install: *before_install_osx
+      script: travis_retry ./scripts/ci.sh ./frideos_library      
+    - <<: *integration-test-staging
+      os: linux
       env: inherited_widget_android
       script: travis_retry ./scripts/ci.sh ./inherited_widget
     - <<: *integration-test-staging
