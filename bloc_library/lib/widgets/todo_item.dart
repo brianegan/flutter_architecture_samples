@@ -14,11 +14,12 @@ class TodoItem extends StatelessWidget {
   final Todo todo;
 
   TodoItem({
+    Key key,
     @required this.onDismissed,
     @required this.onTap,
     @required this.onCheckboxChanged,
     @required this.todo,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

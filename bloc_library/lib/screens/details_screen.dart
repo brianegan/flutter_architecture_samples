@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/screens/screens.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
@@ -41,7 +42,7 @@ class DetailsScreen extends StatelessWidget {
             ],
           ),
           body: todo == null
-              ? Container()
+              ? Container(key: BlocLibraryKeys.emptyDetailsContainer)
               : Padding(
                   padding: EdgeInsets.all(16.0),
                   child: ListView(
@@ -52,6 +53,7 @@ class DetailsScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(right: 8.0),
                             child: Checkbox(
+                                key: BlocLibraryKeys.detailsScreenCheckBox,
                                 value: todo.complete,
                                 onChanged: (_) {
                                   todosBloc.dispatch(

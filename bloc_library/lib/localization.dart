@@ -14,7 +14,7 @@ class FlutterBlocLocalizations {
     );
   }
 
-  String get appTitle => "Flutter Bloc Example";
+  String get appTitle => "Bloc Library Example";
 }
 
 class FlutterBlocLocalizationsDelegate

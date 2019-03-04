@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 
 class ExtraActions extends StatelessWidget {
   ExtraActions({Key key}) : super(key: ArchSampleKeys.extraActionsButton);
@@ -24,6 +25,7 @@ class ExtraActions extends StatelessWidget {
               .todos
               .every((todo) => todo.complete);
           return PopupMenuButton<ExtraAction>(
+            key: BlocLibraryKeys.extraActionsPopupMenuButton,
             onSelected: (action) {
               switch (action) {
                 case ExtraAction.clearCompleted:
@@ -49,12 +51,13 @@ class ExtraActions extends StatelessWidget {
                     key: ArchSampleKeys.clearCompleted,
                     value: ExtraAction.clearCompleted,
                     child: Text(
-                        ArchSampleLocalizations.of(context).clearCompleted),
+                      ArchSampleLocalizations.of(context).clearCompleted,
+                    ),
                   ),
                 ],
           );
         }
-        return Container();
+        return Container(key: BlocLibraryKeys.extraActionsEmptyContainer);
       },
     );
   }
