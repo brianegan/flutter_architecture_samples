@@ -14,12 +14,12 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  frideos: 0.4.0+2  
+  frideos: 0.4.1  
   todos_app_core:
     path: ../todos_app_core
   todos_repository_simple:

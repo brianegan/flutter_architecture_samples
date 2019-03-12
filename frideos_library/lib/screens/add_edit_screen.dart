@@ -97,7 +97,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 if (form.validate()) {
                   form.save();
 
-                  bloc.addedit(isEditing, _task, _note);
+                  bloc.addEdit(isEditing, _task, _note);
 
                   Navigator.pop(context);
                 }

@@ -8,7 +8,6 @@ class TodosBloc {
   final TodosRepository repository;
 
   TodosBloc({this.repository}) {
-    print('-------TODOS BLOC INIT--------');
     _init();
   }
 
@@ -21,18 +20,14 @@ class TodosBloc {
     //
     // todosItems.outStream.listen((todos) => onTodosChange(...)
     //
-    todosItems.onChange((todos) => onTodosChange(
-        allComplete, hasCompletedTodos, todos, onDataLoaded, todosSender));
+    todosItems.onChange((todos) =>
+        onTodosChange(allComplete, hasCompletedTodos, todos, onDataLoaded));
 
     // Listening for changes in the VisibilityFilter and filter the visible
     // todos depending on the current filter.:
     activeFilter
         .onChange((filter) => onFilterChange(todosItems, visibleTodos, filter));
   }
-
-  // When the data is loaded this function will save the todos, update the visible
-  // todos, and send to the statsBloc the todos list.
-  Function onDataLoaded;
 
   // STREAMS
   //
@@ -54,12 +49,14 @@ class TodosBloc {
     var todos = await repository.loadTodos();
     todosItems.value = todos?.map(Todo.fromEntity).toList() ?? [];
     todosSender.send(todosItems.value);
+  }
 
-    onDataLoaded = () {
-      saveTodos();
-      updateVisibleItems();
-      todosSender.send(todosItems.value);
-    };
+  /// Every time the todos list changes, this method will save the todos, update
+  /// the visible todos, and send to the statsBloc the todos list.
+  void onDataLoaded() {
+    saveTodos();
+    updateVisibleItems();
+    todosSender.send(todosItems.value);
   }
 
   void updateVisibleItems() =>
@@ -75,7 +72,7 @@ class TodosBloc {
     currentTodo.value = todo;
   }
 
-  void addedit(bool isEditing, String task, String note) {
+  void addEdit(bool isEditing, String task, String note) {
     if (isEditing) {
       updateTodo(currentTodo.value.copyWith(task: task, note: note));
     } else {
@@ -90,16 +87,16 @@ class TodosBloc {
 
   void onCheckboxChanged(Todo todo) {
     var updatedTodo = todo.copyWith(complete: !todo.complete);
-    todosItems?.replace(todo, updatedTodo);    
+    todosItems?.replace(todo, updatedTodo);
     currentTodo.value = updatedTodo;
   }
 
   void clearCompleted() {
     todosItems.value.removeWhere((todo) => todo.complete);
 
-    /// Call the refresh method to update the stream when
-    /// there is no implementation of the respective method
-    /// on the StreamedList class, read the docs for details.
+    // Call the refresh method to update the stream when
+    // there is no implementation of the respective method
+    // on the StreamedList class, read the docs for details.
     todosItems.refresh();
   }
 
@@ -118,23 +115,21 @@ class TodosBloc {
     }
   }
 
-  static onTodosChange(
-      StreamedValue<bool> _allComplete,
-      StreamedValue<bool> _hasCompletedTodos,
-      List<Todo> todos,
-      Function _dataLoaded,
-      ListSender<Todo> _todosSender) {
+  static void onTodosChange(
+    StreamedValue<bool> _allComplete,
+    StreamedValue<bool> _hasCompletedTodos,
+    List<Todo> todos,
+    Function _onDataLoaded,
+  ) {
     _allComplete.value = todos.every((todo) => todo.complete);
     _hasCompletedTodos.value = todos.any((todo) => todo.complete);
 
-    // Saving items and updating visible items.
-    _dataLoaded();
-
-    //Sending the todos list to StatsBloc
-    _todosSender.send(todos);
+    // Saving items, updating visible items and sending to the statsBloc
+    // the todos list.
+    _onDataLoaded();
   }
 
-  static onFilterChange(StreamedList<Todo> _todosItems,
+  static void onFilterChange(StreamedList<Todo> _todosItems,
       StreamedList<Todo> _visibleTodos, VisibilityFilter _filter) {
     if (_todosItems.value != null) {
       _visibleTodos.value = filterTodos(_todosItems.value, _filter);
@@ -156,7 +151,6 @@ class TodosBloc {
 
   /// To close all the streams
   void dispose() {
-    print('-------TODOS BLOC DISPOSE--------');
     todosItems.dispose();
     currentTodo.dispose();
     activeFilter.dispose();

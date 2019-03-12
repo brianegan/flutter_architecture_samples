@@ -6,7 +6,6 @@ class StatsBloc {
   final todosItems = StreamedList<Todo>(initialData: List<Todo>());
 
   StatsBloc() {
-    print('-------STATS BLOC INIT--------');
     todosItems.onChange((todos) {
       numActive.value =
           todos?.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
@@ -20,7 +19,6 @@ class StatsBloc {
   final numComplete = StreamedValue<int>();
 
   dispose() {
-    print('-------STATS BLOC DISPOSE--------');
     numActive.dispose();
     numComplete.dispose();
   }
