@@ -168,5 +168,6 @@ main() {
       expect(await homeScreen.isReady(), isTrue);
       expect(await driver.getText(find.text(taskEdit)), taskEdit);
     });
-  });
+    // increase timeout from 30 to 120 seconds for slow running emulators in cloud
+  }, timeout: Timeout(Duration(seconds: 120)));
 }

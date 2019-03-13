@@ -4,7 +4,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 import 'package:mvc/src/todo_list_model.dart';
 import 'package:mvc/src/Controller.dart';
