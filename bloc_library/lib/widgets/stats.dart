@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/widgets/widgets.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 
 class Stats extends StatelessWidget {
   Stats({Key key}) : super(key: key);
@@ -20,7 +21,7 @@ class Stats extends StatelessWidget {
       bloc: todosBloc,
       builder: (BuildContext context, TodosState state) {
         if (state is TodosLoading) {
-          return LoadingIndicator(key: Key('__statsLoading__'));
+          return LoadingIndicator(key: BlocLibraryKeys.statsLoadingIndicator);
         } else if (state is TodosLoaded) {
           int numActive =
               state.todos.where((todo) => !todo.complete).toList().length;
@@ -64,7 +65,7 @@ class Stats extends StatelessWidget {
             ),
           );
         } else {
-          return Container();
+          return Container(key: BlocLibraryKeys.emptyStatsContainer);
         }
       },
     );

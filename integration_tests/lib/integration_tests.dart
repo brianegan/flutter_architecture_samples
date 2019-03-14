@@ -15,7 +15,7 @@ main() {
     HomeTestScreen homeScreen;
 
     setUpAll(() async {
-      driver = await FlutterDriver.connect(timeoutMultiplier: 4);
+      driver = await FlutterDriver.connect();
       homeScreen = new HomeTestScreen(driver);
     });
 

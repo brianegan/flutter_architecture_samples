@@ -10,6 +10,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/widgets/widgets.dart';
 import 'package:bloc_library/screens/screens.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 
 class FilteredTodos extends StatelessWidget {
   FilteredTodos({Key key}) : super(key: key);
@@ -71,7 +72,7 @@ class FilteredTodos extends StatelessWidget {
             },
           );
         } else {
-          return Container();
+          return Container(key: BlocLibraryKeys.filteredTodosEmptyContainer);
         }
       },
     );
