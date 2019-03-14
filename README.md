@@ -21,6 +21,7 @@ Examples have been updated to Dart 2.
   * [InheritedWidget Example](inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
   * [BLoC Example](bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Ouputs
   * ["Simple" BLoC Example](simple_bloc_flutter) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
+  * [Bloc Library Example](bloc_library) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
   * [Redux Example](redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
   * [built_redux Example](built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
   * [scoped_model Example](scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
@@ -73,5 +74,6 @@ All of these ideas and even some of the language are directly influenced by two 
   * [Pavel Shilyagov](https://github.com/p69)
   * [Leo Cavalcante](https://github.com/leocavalcante)
   * [Greg Perry](https://github.com/AndriousSolutions)
+  * [Felix Angelov](https://github.com/felangel)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
