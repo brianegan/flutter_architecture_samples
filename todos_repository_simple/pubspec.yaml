@@ -8,7 +8,9 @@ dependencies:
   flutter:
     sdk: flutter
   todos_repository_core:
-    path: ../todos_repository_core
+    git:
+      url: https://github.com/brianegan/flutter_architecture_samples
+      path: todos_repository_core
   rxdart: ^0.18.0
 
 dev_dependencies:
