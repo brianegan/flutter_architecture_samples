@@ -1,3 +1,7 @@
+// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
+// Use of this source code is governed by the MIT license that can be found
+// in the LICENSE file.
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
@@ -15,6 +19,20 @@ main() {
       todosRepository = MockTodosRepository();
       when(todosRepository.loadTodos()).thenAnswer((_) => Future.value([]));
       todosBloc = TodosBloc(todosRepository: todosRepository);
+    });
+
+    test('should emit TodosNotLoaded if repository throws', () {
+      when(todosRepository.loadTodos()).thenThrow(Exception('oops'));
+
+      expectLater(
+        todosBloc.state,
+        emitsInOrder([
+          TodosLoading(),
+          TodosNotLoaded(),
+        ]),
+      );
+
+      todosBloc.dispatch(LoadTodos());
     });
 
     test('should add a todo to the list in response to an AddTodo Event', () {

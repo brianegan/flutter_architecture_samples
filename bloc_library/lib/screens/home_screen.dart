@@ -40,31 +40,31 @@ class HomeScreenState extends State<HomeScreen> {
     return BlocBuilder(
       bloc: _tabBloc,
       builder: (BuildContext context, AppTab activeTab) {
-        return BlocProvider(
-          bloc: _tabBloc,
-          child: BlocProvider(
-            bloc: _filteredTodosBloc,
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(FlutterBlocLocalizations.of(context).appTitle),
-                actions: [
-                  FilterButton(visible: activeTab == AppTab.todos),
-                  ExtraActions(),
-                ],
-              ),
-              body: activeTab == AppTab.todos ? FilteredTodos() : Stats(),
-              floatingActionButton: FloatingActionButton(
-                key: ArchSampleKeys.addTodoFab,
-                onPressed: () {
-                  Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
-                },
-                child: Icon(Icons.add),
-                tooltip: ArchSampleLocalizations.of(context).addTodo,
-              ),
-              bottomNavigationBar: TabSelector(
-                activeTab: activeTab,
-                onTabSelected: (tab) => _tabBloc.dispatch(UpdateTab(tab)),
-              ),
+        return BlocProviderTree(
+          blocProviders: [
+            BlocProvider<TabBloc>(bloc: _tabBloc),
+            BlocProvider<FilteredTodosBloc>(bloc: _filteredTodosBloc),
+          ],
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(FlutterBlocLocalizations.of(context).appTitle),
+              actions: [
+                FilterButton(visible: activeTab == AppTab.todos),
+                ExtraActions(),
+              ],
+            ),
+            body: activeTab == AppTab.todos ? FilteredTodos() : Stats(),
+            floatingActionButton: FloatingActionButton(
+              key: ArchSampleKeys.addTodoFab,
+              onPressed: () {
+                Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
+              },
+              child: Icon(Icons.add),
+              tooltip: ArchSampleLocalizations.of(context).addTodo,
+            ),
+            bottomNavigationBar: TabSelector(
+              activeTab: activeTab,
+              onTabSelected: (tab) => _tabBloc.dispatch(UpdateTab(tab)),
             ),
           ),
         );
