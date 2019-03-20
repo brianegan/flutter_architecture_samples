@@ -26,7 +26,7 @@ class StatsCounter extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 24.0),
             child: ValueBuilder<int>(
-              stream: bloc.numComplete,
+              streamed: bloc.numComplete,
               builder: (context, snapshot) => Text(
                     '${snapshot.data ?? 0}',
                     key: ArchSampleKeys.statsNumCompleted,
@@ -44,7 +44,7 @@ class StatsCounter extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 24.0),
             child: ValueBuilder<int>(
-              stream: bloc.numActive,
+              streamed: bloc.numActive,
               builder: (context, snapshot) {
                 return Text(
                   "${snapshot.data ?? 0}",

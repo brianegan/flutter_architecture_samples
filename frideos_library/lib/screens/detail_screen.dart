@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
     TodosBloc bloc = AppStateProvider.of<AppState>(context).todosBloc;
 
     return ValueBuilder<Todo>(
-      stream: bloc.currentTodo,
+      streamed: bloc.currentTodo,
       noDataChild: LoadingSpinner(key: ArchSampleKeys.todosLoading),
       builder: (context, snapshot) {
         final todo = snapshot.data;

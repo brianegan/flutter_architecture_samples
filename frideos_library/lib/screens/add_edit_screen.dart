@@ -37,7 +37,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
     var isEditing = widget.isEditing;
 
     return ValueBuilder<Todo>(
-      stream: bloc.currentTodo,
+      streamed: bloc.currentTodo,
       builder: (context, snapshot) => Scaffold(
             appBar: AppBar(
               title: Text(

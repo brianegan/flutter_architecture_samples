@@ -42,7 +42,7 @@ main() {
 
       await todosBloc.loadTodos();
 
-      expect(statsBloc.numActive.outStream, emits(2));
+      await expectLater(statsBloc.numActive.outStream, emits(2));
     });
 
     test('should stream the number of completed todos', () async {
@@ -62,7 +62,7 @@ main() {
 
       await todosBloc.loadTodos();
 
-      expect(statsBloc.numComplete.outStream, emits(3));
+      await expectLater(statsBloc.numComplete.outStream, emits(3));
     });
   });
 }

@@ -18,7 +18,7 @@ class TodoList extends StatelessWidget {
     var bloc = AppStateProvider.of<AppState>(context).todosBloc;
 
     return ValueBuilder<List<Todo>>(
-      stream: bloc.visibleTodos,
+      streamed: bloc.visibleTodos,
       noDataChild: LoadingSpinner(key: ArchSampleKeys.todosLoading),
       builder: (context, snapshot) => Container(
             child: ListView.builder(

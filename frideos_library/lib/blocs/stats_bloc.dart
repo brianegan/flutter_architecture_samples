@@ -3,10 +3,10 @@ import 'package:frideos/frideos_dart.dart';
 import 'package:frideos_library/models/models.dart';
 
 class StatsBloc {
-  final todosItems = StreamedList<Todo>(initialData: List<Todo>());
+  final todosItems = StreamedList<Todo>();
 
   StatsBloc() {
-    todosItems.onChange((todos) {
+    todosItems.onChange((todos) {      
       numActive.value =
           todos?.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
 

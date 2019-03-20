@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
     final tabController = AppStateProvider.of<AppState>(context).tabController;
 
     return ValueBuilder<AppTab>(
-      stream: tabController,
+      streamed: tabController,
       builder: (context, activeTabSnapshot) => Scaffold(
             appBar: AppBar(
               title: Text(FrideosLocalizations.of(context).appTitle),
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
       TodosBloc bloc, AsyncSnapshot<AppTab> activeTabSnapshot) {
     return [
       ValueBuilder<VisibilityFilter>(
-        stream: bloc.activeFilter,
+        streamed: bloc.activeFilter,
         builder: (context, snapshot) {
           return FilterButton(
             isActive: activeTabSnapshot.data == AppTab.todos,
@@ -80,7 +80,7 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       ValueBuilder<bool>(
-        stream: bloc.allComplete,
+        streamed: bloc.allComplete,
         builder: (context, snapshot) {
           return ExtraActionsButton(
             allComplete: snapshot?.data ?? false,
