@@ -13,7 +13,7 @@ An example Todo app created with the [frideos](https://pub.dartlang.org/packages
 ## UI and Streams
 
 - As per the classic BLoC implementation, the widgets, most of which in this sample are Stateless, are automatically rebuilt whenever the streams emit a new event. 
-- By using the setter of the objects implementing the `StreamedObject` interface of the library, every time a new value is set, the `ValueBuilder` widget rebuilds providing the updated data. This is just a widget that extends the `StreamBuilder` and adds some callbacks to handle the stream state and return a `Container` if no widget is passed to the `NoDataChild` parameter, in order to avoid to check for the `snapshot.hasData` property to not return a null widget, ultimately, resulting in a less and cleaner code.
+- Every time a new value is set, the `ValueBuilder` widget, which takes as a parameter an object implementing the StreamedObject interface of the library, rebuilds providing the updated data. This is just a widget that extends the `StreamBuilder` and adds some callbacks to handle the stream state and return a `Container` if no widget is passed to the `NoDataChild` parameter, in order to avoid to check for the `snapshot.hasData` property to not return a null widget, ultimately, resulting in a less and cleaner code.
 
 ## Testing
 There are no particular tricks for testing the app with this library. The sample was tested with unit tests that check for every feature of the apps, and by the integration test with flutter drive.
