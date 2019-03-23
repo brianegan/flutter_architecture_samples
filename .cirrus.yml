@@ -12,6 +12,7 @@ task:
 
 task:
   name: Integration Tests for $app_arch (Linux)
+  # don't run for PRs
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   depends_on:
@@ -53,6 +54,7 @@ task:
 
 task:
   name: Integration Tests for $app_arch (macOS)
+  # don't run for PRs
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   depends_on:
