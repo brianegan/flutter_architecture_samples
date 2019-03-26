@@ -15,8 +15,6 @@ task:
   # don't run for PRs
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
-  depends_on:
-    - Tests (Unit)
   env:
     EMULATOR_API_LEVEL: 22
     ANDROID_ABI: "default;armeabi-v7a"
@@ -57,8 +55,6 @@ task:
   # don't run for PRs
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
-  depends_on:
-    - Tests (Unit)
   env:
     matrix:
       app_arch: bloc_flutter
