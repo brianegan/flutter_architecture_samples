@@ -34,11 +34,11 @@ jobs:
       env: bloc_flutter_android
       # Run integration tests on android
       before_install: &before_install_linux
-        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
-        - ifconfig
-        - cat /etc/os-release
-        - sudo sysctl net.ipv6.conf.all.disable_ipv6=0 # enable IPv6
-        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
+#        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
+#        - ifconfig
+#        - cat /etc/os-release
+#        - sudo sysctl net.ipv6.conf.all.disable_ipv6=0 # enable IPv6
+#        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
         # Install the Android SDK Dependency.
         - export ANDROID_HOME=/opt/android-sdk-linux
@@ -56,6 +56,16 @@ jobs:
         # Platform tools
         - sdkmanager "emulator" "tools" "platform-tools" > /dev/null
         - sdkmanager --list | head -15
+
+        # Download a pinned version of the emulator since upgrades can cause issues
+        - ${ANDROID_HOME}/emulator/emulator -version
+        - emulator_version=5264690
+        - curl -fo emulator.zip "https://dl.google.com/android/repository/emulator-linux-$emulator_version.zip"
+        - rm -rf "${ANDROID_HOME}/emulator"
+        - unzip -q emulator.zip -d "${ANDROID_HOME}"
+        - rm -f emulator.zip
+        - ${ANDROID_HOME}/emulator/emulator -version
+
         # install older packages (for emulator)
         - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
         # Create and start emulator.
