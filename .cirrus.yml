@@ -36,6 +36,15 @@ task:
   container:
     image: cirrusci/flutter:latest
   allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
+  pin_emulator_script:
+    # Download a pinned version of the emulator since upgrades can cause issues
+    - ${ANDROID_HOME}/emulator/emulator -version
+    - emulator_version=5264690
+    - curl -fo emulator.zip "https://dl.google.com/android/repository/emulator-linux-$emulator_version.zip"
+    - rm -rf "${ANDROID_HOME}/emulator"
+    - unzip -q emulator.zip -d "${ANDROID_HOME}"
+    - rm -f emulator.zip
+    - ${ANDROID_HOME}/emulator/emulator -version
   install_images_script: sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
   create_device_script:
     echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
