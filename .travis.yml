@@ -34,11 +34,6 @@ jobs:
       env: bloc_flutter_android
       # Run integration tests on android
       before_install: &before_install_linux
-#        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
-#        - ifconfig
-#        - cat /etc/os-release
-#        - sudo sysctl net.ipv6.conf.all.disable_ipv6=0 # enable IPv6
-#        - cat /proc/sys/net/ipv6/conf/all/disable_ipv6 # should be 0 -- ipv6 enabled
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
         # Install the Android SDK Dependency.
         - export ANDROID_HOME=/opt/android-sdk-linux
