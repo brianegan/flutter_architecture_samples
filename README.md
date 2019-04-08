@@ -1,6 +1,7 @@
 # flutter_architecture_samples
 
 [![Build Status](https://travis-ci.org/brianegan/flutter_architecture_samples.svg?branch=master)](https://travis-ci.org/brianegan/flutter_architecture_samples)
+[![Build Status](https://api.cirrus-ci.com/github/brianegan/flutter_architecture_samples.svg)](https://cirrus-ci.com/github/brianegan/flutter_architecture_samples)
 [![codecov](https://codecov.io/gh/brianegan/flutter_architecture_samples/branch/master/graph/badge.svg)](https://codecov.io/gh/brianegan/flutter_architecture_samples)
 
 <img align="right" src="assets/todo-list.png" alt="List of Todos Screen">
@@ -31,12 +32,13 @@ Examples have been updated to Dart 2.
   * [ReduRx Example](redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
   * [MVI Example](mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
   * [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
+  * [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
 
 
 ### Supporting Code
 
   * [integration_tests](integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
-  * [todos_repository](todos_repository) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
+  * [todos_repository_core](todos_repository_core) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
 
 ### Why a todo app?
 
@@ -74,6 +76,8 @@ All of these ideas and even some of the language are directly influenced by two 
   * [Pavel Shilyagov](https://github.com/p69)
   * [Leo Cavalcante](https://github.com/leocavalcante)
   * [Greg Perry](https://github.com/AndriousSolutions)
-  * [Felix Angelov](https://github.com/felangel)
+  * [Felix Angelov](https://github.com/felangel) 
+  * [Francesco Mineo](https://github.com/frideosapps)
+
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
