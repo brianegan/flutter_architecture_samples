@@ -25,7 +25,7 @@ main() {
     testWidgets('should render properly with VisibilityFilter.all',
         (WidgetTester tester) async {
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([], VisibilityFilter.all),
       );
       await tester.pumpWidget(
         BlocProvider(
@@ -56,7 +56,7 @@ main() {
     testWidgets('should render properly VisibilityFilter.active',
         (WidgetTester tester) async {
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.active),
+        (_) => FilteredTodosLoaded([], VisibilityFilter.active),
       );
       await tester.pumpWidget(
         BlocProvider(
@@ -87,7 +87,7 @@ main() {
     testWidgets('should render properly VisibilityFilter.completed',
         (WidgetTester tester) async {
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.completed),
+        (_) => FilteredTodosLoaded([], VisibilityFilter.completed),
       );
       await tester.pumpWidget(
         BlocProvider(
@@ -118,7 +118,7 @@ main() {
     testWidgets('should dispatch UpdateFilter when filter selected',
         (WidgetTester tester) async {
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.active),
+        (_) => FilteredTodosLoaded([], VisibilityFilter.active),
       );
       when(filteredTodosBloc.dispatch(UpdateFilter(VisibilityFilter.all)))
           .thenReturn(null);

@@ -6,29 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_library/blocs/todos/todos.dart';
+import 'package:bloc_library/blocs/stats/stats.dart';
 import 'package:bloc_library/widgets/stats.dart';
-import 'package:bloc_library/models/models.dart';
 import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-class MockTodosBloc extends Mock implements TodosBloc {}
+class MockStatsBloc extends Mock implements StatsBloc {}
 
 main() {
   group('Stats', () {
-    TodosBloc todosBloc;
+    StatsBloc statsBloc;
 
     setUp(() {
-      todosBloc = MockTodosBloc();
+      statsBloc = MockStatsBloc();
     });
 
-    testWidgets('should render LoadingIndicator when state is TodosLoading',
+    testWidgets('should render LoadingIndicator when state is StatsLoading',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosLoading());
+      when(statsBloc.currentState).thenAnswer((_) => StatsLoading());
       await tester.pumpWidget(
         BlocProvider(
-          bloc: todosBloc,
+          bloc: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -44,13 +43,12 @@ main() {
       expect(find.byKey(BlocLibraryKeys.statsLoadingIndicator), findsOneWidget);
     });
 
-    testWidgets(
-        'should render empty stats container when state is TodosNotLoaded',
+    testWidgets('should render empty stats container when state is null',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosNotLoaded());
+      when(statsBloc.currentState).thenAnswer((_) => null);
       await tester.pumpWidget(
         BlocProvider(
-          bloc: todosBloc,
+          bloc: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -66,13 +64,12 @@ main() {
       expect(find.byKey(BlocLibraryKeys.emptyStatsContainer), findsOneWidget);
     });
 
-    testWidgets(
-        'should render correct stats when state is TodosLoaded and todos are empty',
+    testWidgets('should render correct stats when state is StatsLoaded(0, 0)',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([]));
+      when(statsBloc.currentState).thenAnswer((_) => StatsLoaded(0, 0));
       await tester.pumpWidget(
         BlocProvider(
-          bloc: todosBloc,
+          bloc: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -94,16 +91,12 @@ main() {
       expect((numCompletedFinder.evaluate().first.widget as Text).data, '0');
     });
 
-    testWidgets('should render correct stats when state is TodosLoaded',
+    testWidgets('should render correct stats when state is StatsLoaded(2, 1)',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([
-            Todo('wash car'),
-            Todo('clean garage', complete: true),
-            Todo('walk dog'),
-          ]));
+      when(statsBloc.currentState).thenAnswer((_) => StatsLoaded(2, 1));
       await tester.pumpWidget(
         BlocProvider(
-          bloc: todosBloc,
+          bloc: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),

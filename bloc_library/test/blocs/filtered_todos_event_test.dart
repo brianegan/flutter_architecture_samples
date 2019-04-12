@@ -12,16 +12,16 @@ main() {
       test('toString returns correct value', () {
         expect(
           UpdateFilter(VisibilityFilter.active).toString(),
-          'UpdateFilter { newFilter: VisibilityFilter.active }',
+          'UpdateFilter { filter: VisibilityFilter.active }',
         );
       });
     });
 
-    group('TodosUpdated', () {
+    group('UpdateTodos', () {
       test('toString returns correct value', () {
         expect(
-          TodosUpdated([Todo('take out trash', id: '0')]).toString(),
-          'TodosUpdated { todos: [${Todo("take out trash", id: "0")}] }',
+          UpdateTodos([Todo('take out trash', id: '0')]).toString(),
+          'UpdateTodos { todos: [${Todo("take out trash", id: "0")}] }',
         );
       });
     });

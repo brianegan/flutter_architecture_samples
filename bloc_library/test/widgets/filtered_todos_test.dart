@@ -30,9 +30,8 @@ main() {
 
     testWidgets('should show loading indicator when state is TodosLoading',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosLoading());
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.all),
+        (_) => FilteredTodosLoading(),
       );
       await tester.pumpWidget(
         BlocProviderTree(
@@ -55,11 +54,10 @@ main() {
       expect(find.byKey(ArchSampleKeys.todosLoading), findsOneWidget);
     });
 
-    testWidgets('should show empty container when state is TodosNotLoaded',
+    testWidgets('should show empty container when state is null',
         (WidgetTester tester) async {
-      when(todosBloc.currentState).thenAnswer((_) => TodosNotLoaded());
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.all),
+        (_) => null,
       );
       await tester.pumpWidget(
         BlocProviderTree(
@@ -88,7 +86,7 @@ main() {
         (WidgetTester tester) async {
       when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([], VisibilityFilter.all),
       );
       await tester.pumpWidget(
         BlocProviderTree(
@@ -121,7 +119,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([Todo('wash car')], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([Todo('wash car')], VisibilityFilter.all),
       );
       await tester.pumpWidget(
         BlocProviderTree(
@@ -154,7 +152,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       when(todosBloc
@@ -197,7 +195,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       when(todosBloc.dispatch(DeleteTodo(Todo('wash car', id: '0'))))
@@ -242,7 +240,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       when(todosBloc.dispatch(DeleteTodo(Todo('wash car', id: '0'))))
@@ -298,7 +296,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       await tester.pumpWidget(
@@ -332,7 +330,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       when(todosBloc.dispatch(DeleteTodo(Todo('wash car', id: '0'))))
@@ -377,7 +375,7 @@ main() {
       when(todosBloc.currentState)
           .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState(
+        (_) => FilteredTodosLoaded(
             [Todo('wash car', id: '0')], VisibilityFilter.all),
       );
       when(todosBloc.dispatch(DeleteTodo(Todo('wash car', id: '0'))))
