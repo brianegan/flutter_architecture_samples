@@ -1,0 +1,7 @@
+{
+  "name": "mobx_sample",
+  "version": "1.0.0",
+  "scripts": {
+    "generate": "flutter packages pub run build_runner watch --delete-conflicting-outputs"
+  }
+}
