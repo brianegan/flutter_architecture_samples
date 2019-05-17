@@ -3,8 +3,10 @@
 // in the LICENSE file.
 
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 import 'package:bloc_library/models/models.dart';
 
+@immutable
 abstract class TodosState extends Equatable {
   TodosState([List props = const []]) : super(props);
 }

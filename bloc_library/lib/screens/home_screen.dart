@@ -17,19 +17,21 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({@required this.onInit}) : super(key: ArchSampleKeys.homeScreen);
 
   @override
-  HomeScreenState createState() {
-    return new HomeScreenState();
-  }
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final TabBloc _tabBloc = TabBloc();
   FilteredTodosBloc _filteredTodosBloc;
+  StatsBloc _statsBloc;
 
   @override
   void initState() {
     widget.onInit();
     _filteredTodosBloc = FilteredTodosBloc(
+      todosBloc: BlocProvider.of<TodosBloc>(context),
+    );
+    _statsBloc = StatsBloc(
       todosBloc: BlocProvider.of<TodosBloc>(context),
     );
     super.initState();
@@ -44,6 +46,7 @@ class HomeScreenState extends State<HomeScreen> {
           blocProviders: [
             BlocProvider<TabBloc>(bloc: _tabBloc),
             BlocProvider<FilteredTodosBloc>(bloc: _filteredTodosBloc),
+            BlocProvider<StatsBloc>(bloc: _statsBloc),
           ],
           child: Scaffold(
             appBar: AppBar(
@@ -74,6 +77,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    _statsBloc.dispose();
     _filteredTodosBloc.dispose();
     _tabBloc.dispose();
     super.dispose();

@@ -29,8 +29,9 @@ main() {
       expectLater(
         filteredTodosBloc.state,
         emitsInOrder([
-          FilteredTodosState([], VisibilityFilter.all),
-          FilteredTodosState([todo], VisibilityFilter.all),
+          FilteredTodosLoading(),
+          FilteredTodosLoaded([], VisibilityFilter.all),
+          FilteredTodosLoaded([todo], VisibilityFilter.all),
         ]),
       );
       todosBloc.dispatch(LoadTodos());
@@ -48,14 +49,14 @@ main() {
 
       expect(
         filteredTodosBloc.initialState,
-        FilteredTodosState([todo], VisibilityFilter.all),
+        FilteredTodosLoaded([todo], VisibilityFilter.all),
       );
 
       expectLater(
         filteredTodosBloc.state,
         emitsInOrder([
-          FilteredTodosState([todo], VisibilityFilter.all),
-          FilteredTodosState([], VisibilityFilter.completed),
+          FilteredTodosLoaded([todo], VisibilityFilter.all),
+          FilteredTodosLoaded([], VisibilityFilter.completed),
         ]),
       );
 
@@ -73,14 +74,14 @@ main() {
 
       expect(
         filteredTodosBloc.initialState,
-        FilteredTodosState([todo], VisibilityFilter.all),
+        FilteredTodosLoaded([todo], VisibilityFilter.all),
       );
 
       expectLater(
         filteredTodosBloc.state,
         emitsInOrder([
-          FilteredTodosState([todo], VisibilityFilter.all),
-          FilteredTodosState([todo], VisibilityFilter.active),
+          FilteredTodosLoaded([todo], VisibilityFilter.all),
+          FilteredTodosLoaded([todo], VisibilityFilter.active),
         ]),
       );
 
@@ -97,13 +98,13 @@ main() {
 
       expect(
         filteredTodosBloc.initialState,
-        FilteredTodosState([], VisibilityFilter.all),
+        FilteredTodosLoaded([], VisibilityFilter.all),
       );
 
       expectLater(
         filteredTodosBloc.state,
         emitsInOrder([
-          FilteredTodosState([], VisibilityFilter.all),
+          FilteredTodosLoaded([], VisibilityFilter.all),
         ]),
       );
 

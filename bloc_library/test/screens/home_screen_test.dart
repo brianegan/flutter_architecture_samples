@@ -24,6 +24,7 @@ main() {
 
     testWidgets('renders correctly', (WidgetTester tester) async {
       when(todosBloc.state).thenAnswer((_) => Stream.empty());
+      when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([]));
       await tester.pumpWidget(
         BlocProvider(
           bloc: todosBloc,
@@ -47,6 +48,7 @@ main() {
 
     testWidgets('calls onInit', (WidgetTester tester) async {
       when(todosBloc.state).thenAnswer((_) => Stream.empty());
+      when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([]));
       var onInitCalled = false;
       await tester.pumpWidget(
         BlocProvider(
@@ -73,6 +75,7 @@ main() {
     testWidgets('Navigates to /addTodo when Floating Action Button is tapped',
         (WidgetTester tester) async {
       when(todosBloc.state).thenAnswer((_) => Stream.empty());
+      when(todosBloc.currentState).thenAnswer((_) => TodosLoaded([]));
       final Key addTodoContainer = Key('add_todo_container');
       await tester.pumpWidget(
         BlocProvider(
@@ -101,35 +104,6 @@ main() {
       await tester.tap(find.byKey(ArchSampleKeys.addTodoFab));
       await tester.pumpAndSettle();
       expect(find.byKey(addTodoContainer), findsOneWidget);
-    });
-
-    testWidgets('updates tab on tab selected', (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      await tester.pumpWidget(
-        BlocProvider(
-          bloc: todosBloc,
-          child: MaterialApp(
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
-            ],
-            routes: {
-              ArchSampleRoutes.home: (context) {
-                return Scaffold(
-                  body: HomeScreen(
-                    onInit: () {},
-                  ),
-                );
-              },
-            },
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(FilteredTodos), findsOneWidget);
-      await tester.tap(find.byKey(ArchSampleKeys.statsTab));
-      await tester.pumpAndSettle();
-      expect(find.byType(Stats), findsOneWidget);
     });
   });
 }
