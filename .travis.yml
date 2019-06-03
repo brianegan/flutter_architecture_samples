@@ -13,9 +13,6 @@ jobs:
       before_script:
         - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
 
-        #        - git clone https://github.com/flutter/flutter.git -b stable
-        #        - flutter precache
-
         # install pre-compiled flutter
         - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
         - export PATH="$PATH":"$HOME/.pub-cache/bin"
@@ -54,8 +51,8 @@ jobs:
         - touch ~/.android/repositories.cfg
         # Accept licenses before installing components, no need to echo y for each component
         - yes | sdkmanager --licenses
-        # Platform tools
-        - sdkmanager "tools" "platform-tools" "platforms;android-${ANDROID_PLATFORM_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
+        # Platform and build tools (including flutter requirements)
+        - sdkmanager "emulator" "tools" "platform-tools" "platforms;android-${ANDROID_PLATFORM_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
         - sdkmanager --list | head -15
 
         # Download a pinned version of the emulator since upgrades can cause issues
@@ -67,7 +64,7 @@ jobs:
         - rm -f emulator.zip
         - ${ANDROID_HOME}/emulator/emulator -version
 
-        # install older packages (for emulator)
+        # install older platform and build tools (for emulator)
         - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
         # Create and start emulator.
         - EMULATOR_API_LEVEL=22
@@ -85,7 +82,6 @@ jobs:
 
         # Wait for emulator to finish startup.
         - ./scripts/android-wait-for-emulator.sh
-        - adb shell input keyevent 82
         - flutter devices
       script: travis_retry ./scripts/ci.sh ./bloc_flutter
       cache:
