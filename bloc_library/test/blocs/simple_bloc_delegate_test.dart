@@ -3,29 +3,23 @@
 // in the LICENSE file.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:bloc_library/blocs/simple_bloc_delegate.dart';
 import 'package:bloc/bloc.dart';
 import 'dart:async';
-
-class MockBloc extends Mock implements Bloc {}
 
 var printLog;
 
 main() {
   group('SimpleBlocDelegate', () {
     SimpleBlocDelegate delegate;
-    MockBloc bloc;
 
     setUp(() {
       delegate = SimpleBlocDelegate();
-      bloc = MockBloc();
       printLog = [];
     });
 
     test('onTransition prints Transition', overridePrint(() {
       delegate.onTransition(
-        bloc,
         Transition(currentState: 'A', event: 'E', nextState: 'B'),
       );
       expect(
@@ -35,7 +29,7 @@ main() {
     }));
 
     test('onError prints Error', overridePrint(() {
-      delegate.onError(bloc, 'whoops', null);
+      delegate.onError('whoops', null);
       expect(
         printLog[0],
         'whoops',

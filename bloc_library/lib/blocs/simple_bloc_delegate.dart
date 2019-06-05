@@ -8,14 +8,14 @@ import 'package:bloc/bloc.dart';
 // in order to handle transitions and errors from all Blocs.
 class SimpleBlocDelegate extends BlocDelegate {
   @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
+  void onTransition(Transition transition) {
+    super.onTransition(transition);
     print(transition);
   }
 
   @override
-  void onError(Bloc bloc, Object error, StackTrace stacktrace) {
-    super.onError(bloc, error, stacktrace);
+  void onError(Object error, StackTrace stacktrace) {
+    super.onError(error, stacktrace);
     print(error);
   }
 }
