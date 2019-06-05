@@ -7,18 +7,24 @@ environment:
 dependencies:
   meta: ">=1.1.0 <2.0.0"
   equatable: ^0.2.0
-  flutter_bloc: ^0.14.0
-  todos_app_core:
-    path: ../todos_app_core
-  todos_repository_simple:
-    path: ../todos_repository_simple
+  flutter_bloc: ^0.10.0
   flutter:
     sdk: flutter
 
 dependency_overrides:
-  rxdart: ^0.22.0
-
+  todos_app_core:
+    git:
+      url: https://github.com/felangel/flutter_architecture_samples
+      path: todos_app_core
+      ref: expose-repositories
+  todos_repository_simple:
+    git:
+      url: https://github.com/felangel/flutter_architecture_samples
+      path: todos_repository_simple
+      ref: expose-repositories
+  rxdart: '0.21.0'
 dev_dependencies:
+  test: ^1.3.0
   mockito: ^3.0.0
   flutter_driver:
     sdk: flutter
