@@ -1,10 +1,13 @@
 timeout_in: 30m
+env:
+  FLUTTER_CHANNEL: stable
+  FLUTTER_VERSION: v1.2.1
 
 task:
   # this task should fail fast or rely on 'depends_on' for all other tasks
   name: Tests (Unit)
   container:
-    image: cirrusci/flutter:latest
+    image: cirrusci/flutter:$FLUTTER_VERSION
   pub_cache:
     folder: ~/.pub-cache
   activate_coverage_script: pub global activate coverage
@@ -34,7 +37,7 @@ task:
       app_arch: simple_bloc_flutter
       app_arch: vanilla
   container:
-    image: cirrusci/flutter:latest
+    image: cirrusci/flutter:$FLUTTER_VERSION
   allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
   pin_emulator_script:
     # Download a pinned version of the emulator since upgrades can cause issues
@@ -90,6 +93,14 @@ task:
     - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-12-0)
     # boot simulator
     - xcrun simctl boot $udid
+  pin_flutter_script:
+    - flutter --version
+    # pin to ${FLUTTER_VERSION}
+    - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter precache
+    - flutter --version
   doctor_script: flutter doctor -v
   devices_script: flutter devices
   ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
