@@ -68,7 +68,6 @@ task:
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   env:
-    PATH: $HOME/.pub-cache/bin:$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
     matrix:
       app_arch: bloc_flutter
       app_arch: bloc_library
@@ -98,8 +97,19 @@ task:
     - flutter --version
     # pin to ${FLUTTER_VERSION}
     - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
     - flutter precache
     - flutter --version
-  doctor_script: flutter doctor -v
-  devices_script: flutter devices
-  ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
+  doctor_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter doctor -v
+  devices_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter devices
+  ci_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
