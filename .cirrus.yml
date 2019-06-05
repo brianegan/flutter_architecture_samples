@@ -68,7 +68,7 @@ task:
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   env:
-    PATH: "$HOME/.pub-cache/bin":$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    PATH: $HOME/.pub-cache/bin:$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
     matrix:
       app_arch: bloc_flutter
       app_arch: bloc_library
