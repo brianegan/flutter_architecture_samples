@@ -31,6 +31,7 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
+      app_arch: provider
       app_arch: redurx
       app_arch: redux
       app_arch: scoped_model
@@ -78,6 +79,7 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
+      app_arch: provider
       app_arch: redurx
       app_arch: redux
       app_arch: scoped_model
