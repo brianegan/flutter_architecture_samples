@@ -18,27 +18,27 @@ You can use the samples in this project as a learning reference, or as a startin
 
 Examples have been updated to Dart 2.
 
-  * [Lifting State Up (Vanilla) Example](vanilla) - Uses the tools Flutter provides out of the box to manage app state.
-  * [InheritedWidget Example](inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
-  * [BLoC Example](bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Ouputs
-  * ["Simple" BLoC Example](simple_bloc_flutter) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
-  * [Bloc Library Example](bloc_library) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
-  * [Redux Example](redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
-  * [built_redux Example](built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
-  * [scoped_model Example](scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
-  * [Firestore Redux Example](firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and
+- [Lifting State Up (Vanilla) Example](vanilla) - Uses the tools Flutter provides out of the box to manage app state.
+- [InheritedWidget Example](inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
+- [BLoC Example](bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Ouputs
+- ["Simple" BLoC Example](simple_bloc_flutter) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
+- [Bloc Library Example](bloc_library) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
+- [Redux Example](redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
+- [built_redux Example](built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
+- [scoped_model Example](scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
+- [Firestore Redux Example](firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and
   adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
-  * [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
-  * [ReduRx Example](redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
-  * [MVI Example](mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
-  * [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
-  * [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
-
+- [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
+- [ReduRx Example](redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
+- [MVI Example](mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
+- [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
+- [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
+- [Provider Example](provider) - Uses the [provider](https://pub.dev/packages/provider) package now recommended by the Flutter team.
 
 ### Supporting Code
 
-  * [integration_tests](integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
-  * [todos_repository_core](todos_repository_core) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
+- [integration_tests](integration_tests) - Demonstrates how to write selenium-style integration (aka end to end) tests using the Page Object Model. This test suite is run against all samples.
+- [todos_repository_core](todos_repository_core) - Demonstrates the repository pattern and testing strategies for working with the filesystem. Used to provide local storage and mock web storage to samples.
 
 ### Why a todo app?
 
@@ -62,22 +62,22 @@ All code in this repo is MIT licensed.
 
 All of these ideas and even some of the language are directly influenced by two projects:
 
-  - [TodoMVC](http://todomvc.com) - A Todo App implemented in various JS frameworks
-  - [Android Architecture Blueprints](https://github.com/googlesamples/android-architecture) - A similar concept, but for Android! The UI and app spec was highly inspired by their example.
+- [TodoMVC](http://todomvc.com) - A Todo App implemented in various JS frameworks
+- [Android Architecture Blueprints](https://github.com/googlesamples/android-architecture) - A similar concept, but for Android! The UI and app spec was highly inspired by their example.
 
 ## Contributors
 
-  * [Brian Egan](https://github.com/brianegan)
-  * [Maurice McCabe](https://github.com/mmcc007)
-  * [David Marne](https://github.com/davidmarne)
-  * [Pascal Welsch](https://github.com/passsy)
-  * [Larry King](https://github.com/kinggolf)
-  * [Frank Harper](https://github.com/franklinharper)
-  * [Pavel Shilyagov](https://github.com/p69)
-  * [Leo Cavalcante](https://github.com/leocavalcante)
-  * [Greg Perry](https://github.com/AndriousSolutions)
-  * [Felix Angelov](https://github.com/felangel) 
-  * [Francesco Mineo](https://github.com/frideosapps)
-
+- [Brian Egan](https://github.com/brianegan)
+- [Maurice McCabe](https://github.com/mmcc007)
+- [David Marne](https://github.com/davidmarne)
+- [Pascal Welsch](https://github.com/passsy)
+- [Larry King](https://github.com/kinggolf)
+- [Frank Harper](https://github.com/franklinharper)
+- [Pavel Shilyagov](https://github.com/p69)
+- [Leo Cavalcante](https://github.com/leocavalcante)
+- [Greg Perry](https://github.com/AndriousSolutions)
+- [Felix Angelov](https://github.com/felangel)
+- [Francesco Mineo](https://github.com/frideosapps)
+- [Shakib Hossain](https://github.com/shakib609)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
