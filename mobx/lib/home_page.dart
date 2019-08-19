@@ -30,27 +30,29 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Todos with MobX'),
         actions: <Widget>[
-          Observer(
-            builder: (_) => PopupMenuButton(
-              icon: Icon(Icons.filter_list),
-              initialValue: todoList.filter,
-              onSelected: todoList.changeFilter,
-              itemBuilder: (_) => <PopupMenuEntry<VisibilityFilter>>[
-                PopupMenuItem(
-                  value: VisibilityFilter.all,
-                  child: Text('Show All'),
-                ),
-                PopupMenuItem(
-                  value: VisibilityFilter.pending,
-                  child: Text('Show Active'),
-                ),
-                PopupMenuItem(
-                  value: VisibilityFilter.completed,
-                  child: Text('Show Completed'),
-                ),
-              ],
-            ),
-          ),
+          _activeTab == AppTab.todos
+              ? Observer(
+                  builder: (_) => PopupMenuButton(
+                    icon: Icon(Icons.filter_list),
+                    initialValue: todoList.filter,
+                    onSelected: todoList.changeFilter,
+                    itemBuilder: (_) => <PopupMenuEntry<VisibilityFilter>>[
+                      PopupMenuItem(
+                        value: VisibilityFilter.all,
+                        child: Text('Show All'),
+                      ),
+                      PopupMenuItem(
+                        value: VisibilityFilter.pending,
+                        child: Text('Show Active'),
+                      ),
+                      PopupMenuItem(
+                        value: VisibilityFilter.completed,
+                        child: Text('Show Completed'),
+                      ),
+                    ],
+                  ),
+                )
+              : SizedBox(),
           PopupMenuButton(
             icon: Icon(Icons.more_horiz),
             onSelected: (value) => performAction(context, value),
