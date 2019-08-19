@@ -9,6 +9,8 @@ import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/';
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -73,15 +75,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (_) => AddTodoPage(
-                        onAdd: (todo) {
-                          todoList.addTodo(todo);
-                          Navigator.pop(context);
-                        },
-                      )));
+          Navigator.pushNamed(context, AddTodoPage.routeName);
         },
       ),
       body: Observer(
