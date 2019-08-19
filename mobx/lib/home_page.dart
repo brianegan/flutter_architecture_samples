@@ -7,100 +7,120 @@ import 'package:mobx_sample/model/todo_list.dart';
 import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  AppTab _activeTab;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _activeTab = AppTab.todos;
+  }
+
   @override
   Widget build(BuildContext context) {
     final todoList = Provider.of<TodoList>(context);
 
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Todos with MobX'),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                icon: Icon(Icons.list),
-                text: 'Todos',
-              ),
-              Tab(
-                icon: Icon(Icons.show_chart),
-                text: 'Stats',
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            Observer(
-              builder: (_) => PopupMenuButton(
-                    icon: Icon(Icons.filter_list),
-                    initialValue: todoList.filter,
-                    onSelected: todoList.changeFilter,
-                    itemBuilder: (_) => <PopupMenuEntry<VisibilityFilter>>[
-                          PopupMenuItem(
-                            value: VisibilityFilter.all,
-                            child: Text('Show All'),
-                          ),
-                          PopupMenuItem(
-                            value: VisibilityFilter.pending,
-                            child: Text('Show Active'),
-                          ),
-                          PopupMenuItem(
-                            value: VisibilityFilter.completed,
-                            child: Text('Show Completed'),
-                          ),
-                        ],
-                  ),
-            ),
-            PopupMenuButton(
-              icon: Icon(Icons.more_horiz),
-              onSelected: (value) => performAction(context, value),
-              itemBuilder: (_) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      value: ListAction.markAllComplete,
-                      child: Text('Mark All Complete'),
-                    ),
-                    PopupMenuItem(
-                      value: ListAction.clearCompleted,
-                      child: Text('Clear Completed'),
-                    ),
-                  ],
-            )
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => AddTodoPage(
-                          onAdd: (todo) {
-                            todoList.addTodo(todo);
-                            Navigator.pop(context);
-                          },
-                        )));
-          },
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                LoadingIndicator(),
-                Expanded(
-                  child: TodoListView(
-                    onRemove: (context, todo) {
-                      todoList.removeTodo(todo);
-                      displayRemovalNotification(context, todo);
-                    },
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Todos with MobX'),
+        actions: <Widget>[
+          Observer(
+            builder: (_) => PopupMenuButton(
+              icon: Icon(Icons.filter_list),
+              initialValue: todoList.filter,
+              onSelected: todoList.changeFilter,
+              itemBuilder: (_) => <PopupMenuEntry<VisibilityFilter>>[
+                PopupMenuItem(
+                  value: VisibilityFilter.all,
+                  child: Text('Show All'),
+                ),
+                PopupMenuItem(
+                  value: VisibilityFilter.pending,
+                  child: Text('Show Active'),
+                ),
+                PopupMenuItem(
+                  value: VisibilityFilter.completed,
+                  child: Text('Show Completed'),
                 ),
               ],
             ),
-            Text('Stats')
-          ],
-        ),
+          ),
+          PopupMenuButton(
+            icon: Icon(Icons.more_horiz),
+            onSelected: (value) => performAction(context, value),
+            itemBuilder: (_) => <PopupMenuEntry>[
+              PopupMenuItem(
+                value: ListAction.markAllComplete,
+                child: Text('Mark All Complete'),
+              ),
+              PopupMenuItem(
+                value: ListAction.clearCompleted,
+                child: Text('Clear Completed'),
+              ),
+            ],
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => AddTodoPage(
+                        onAdd: (todo) {
+                          todoList.addTodo(todo);
+                          Navigator.pop(context);
+                        },
+                      )));
+        },
+      ),
+      body: Observer(
+        builder: (context) {
+          final list = Provider.of<TodoList>(context);
+
+          if (list.loader.status == FutureStatus.pending) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          return _activeTab == AppTab.todos
+              ? TodoListView(
+                  onRemove: (context, todo) {
+                    todoList.removeTodo(todo);
+                    displayRemovalNotification(context, todo);
+                  },
+                )
+              : const Text('stats');
+        },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: AppTab.values.indexOf(_activeTab),
+        onTap: (int index) {
+          _updateTab(AppTab.values[index]);
+        },
+        items: AppTab.values
+            .map(
+              (AppTab tab) => BottomNavigationBarItem(
+                  icon: Icon(
+                    tab == AppTab.todos ? Icons.list : Icons.show_chart,
+                  ),
+                  title: Text(tab == AppTab.todos ? 'Todos' : 'Stats')),
+            )
+            .toList(),
       ),
     );
+  }
+
+  void _updateTab(AppTab tab) {
+    setState(() {
+      _activeTab = tab;
+    });
   }
 
   displayRemovalNotification(BuildContext context, Todo todo) {
@@ -180,46 +200,47 @@ class TodoListView extends StatelessWidget {
             final todo = todos[index];
 
             return Observer(
-                builder: (context) => Dismissible(
-                      key: Key(todo.id),
-                      direction: DismissDirection.horizontal,
-                      onDismissed: (direction) {
-                        if (direction == DismissDirection.startToEnd ||
-                            direction == DismissDirection.endToStart) {
-                          onRemove(context, todo);
-                        }
-                      },
-                      child: ListTile(
-                        title: Text(
-                          todo.title,
-                          softWrap: false,
+              builder: (context) => Dismissible(
+                key: Key(todo.id),
+                direction: DismissDirection.horizontal,
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd ||
+                      direction == DismissDirection.endToStart) {
+                    onRemove(context, todo);
+                  }
+                },
+                child: ListTile(
+                  title: Text(
+                    todo.title,
+                    softWrap: false,
+                    overflow: TextOverflow.fade,
+                  ),
+                  subtitle: todo.hasNotes
+                      ? Text(
+                          todo.notes,
+                          maxLines: 2,
                           overflow: TextOverflow.fade,
-                        ),
-                        subtitle: todo.hasNotes
-                            ? Text(
-                                todo.notes,
-                                maxLines: 2,
-                                overflow: TextOverflow.fade,
-                              )
-                            : null,
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => TodoDetailsPage(
-                                        todo: todo,
-                                        onRemove: () {
-                                          Navigator.pop(context);
-                                          onRemove(context, todo);
-                                        },
-                                      )));
-                        },
-                        leading: Checkbox(
-                          value: todo.done,
-                          onChanged: (value) => todo.done = value,
-                        ),
-                      ),
-                    ));
+                        )
+                      : null,
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => TodoDetailsPage(
+                                  todo: todo,
+                                  onRemove: () {
+                                    Navigator.pop(context);
+                                    onRemove(context, todo);
+                                  },
+                                )));
+                  },
+                  leading: Checkbox(
+                    value: todo.done,
+                    onChanged: (value) => todo.done = value,
+                  ),
+                ),
+              ),
+            );
           },
         );
       },
