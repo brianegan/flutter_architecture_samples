@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:mobx_sample/add_todo_page.dart';
 import 'package:mobx_sample/model/todo.dart';
 import 'package:mobx_sample/model/todo_list.dart';
+import 'package:mobx_sample/stats_counter.dart';
 import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                     displayRemovalNotification(context, todo);
                   },
                 )
-              : const Text('stats');
+              : StatsCounter();
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
