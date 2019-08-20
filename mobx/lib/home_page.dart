@@ -2,38 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mobx_sample/add_todo_page.dart';
+import 'package:mobx_sample/model/layout.dart';
 import 'package:mobx_sample/model/todo.dart';
 import 'package:mobx_sample/model/todo_list.dart';
 import 'package:mobx_sample/stats_counter.dart';
 import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static const routeName = '/';
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  TabType _activeTab;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _activeTab = TabType.todos;
-  }
 
   @override
   Widget build(BuildContext context) {
     final todoList = Provider.of<TodoList>(context);
+    final layoutStore = Provider.of<LayoutStore>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos with MobX'),
         actions: <Widget>[
-          _activeTab == TabType.todos
+          layoutStore.activeTab == TabType.todos
               ? Observer(
                   builder: (_) => PopupMenuButton(
                     icon: Icon(Icons.filter_list),
@@ -86,7 +74,7 @@ class _HomePageState extends State<HomePage> {
             return Center(child: CircularProgressIndicator());
           }
 
-          return _activeTab == TabType.todos
+          return layoutStore.activeTab == TabType.todos
               ? TodoListView(
                   onRemove: (context, todo) {
                     todoList.removeTodo(todo);
@@ -96,28 +84,26 @@ class _HomePageState extends State<HomePage> {
               : StatsCounter();
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: TabType.values.indexOf(_activeTab),
-        onTap: (int index) {
-          _updateTab(TabType.values[index]);
-        },
-        items: TabType.values
-            .map(
-              (TabType tab) => BottomNavigationBarItem(
-                  icon: Icon(
-                    tab == TabType.todos ? Icons.list : Icons.show_chart,
-                  ),
-                  title: Text(tab == TabType.todos ? 'Todos' : 'Stats')),
-            )
-            .toList(),
-      ),
+      bottomNavigationBar: Observer(
+          builder: (context) => BottomNavigationBar(
+                currentIndex: TabType.values.indexOf(layoutStore.activeTab),
+                onTap: (int index) {
+                  layoutStore.updateTab(TabType.values[index]);
+                },
+                items: TabType.values
+                    .map(
+                      (TabType tab) => BottomNavigationBarItem(
+                          icon: Icon(
+                            tab == TabType.todos
+                                ? Icons.list
+                                : Icons.show_chart,
+                          ),
+                          title:
+                              Text(tab == TabType.todos ? 'Todos' : 'Stats')),
+                    )
+                    .toList(),
+              )),
     );
-  }
-
-  void _updateTab(TabType tab) {
-    setState(() {
-      _activeTab = tab;
-    });
   }
 
   displayRemovalNotification(BuildContext context, Todo todo) {
