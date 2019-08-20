@@ -16,13 +16,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  AppTab _activeTab;
+  TabType _activeTab;
 
   @override
   void initState() {
     super.initState();
 
-    _activeTab = AppTab.todos;
+    _activeTab = TabType.todos;
   }
 
   @override
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Todos with MobX'),
         actions: <Widget>[
-          _activeTab == AppTab.todos
+          _activeTab == TabType.todos
               ? Observer(
                   builder: (_) => PopupMenuButton(
                     icon: Icon(Icons.filter_list),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
             return Center(child: CircularProgressIndicator());
           }
 
-          return _activeTab == AppTab.todos
+          return _activeTab == TabType.todos
               ? TodoListView(
                   onRemove: (context, todo) {
                     todoList.removeTodo(todo);
@@ -97,24 +97,24 @@ class _HomePageState extends State<HomePage> {
         },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: AppTab.values.indexOf(_activeTab),
+        currentIndex: TabType.values.indexOf(_activeTab),
         onTap: (int index) {
-          _updateTab(AppTab.values[index]);
+          _updateTab(TabType.values[index]);
         },
-        items: AppTab.values
+        items: TabType.values
             .map(
-              (AppTab tab) => BottomNavigationBarItem(
+              (TabType tab) => BottomNavigationBarItem(
                   icon: Icon(
-                    tab == AppTab.todos ? Icons.list : Icons.show_chart,
+                    tab == TabType.todos ? Icons.list : Icons.show_chart,
                   ),
-                  title: Text(tab == AppTab.todos ? 'Todos' : 'Stats')),
+                  title: Text(tab == TabType.todos ? 'Todos' : 'Stats')),
             )
             .toList(),
       ),
     );
   }
 
-  void _updateTab(AppTab tab) {
+  void _updateTab(TabType tab) {
     setState(() {
       _activeTab = tab;
     });

@@ -6,7 +6,7 @@ part 'todo_list.g.dart';
 
 class TodoList = _TodoList with _$TodoList;
 
-enum AppTab { todos, stats }
+enum TabType { todos, stats }
 
 enum VisibilityFilter { all, pending, completed }
 
