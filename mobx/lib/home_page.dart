@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_sample/add_todo_page.dart';
 import 'package:mobx_sample/model/layout.dart';
 import 'package:mobx_sample/model/todo.dart';
 import 'package:mobx_sample/model/todo_list.dart';
+import 'package:mobx_sample/routes.dart';
 import 'package:mobx_sample/stats_counter.dart';
 import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, AddTodoPage.routeName);
+          Navigator.pushNamed(context, addTodoPageRoute);
         },
       ),
       body: Observer(

@@ -4,13 +4,15 @@ import 'package:mobx_sample/home_page.dart';
 import 'package:mobx_sample/main.dart';
 import 'package:mobx_sample/model/todo.dart';
 
+const homePageRoute = '/';
+const addTodoPageRoute = '/addTodo';
+
 final Map<String, WidgetBuilder> routes = {
-  '/': (context) => HomePage(),
-  '/addTodo': (context) =>
-      AddTodoPage(
+  homePageRoute: (context) => HomePage(),
+  addTodoPageRoute: (context) => AddTodoPage(
         onAdd: (Todo todo) {
           todoList.addTodo(todo);
           Navigator.pop(context);
         },
       )
-}
+};
