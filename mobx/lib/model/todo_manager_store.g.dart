@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'todo_list.dart';
+part of 'todo_manager_store.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,7 +8,7 @@ part of 'todo_list.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars
 
-mixin _$TodoList on _TodoList, Store {
+mixin _$TodoManagerStore on _TodoManagerStore, Store {
   Computed<List<Todo>> _$pendingTodosComputed;
 
   @override
@@ -40,7 +40,7 @@ mixin _$TodoList on _TodoList, Store {
           Computed<List<Todo>>(() => super.visibleTodos))
       .value;
 
-  final _$filterAtom = Atom(name: '_TodoList.filter');
+  final _$filterAtom = Atom(name: '_TodoManagerStore.filter');
 
   @override
   VisibilityFilter get filter {
@@ -57,7 +57,7 @@ mixin _$TodoList on _TodoList, Store {
     }, _$filterAtom, name: '${_$filterAtom.name}_set');
   }
 
-  final _$loaderAtom = Atom(name: '_TodoList.loader');
+  final _$loaderAtom = Atom(name: '_TodoManagerStore.loader');
 
   @override
   ObservableFuture<void> get loader {
@@ -81,55 +81,56 @@ mixin _$TodoList on _TodoList, Store {
     return _$_loadTodosAsyncAction.run(() => super._loadTodos());
   }
 
-  final _$_TodoListActionController = ActionController(name: '_TodoList');
+  final _$_TodoManagerStoreActionController =
+      ActionController(name: '_TodoManagerStore');
 
   @override
   void addTodo(Todo todo) {
-    final _$actionInfo = _$_TodoListActionController.startAction();
+    final _$actionInfo = _$_TodoManagerStoreActionController.startAction();
     try {
       return super.addTodo(todo);
     } finally {
-      _$_TodoListActionController.endAction(_$actionInfo);
+      _$_TodoManagerStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void removeTodo(Todo todo) {
-    final _$actionInfo = _$_TodoListActionController.startAction();
+    final _$actionInfo = _$_TodoManagerStoreActionController.startAction();
     try {
       return super.removeTodo(todo);
     } finally {
-      _$_TodoListActionController.endAction(_$actionInfo);
+      _$_TodoManagerStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void changeFilter(VisibilityFilter value) {
-    final _$actionInfo = _$_TodoListActionController.startAction();
+    final _$actionInfo = _$_TodoManagerStoreActionController.startAction();
     try {
       return super.changeFilter(value);
     } finally {
-      _$_TodoListActionController.endAction(_$actionInfo);
+      _$_TodoManagerStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void markAllComplete() {
-    final _$actionInfo = _$_TodoListActionController.startAction();
+    final _$actionInfo = _$_TodoManagerStoreActionController.startAction();
     try {
       return super.markAllComplete();
     } finally {
-      _$_TodoListActionController.endAction(_$actionInfo);
+      _$_TodoManagerStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void clearCompleted() {
-    final _$actionInfo = _$_TodoListActionController.startAction();
+    final _$actionInfo = _$_TodoManagerStoreActionController.startAction();
     try {
       return super.clearCompleted();
     } finally {
-      _$_TodoListActionController.endAction(_$actionInfo);
+      _$_TodoManagerStoreActionController.endAction(_$actionInfo);
     }
   }
 }

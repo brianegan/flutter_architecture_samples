@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_sample/model/todo_list.dart';
+import 'package:mobx_sample/model/todo_manager_store.dart';
 import 'package:provider/provider.dart';
 
 class StatsCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    TodoList todoList = Provider.of<TodoList>(context);
+    TodoManagerStore todoList = Provider.of<TodoManagerStore>(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
