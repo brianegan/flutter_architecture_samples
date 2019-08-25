@@ -3,8 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_sample/model/todo.dart';
 
 class AddTodoPage extends StatefulWidget {
-  static const routeName = '/addTodo';
-
   final void Function(Todo) onAdd;
 
   AddTodoPage({@required this.onAdd});
