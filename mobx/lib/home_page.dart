@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_sample/model/layout.dart';
 import 'package:mobx_sample/model/todo.dart';
-import 'package:mobx_sample/model/todo_list.dart';
+import 'package:mobx_sample/model/todo_manager_store.dart';
 import 'package:mobx_sample/routes.dart';
 import 'package:mobx_sample/stats_counter.dart';
 import 'package:mobx_sample/todo_details_page.dart';
@@ -12,19 +11,18 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final todoList = Provider.of<TodoList>(context);
-    final layoutStore = Provider.of<LayoutStore>(context);
+    final todoStoreManager = Provider.of<TodoManagerStore>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Todos with MobX'),
         actions: <Widget>[
-          layoutStore.activeTab == TabType.todos
+          todoStoreManager.activeTab == TabType.todos
               ? Observer(
                   builder: (_) => PopupMenuButton(
                     icon: Icon(Icons.filter_list),
-                    initialValue: todoList.filter,
-                    onSelected: todoList.changeFilter,
+                    initialValue: todoStoreManager.filter,
+                    onSelected: todoStoreManager.changeFilter,
                     itemBuilder: (_) => <PopupMenuEntry<VisibilityFilter>>[
                       PopupMenuItem(
                         value: VisibilityFilter.all,
@@ -66,16 +64,16 @@ class HomePage extends StatelessWidget {
       ),
       body: Observer(
         builder: (context) {
-          final list = Provider.of<TodoList>(context);
+          final list = Provider.of<TodoManagerStore>(context);
 
           if (list.loader.status == FutureStatus.pending) {
             return Center(child: CircularProgressIndicator());
           }
 
-          return layoutStore.activeTab == TabType.todos
+          return todoStoreManager.activeTab == TabType.todos
               ? TodoListView(
                   onRemove: (context, todo) {
-                    todoList.removeTodo(todo);
+                    todoStoreManager.removeTodo(todo);
                     displayRemovalNotification(context, todo);
                   },
                 )
@@ -84,9 +82,10 @@ class HomePage extends StatelessWidget {
       ),
       bottomNavigationBar: Observer(
           builder: (context) => BottomNavigationBar(
-                currentIndex: TabType.values.indexOf(layoutStore.activeTab),
+                currentIndex:
+                    TabType.values.indexOf(todoStoreManager.activeTab),
                 onTap: (int index) {
-                  layoutStore.updateTab(TabType.values[index]);
+                  todoStoreManager.updateTab(TabType.values[index]);
                 },
                 items: TabType.values
                     .map(
@@ -105,7 +104,7 @@ class HomePage extends StatelessWidget {
   }
 
   displayRemovalNotification(BuildContext context, Todo todo) {
-    final todoList = Provider.of<TodoList>(context);
+    final todoList = Provider.of<TodoManagerStore>(context);
 
     final snackBar = SnackBar(
       content: Column(
@@ -129,7 +128,7 @@ class HomePage extends StatelessWidget {
   }
 
   void performAction(BuildContext context, ListAction value) {
-    final list = Provider.of<TodoList>(context);
+    final list = Provider.of<TodoManagerStore>(context);
 
     if (value == ListAction.markAllComplete) {
       list.markAllComplete();
@@ -148,7 +147,7 @@ class LoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) {
-        final list = Provider.of<TodoList>(context);
+        final list = Provider.of<TodoManagerStore>(context);
 
         if (list.loader.status == FutureStatus.pending) {
           return Padding(
@@ -172,7 +171,7 @@ class TodoListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        final todoList = Provider.of<TodoList>(context);
+        final todoList = Provider.of<TodoManagerStore>(context);
         final todos = todoList.visibleTodos;
 
         return ListView.builder(
