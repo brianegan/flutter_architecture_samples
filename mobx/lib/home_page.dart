@@ -10,8 +10,6 @@ import 'package:mobx_sample/todo_details_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  static const routeName = '/';
-
   @override
   Widget build(BuildContext context) {
     final todoList = Provider.of<TodoList>(context);
