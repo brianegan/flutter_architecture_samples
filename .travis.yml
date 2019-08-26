@@ -219,6 +219,16 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./redux
     - <<: *integration-test
       os: linux
+      env: provider_android
+      script: travis_retry ./scripts/ci.sh ./provider
+    - <<: *integration-test
+      os: osx
+      osx_image: xcode8.0
+      env: provider_ios
+      before_install: *before_install_osx
+      script: travis_retry ./scripts/ci.sh ./provider
+    - <<: *integration-test
+      os: linux
       env: scoped_model_android
       script: travis_retry ./scripts/ci.sh ./scoped_model
     - <<: *integration-test
