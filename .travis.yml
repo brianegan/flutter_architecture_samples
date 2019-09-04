@@ -81,7 +81,8 @@ jobs:
         - flutter doctor -v
 
         # Wait for emulator to finish startup.
-        - ./scripts/android-wait-for-emulator.sh
+#        - ./scripts/android-wait-for-emulator.sh
+        - adb wait-for-device
         - flutter devices
       script: travis_retry ./scripts/ci.sh ./bloc_flutter
       cache:
