@@ -49,16 +49,16 @@ class _EditTodoPageState extends State<EditTodoPage> {
       ),
       floatingActionButton: Observer(
         builder: (_) => FloatingActionButton(
-              backgroundColor: widget.todo.hasTitle ? Colors.blue : Colors.grey,
-              child: Icon(Icons.check),
-              onPressed: widget.todo.hasTitle
-                  ? () {
-                      _formKey.currentState.save();
+          backgroundColor: widget.todo.hasTitle ? Colors.blue : Colors.grey,
+          child: Icon(Icons.check),
+          onPressed: widget.todo.hasTitle
+              ? () {
+                  _formKey.currentState.save();
 
-                      widget.onEdit();
-                    }
-                  : null,
-            ),
+                  widget.onEdit();
+                }
+              : null,
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -68,19 +68,19 @@ class _EditTodoPageState extends State<EditTodoPage> {
             children: <Widget>[
               Observer(
                 builder: (_) => TextFormField(
-                      controller: _titleEditingController,
-                      decoration: InputDecoration(
-                          hintText: 'What needs to be done?',
-                          focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
-                          errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.red)),
-                          errorText: widget.todo.hasTitle
-                              ? null
-                              : 'Title cannot be blank'),
-                      style: TextStyle(fontSize: 20),
-                      onSaved: (value) => widget.todo.title = value,
-                    ),
+                  controller: _titleEditingController,
+                  decoration: InputDecoration(
+                      hintText: 'What needs to be done?',
+                      focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                      errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red)),
+                      errorText: widget.todo.hasTitle
+                          ? null
+                          : 'Title cannot be blank'),
+                  style: TextStyle(fontSize: 20),
+                  onSaved: (value) => widget.todo.title = value,
+                ),
               ),
               TextFormField(
                 decoration: InputDecoration(hintText: 'Additional notes'),

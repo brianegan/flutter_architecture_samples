@@ -2,22 +2,27 @@ import 'package:mobx/mobx.dart';
 import 'package:mobx_sample/model/todo.dart';
 import 'package:mobx_sample/model/todo_service.dart';
 
-part 'todo_list.g.dart';
+part 'todo_manager_store.g.dart';
 
-class TodoList = _TodoList with _$TodoList;
+class TodoManagerStore = _TodoManagerStore with _$TodoManagerStore;
+
+enum TabType { todos, stats }
 
 enum VisibilityFilter { all, pending, completed }
 
 enum ListAction { markAllComplete, clearCompleted }
 
-abstract class _TodoList with Store {
-  _TodoList() {
+abstract class _TodoManagerStore with Store {
+  _TodoManagerStore() {
     _setup();
   }
 
   final TodoService _service = TodoService();
 
   Function _undoOperation;
+
+  @observable
+  TabType activeTab = TabType.todos;
 
   @observable
   VisibilityFilter filter = VisibilityFilter.all;
@@ -54,6 +59,11 @@ abstract class _TodoList with Store {
   }
 
   final ObservableList<Todo> todos = ObservableList<Todo>();
+
+  @action
+  updateTab(TabType tab) {
+    activeTab = tab;
+  }
 
   @action
   void addTodo(Todo todo) {
