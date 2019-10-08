@@ -1,4 +1,4 @@
-# bloc_example
+# MVI Example
 
 A new Flutter project.
 
