@@ -14,7 +14,7 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Future<UserEntity> login() async {
-    final firebaseUser = await auth.signInAnonymously();
+    final firebaseUser = (await auth.signInAnonymously()).user;
 
     return UserEntity(
       id: firebaseUser.uid,
