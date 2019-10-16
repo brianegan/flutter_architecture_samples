@@ -57,7 +57,7 @@ Whenever the App State changes, the `StoreConnector` will rebuild the `ViewModel
 In order to make it easier to test your Widgets and share functionality, it is recommended you have two types of Widgets:
 
   * `container` Widgets -- These use `StoreConnector` Widgets to build up a `ViewModel` for your `presentation` Widgets.
-  * `presentation` Widgets -- `StatelessWidget`s that are given all the data they need are are responsible for building the UI.
+  * `presentation` Widgets -- `StatelessWidget`s that are given all the data they need and are responsible for building the UI.
   
 This allows you to more easily test your `presentation` Widgets, because you only need to pass in the data they require in each test for rendering, and then write assertions against the rendered output. Think of them as the "pure functions" of our UI.
 
