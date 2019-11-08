@@ -35,7 +35,7 @@ class DetailsScreen extends StatelessWidget {
                 key: ArchSampleKeys.deleteTodoButton,
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  todosBloc.dispatch(DeleteTodo(todo));
+                  todosBloc.add(DeleteTodo(todo));
                   Navigator.pop(context, todo);
                 },
               )
@@ -56,7 +56,7 @@ class DetailsScreen extends StatelessWidget {
                                 key: BlocLibraryKeys.detailsScreenCheckBox,
                                 value: todo.complete,
                                 onChanged: (_) {
-                                  todosBloc.dispatch(
+                                  todosBloc.add(
                                     UpdateTodo(
                                       todo.copyWith(complete: !todo.complete),
                                     ),
@@ -103,13 +103,13 @@ class DetailsScreen extends StatelessWidget {
             onPressed: todo == null
                 ? null
                 : () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).push<void>(
                       MaterialPageRoute(
                         builder: (context) {
                           return AddEditScreen(
                             key: ArchSampleKeys.editTodoScreen,
                             onSave: (task, note) {
-                              todosBloc.dispatch(
+                              todosBloc.add(
                                 UpdateTodo(
                                   todo.copyWith(task: task, note: note),
                                 ),

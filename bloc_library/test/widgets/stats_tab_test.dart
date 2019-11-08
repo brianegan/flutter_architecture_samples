@@ -2,6 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -12,9 +13,10 @@ import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-class MockStatsBloc extends Mock implements StatsBloc {}
+class MockStatsBloc extends MockBloc<StatsEvent, StatsState>
+    implements StatsBloc {}
 
-main() {
+void main() {
   group('Stats', () {
     StatsBloc statsBloc;
 
@@ -24,10 +26,10 @@ main() {
 
     testWidgets('should render LoadingIndicator when state is StatsLoading',
         (WidgetTester tester) async {
-      when(statsBloc.currentState).thenAnswer((_) => StatsLoading());
+      when(statsBloc.state).thenAnswer((_) => StatsLoading());
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: statsBloc,
+        BlocProvider.value(
+          value: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -45,10 +47,10 @@ main() {
 
     testWidgets('should render empty stats container when state is null',
         (WidgetTester tester) async {
-      when(statsBloc.currentState).thenAnswer((_) => null);
+      when(statsBloc.state).thenAnswer((_) => null);
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: statsBloc,
+        BlocProvider.value(
+          value: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -66,10 +68,10 @@ main() {
 
     testWidgets('should render correct stats when state is StatsLoaded(0, 0)',
         (WidgetTester tester) async {
-      when(statsBloc.currentState).thenAnswer((_) => StatsLoaded(0, 0));
+      when(statsBloc.state).thenAnswer((_) => StatsLoaded(0, 0));
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: statsBloc,
+        BlocProvider.value(
+          value: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),
@@ -93,10 +95,10 @@ main() {
 
     testWidgets('should render correct stats when state is StatsLoaded(2, 1)',
         (WidgetTester tester) async {
-      when(statsBloc.currentState).thenAnswer((_) => StatsLoaded(2, 1));
+      when(statsBloc.state).thenAnswer((_) => StatsLoaded(2, 1));
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: statsBloc,
+        BlocProvider.value(
+          value: statsBloc,
           child: MaterialApp(
             home: Scaffold(
               body: Stats(),

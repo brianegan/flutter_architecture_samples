@@ -8,7 +8,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/widgets/delete_todo_snack_bar.dart';
 import 'package:bloc_library/models/models.dart';
 
-main() {
+void main() {
   group('DeleteTodoSnackBar', () {
     testWidgets('should render properly', (WidgetTester tester) async {
       var snackBarKey = Key('snack_bar_key');

@@ -6,8 +6,8 @@ environment:
 
 dependencies:
   meta: ">=1.1.0 <2.0.0"
-  equatable: ^0.2.0
-  flutter_bloc: ^0.10.0
+  equatable: ^0.6.1
+  flutter_bloc: ^2.0.0
   flutter:
     sdk: flutter
 
@@ -25,7 +25,8 @@ dependency_overrides:
 
 dev_dependencies:
   test: ^1.3.0
-  mockito: ^3.0.0
+  mockito: ^4.0.0
+  bloc_test: ^2.1.0
   flutter_driver:
     sdk: flutter
   flutter_test:

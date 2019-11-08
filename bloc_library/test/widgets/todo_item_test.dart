@@ -9,7 +9,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/widgets/todo_item.dart';
 import 'package:bloc_library/models/models.dart';
 
-main() {
+void main() {
   group('TodoItem', () {
     testWidgets('should render properly with no note',
         (WidgetTester tester) async {
