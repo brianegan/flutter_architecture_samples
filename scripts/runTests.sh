@@ -57,9 +57,8 @@ runTests () {
       # pure dart
       echo "run dart tests"
       pub get
-      nohup pub global run coverage:collect_coverage --port=8111 -o coverage.json --resume-isolates --wait-paused &
-      dart --pause-isolates-on-exit --enable-vm-service=8111 "test/all_tests.dart" || error=true
-      pub global run coverage:format_coverage --packages=.packages -i coverage.json --report-on lib --lcov --out lcov.info
+      pub run test || error=true
+      runDartTestsWithCoverage "test/all_tests.dart"  || error=true
       if [ -f "lcov.info" ]; then
         # combine line coverage info from package tests to a common file
         sed "s/^SF:.*lib/SF:$escapedPath\/lib/g" lcov.info >> $2/lcov.info
@@ -69,6 +68,40 @@ runTests () {
     fi
   fi
   cd - > /dev/null
+}
+
+# run tests with code coverage
+runDartTestsWithCoverage () {
+  local test_path=$1
+  local coverage_dir="coverage"
+  # clear coverage directory
+  rm -rf "$coverage_dir"
+  mkdir "$coverage_dir"
+
+  OBS_PORT=9292
+
+  # Run the coverage collector to generate the JSON coverage report.
+  echo "Listening for coverage report on port $OBS_PORT..."
+  pub global run coverage:collect_coverage \
+    --port=$OBS_PORT \
+    --out="$coverage_dir"/coverage.json \
+    --wait-paused \
+    --resume-isolates &
+
+  # Start tests in one VM.
+  echo "Running dart tests with code coverage..."
+  dart --disable-service-auth-codes \
+    --enable-vm-service=$OBS_PORT \
+    --pause-isolates-on-exit \
+    "$test_path"
+
+  echo "Generating LCOV report..."
+  pub global run coverage:format_coverage \
+    --lcov \
+    --in="$coverage_dir"/coverage.json \
+    --out="$coverage_dir"/lcov.info \
+    --packages=.packages \
+    --report-on=lib
 }
 
 runReport() {
