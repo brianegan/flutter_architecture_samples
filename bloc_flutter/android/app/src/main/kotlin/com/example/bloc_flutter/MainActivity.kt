@@ -1,4 +1,4 @@
-package com.fluttersamples.bloc_flutter
+package com.example.bloc_flutter
 
 import android.os.Bundle
 
