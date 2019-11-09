@@ -9,7 +9,7 @@ import 'package:bloc_library/models/models.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-main() {
+void main() {
   group('AddEditScreen', () {
     testWidgets('should render properly when isEditing: true',
         (WidgetTester tester) async {

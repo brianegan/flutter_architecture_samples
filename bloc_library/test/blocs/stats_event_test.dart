@@ -5,7 +5,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/blocs/blocs.dart';
 
-main() {
+void main() {
   group('StatsEvent', () {
     group('UpdateStats', () {
       test('toString returns correct value', () {
