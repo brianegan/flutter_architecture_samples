@@ -6,93 +6,95 @@ env:
 jobs:
   include:
     
-    - stage: Testing
-      language: generic
-      os: linux
-      env: All unit and widget tests
-      before_script:
-        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-
-        # install pre-compiled flutter
-        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
-        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter doctor -v
-        - pub global activate coverage
-      script: ./scripts/runTests.sh
-      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
-      cache:
-        directories:
-          - $HOME/.pub-cache
-
-    - &integration-test
-      stage: Testing
-      sudo: true
-      dist: trusty
-      language: generic
-      os: linux
-      env: bloc_flutter_android
-      # Run integration tests on android
-      before_install: &before_install_linux
-        - ANDROID_SDK_TOOLS=4333796 # android-28
-        - ANDROID_PLATFORM_SDK=28 # required by flutter
-        - ANDROID_BUILD_TOOLS=28.0.3 # required by flutter
-        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
-        # Install the Android SDK Dependency.
-        - export ANDROID_HOME=/opt/android-sdk-linux
-        - cd /opt
-        - wget -q https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_SDK_TOOLS.zip -O android-sdk-tools.zip
-        - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
-        - rm android-sdk-tools.zip
-        - cd -
-        - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
-        # Silence warning.
-        - mkdir -p ~/.android
-        - touch ~/.android/repositories.cfg
-        # Accept licenses before installing components, no need to echo y for each component
-        - yes | sdkmanager --licenses
-        # Platform and build tools (including flutter requirements)
-        - sdkmanager "emulator" "tools" "platform-tools" "platforms;android-${ANDROID_PLATFORM_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
-        - sdkmanager --list | head -15
-
-        # Download a pinned version of the emulator since upgrades can cause issues
-        - ${ANDROID_HOME}/emulator/emulator -version
-        - emulator_version=5264690 #29.0.9.0 (build_id 5537588) ==> 28.0.23.0 (build_id 5264690)
-        - curl -fo emulator.zip "https://dl.google.com/android/repository/emulator-linux-$emulator_version.zip"
-        - rm -rf "${ANDROID_HOME}/emulator"
-        - unzip -q emulator.zip -d "${ANDROID_HOME}"
-        - rm -f emulator.zip
-        - ${ANDROID_HOME}/emulator/emulator -version
-
-        # install older platform and build tools (for emulator)
-        - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
-        # Create and start emulator.
-        - EMULATOR_API_LEVEL=22
-        - ANDROID_ABI="default;armeabi-v7a"
-        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" > /dev/null
-        - sdkmanager --list | head -15
-        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
-        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
-
-        # install pre-compiled flutter
-        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
-        - export PATH="$PATH":"$HOME/.pub-cache/bin"
-        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter doctor -v
-
-        # Wait for emulator to finish startup.
+#    - stage: Testing
+#      language: generic
+#      os: linux
+#      env: All unit and widget tests
+#      before_script:
+#        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+#
+#        # install pre-compiled flutter
+#        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
+#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+#        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+#        - flutter doctor -v
+#        - pub global activate coverage
+#      script: ./scripts/runTests.sh
+#      after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
+#      cache:
+#        directories:
+#          - $HOME/.pub-cache
+#
+#    - &integration-test
+#      stage: Testing
+#      sudo: true
+#      dist: trusty
+#      language: generic
+#      os: linux
+#      env: bloc_flutter_android
+#      # Run integration tests on android
+#      before_install: &before_install_linux
+#        - ANDROID_SDK_TOOLS=4333796 # android-28
+#        - ANDROID_PLATFORM_SDK=28 # required by flutter
+#        - ANDROID_BUILD_TOOLS=28.0.3 # required by flutter
+#        - sudo apt-get install -y --no-install-recommends lib32stdc++6 libstdc++6 > /dev/null
+#        # Install the Android SDK Dependency.
+#        - export ANDROID_HOME=/opt/android-sdk-linux
+#        - cd /opt
+#        - wget -q https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_SDK_TOOLS.zip -O android-sdk-tools.zip
+#        - unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}
+#        - rm android-sdk-tools.zip
+#        - cd -
+#        - PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools
+#        # Silence warning.
+#        - mkdir -p ~/.android
+#        - touch ~/.android/repositories.cfg
+#        # Accept licenses before installing components, no need to echo y for each component
+#        - yes | sdkmanager --licenses
+#        # Platform and build tools (including flutter requirements)
+#        - sdkmanager "emulator" "tools" "platform-tools" "platforms;android-${ANDROID_PLATFORM_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" > /dev/null
+#        - sdkmanager --list | head -15
+#
+#        # Download a pinned version of the emulator since upgrades can cause issues
+#        - ${ANDROID_HOME}/emulator/emulator -version
+#        - emulator_version=5264690 #29.0.9.0 (build_id 5537588) ==> 28.0.23.0 (build_id 5264690)
+#        - curl -fo emulator.zip "https://dl.google.com/android/repository/emulator-linux-$emulator_version.zip"
+#        - rm -rf "${ANDROID_HOME}/emulator"
+#        - unzip -q emulator.zip -d "${ANDROID_HOME}"
+#        - rm -f emulator.zip
+#        - ${ANDROID_HOME}/emulator/emulator -version
+#
+#        # install older platform and build tools (for emulator)
+#        - sdkmanager "build-tools;25.0.2" "platforms;android-25" > /dev/null
+#        # Create and start emulator.
+#        - EMULATOR_API_LEVEL=22
+#        - ANDROID_ABI="default;armeabi-v7a"
+#        - sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI" > /dev/null
+#        - sdkmanager --list | head -15
+#        - echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+#        - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window -gpu swiftshader &
+#
+#        # install pre-compiled flutter
+#        - wget --quiet --output-document=flutter.tar.xz https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/linux/flutter_linux_v${FLUTTER_VERSION}.tar.xz && tar xf flutter.tar.xz > /dev/null && rm flutter.tar.xz
+#        - export PATH="$PATH":"$HOME/.pub-cache/bin"
+#        - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+#        - flutter doctor -v
+#
+#        # Wait for emulator to finish startup.
 #        - ./scripts/android-wait-for-emulator.sh
-        - adb wait-for-device
-        - flutter devices
-      script: travis_retry ./scripts/ci.sh ./bloc_flutter
-      cache:
-        directories:
-          - $HOME/.pub-cache
-          - $HOME/.gradle
+##        - adb wait-for-device
+#        - flutter devices
+#      script: travis_retry ./scripts/ci.sh ./bloc_flutter
+#      cache:
+#        directories:
+#          - $HOME/.pub-cache
+#          - $HOME/.gradle
 
-    - <<: *integration-test
+#    - <<: *integration-test
+    - stage: Testing
       os: osx
-      osx_image: xcode10.3 # supports firebase
+      # use oldest flutter supported version of xcode
+      osx_image: xcode8.0
       env: bloc_flutter_ios
       # Run integration tests on ios
       before_install: &before_install_osx
@@ -117,144 +119,143 @@ jobs:
         directories:
           - $HOME/.pub-cache
 
-    - <<: *integration-test
-      os: linux
-      env: built_redux_android
-      script: travis_retry ./scripts/ci.sh ./built_redux
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: built_redux_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./built_redux
-    - <<: *integration-test
-      os: linux
-      env: bloc_library_android
-      script: travis_retry ./scripts/ci.sh ./bloc_library
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: bloc_library_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./bloc_library
-    - <<: *integration-test
-      os: linux
-      env: firestore_redux_android
-      script: travis_retry ./scripts/ci.sh ./firestore_redux
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: firestore_redux_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./firestore_redux
-    - <<: *integration-test
-      os: linux
-      env: frideos_library_android
-      script: travis_retry ./scripts/ci.sh ./frideos_library
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: frideos_library_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./frideos_library      
-    - <<: *integration-test
-      os: linux
-      env: inherited_widget_android
-      script: travis_retry ./scripts/ci.sh ./inherited_widget
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: inherited_widget_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./inherited_widget
-    - <<: *integration-test
-      os: linux
-      env: mvc_android
-      script: travis_retry ./scripts/ci.sh ./mvc
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: mvc_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./mvc
-    - <<: *integration-test
-      os: linux
-      env: mvi_flutter_android
-      script: travis_retry ./scripts/ci.sh ./mvi_flutter
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: mvi_flutter_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./mvi_flutter
-    - <<: *integration-test
-      os: linux
-      env: mvu_android
-      script: travis_retry ./scripts/ci.sh ./mvu
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: mvu_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./mvu
-    - <<: *integration-test
-      os: linux
-      env: redurx_android
-      script: travis_retry ./scripts/ci.sh ./redurx
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: redurx_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./redurx
-    - <<: *integration-test
-      os: linux
-      env: redux_android
-      script: travis_retry ./scripts/ci.sh ./redux
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: redux_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./redux
-    - <<: *integration-test
-      os: linux
-      env: scoped_model_android
-      script: travis_retry ./scripts/ci.sh ./scoped_model
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: scoped_model_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./scoped_model
-    - <<: *integration-test
-      os: linux
-      env: simple_bloc_flutter_android
-      script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: simple_bloc_flutter_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
-    - <<: *integration-test
-      os: linux
-      env: vanilla_android
-      script: travis_retry ./scripts/ci.sh ./vanilla
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode10.3
-      env: vanilla_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./vanilla
-
-    - stage: Ready to deploy
-      os: osx
-      language: generic
-      env: not implemented 🤓
-      script: echo "Deploying to store ..."
+#    - <<: *integration-test
+#      os: linux
+#      env: built_redux_android
+#      script: travis_retry ./scripts/ci.sh ./built_redux
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: built_redux_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./built_redux
+#    - <<: *integration-test
+#      os: linux
+#      env: bloc_library_android
+#      script: travis_retry ./scripts/ci.sh ./bloc_library
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: bloc_library_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./bloc_library
+#    - <<: *integration-test
+#      os: linux
+#      env: firestore_redux_android
+#      script: travis_retry ./scripts/ci.sh ./firestore_redux
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: firestore_redux_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./firestore_redux
+#    - <<: *integration-test
+#      os: linux
+#      env: frideos_library_android
+#      script: travis_retry ./scripts/ci.sh ./frideos_library
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: frideos_library_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./frideos_library
+#    - <<: *integration-test
+#      os: linux
+#      env: inherited_widget_android
+#      script: travis_retry ./scripts/ci.sh ./inherited_widget
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: inherited_widget_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./inherited_widget
+#    - <<: *integration-test
+#      os: linux
+#      env: mvc_android
+#      script: travis_retry ./scripts/ci.sh ./mvc
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: mvc_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./mvc
+#    - <<: *integration-test
+#      os: linux
+#      env: mvi_flutter_android
+#      script: travis_retry ./scripts/ci.sh ./mvi_flutter
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: mvi_flutter_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./mvi_flutter
+#    - <<: *integration-test
+#      os: linux
+#      env: mvu_android
+#      script: travis_retry ./scripts/ci.sh ./mvu
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: mvu_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./mvu
+#    - <<: *integration-test
+#      os: linux
+#      env: redurx_android
+#      script: travis_retry ./scripts/ci.sh ./redurx
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: redurx_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./redurx
+#    - <<: *integration-test
+#      os: linux
+#      env: redux_android
+#      script: travis_retry ./scripts/ci.sh ./redux
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: redux_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./redux
+#    - <<: *integration-test
+#      os: linux
+#      env: scoped_model_android
+#      script: travis_retry ./scripts/ci.sh ./scoped_model
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: scoped_model_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./scoped_model
+#    - <<: *integration-test
+#      os: linux
+#      env: simple_bloc_flutter_android
+#      script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: simple_bloc_flutter_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
+#    - <<: *integration-test
+#      os: linux
+#      env: vanilla_android
+#      script: travis_retry ./scripts/ci.sh ./vanilla
+#    - <<: *integration-test
+#      os: osx
+#      osx_image: xcode8.0
+#      env: vanilla_ios
+#      before_install: *before_install_osx
+#      script: travis_retry ./scripts/ci.sh ./vanilla
 
   allow_failures:
-    - env: mvu_android
-    - env: mvu_ios
-    - env: redurx_android
+    - env:
+        - bloc_flutter_ios
+        - built_redux_android
+        - firestore_redux_android
+        - firestore_redux_ios
+        - mvu_android
+        - mvu_ios
+        - redurx_android
