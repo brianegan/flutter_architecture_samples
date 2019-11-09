@@ -96,8 +96,8 @@ jobs:
       os: osx
 #      osx_image: xcode9.4
       osx_image: xcode9.2
-#      env: bloc_flutter_ios
-      env: vanilla_ios
+      env: bloc_flutter_ios
+#      env: vanilla_ios
       # Run integration tests on ios
       before_install: &before_install_osx
         - xcrun simctl list devicetypes
@@ -114,8 +114,6 @@ jobs:
         - brew install libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
-#        - brew install cocoapods || true
-#        - brew link --overwrite cocoapods
         - sudo gem install cocoapods
 
         # install pre-compiled flutter
@@ -124,8 +122,8 @@ jobs:
         - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
         - flutter devices
-#      script: travis_retry ./scripts/ci.sh ./bloc_flutter
-      script: travis_retry ./scripts/ci.sh ./vanilla
+      script: travis_retry ./scripts/ci.sh ./bloc_flutter
+#      script: travis_retry ./scripts/ci.sh ./vanilla
       cache:
         directories:
           - $HOME/.pub-cache
