@@ -104,8 +104,8 @@ jobs:
         - brew install libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
-        - brew install cocoapods || echo 'ignore exit(1)'
-        - brew link --overwrite cocoapods
+        - sudo gem install cocoapods
+        - pod --version
 
         # install pre-compiled flutter
         - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
