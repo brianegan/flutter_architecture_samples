@@ -94,9 +94,10 @@ jobs:
 #    - <<: *integration-test
     - stage: Testing
       os: osx
-      # use oldest flutter supported version of xcode
-      osx_image: xcode9.4
-      env: bloc_flutter_ios
+#      osx_image: xcode9.4
+      osx_image: xcode9.2
+#      env: bloc_flutter_ios
+      env: vanilla_ios
       # Run integration tests on ios
       before_install: &before_install_osx
         - open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
@@ -109,7 +110,6 @@ jobs:
 #        - brew install cocoapods || true
 #        - brew link --overwrite cocoapods
         - sudo gem install cocoapods
-        - pod --version
 
         # install pre-compiled flutter
         - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
