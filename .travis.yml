@@ -1,7 +1,7 @@
 env:
   global:
     - FLUTTER_CHANNEL=stable
-    - FLUTTER_VERSION=1.2.1-${FLUTTER_CHANNEL}
+    - FLUTTER_VERSION=1.9.1+hotfix.6-${FLUTTER_CHANNEL}
 
 jobs:
   include:
