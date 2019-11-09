@@ -95,13 +95,14 @@ jobs:
     - stage: Testing
       os: osx
 #      osx_image: xcode9.4
-      osx_image: xcode9.2
+#      osx_image: xcode9.2
+      osx_image: xcode10.1 # for firebase
       env: bloc_flutter_ios
 #      env: vanilla_ios
       # Run integration tests on ios
       before_install: &before_install_osx
-        - xcrun simctl list devicetypes
-        - xcrun simctl list runtimes
+#        - xcrun simctl list devicetypes
+#        - xcrun simctl list runtimes
         # create simulator
         - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-11-2)
         # boot simulator
@@ -254,7 +255,7 @@ jobs:
 #      script: travis_retry ./scripts/ci.sh ./vanilla
 #    - <<: *integration-test
 #      os: osx
-#      osx_image: xcode8.0
+#      osx_image: xcode9.2
 #      env: vanilla_ios
 #      before_install: *before_install_osx
 #      script: travis_retry ./scripts/ci.sh ./vanilla
