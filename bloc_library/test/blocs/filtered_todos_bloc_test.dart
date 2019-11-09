@@ -3,112 +3,82 @@
 // in the LICENSE file.
 
 import 'dart:async';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/models/models.dart';
 import 'package:todos_repository_simple/todos_repository_simple.dart';
 
-class MockTodosBloc extends Mock implements TodosBloc {}
+class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
+    implements TodosBloc {}
 
 class MockTodosRepository extends Mock implements TodosRepositoryFlutter {}
 
-main() {
+void main() {
   group('FilteredTodosBloc', () {
-    test('dispatches TodosUpdated when TodosBloc.state emits TodosLoaded', () {
-      final todo = Todo('Wash Dishes', id: '0');
-      final TodosRepositoryFlutter todosRepository = MockTodosRepository();
-      when(todosRepository.loadTodos()).thenAnswer((_) => Future.value([]));
-      when(todosRepository.saveTodos(any)).thenAnswer(
-        (_) => Future.value(null),
-      );
-      final todosBloc = TodosBloc(todosRepository: todosRepository);
-      final FilteredTodosBloc filteredTodosBloc = FilteredTodosBloc(
-        todosBloc: todosBloc,
-      );
-      expectLater(
-        filteredTodosBloc.state,
-        emitsInOrder([
-          FilteredTodosLoading(),
-          FilteredTodosLoaded([], VisibilityFilter.all),
-          FilteredTodosLoaded([todo], VisibilityFilter.all),
-        ]),
-      );
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo));
-    });
+    blocTest<FilteredTodosBloc, FilteredTodosEvent, FilteredTodosState>(
+      'adds TodosUpdated when TodosBloc.state emits TodosLoaded',
+      build: () {
+        final todosBloc = MockTodosBloc();
+        when(todosBloc.state).thenReturn(
+          TodosLoaded([Todo('Wash Dishes', id: '0')]),
+        );
+        whenListen(
+          todosBloc,
+          Stream<TodosState>.fromIterable([
+            TodosLoaded([Todo('Wash Dishes', id: '0')]),
+          ]),
+        );
+        return FilteredTodosBloc(todosBloc: todosBloc);
+      },
+      expect: [
+        FilteredTodosLoaded(
+          [Todo('Wash Dishes', id: '0')],
+          VisibilityFilter.all,
+        ),
+      ],
+    );
 
-    test('should update the VisibilityFilter when filter is completed', () {
-      final todo = Todo('Wash Dishes');
-      final todosBloc = MockTodosBloc();
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      when(todosBloc.currentState).thenReturn(TodosLoaded([todo]));
-      final FilteredTodosBloc filteredTodosBloc = FilteredTodosBloc(
-        todosBloc: todosBloc,
-      );
+    blocTest<FilteredTodosBloc, FilteredTodosEvent, FilteredTodosState>(
+      'should update the VisibilityFilter when filter is active',
+      build: () {
+        final todosBloc = MockTodosBloc();
+        when(todosBloc.state)
+            .thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
+        return FilteredTodosBloc(todosBloc: todosBloc);
+      },
+      act: (FilteredTodosBloc bloc) async =>
+          bloc.add(UpdateFilter(VisibilityFilter.active)),
+      expect: <FilteredTodosState>[
+        FilteredTodosLoaded(
+          [Todo('Wash Dishes', id: '0')],
+          VisibilityFilter.all,
+        ),
+        FilteredTodosLoaded(
+          [Todo('Wash Dishes', id: '0')],
+          VisibilityFilter.active,
+        ),
+      ],
+    );
 
-      expect(
-        filteredTodosBloc.initialState,
-        FilteredTodosLoaded([todo], VisibilityFilter.all),
-      );
-
-      expectLater(
-        filteredTodosBloc.state,
-        emitsInOrder([
-          FilteredTodosLoaded([todo], VisibilityFilter.all),
-          FilteredTodosLoaded([], VisibilityFilter.completed),
-        ]),
-      );
-
-      filteredTodosBloc.dispatch(UpdateFilter(VisibilityFilter.completed));
-    });
-
-    test('should update the VisibilityFilter when filter is active', () {
-      final todo = Todo('Wash Dishes');
-      final todosBloc = MockTodosBloc();
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      when(todosBloc.currentState).thenReturn(TodosLoaded([todo]));
-      final FilteredTodosBloc filteredTodosBloc = FilteredTodosBloc(
-        todosBloc: todosBloc,
-      );
-
-      expect(
-        filteredTodosBloc.initialState,
-        FilteredTodosLoaded([todo], VisibilityFilter.all),
-      );
-
-      expectLater(
-        filteredTodosBloc.state,
-        emitsInOrder([
-          FilteredTodosLoaded([todo], VisibilityFilter.all),
-          FilteredTodosLoaded([todo], VisibilityFilter.active),
-        ]),
-      );
-
-      filteredTodosBloc.dispatch(UpdateFilter(VisibilityFilter.active));
-    });
-
-    test('dispose does not emit new events', () {
-      final todosBloc = MockTodosBloc();
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      when(todosBloc.currentState).thenReturn(TodosLoaded([]));
-      final FilteredTodosBloc filteredTodosBloc = FilteredTodosBloc(
-        todosBloc: todosBloc,
-      );
-
-      expect(
-        filteredTodosBloc.initialState,
-        FilteredTodosLoaded([], VisibilityFilter.all),
-      );
-
-      expectLater(
-        filteredTodosBloc.state,
-        emitsInOrder([
-          FilteredTodosLoaded([], VisibilityFilter.all),
-        ]),
-      );
-
-      filteredTodosBloc.dispose();
-    });
+    blocTest<FilteredTodosBloc, FilteredTodosEvent, FilteredTodosState>(
+      'should update the VisibilityFilter when filter is completed',
+      build: () {
+        final todosBloc = MockTodosBloc();
+        when(todosBloc.state)
+            .thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
+        return FilteredTodosBloc(todosBloc: todosBloc);
+      },
+      act: (FilteredTodosBloc bloc) async =>
+          bloc.add(UpdateFilter(VisibilityFilter.completed)),
+      expect: <FilteredTodosState>[
+        FilteredTodosLoaded(
+          [Todo('Wash Dishes', id: '0')],
+          VisibilityFilter.all,
+        ),
+        FilteredTodosLoaded([], VisibilityFilter.completed),
+      ],
+    );
   });
 }

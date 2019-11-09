@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/models/models.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-main() {
+void main() {
   group('Todo', () {
     test('is correctly generated from TodoEntity', () {
       expect(

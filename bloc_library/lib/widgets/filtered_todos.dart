@@ -2,6 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_library/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -18,11 +19,9 @@ class FilteredTodos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final todosBloc = BlocProvider.of<TodosBloc>(context);
-    final filteredTodosBloc = BlocProvider.of<FilteredTodosBloc>(context);
     final localizations = ArchSampleLocalizations.of(context);
 
-    return BlocBuilder(
-      bloc: filteredTodosBloc,
+    return BlocBuilder<FilteredTodosBloc, FilteredTodosState>(
       builder: (
         BuildContext context,
         FilteredTodosState state,
@@ -38,17 +37,17 @@ class FilteredTodos extends StatelessWidget {
               final todo = todos[index];
               return TodoItem(
                 todo: todo,
-                onDismissed: (direction) {
-                  todosBloc.dispatch(DeleteTodo(todo));
+                onDismissed: (_) {
+                  todosBloc.add(DeleteTodo(todo));
                   Scaffold.of(context).showSnackBar(DeleteTodoSnackBar(
                     key: ArchSampleKeys.snackbar,
                     todo: todo,
-                    onUndo: () => todosBloc.dispatch(AddTodo(todo)),
+                    onUndo: () => todosBloc.add(AddTodo(todo)),
                     localizations: localizations,
                   ));
                 },
                 onTap: () async {
-                  final removedTodo = await Navigator.of(context).push(
+                  final removedTodo = await Navigator.of(context).push<Todo>(
                     MaterialPageRoute(builder: (_) {
                       return DetailsScreen(id: todo.id);
                     }),
@@ -57,13 +56,13 @@ class FilteredTodos extends StatelessWidget {
                     Scaffold.of(context).showSnackBar(DeleteTodoSnackBar(
                       key: ArchSampleKeys.snackbar,
                       todo: todo,
-                      onUndo: () => todosBloc.dispatch(AddTodo(todo)),
+                      onUndo: () => todosBloc.add(AddTodo(todo)),
                       localizations: localizations,
                     ));
                   }
                 },
                 onCheckboxChanged: (_) {
-                  todosBloc.dispatch(
+                  todosBloc.add(
                     UpdateTodo(todo.copyWith(complete: !todo.complete)),
                   );
                 },

@@ -7,20 +7,25 @@ import 'package:bloc_library/blocs/simple_bloc_delegate.dart';
 import 'package:bloc/bloc.dart';
 import 'dart:async';
 
-var printLog;
+List<String> printLog;
 
-main() {
+void main() {
   group('SimpleBlocDelegate', () {
     SimpleBlocDelegate delegate;
 
     setUp(() {
       delegate = SimpleBlocDelegate();
-      printLog = [];
+      printLog = <String>[];
     });
 
     test('onTransition prints Transition', overridePrint(() {
       delegate.onTransition(
-        Transition(currentState: 'A', event: 'E', nextState: 'B'),
+        null,
+        Transition<String, String>(
+          currentState: 'A',
+          event: 'E',
+          nextState: 'B',
+        ),
       );
       expect(
         printLog[0],
@@ -29,19 +34,27 @@ main() {
     }));
 
     test('onError prints Error', overridePrint(() {
-      delegate.onError('whoops', null);
+      delegate.onError(null, 'whoops', null);
       expect(
         printLog[0],
         'whoops',
       );
     }));
+
+    test('onEvent prints Event', overridePrint(() {
+      delegate.onError(null, 'event', null);
+      expect(
+        printLog[0],
+        'event',
+      );
+    }));
   });
 }
 
-overridePrint(testFn()) => () {
+dynamic overridePrint(dynamic testFn()) => () {
       var spec = ZoneSpecification(print: (_, __, ___, String msg) {
         // Add to log instead of printing to stdout
         printLog.add(msg);
       });
-      return Zone.current.fork(specification: spec).run(testFn);
+      return Zone.current.fork(specification: spec).run<dynamic>(testFn);
     };

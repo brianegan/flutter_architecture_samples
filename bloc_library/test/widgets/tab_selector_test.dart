@@ -9,7 +9,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/widgets/tab_selector.dart';
 import 'package:bloc_library/models/models.dart';
 
-main() {
+void main() {
   group('TabSelector', () {
     testWidgets('should render properly', (WidgetTester tester) async {
       await tester.pumpWidget(
