@@ -1,3 +1,4 @@
+language: generic
 env:
   global:
     - FLUTTER_CHANNEL=stable
@@ -94,7 +95,7 @@ jobs:
     - stage: Testing
       os: osx
       # use oldest flutter supported version of xcode
-      osx_image: xcode8.0
+      osx_image: xcode9.4
       env: bloc_flutter_ios
       # Run integration tests on ios
       before_install: &before_install_osx
@@ -105,8 +106,10 @@ jobs:
         - brew install libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
-        - sudo gem install cocoapods
-        - pod --version
+        - brew install cocoapods || true
+        - brew link --overwrite cocoapods
+#        - sudo gem install cocoapods
+#        - pod --version
 
         # install pre-compiled flutter
         - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_v${FLUTTER_VERSION}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
