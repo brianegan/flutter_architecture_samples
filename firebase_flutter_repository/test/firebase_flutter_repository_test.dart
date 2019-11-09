@@ -19,7 +19,7 @@ main() {
       final repository = FirebaseUserRepository(auth);
 
       when(auth.signInAnonymously())
-          .thenAnswer((_) => Future.value(MockFirebaseUser()));
+          .thenAnswer((_) => Future.value(MockAuthResult()));
 
       final entity = await repository.login();
 
@@ -120,4 +120,4 @@ class MockDocumentReference extends Mock implements DocumentReference {}
 
 class MockQuerySnapshot extends Mock implements QuerySnapshot {}
 
-class MockFirebaseUser extends Mock implements FirebaseUser {}
+class MockAuthResult extends Mock implements AuthResult {}
