@@ -1,6 +1,11 @@
 language: generic
 env:
   global:
+    - FLUTTER_CHANNEL=stable
+    - FLUTTER_VERSION=1.9.1+hotfix.6-${FLUTTER_CHANNEL}
+    - API=28
+    - ABI=x86
+    - GOO=default
     - ANDROID_TOOLS=4333796 # android-28
     - ANDROID_HOME=${HOME}/android-sdk
     - GRAVIS="https://raw.githubusercontent.com/DanySK/Gravis-CI/master/"
@@ -8,14 +13,9 @@ env:
     - TOOLS=${ANDROID_HOME}/tools
     # PATH order is incredibly important. e.g. the 'emulator' script exists in more than one place!
     - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
-    - FLUTTER_CHANNEL=stable
-    - FLUTTER_VERSION=1.9.1+hotfix.6-${FLUTTER_CHANNEL}
     - FLUTTER_HOME=${HOME}/flutter
     - PATH=${HOME}/.pub-cache/bin:${PATH}
     - PATH=${FLUTTER_HOME}/bin:${FLUTTER_HOME}/bin/cache/dart-sdk/bin:${PATH}
-    - API=28
-    - ABI=x86
-    - GOO=default
 
 jobs:
   include:
@@ -145,7 +145,7 @@ jobs:
         - flutter doctor -v
 
         # wait for emulator to finish startup
-        - ./script/android-wait-for-emulator.sh
+        - ./scripts/android-wait-for-emulator.sh
         # unlock screen
         - adb shell input keyevent 82 &
 
