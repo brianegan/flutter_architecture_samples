@@ -120,4 +120,8 @@ class MockDocumentReference extends Mock implements DocumentReference {}
 
 class MockQuerySnapshot extends Mock implements QuerySnapshot {}
 
-class MockAuthResult extends Mock implements AuthResult {}
+class MockAuthResult extends Mock implements AuthResult {
+  final user = MockFirebaseUser();
+}
+
+class MockFirebaseUser extends Mock implements FirebaseUser {}
