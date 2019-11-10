@@ -14,7 +14,7 @@ task:
   activate_coverage_script: pub global activate coverage
   tests_script: ./scripts/runTests.sh
 
-task:
+#task:
 #  name: Integration Tests for $app_arch (Linux)
 #  # don't run for PRs
 ##  only_if: $CIRRUS_PR == ''
