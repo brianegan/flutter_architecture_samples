@@ -1,7 +1,7 @@
 timeout_in: 30m
 env:
   FLUTTER_CHANNEL: stable
-  FLUTTER_VERSION: v1.2.1
+  FLUTTER_VERSION: v1.9.1+hotfix.6
 
 task:
   # this task should fail fast or rely on 'depends_on' for all other tasks
