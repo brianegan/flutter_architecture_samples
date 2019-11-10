@@ -261,11 +261,14 @@ jobs:
 #      script: travis_retry ./scripts/ci.sh ./vanilla
 
   allow_failures:
-    - env:
-        - bloc_flutter_ios
-        - built_redux_android
-        - firestore_redux_android
-        - firestore_redux_ios
-        - mvu_android
-        - mvu_ios
-        - redurx_android
+#    - env:
+#        - bloc_flutter_ios
+#        - built_redux_android
+#        - firestore_redux_android
+#        - firestore_redux_ios
+#        - mvu_android
+#        - mvu_ios
+#        - redurx_android
+    - env: mvu_android
+    - env: mvu_ios
+    - env: redurx_android

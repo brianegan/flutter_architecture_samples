@@ -1,5 +1,0 @@
-targets:
-  $default:
-    builders:
-      built_value_generator|built_value:
-        enabled: false

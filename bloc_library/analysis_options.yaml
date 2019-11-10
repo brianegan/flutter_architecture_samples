@@ -1,3 +1,0 @@
-analyzer:
-  strong-mode:
-    implicit-dynamic: false
