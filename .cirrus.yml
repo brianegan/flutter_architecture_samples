@@ -53,7 +53,7 @@ task:
     folder: ~/.pub-cache
   wait_for_emulator_script:
     - ./scripts/android-wait-for-emulator.sh
-    - adb shell input keyevent 82
+#    - adb shell input keyevent 82
   doctor_script: flutter doctor -v
   devices_script: flutter devices
   ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
