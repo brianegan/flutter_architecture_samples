@@ -15,48 +15,48 @@ task:
   tests_script: ./scripts/runTests.sh
 
 task:
-  name: Integration Tests for $app_arch (Linux)
-  # don't run for PRs
-#  only_if: $CIRRUS_PR == ''
-  skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
-  env:
-    EMULATOR_API_LEVEL: 28
-    ANDROID_ABI: "default;x86"
-    matrix:
-      app_arch: bloc_flutter
-      app_arch: bloc_library
-      app_arch: built_redux
-      app_arch: firestore_redux
-      app_arch: frideos_library
-      app_arch: inherited_widget
-      app_arch: mvc
-      app_arch: mvi_flutter
-      app_arch: mvu
-      app_arch: redurx
-      app_arch: redux
-      app_arch: scoped_model
-      app_arch: simple_bloc_flutter
-      app_arch: vanilla
-  container:
-    image: cirrusci/flutter:$DOCKER_VERSION
-    cpu: 4
-    memory: 10G
-    kvm: true
-  allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
-  fix_kvm_script: sudo chown cirrus:cirrus /dev/kvm
-  install_images_script: sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
-  create_device_script:
-    echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
-  start_emulator_background_script:
-    $ANDROID_HOME/emulator/emulator-headless -verbose -avd test -no-audio -no-window
-  pub_cache:
-    folder: ~/.pub-cache
-  wait_for_emulator_script:
-    - ./scripts/android-wait-for-emulator.sh
-#    - adb shell input keyevent 82
-  doctor_script: flutter doctor -v
-  devices_script: flutter devices
-  ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
+#  name: Integration Tests for $app_arch (Linux)
+#  # don't run for PRs
+##  only_if: $CIRRUS_PR == ''
+#  skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
+#  env:
+#    EMULATOR_API_LEVEL: 28
+#    ANDROID_ABI: "default;x86"
+#    matrix:
+#      app_arch: bloc_flutter
+#      app_arch: bloc_library
+#      app_arch: built_redux
+#      app_arch: firestore_redux
+#      app_arch: frideos_library
+#      app_arch: inherited_widget
+#      app_arch: mvc
+#      app_arch: mvi_flutter
+#      app_arch: mvu
+#      app_arch: redurx
+#      app_arch: redux
+#      app_arch: scoped_model
+#      app_arch: simple_bloc_flutter
+#      app_arch: vanilla
+#  container:
+#    image: cirrusci/flutter:$DOCKER_VERSION
+#    cpu: 4
+#    memory: 10G
+#    kvm: true
+#  allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
+#  fix_kvm_script: sudo chown cirrus:cirrus /dev/kvm
+#  install_images_script: sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+#  create_device_script:
+#    echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
+#  start_emulator_background_script:
+#    $ANDROID_HOME/emulator/emulator-headless -verbose -avd test -no-audio -no-window
+#  pub_cache:
+#    folder: ~/.pub-cache
+#  wait_for_emulator_script:
+#    - ./scripts/android-wait-for-emulator.sh
+##    - adb shell input keyevent 82
+#  doctor_script: flutter doctor -v
+#  devices_script: flutter devices
+#  ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
 
 task:
   name: Integration Tests for $app_arch (macOS)
@@ -65,19 +65,19 @@ task:
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   env:
     matrix:
-      app_arch: bloc_flutter
-      app_arch: bloc_library
-      app_arch: built_redux
-      app_arch: firestore_redux
-      app_arch: frideos_library
-      app_arch: inherited_widget
-      app_arch: mvc
-      app_arch: mvi_flutter
-      app_arch: mvu
-      app_arch: redurx
-      app_arch: redux
-      app_arch: scoped_model
-      app_arch: simple_bloc_flutter
+#      app_arch: bloc_flutter
+#      app_arch: bloc_library
+#      app_arch: built_redux
+#      app_arch: firestore_redux
+#      app_arch: frideos_library
+#      app_arch: inherited_widget
+#      app_arch: mvc
+#      app_arch: mvi_flutter
+#      app_arch: mvu
+#      app_arch: redurx
+#      app_arch: redux
+#      app_arch: scoped_model
+#      app_arch: simple_bloc_flutter
       app_arch: vanilla
   allow_failures: $app_arch == "mvu"
   osx_instance:
