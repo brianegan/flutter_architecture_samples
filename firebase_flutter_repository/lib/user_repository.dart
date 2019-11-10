@@ -17,9 +17,9 @@ class FirebaseUserRepository implements UserRepository {
     final firebaseUser = await auth.signInAnonymously();
 
     return UserEntity(
-      id: firebaseUser.uid,
-      displayName: firebaseUser.displayName,
-      photoUrl: firebaseUser.photoUrl,
+      id: firebaseUser.user.uid,
+      displayName: firebaseUser.user.displayName,
+      photoUrl: firebaseUser.user.photoUrl,
     );
   }
 }
