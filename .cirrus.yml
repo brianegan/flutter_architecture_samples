@@ -81,7 +81,7 @@ task:
       app_arch: vanilla
   allow_failures: $app_arch == "mvu"
   osx_instance:
-    image: mojave-flutter
+    image: mojave-xcode-11.2.1-flutter
   simulator_script:
     - xcrun simctl list devicetypes
     - xcrun simctl list runtimes
