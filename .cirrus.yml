@@ -86,7 +86,7 @@ task:
     - xcrun simctl list devicetypes
     - xcrun simctl list runtimes
     # create simulator
-    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-2)
+    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-12-2)
     # boot simulator
     - xcrun simctl boot $udid
   pin_flutter_script:
