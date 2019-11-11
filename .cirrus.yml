@@ -81,21 +81,21 @@ task:
       app_arch: vanilla
   allow_failures: $app_arch == "mvu"
   osx_instance:
-    image: mojave-flutter
+    image: mojave-xcode-11.2.1-flutter
   simulator_script:
     - xcrun simctl list devicetypes
     - xcrun simctl list runtimes
     # create simulator
-    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-12-2)
+    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-2)
     # boot simulator
     - xcrun simctl boot $udid
   pin_flutter_script:
+#    - sudo gem install cocoapods # missing from mojave-xcode-11.2.1-flutter (not found)
     - flutter --version
     # pin to ${FLUTTER_VERSION}
     - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
     - export PATH="$PATH":"$HOME/.pub-cache/bin"
     - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
-    - flutter precache
     - flutter --version
   doctor_script:
     - export PATH="$PATH":"$HOME/.pub-cache/bin"
