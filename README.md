@@ -20,7 +20,7 @@ Examples have been updated to Dart 2.
 
   * [Lifting State Up (Vanilla) Example](vanilla) - Uses the tools Flutter provides out of the box to manage app state.
   * [InheritedWidget Example](inherited_widget) - Uses an InheritedWidget to pass app state down the widget hierarchy.
-  * [BLoC Example](bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Ouputs
+  * [BLoC Example](bloc_flutter) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Outputs
   * ["Simple" BLoC Example](simple_bloc_flutter) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
   * [Bloc Library Example](bloc_library) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
   * [Redux Example](redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
