@@ -80,7 +80,7 @@ The home contains two Tabs: the List of Todos and Stats about the Todos.
 ![Overflow Menu](assets/mark-all.png)
 
   - If all or some todos are incomplete, the "mark all" button should read "Mark all complete". When pressed, it should ensure all todos in the list are marked as complete. 
-  - If all the todos are marked as complete, the "mark all" button should read "Mark all incomplete". When pressed, it should ensure all todos in the list are marked as complete.
+  - If all the todos are marked as complete, the "mark all" button should read "Mark all incomplete". When pressed, it should ensure all todos in the list are marked as incomplete.
   - User can Removes completed todos when clicked. Should be hidden when there are no completed todos. 
 
 ### Stats Screen
