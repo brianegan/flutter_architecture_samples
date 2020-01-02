@@ -3,27 +3,32 @@
 // in the LICENSE file.
 
 import 'package:equatable/equatable.dart';
-
 import 'package:bloc_library/models/models.dart';
 
 abstract class FilteredTodosEvent extends Equatable {
-  FilteredTodosEvent([List props = const []]) : super(props);
+  const FilteredTodosEvent();
 }
 
 class UpdateFilter extends FilteredTodosEvent {
-  final VisibilityFilter newFilter;
+  final VisibilityFilter filter;
 
-  UpdateFilter(this.newFilter) : super([newFilter]);
+  const UpdateFilter(this.filter);
 
   @override
-  String toString() => 'UpdateFilter { newFilter: $newFilter }';
+  List<Object> get props => [filter];
+
+  @override
+  String toString() => 'UpdateFilter { filter: $filter }';
 }
 
-class TodosUpdated extends FilteredTodosEvent {
+class UpdateTodos extends FilteredTodosEvent {
   final List<Todo> todos;
 
-  TodosUpdated(this.todos) : super([todos]);
+  const UpdateTodos(this.todos);
 
   @override
-  String toString() => 'TodosUpdated { todos: $todos }';
+  List<Object> get props => [todos];
+
+  @override
+  String toString() => 'UpdateTodos { todos: $todos }';
 }

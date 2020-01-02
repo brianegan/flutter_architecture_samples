@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/widgets/loading_indicator.dart';
 
-main() {
+void main() {
   group('LoadingIndicator', () {
     testWidgets('should render correctly', (WidgetTester tester) async {
       final loadingIndicatorKey = Key('loading_indicator_key');

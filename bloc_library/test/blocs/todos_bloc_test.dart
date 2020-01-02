@@ -2,6 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
@@ -10,7 +11,7 @@ import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 class MockTodosRepository extends Mock implements TodosRepositoryFlutter {}
 
-main() {
+void main() {
   group('TodosBloc', () {
     TodosRepositoryFlutter todosRepository;
     TodosBloc todosBloc;
@@ -21,137 +22,146 @@ main() {
       todosBloc = TodosBloc(todosRepository: todosRepository);
     });
 
-    test('should emit TodosNotLoaded if repository throws', () {
-      when(todosRepository.loadTodos()).thenThrow(Exception('oops'));
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should emit TodosNotLoaded if repository throws',
+      build: () {
+        when(todosRepository.loadTodos()).thenThrow(Exception('oops'));
+        return todosBloc;
+      },
+      act: (TodosBloc bloc) async => bloc.add(LoadTodos()),
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosNotLoaded(),
+      ],
+    );
 
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosNotLoaded(),
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should add a todo to the list in response to an AddTodo Event',
+      build: () => todosBloc,
+      act: (TodosBloc bloc) async =>
+          bloc..add(LoadTodos())..add(AddTodo(Todo("Hallo", id: '0'))),
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0')]),
+      ],
+    );
+
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should remove from the list in response to a DeleteTodo Event',
+      build: () {
+        when(todosRepository.loadTodos()).thenAnswer((_) => Future.value([]));
+        return todosBloc;
+      },
+      act: (TodosBloc bloc) async {
+        final todo = Todo("Hallo", id: '0');
+        bloc..add(LoadTodos())..add(AddTodo(todo))..add(DeleteTodo(todo));
+      },
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([]),
+      ],
+    );
+
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should update a todo in response to an UpdateTodoAction',
+      build: () => todosBloc,
+      act: (TodosBloc bloc) async {
+        final todo = Todo("Hallo", id: '0');
+        bloc
+          ..add(LoadTodos())
+          ..add(AddTodo(todo))
+          ..add(UpdateTodo(todo.copyWith(task: "Tschüss")));
+      },
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo("Tschüss", id: '0')]),
+      ],
+    );
+
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should clear completed todos',
+      build: () => todosBloc,
+      act: (TodosBloc bloc) async {
+        final todo1 = Todo("Hallo", id: '0');
+        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        bloc
+          ..add(LoadTodos())
+          ..add(AddTodo(todo1))
+          ..add(AddTodo(todo2))
+          ..add(ClearCompleted());
+        ;
+      },
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([
+          Todo("Hallo", id: '0'),
+          Todo("Tschüss", id: '1', complete: true),
         ]),
-      );
+        TodosLoaded([Todo("Hallo", id: '0')]),
+      ],
+    );
 
-      todosBloc.dispatch(LoadTodos());
-    });
-
-    test('should add a todo to the list in response to an AddTodo Event', () {
-      final todo = Todo("Hallo");
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo]),
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should mark all as completed if some todos are incomplete',
+      build: () => todosBloc,
+      act: (TodosBloc bloc) async {
+        final todo1 = Todo("Hallo", id: '0');
+        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        bloc
+          ..add(LoadTodos())
+          ..add(AddTodo(todo1))
+          ..add(AddTodo(todo2))
+          ..add(ToggleAll());
+        ;
+      },
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([
+          Todo("Hallo", id: '0'),
+          Todo("Tschüss", id: '1', complete: true),
         ]),
-      );
-
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo));
-    });
-
-    test('should remove from the list in response to a DeleteTodo Event', () {
-      final todo = Todo("Hallo");
-      when(todosRepository.loadTodos()).thenAnswer((_) => Future.value([]));
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo]),
-          TodosLoaded([]),
+        TodosLoaded([
+          Todo("Hallo", id: '0', complete: true),
+          Todo("Tschüss", id: '1', complete: true),
         ]),
-      );
+      ],
+    );
 
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo));
-      todosBloc.dispatch(DeleteTodo(todo));
-    });
-
-    test('should update a todo in response to an UpdateTodoAction', () {
-      final todo = Todo("Hallo");
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo]),
-          TodosLoaded([todo.copyWith(task: 'Tschüss')]),
+    blocTest<TodosBloc, TodosEvent, TodosState>(
+      'should mark all as incomplete if all todos are complete',
+      build: () => todosBloc,
+      act: (TodosBloc bloc) async {
+        final todo1 = Todo("Hallo", complete: true, id: '0');
+        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        bloc
+          ..add(LoadTodos())
+          ..add(AddTodo(todo1))
+          ..add(AddTodo(todo2))
+          ..add(ToggleAll());
+        ;
+      },
+      expect: <TodosState>[
+        TodosLoading(),
+        TodosLoaded([]),
+        TodosLoaded([Todo("Hallo", id: '0', complete: true)]),
+        TodosLoaded([
+          Todo("Hallo", id: '0', complete: true),
+          Todo("Tschüss", id: '1', complete: true),
         ]),
-      );
-
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo));
-      todosBloc.dispatch(UpdateTodo(todo.copyWith(task: "Tschüss")));
-    });
-
-    test('should clear completed todos', () {
-      final todo1 = Todo("Hallo");
-      final todo2 = Todo("Tschüss", complete: true);
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo1]),
-          TodosLoaded([todo1, todo2]),
-          TodosLoaded([todo1]),
+        TodosLoaded([
+          Todo("Hallo", id: '0'),
+          Todo("Tschüss", id: '1'),
         ]),
-      );
-
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo1));
-      todosBloc.dispatch(AddTodo(todo2));
-      todosBloc.dispatch(ClearCompleted());
-    });
-
-    test('should mark all as completed if some todos are incomplete', () {
-      final todo1 = Todo("Hallo");
-      final todo2 = Todo("Tschüss", complete: true);
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo1]),
-          TodosLoaded([todo1, todo2]),
-          TodosLoaded([todo1.copyWith(complete: true), todo2]),
-        ]),
-      );
-
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo1));
-      todosBloc.dispatch(AddTodo(todo2));
-      todosBloc.dispatch(ToggleAll());
-    });
-
-    test('should mark all as incomplete if all todos are complete', () {
-      final todo1 = Todo("Hallo", complete: true);
-      final todo2 = Todo("Tschüss", complete: true);
-
-      expectLater(
-        todosBloc.state,
-        emitsInOrder([
-          TodosLoading(),
-          TodosLoaded([]),
-          TodosLoaded([todo1]),
-          TodosLoaded([todo1, todo2]),
-          TodosLoaded([
-            todo1.copyWith(complete: false),
-            todo2.copyWith(complete: false)
-          ]),
-        ]),
-      );
-
-      todosBloc.dispatch(LoadTodos());
-      todosBloc.dispatch(AddTodo(todo1));
-      todosBloc.dispatch(AddTodo(todo2));
-      todosBloc.dispatch(ToggleAll());
-    });
+      ],
+    );
   });
 }

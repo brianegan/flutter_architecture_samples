@@ -1,10 +1,14 @@
 timeout_in: 30m
+env:
+  FLUTTER_CHANNEL: stable
+  FLUTTER_VERSION: v1.9.1+hotfix.6
+  DOCKER_VERSION: v1.9.1-hotfix.6 # docker tags cannot have plus
 
 task:
   # this task should fail fast or rely on 'depends_on' for all other tasks
   name: Tests (Unit)
   container:
-    image: cirrusci/flutter:latest
+    image: cirrusci/flutter:$DOCKER_VERSION
   pub_cache:
     folder: ~/.pub-cache
   activate_coverage_script: pub global activate coverage
@@ -16,8 +20,8 @@ task:
   only_if: $CIRRUS_PR == ''
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   env:
-    EMULATOR_API_LEVEL: 22
-    ANDROID_ABI: "default;armeabi-v7a"
+    EMULATOR_API_LEVEL: 28
+    ANDROID_ABI: "default;x86"
     matrix:
       app_arch: bloc_flutter
       app_arch: bloc_library
@@ -34,27 +38,22 @@ task:
       app_arch: simple_bloc_flutter
       app_arch: vanilla
   container:
-    image: cirrusci/flutter:latest
+    image: cirrusci/flutter:$DOCKER_VERSION
+    cpu: 4
+    memory: 10G
+    kvm: true
   allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
-  pin_emulator_script:
-    # Download a pinned version of the emulator since upgrades can cause issues
-    - ${ANDROID_HOME}/emulator/emulator -version
-    - emulator_version=5264690
-    - curl -fo emulator.zip "https://dl.google.com/android/repository/emulator-linux-$emulator_version.zip"
-    - rm -rf "${ANDROID_HOME}/emulator"
-    - unzip -q emulator.zip -d "${ANDROID_HOME}"
-    - rm -f emulator.zip
-    - ${ANDROID_HOME}/emulator/emulator -version
+  fix_kvm_script: sudo chown cirrus:cirrus /dev/kvm
   install_images_script: sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
   create_device_script:
     echo no | avdmanager create avd --force -n test -k "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
   start_emulator_background_script:
-    $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
+    $ANDROID_HOME/emulator/emulator-headless -verbose -avd test -no-audio -no-window
   pub_cache:
     folder: ~/.pub-cache
   wait_for_emulator_script:
     - ./scripts/android-wait-for-emulator.sh
-    - adb shell input keyevent 82
+#    - adb shell input keyevent 82
   doctor_script: flutter doctor -v
   devices_script: flutter devices
   ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
@@ -82,14 +81,31 @@ task:
       app_arch: vanilla
   allow_failures: $app_arch == "mvu"
   osx_instance:
-    image: mojave-flutter
+    image: mojave-xcode-11.2.1-flutter
   simulator_script:
     - xcrun simctl list devicetypes
     - xcrun simctl list runtimes
     # create simulator
-    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-12-1)
+    - udid=$(xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-2)
     # boot simulator
     - xcrun simctl boot $udid
-  doctor_script: flutter doctor -v
-  devices_script: flutter devices
-  ci_script: ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch
+  pin_flutter_script:
+#    - sudo gem install cocoapods # missing from mojave-xcode-11.2.1-flutter (not found)
+    - flutter --version
+    # pin to ${FLUTTER_VERSION}
+    - wget --quiet --output-document=flutter.zip https://storage.googleapis.com/flutter_infra/releases/${FLUTTER_CHANNEL}/macos/flutter_macos_${FLUTTER_VERSION}-${FLUTTER_CHANNEL}.zip && unzip -qq flutter.zip > /dev/null && rm flutter.zip
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter --version
+  doctor_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter doctor -v
+  devices_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - flutter devices
+  ci_script:
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+    - export PATH=$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin:$PATH
+    - ./scripts/ci.sh ./$app_arch || ./scripts/ci.sh ./$app_arch

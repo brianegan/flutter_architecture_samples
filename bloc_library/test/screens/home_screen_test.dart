@@ -2,36 +2,68 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_library/blocs/blocs.dart';
+import 'package:bloc_library/blocs/tab/tab_bloc.dart';
+import 'package:bloc_library/models/app_tab.dart';
+import 'package:bloc_library/screens/screens.dart';
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/screens/home_screen.dart';
-import 'package:bloc_library/widgets/widgets.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-class MockTodosBloc extends Mock implements TodosBloc {}
+class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
+    implements TodosBloc {}
 
-main() {
+class MockFilteredTodosBloc
+    extends MockBloc<FilteredTodosLoaded, FilteredTodosState>
+    implements FilteredTodosBloc {}
+
+class MockTabBloc extends MockBloc<TabEvent, AppTab> implements TabBloc {}
+
+class MockStatsBloc extends MockBloc<StatsEvent, StatsState>
+    implements StatsBloc {}
+
+void main() {
   group('HomeScreen', () {
     TodosBloc todosBloc;
+    FilteredTodosBloc filteredTodosBloc;
+    TabBloc tabBloc;
+    StatsBloc statsBloc;
 
     setUp(() {
       todosBloc = MockTodosBloc();
+      filteredTodosBloc = MockFilteredTodosBloc();
+      tabBloc = MockTabBloc();
+      statsBloc = MockStatsBloc();
     });
 
     testWidgets('renders correctly', (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
+      when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
+      when(tabBloc.state).thenAnswer((_) => AppTab.todos);
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: todosBloc,
+        MultiBlocProvider(
+          providers: [
+            BlocProvider<TodosBloc>.value(
+              value: todosBloc,
+            ),
+            BlocProvider<FilteredTodosBloc>.value(
+              value: filteredTodosBloc,
+            ),
+            BlocProvider<TabBloc>.value(
+              value: tabBloc,
+            ),
+            BlocProvider<StatsBloc>.value(
+              value: statsBloc,
+            ),
+          ],
           child: MaterialApp(
             home: Scaffold(
-              body: HomeScreen(
-                onInit: () {},
-              ),
+              body: HomeScreen(),
             ),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
@@ -45,54 +77,42 @@ main() {
       expect(find.text('Bloc Library Example'), findsOneWidget);
     });
 
-    testWidgets('calls onInit', (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      var onInitCalled = false;
+    testWidgets('Navigates to /addTodo when Floating Action Button is tapped',
+        (WidgetTester tester) async {
+      when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
+      when(tabBloc.state).thenAnswer((_) => AppTab.todos);
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: todosBloc,
+        MultiBlocProvider(
+          providers: [
+            BlocProvider<TodosBloc>.value(
+              value: todosBloc,
+            ),
+            BlocProvider<FilteredTodosBloc>.value(
+              value: filteredTodosBloc,
+            ),
+            BlocProvider<TabBloc>.value(
+              value: tabBloc,
+            ),
+            BlocProvider<StatsBloc>.value(
+              value: statsBloc,
+            ),
+          ],
           child: MaterialApp(
             home: Scaffold(
-              body: HomeScreen(
-                onInit: () {
-                  onInitCalled = true;
-                },
-              ),
+              body: HomeScreen(),
             ),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
             ],
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(onInitCalled, true);
-    });
-
-    testWidgets('Navigates to /addTodo when Floating Action Button is tapped',
-        (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      final Key addTodoContainer = Key('add_todo_container');
-      await tester.pumpWidget(
-        BlocProvider(
-          bloc: todosBloc,
-          child: MaterialApp(
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
-            ],
             routes: {
-              ArchSampleRoutes.home: (context) {
-                return Scaffold(
-                  body: HomeScreen(
-                    onInit: () {},
-                  ),
+              ArchSampleRoutes.addTodo: (context) {
+                return AddEditScreen(
+                  key: ArchSampleKeys.addTodoScreen,
+                  onSave: (task, note) {},
+                  isEditing: false,
                 );
               },
-              ArchSampleRoutes.addTodo: (context) {
-                return Container(key: addTodoContainer);
-              }
             },
           ),
         ),
@@ -100,36 +120,7 @@ main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(ArchSampleKeys.addTodoFab));
       await tester.pumpAndSettle();
-      expect(find.byKey(addTodoContainer), findsOneWidget);
-    });
-
-    testWidgets('updates tab on tab selected', (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => Stream.empty());
-      await tester.pumpWidget(
-        BlocProvider(
-          bloc: todosBloc,
-          child: MaterialApp(
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
-            ],
-            routes: {
-              ArchSampleRoutes.home: (context) {
-                return Scaffold(
-                  body: HomeScreen(
-                    onInit: () {},
-                  ),
-                );
-              },
-            },
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byType(FilteredTodos), findsOneWidget);
-      await tester.tap(find.byKey(ArchSampleKeys.statsTab));
-      await tester.pumpAndSettle();
-      expect(find.byType(Stats), findsOneWidget);
+      expect(find.byType(AddEditScreen), findsOneWidget);
     });
   });
 }

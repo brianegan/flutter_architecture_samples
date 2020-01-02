@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:flutter/material.dart';
 
-main() {
+void main() {
   group('FlutterBlocLocalizations', () {
     FlutterBlocLocalizations localizations;
     FlutterBlocLocalizationsDelegate delegate;

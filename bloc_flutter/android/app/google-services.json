@@ -18,7 +18,7 @@
           "client_id": "xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.yourcompany.fireredux",
+            "package_name": "com.fluttersamples.bloc",
             "certificate_hash": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
           }
         },

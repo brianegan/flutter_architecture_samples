@@ -4,13 +4,13 @@ We have created this short spec to help you create awesome and consistent todo a
 
 ## Reference Application
 
-The [vanilla](examples/vanilla/) implementation should be used as the reference app and as a base when implementing a new todo app. Before implementing your own, we recommend that you interact with some of the other apps to see how they're built and how they behave. If something is unclear or could be improved, [let us know](https://github.com/brianegan/flutter_architecture_samples/issues).
+The [vanilla](vanilla/) implementation should be used as the reference app and as a base when implementing a new todo app. Before implementing your own, we recommend that you interact with some of the other apps to see how they're built and how they behave. If something is unclear or could be improved, [let us know](https://github.com/brianegan/flutter_architecture_samples/issues).
 
 Your app should look and behave exactly like the template and the other examples.
 
 ## README
 
-All examples must include a README describing the general implementation, any frameworks used, and the build process if required. Please check the [vanilla](examples/vanilla/) implementation for an example.
+All examples must include a README describing the general implementation, any frameworks used, and the build process if required. Please check the [vanilla](vanilla/) implementation for an example.
 
 ## Code
 

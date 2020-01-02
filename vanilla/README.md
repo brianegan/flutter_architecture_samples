@@ -102,7 +102,7 @@ Now, when we change the List of Todos in the `Keeper of the Todos` widget, both 
 +----------------+
 ```
 
-Careful Observers might note: We don't lift *all* state up to the parent in this pattern. Only the State that's shared! The Main Tabs Screen can handle which tab is currently active on it's own, for example, because this state isn't relevant to other Widgets!
+Careful Observers might note: We don't lift *all* state up to the parent in this pattern. Only the State that's shared! The Main Tabs Screen can handle which tab is currently active on its own, for example, because this state isn't relevant to other Widgets!
 
 ## Updating State with callbacks
 

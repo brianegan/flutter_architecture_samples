@@ -28,7 +28,7 @@ import './widgets/todo_item_test.dart' as todoItem;
 
 import './localization_test.dart' as localization;
 
-main() {
+void main() {
   // Blocs
   filteredTodosBloc.main();
   filteredTodosEvent.main();

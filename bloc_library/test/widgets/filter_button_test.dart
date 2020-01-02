@@ -2,6 +2,7 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -12,9 +13,11 @@ import 'package:bloc_library/models/models.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-class MockFilteredTodosBloc extends Mock implements FilteredTodosBloc {}
+class MockFilteredTodosBloc
+    extends MockBloc<FilteredTodosEvent, FilteredTodosState>
+    implements FilteredTodosBloc {}
 
-main() {
+void main() {
   group('FilterButton', () {
     FilteredTodosBloc filteredTodosBloc;
 
@@ -24,12 +27,12 @@ main() {
 
     testWidgets('should render properly with VisibilityFilter.all',
         (WidgetTester tester) async {
-      when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.all),
+      when(filteredTodosBloc.state).thenAnswer(
+        (_) => FilteredTodosLoaded([], VisibilityFilter.all),
       );
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: filteredTodosBloc,
+        BlocProvider.value(
+          value: filteredTodosBloc,
           child: MaterialApp(
             home: Scaffold(
               appBar: AppBar(
@@ -55,12 +58,12 @@ main() {
 
     testWidgets('should render properly VisibilityFilter.active',
         (WidgetTester tester) async {
-      when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.active),
+      when(filteredTodosBloc.state).thenAnswer(
+        (_) => FilteredTodosLoaded([], VisibilityFilter.active),
       );
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: filteredTodosBloc,
+        BlocProvider.value(
+          value: filteredTodosBloc,
           child: MaterialApp(
             home: Scaffold(
               appBar: AppBar(
@@ -86,12 +89,12 @@ main() {
 
     testWidgets('should render properly VisibilityFilter.completed',
         (WidgetTester tester) async {
-      when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.completed),
+      when(filteredTodosBloc.state).thenAnswer(
+        (_) => FilteredTodosLoaded([], VisibilityFilter.completed),
       );
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: filteredTodosBloc,
+        BlocProvider.value(
+          value: filteredTodosBloc,
           child: MaterialApp(
             home: Scaffold(
               appBar: AppBar(
@@ -115,16 +118,16 @@ main() {
       expect(find.byKey(ArchSampleKeys.activeFilter), findsOneWidget);
     });
 
-    testWidgets('should dispatch UpdateFilter when filter selected',
+    testWidgets('should add UpdateFilter when filter selected',
         (WidgetTester tester) async {
-      when(filteredTodosBloc.currentState).thenAnswer(
-        (_) => FilteredTodosState([], VisibilityFilter.active),
+      when(filteredTodosBloc.state).thenAnswer(
+        (_) => FilteredTodosLoaded([], VisibilityFilter.active),
       );
-      when(filteredTodosBloc.dispatch(UpdateFilter(VisibilityFilter.all)))
+      when(filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)))
           .thenReturn(null);
       await tester.pumpWidget(
-        BlocProvider(
-          bloc: filteredTodosBloc,
+        BlocProvider.value(
+          value: filteredTodosBloc,
           child: MaterialApp(
             home: Scaffold(
               appBar: AppBar(
@@ -149,7 +152,7 @@ main() {
       expect(allFilterFinder, findsOneWidget);
 
       await tester.tap(allFilterFinder);
-      verify(filteredTodosBloc.dispatch(UpdateFilter(VisibilityFilter.all)))
+      verify(filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)))
           .called(1);
     });
   });
