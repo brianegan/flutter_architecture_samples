@@ -1,4 +1,4 @@
-import 'package:mobx_sample/model/todo.dart';
+import 'package:mobx_sample/store/todo.dart';
 
 class TodoService {
   Future<List<Todo>> load() async {

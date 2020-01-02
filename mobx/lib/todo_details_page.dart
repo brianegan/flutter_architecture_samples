@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_sample/edit_todo_page.dart';
-import 'package:mobx_sample/model/todo.dart';
+import 'package:mobx_sample/store/todo.dart';
 
 class TodoDetailsPage extends StatelessWidget {
   TodoDetailsPage({@required this.todo, @required this.onRemove});
