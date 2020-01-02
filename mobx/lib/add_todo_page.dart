@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_sample/model/todo.dart';
+import 'package:mobx_sample/store/todo.dart';
 
 class AddTodoPage extends StatefulWidget {
   final void Function(Todo) onAdd;

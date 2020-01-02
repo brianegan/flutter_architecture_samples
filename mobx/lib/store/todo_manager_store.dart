@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:mobx_sample/model/todo.dart';
-import 'package:mobx_sample/model/todo_service.dart';
+import 'package:mobx_sample/store/todo.dart';
+import 'package:mobx_sample/store/todo_service.dart';
 
 part 'todo_manager_store.g.dart';
 

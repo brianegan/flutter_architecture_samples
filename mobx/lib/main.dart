@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_sample/model/todo_manager_store.dart';
+import 'package:mobx_sample/store/todo_manager_store.dart';
 import 'package:mobx_sample/routes.dart';
 import 'package:provider/provider.dart';
 
