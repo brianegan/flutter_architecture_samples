@@ -5,7 +5,7 @@ import 'package:mobx_sample/model/todo.dart';
 import 'package:mobx_sample/model/todo_manager_store.dart';
 import 'package:mobx_sample/routes.dart';
 import 'package:mobx_sample/stats_counter.dart';
-import 'package:mobx_sample/todo_details_page.dart';
+import 'package:mobx_sample/todo_list_view.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,9 +17,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Todos with MobX'),
         actions: <Widget>[
-          todoStoreManager.activeTab == TabType.todos
-              ? Observer(
-                  builder: (_) => PopupMenuButton(
+          Observer(
+            builder: (_) => todoStoreManager.activeTab == TabType.todos
+                ? PopupMenuButton(
                     icon: Icon(Icons.filter_list),
                     initialValue: todoStoreManager.filter,
                     onSelected: todoStoreManager.changeFilter,
@@ -37,9 +37,9 @@ class HomePage extends StatelessWidget {
                         child: Text('Show Completed'),
                       ),
                     ],
-                  ),
-                )
-              : SizedBox(),
+                  )
+                : SizedBox(),
+          ),
           PopupMenuButton(
             icon: Icon(Icons.more_horiz),
             onSelected: (value) => performAction(context, value),
@@ -90,13 +90,7 @@ class HomePage extends StatelessWidget {
                 items: TabType.values
                     .map(
                       (TabType tab) => BottomNavigationBarItem(
-                          icon: Icon(
-                            tab == TabType.todos
-                                ? Icons.list
-                                : Icons.show_chart,
-                          ),
-                          title:
-                              Text(tab == TabType.todos ? 'Todos' : 'Stats')),
+                          icon: Icon(tab.icon), title: Text(tab.title)),
                     )
                     .toList(),
               )),
@@ -104,7 +98,7 @@ class HomePage extends StatelessWidget {
   }
 
   displayRemovalNotification(BuildContext context, Todo todo) {
-    final todoList = Provider.of<TodoManagerStore>(context);
+    final todoList = Provider.of<TodoManagerStore>(context, listen: false);
 
     final snackBar = SnackBar(
       content: Column(
@@ -128,7 +122,7 @@ class HomePage extends StatelessWidget {
   }
 
   void performAction(BuildContext context, ListAction value) {
-    final list = Provider.of<TodoManagerStore>(context);
+    final list = Provider.of<TodoManagerStore>(context, listen: false);
 
     if (value == ListAction.markAllComplete) {
       list.markAllComplete();
@@ -138,92 +132,12 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class LoadingIndicator extends StatelessWidget {
-  const LoadingIndicator({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        final list = Provider.of<TodoManagerStore>(context);
-
-        if (list.loader.status == FutureStatus.pending) {
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return Container();
-      },
-    );
+extension TabIcon on TabType {
+  IconData get icon {
+    return (this == TabType.todos) ? Icons.list : Icons.show_chart;
   }
-}
 
-class TodoListView extends StatelessWidget {
-  final void Function(BuildContext context, Todo todo) onRemove;
-
-  TodoListView({@required this.onRemove});
-
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) {
-        final todoList = Provider.of<TodoManagerStore>(context);
-        final todos = todoList.visibleTodos;
-
-        return ListView.builder(
-          itemCount: todos.length,
-          itemBuilder: (_, index) {
-            final todo = todos[index];
-
-            return Observer(
-              builder: (context) => Dismissible(
-                key: Key(todo.id),
-                direction: DismissDirection.horizontal,
-                onDismissed: (direction) {
-                  if (direction == DismissDirection.startToEnd ||
-                      direction == DismissDirection.endToStart) {
-                    onRemove(context, todo);
-                  }
-                },
-                child: ListTile(
-                  title: Text(
-                    todo.title,
-                    softWrap: false,
-                    overflow: TextOverflow.fade,
-                  ),
-                  subtitle: todo.hasNotes
-                      ? Text(
-                          todo.notes,
-                          maxLines: 2,
-                          overflow: TextOverflow.fade,
-                        )
-                      : null,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => TodoDetailsPage(
-                                  todo: todo,
-                                  onRemove: () {
-                                    Navigator.pop(context);
-                                    onRemove(context, todo);
-                                  },
-                                )));
-                  },
-                  leading: Checkbox(
-                    value: todo.done,
-                    onChanged: (value) => todo.done = value,
-                  ),
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
+  String get title {
+    return this == TabType.todos ? 'Todos' : 'Stats';
   }
 }

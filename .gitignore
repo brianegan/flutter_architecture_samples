@@ -8,6 +8,7 @@ pubspec.lock
 # Directory created by dartdoc
 doc/api/
 .idea
+*.iml
 /intl_en.arb
 .DS_Store
 

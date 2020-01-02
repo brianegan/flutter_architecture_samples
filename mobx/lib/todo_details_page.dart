@@ -49,7 +49,12 @@ class TodoDetailsPage extends StatelessWidget {
                 todo.title,
                 style: TextStyle(fontSize: 20),
               ),
-              subtitle: Text(todo.notes),
+              subtitle: todo.notes != null
+                  ? Text(todo.notes)
+                  : Container(
+                      width: 0,
+                      height: 0,
+                    ),
               leading: Checkbox(
                 value: todo.done,
                 onChanged: (value) => todo.done = value,

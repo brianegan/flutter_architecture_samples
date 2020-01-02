@@ -14,12 +14,12 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  mobx: ^0.3.0
+  mobx: ^0.4.0
   flutter_mobx: ^0.3.0
-  provider: ^3.0.0
+  provider: ^4.0.0
   flutter:
     sdk: flutter
 
@@ -29,7 +29,7 @@ dependencies:
 
 dev_dependencies:
   mobx_codegen: ^0.3.0
-  build_runner: ^1.4.0
+  build_runner: ^1.7.0
   flutter_test:
     sdk: flutter
 
