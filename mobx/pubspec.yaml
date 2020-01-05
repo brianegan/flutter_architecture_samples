@@ -20,6 +20,13 @@ dependencies:
   mobx: ^0.4.0
   flutter_mobx: ^0.3.0
   provider: ^4.0.0
+  path_provider:
+  todos_repository_simple:
+    path: ../todos_repository_simple
+  todos_repository_core:
+    path: ../todos_repository_core
+  todos_app_core:
+    path: ../todos_app_core
   flutter:
     sdk: flutter
 
@@ -28,8 +35,14 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
-  mobx_codegen: ^0.3.0
+  lint: 1.1.0
+  mobx_codegen: ^0.3.13
   build_runner: ^1.7.0
+  test:
+  flutter_driver:
+    sdk: flutter
+  integration_tests:
+    path: ../integration_tests
   flutter_test:
     sdk: flutter
 
