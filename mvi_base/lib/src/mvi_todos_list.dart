@@ -69,8 +69,8 @@ class TodosListView implements MviView {
 
   final updateTodo = StreamController<Todo>.broadcast(sync: true);
 
-  final updateFilter = BehaviorSubject<VisibilityFilter>(
-    seedValue: VisibilityFilter.all,
+  final updateFilter = BehaviorSubject<VisibilityFilter>.seeded(
+    VisibilityFilter.all,
   );
 
   Future<List<dynamic>> tearDown() {
@@ -111,19 +111,19 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
     ]);
   }
 
-  static Observable<TodosListModel> _buildStream(
+  static Stream<TodosListModel> _buildStream(
     TodosListView view,
     TodosInteractor interactor,
     UserInteractor repository,
   ) {
-    return Observable.defer(() async* {
+    return Rx.defer(() async* {
       yield await repository.login();
     }).flatMap((user) {
-      return Observable.combineLatest4(
+      return Rx.combineLatest4(
         view.updateFilter.stream,
         interactor.allComplete,
         interactor.hasCompletedTodos,
-        Observable.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
+        Rx.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
           interactor.todos,
           view.updateFilter.stream,
           _filterTodos,

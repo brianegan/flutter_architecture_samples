@@ -60,7 +60,6 @@ class TodoList extends StatelessWidget {
 
     Scaffold.of(context).showSnackBar(SnackBar(
         duration: Duration(seconds: 2),
-        backgroundColor: Theme.of(context).backgroundColor,
         content: Text(
           ArchSampleLocalizations.of(context).todoDeleted(todo.task),
           maxLines: 1,
@@ -83,7 +82,6 @@ class TodoList extends StatelessWidget {
         Scaffold.of(context).showSnackBar(SnackBar(
             key: ArchSampleKeys.snackbar,
             duration: Duration(seconds: 2),
-            backgroundColor: Theme.of(context).backgroundColor,
             content: Text(
               ArchSampleLocalizations.of(context).todoDeleted(todo.task),
               maxLines: 1,

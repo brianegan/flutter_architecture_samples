@@ -7,10 +7,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
 import 'package:firebase_flutter_repository/user_repository.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_flutter_sample/main.dart' as app;
+import 'package:mvi_flutter_sample/run_mvi_app.dart';
 
 void main() {
-  app.main(
+  runMviApp(
     todosRepository: TodosInteractor(
       FirestoreReactiveTodosRepository(Firestore.instance),
     ),

@@ -138,8 +138,8 @@ void main() {
       final e1Update = TodoEntity("Hallo", "1", "Note", true);
       final e2 = TodoEntity("Friend", "2", "Note", true);
       final todos = [e1, e2];
-      final source = BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
+      final source = BehaviorSubject<List<TodoEntity>>.seeded(
+        todos,
         sync: true,
       );
 
@@ -160,8 +160,8 @@ void main() {
       final e2 = TodoEntity("Friend", "2", "Note", false);
       final e2Update = TodoEntity("Friend", "2", "Note", true);
       final todos = [e1, e2];
-      final source = BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
+      final source = BehaviorSubject<List<TodoEntity>>.seeded(
+        todos,
         sync: true,
       );
 
@@ -185,8 +185,8 @@ void main() {
       final e2 = TodoEntity("Friend", "2", "Note", true);
       final e2Update = TodoEntity("Friend", "2", "Note", false);
       final todos = [e1, e2];
-      final source = BehaviorSubject<List<TodoEntity>>(
-        seedValue: todos,
+      final source = BehaviorSubject<List<TodoEntity>>.seeded(
+        todos,
         sync: true,
       );
 

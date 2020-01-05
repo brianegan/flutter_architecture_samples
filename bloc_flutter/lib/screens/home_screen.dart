@@ -137,7 +137,7 @@ class HomeScreenState extends State<HomeScreen> {
         },
       ),
       StreamBuilder<ExtraActionsButtonViewModel>(
-        stream: Observable.combineLatest2(
+        stream: Rx.combineLatest2(
           todosBloc.allComplete,
           todosBloc.hasCompletedTodos,
           (allComplete, hasCompletedTodos) {

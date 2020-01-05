@@ -10,8 +10,8 @@ import 'package:simple_blocs/src/todos_interactor.dart';
 
 class TodosListBloc {
   final TodosInteractor _interactor;
-  final _visibilityFilterController = BehaviorSubject<VisibilityFilter>(
-    seedValue: VisibilityFilter.all,
+  final _visibilityFilterController = BehaviorSubject<VisibilityFilter>.seeded(
+    VisibilityFilter.all,
     sync: true,
   );
 
@@ -40,7 +40,7 @@ class TodosListBloc {
   Stream<bool> get hasCompletedTodos => _interactor.hasCompletedTodos;
 
   Stream<List<Todo>> get visibleTodos =>
-      Observable.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
+      Rx.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
         _interactor.todos,
         _visibilityFilterController.stream,
         _filterTodos,
@@ -49,12 +49,13 @@ class TodosListBloc {
   static List<Todo> _filterTodos(List<Todo> todos, VisibilityFilter filter) {
     return todos.where((todo) {
       switch (filter) {
-        case VisibilityFilter.all:
-          return true;
         case VisibilityFilter.active:
           return !todo.complete;
         case VisibilityFilter.completed:
           return todo.complete;
+        case VisibilityFilter.all:
+        default:
+          return true;
       }
     }).toList();
   }

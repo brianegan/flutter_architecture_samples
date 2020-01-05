@@ -15,7 +15,9 @@ class TodosInteractor {
   Stream<List<Todo>> get todos {
     return repository
         .todos()
-        .map((entities) => entities.map(Todo.fromEntity).toList());
+        .map((entities) {
+          return entities.map(Todo.fromEntity).toList();
+        });
   }
 
   Stream<Todo> todo(String id) {

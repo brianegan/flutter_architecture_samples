@@ -51,8 +51,6 @@ class TodoList extends StatelessWidget {
                               SnackBar(
                                 key: ArchSampleKeys.snackbar,
                                 duration: Duration(seconds: 2),
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
                                 content: Text(
                                   ArchSampleLocalizations.of(context)
                                       .todoDeleted(todo.task),
@@ -95,7 +93,6 @@ class TodoList extends StatelessWidget {
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: Duration(seconds: 2),
-        backgroundColor: Theme.of(context).backgroundColor,
         content: Text(
           ArchSampleLocalizations.of(context).todoDeleted(todo.task),
           maxLines: 1,

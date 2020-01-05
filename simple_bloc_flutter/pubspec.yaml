@@ -27,7 +27,7 @@ dependencies:
     path: ../todos_app_core
   simple_blocs:
     path: ../simple_blocs
-  rxdart: 0.18.0
+  rxdart: ^0.23.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

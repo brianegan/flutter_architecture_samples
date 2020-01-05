@@ -38,8 +38,8 @@ class TodosListBloc {
     final deleteTodoController = StreamController<String>(sync: true);
     final toggleAllController = PublishSubject<void>(sync: true);
     final updateTodoController = StreamController<Todo>(sync: true);
-    final updateFilterController = BehaviorSubject<VisibilityFilter>(
-      seedValue: VisibilityFilter.all,
+    final updateFilterController = BehaviorSubject<VisibilityFilter>.seeded(
+      VisibilityFilter.all,
       sync: true,
     );
 
@@ -70,13 +70,11 @@ class TodosListBloc {
     // so the Stream can be listened to multiple times
     final visibleTodosController = BehaviorSubject<List<Todo>>();
 
-    Observable
-        .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
-          interactor.todos,
-          updateFilterController.stream,
-          _filterTodos,
-        )
-        .pipe(visibleTodosController);
+    Rx.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
+      interactor.todos,
+      updateFilterController.stream,
+      _filterTodos,
+    ).pipe(visibleTodosController);
 
     return TodosListBloc._(
       addTodoController,

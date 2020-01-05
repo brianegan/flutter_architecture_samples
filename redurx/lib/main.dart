@@ -12,6 +12,8 @@ import 'package:redurx_sample/screens/add_edit_screen.dart';
 import 'package:redurx_sample/screens/home_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   final initialState = AppState.loading();
   final store = Store<AppState>(initialState);
 
