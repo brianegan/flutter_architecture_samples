@@ -38,8 +38,8 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: 1.6.2
-  mockito: ^3.0.0
+  test:
+  mockito:
   integration_tests:
     path: ../integration_tests
 

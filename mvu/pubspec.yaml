@@ -36,7 +36,7 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: 1.6.2
+  test:
   build_runner: ^1.2.8
   built_value_generator: ^6.1.0
   integration_tests:
