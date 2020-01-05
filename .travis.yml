@@ -321,6 +321,16 @@ jobs:
       env: vanilla_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./vanilla
+    - <<: *integration-test
+      os: linux
+      env: mobx_android
+      script: travis_retry ./scripts/ci.sh ./mobx
+    - <<: *integration-test
+      os: osx
+      osx_image: xcode10.1
+      env: mobx_ios
+      before_install: *before_install_osx
+      script: travis_retry ./scripts/ci.sh ./mobx
 
   allow_failures:
 #    - env:
