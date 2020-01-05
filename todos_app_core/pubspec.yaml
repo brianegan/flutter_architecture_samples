@@ -10,7 +10,6 @@ dependencies:
   path_provider:
 
 dev_dependencies:
-  test: ^1.3.0
   intl_translation:
 
 # The following section is specific to Flutter.

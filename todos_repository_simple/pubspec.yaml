@@ -12,6 +12,7 @@ dependencies:
   rxdart: ^0.18.0
 
 dev_dependencies:
+  test:
   flutter_test:
     sdk: flutter
   mockito:
