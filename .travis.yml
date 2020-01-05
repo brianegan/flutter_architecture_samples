@@ -2,7 +2,7 @@ language: generic
 env:
   global:
     - FLUTTER_CHANNEL=stable
-    - FLUTTER_VERSION=1.12.13+hotfix.6-${FLUTTER_CHANNEL}
+    - FLUTTER_VERSION=1.12.13+hotfix.5-${FLUTTER_CHANNEL}
     - API=28
     - ABI=x86
     - GOO=default
