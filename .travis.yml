@@ -122,7 +122,7 @@ jobs:
         - EMU_COMMAND="emulator"
         - |
           if [[ $ABI =~ "x86" ]]; then
-            EMU_COMMAND="emulator-headless"
+            EMU_COMMAND="emulator"
           else
             # emulate graphics if running on ARM
             EMU_PARAMS="${EMU_PARAMS} -gpu swiftshader"
@@ -160,7 +160,7 @@ jobs:
       os: osx
 #      osx_image: xcode9.4
 #      osx_image: xcode9.2
-      osx_image: xcode10.1 # for firebase
+      osx_image: xcode11.3 # for firebase
       env: bloc_flutter_ios
 #      env: vanilla_ios
       # Run integration tests on ios
@@ -172,7 +172,7 @@ jobs:
 #        # boot simulator
 #        - xcrun simctl boot $udid
 #        - xcrun simctl list
-        - xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-11-2 | xargs xcrun simctl boot
+        - xcrun simctl create "iPhone X" com.apple.CoreSimulator.SimDeviceType.iPhone-X com.apple.CoreSimulator.SimRuntime.iOS-13-3 | xargs xcrun simctl boot
         # skip homebrew update
         - export HOMEBREW_NO_AUTO_UPDATE=1
         #        - brew update
@@ -197,7 +197,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./built_redux
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: built_redux_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./built_redux
@@ -207,7 +207,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./bloc_library
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: bloc_library_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./bloc_library
@@ -217,7 +217,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./firestore_redux
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: firestore_redux_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./firestore_redux
@@ -227,7 +227,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./frideos_library
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: frideos_library_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./frideos_library
@@ -237,7 +237,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./inherited_widget
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: inherited_widget_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./inherited_widget
@@ -247,7 +247,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./mvc
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: mvc_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./mvc
@@ -257,7 +257,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./mvi_flutter
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: mvi_flutter_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./mvi_flutter
@@ -267,7 +267,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./mvu
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: mvu_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./mvu
@@ -277,7 +277,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./redurx
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: redurx_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./redurx
@@ -287,7 +287,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./redux
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: redux_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./redux
@@ -297,7 +297,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./scoped_model
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: scoped_model_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./scoped_model
@@ -307,7 +307,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: simple_bloc_flutter_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./simple_bloc_flutter
@@ -317,7 +317,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./vanilla
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: vanilla_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./vanilla
@@ -327,7 +327,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./mobx
     - <<: *integration-test
       os: osx
-      osx_image: xcode10.1
+      osx_image: xcode11.3
       env: mobx_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./mobx
