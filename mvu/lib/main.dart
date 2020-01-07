@@ -6,7 +6,7 @@ import 'package:mvu/common/router.dart' as router;
 import 'package:mvu/home/home.dart' as home;
 import 'package:mvu/home/types.dart';
 import 'package:mvu/edit/edit.dart' as edit;
-import 'Localization.dart';
+import 'localization.dart';
 import 'package:mvu/common/repository_commands.dart' show repoCmds;
 
 void main() {
