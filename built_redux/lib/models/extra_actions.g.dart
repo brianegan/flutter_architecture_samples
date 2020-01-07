@@ -14,9 +14,8 @@ part of extra_actions;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-const ExtraAction _$toggleAllComplete =
-    const ExtraAction._('toggleAllComplete');
-const ExtraAction _$clearCompleted = const ExtraAction._('clearCompleted');
+const ExtraAction _$toggleAllComplete = ExtraAction._('toggleAllComplete');
+const ExtraAction _$clearCompleted = ExtraAction._('clearCompleted');
 
 ExtraAction _$extraActionValueOf(String name) {
   switch (name) {
@@ -25,17 +24,17 @@ ExtraAction _$extraActionValueOf(String name) {
     case 'clearCompleted':
       return _$clearCompleted;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<ExtraAction> _$extraActionValues =
-    new BuiltSet<ExtraAction>(const <ExtraAction>[
+    BuiltSet<ExtraAction>(const <ExtraAction>[
   _$toggleAllComplete,
   _$clearCompleted,
 ]);
 
-Serializer<ExtraAction> _$extraActionSerializer = new _$ExtraActionSerializer();
+Serializer<ExtraAction> _$extraActionSerializer = _$ExtraActionSerializer();
 
 class _$ExtraActionSerializer implements PrimitiveSerializer<ExtraAction> {
   @override
@@ -45,11 +44,11 @@ class _$ExtraActionSerializer implements PrimitiveSerializer<ExtraAction> {
 
   @override
   Object serialize(Serializers serializers, ExtraAction object,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       object.name;
 
   @override
   ExtraAction deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       ExtraAction.valueOf(serialized as String);
 }

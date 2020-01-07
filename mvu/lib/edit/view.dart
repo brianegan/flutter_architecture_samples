@@ -6,37 +6,37 @@ Widget view(BuildContext context, Dispatch<EditTodoMessage> dispatch,
   final textTheme = Theme.of(context).textTheme;
   final isEditing = model.id.isNotEmpty;
 
-  return new Scaffold(
+  return Scaffold(
     key: ArchSampleKeys.editTodoScreen,
-    appBar: new AppBar(
-      title: new Text(
+    appBar: AppBar(
+      title: Text(
         isEditing ? localizations.editTodo : localizations.addTodo,
       ),
     ),
-    body: new Padding(
-      padding: new EdgeInsets.all(16.0),
-      child: new Form(
+    body: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Form(
         autovalidate: true,
-        child: new ListView(
+        child: ListView(
           children: [
-            new TextFormField(
+            TextFormField(
               key: ArchSampleKeys.taskField,
               controller: model.task,
               autofocus: !isEditing,
               style: textTheme.headline,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 hintText: localizations.newTodoHint,
               ),
               validator: (val) {
                 return val.trim().isEmpty ? localizations.emptyTodoError : null;
               },
             ),
-            new TextFormField(
+            TextFormField(
               key: ArchSampleKeys.noteField,
               controller: model.note,
               maxLines: 10,
               style: textTheme.subhead,
-              decoration: new InputDecoration(
+              decoration: InputDecoration(
                 hintText: localizations.notesHint,
               ),
             )
@@ -44,11 +44,11 @@ Widget view(BuildContext context, Dispatch<EditTodoMessage> dispatch,
         ),
       ),
     ),
-    floatingActionButton: new FloatingActionButton(
+    floatingActionButton: FloatingActionButton(
       key: isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
       tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
-      child: new Icon(isEditing ? Icons.check : Icons.add),
-      onPressed: () => dispatch(new Save()),
+      child: Icon(isEditing ? Icons.check : Icons.add),
+      onPressed: () => dispatch(Save()),
     ),
   );
 }

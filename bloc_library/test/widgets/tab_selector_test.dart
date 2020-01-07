@@ -34,7 +34,8 @@ void main() {
 
     testWidgets('should call onTabSelected with correct index when tab tapped',
         (WidgetTester tester) async {
-      AppTab selectedTab = null;
+      AppTab selectedTab;
+
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
@@ -53,8 +54,8 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      Finder todoTabFinder = find.byKey(ArchSampleKeys.todoTab);
-      Finder statsTabFinder = find.byKey(ArchSampleKeys.statsTab);
+      final todoTabFinder = find.byKey(ArchSampleKeys.todoTab);
+      final statsTabFinder = find.byKey(ArchSampleKeys.statsTab);
       expect(todoTabFinder, findsOneWidget);
       expect(statsTabFinder, findsOneWidget);
       await tester.tap(todoTabFinder);

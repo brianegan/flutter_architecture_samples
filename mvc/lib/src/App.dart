@@ -23,6 +23,7 @@ class MVCApp extends AppMVC {
 
   static String get title => _app.title.toString();
 
+  @override
   Widget build(BuildContext context) {
     _app = MaterialApp(
       title: 'mvc example',

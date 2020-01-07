@@ -12,7 +12,7 @@ import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 List<Middleware<AppState>> createStoreTodosMiddleware([
   TodosRepository repository = const TodosRepositoryFlutter(
-    fileStorage: const FileStorage(
+    fileStorage: FileStorage(
       '__redux_app__',
       getApplicationDocumentsDirectory,
     ),

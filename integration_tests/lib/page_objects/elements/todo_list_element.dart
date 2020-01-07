@@ -30,7 +30,7 @@ class TodoListElement extends TestElement {
 
   Future<bool> get isReady => widgetExists(driver, _todoListFinder);
 
-  TodoItemElement todoItem(String id) => new TodoItemElement(id, driver);
+  TodoItemElement todoItem(String id) => TodoItemElement(id, driver);
 
-  TodoItemElement todoItemAbsent(String id) => new TodoItemElement(id, driver);
+  TodoItemElement todoItemAbsent(String id) => TodoItemElement(id, driver);
 }

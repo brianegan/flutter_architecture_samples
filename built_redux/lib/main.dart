@@ -39,8 +39,6 @@ class BuiltReduxApp extends StatefulWidget {
 class BuiltReduxAppState extends State<BuiltReduxApp> {
   Store<AppState, AppStateBuilder, AppActions> store;
 
-  BuiltReduxApp() {}
-
   @override
   void initState() {
     store = widget.store;

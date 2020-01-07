@@ -23,7 +23,7 @@ void main() {
       create: (context) {
         return TodosBloc(
           todosRepository: const TodosRepositoryFlutter(
-            fileStorage: const FileStorage(
+            fileStorage: FileStorage(
               '__flutter_bloc_app__',
               getApplicationDocumentsDirectory,
             ),

@@ -13,7 +13,7 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 
 class MockTodosRepository extends Mock implements TodosRepository {}
 
-main() {
+void main() {
   group('Save State Middleware', () {
     test('should load the todos in response to a LoadTodosAction', () {
       final repository = MockTodosRepository();
@@ -23,7 +23,7 @@ main() {
         middleware: createStoreTodosMiddleware(repository),
       );
       final todos = [
-        TodoEntity("Moin", "1", "Note", false),
+        TodoEntity('Moin', '1', 'Note', false),
       ];
 
       when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
@@ -40,15 +40,15 @@ main() {
         initialState: AppState.loading(),
         middleware: createStoreTodosMiddleware(repository),
       );
-      final todo = Todo("Hallo");
+      final todo = Todo('Hallo');
 
       store.dispatch(AddTodoAction(todo));
       store.dispatch(ClearCompletedAction());
       store.dispatch(ToggleAllAction());
-      store.dispatch(TodosLoadedAction([Todo("Hi")]));
+      store.dispatch(TodosLoadedAction([Todo('Hi')]));
       store.dispatch(ToggleAllAction());
-      store.dispatch(UpdateTodoAction("", Todo("")));
-      store.dispatch(DeleteTodoAction(""));
+      store.dispatch(UpdateTodoAction('', Todo('')));
+      store.dispatch(DeleteTodoAction(''));
 
       verify(repository.saveTodos(any)).called(7);
     });

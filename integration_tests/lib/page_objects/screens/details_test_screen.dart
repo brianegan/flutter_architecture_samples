@@ -38,7 +38,7 @@ class DetailsTestScreen extends TestScreen {
   EditTestScreen tapEditTodoButton() {
     driver.tap(_editTodoFabFinder);
 
-    return new EditTestScreen(driver);
+    return EditTestScreen(driver);
   }
 
   Future<Null> tapDeleteButton() async {

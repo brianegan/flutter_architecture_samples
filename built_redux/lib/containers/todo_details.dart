@@ -32,7 +32,7 @@ class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
   Todo connect(AppState state) {
     return state.todos.firstWhere(
       (todo) => todo.id == id,
-      orElse: () => Todo("Nothing Here"),
+      orElse: () => Todo('Nothing Here'),
     );
   }
 }

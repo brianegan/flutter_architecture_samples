@@ -15,8 +15,8 @@ class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
 
 void main() {
   group('StatsBloc', () {
-    final todo1 = Todo("Hallo");
-    final todo2 = Todo("Hallo2", complete: true);
+    final todo1 = Todo('Hallo');
+    final todo2 = Todo('Hallo2', complete: true);
     TodosBloc todosBloc;
     StatsBloc statsBloc;
 

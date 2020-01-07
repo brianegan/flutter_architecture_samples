@@ -41,13 +41,13 @@ class HomeScreenState extends State<HomeScreen> {
   VisibilityFilter activeFilter = VisibilityFilter.all;
   AppTab activeTab = AppTab.todos;
 
-  _updateVisibility(VisibilityFilter filter) {
+  void _updateVisibility(VisibilityFilter filter) {
     setState(() {
       activeFilter = filter;
     });
   }
 
-  _updateTab(AppTab tab) {
+  void _updateTab(AppTab tab) {
     setState(() {
       activeTab = tab;
     });

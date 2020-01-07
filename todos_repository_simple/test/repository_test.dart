@@ -16,10 +16,10 @@ class MockFileStorage extends Mock implements FileStorage {}
 
 class MockWebClient extends Mock implements WebClient {}
 
-main() {
+void main() {
   group('TodosRepository', () {
     List<TodoEntity> createTodos() {
-      return [TodoEntity("Task", "1", "Hallo", false)];
+      return [TodoEntity('Task', '1', 'Hallo', false)];
     }
 
     test(
@@ -55,7 +55,7 @@ main() {
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web client to be called instead.
-      when(fileStorage.loadTodos()).thenThrow("Uh ohhhh");
+      when(fileStorage.loadTodos()).thenThrow('Uh ohhhh');
       when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
@@ -75,7 +75,7 @@ main() {
       );
       final todos = createTodos();
 
-      when(fileStorage.loadTodos()).thenThrow(Exception("Oh no."));
+      when(fileStorage.loadTodos()).thenThrow(Exception('Oh no.'));
       when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await repository.loadTodos(), todos);

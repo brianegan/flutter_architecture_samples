@@ -17,7 +17,7 @@ class MockFileStorage extends Mock implements FileStorage {}
 
 class MockWebService extends Mock implements WebClient {}
 
-main() {
+void main() {
   group('TodosRepository', () {
     test(
         'should load todos from File Storage if they exist without calling the web service',
@@ -28,7 +28,7 @@ main() {
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
@@ -48,12 +48,12 @@ main() {
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
       when(fileStorage.loadTodos())
-          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
+          .thenAnswer((_) => Future<List<Todo>>.error('Oh no'));
       when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
@@ -71,10 +71,10 @@ main() {
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       when(fileStorage.loadTodos())
-          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
+          .thenAnswer((_) => Future<List<Todo>>.error('Oh no'));
       when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await todosService.loadTodos(), todos);
@@ -88,7 +88,7 @@ main() {
         fileStorage: fileStorage,
         webClient: webService,
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       when(fileStorage.saveTodos(todos)).thenAnswer((_) async => null);
       when(webService.postTodos(todos)).thenAnswer((_) async => true);

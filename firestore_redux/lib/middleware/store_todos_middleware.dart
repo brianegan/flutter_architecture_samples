@@ -121,11 +121,13 @@ void Function(
 
     for (var todo in todos) {
       if (allCompleteSelector(todos)) {
-        if (todo.complete)
+        if (todo.complete) {
           repository.updateTodo(todo.copyWith(complete: false).toEntity());
+        }
       } else {
-        if (!todo.complete)
+        if (!todo.complete) {
           repository.updateTodo(todo.copyWith(complete: true).toEntity());
+        }
       }
     }
   };

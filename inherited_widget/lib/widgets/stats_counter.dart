@@ -45,7 +45,7 @@ class StatsCounter extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 24.0),
             child: Text(
-              "$numActive",
+              '$numActive',
               key: ArchSampleKeys.statsNumActive,
               style: Theme.of(context).textTheme.subhead,
             ),

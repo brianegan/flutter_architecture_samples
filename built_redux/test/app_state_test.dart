@@ -5,7 +5,7 @@
 import 'package:built_redux_sample/models/models.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('Selector Tests', () {
     test('should calculate the number of active todos', () {
       final state = AppState.fromTodos([

@@ -15,7 +15,8 @@ abstract class TodosModel implements Built<TodosModel, TodosModelBuilder> {
   String get loadingError;
 
   TodosModel._();
-  factory TodosModel([updates(TodosModelBuilder b)]) = _$TodosModel;
+  factory TodosModel([void Function(TodosModelBuilder b) updates]) =
+      _$TodosModel;
 }
 
 abstract class TodosMessage {}

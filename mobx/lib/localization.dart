@@ -11,7 +11,7 @@ class MobxLocalizations {
     return Localizations.of<MobxLocalizations>(context, MobxLocalizations);
   }
 
-  String get appTitle => "Todos with MobX";
+  String get appTitle => 'Todos with MobX';
 }
 
 class MobxLocalizationsDelegate
@@ -25,5 +25,5 @@ class MobxLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

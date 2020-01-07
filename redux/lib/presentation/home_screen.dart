@@ -19,9 +19,7 @@ class HomeScreen extends StatefulWidget {
   HomeScreen({@required this.onInit}) : super(key: ArchSampleKeys.homeScreen);
 
   @override
-  HomeScreenState createState() {
-    return new HomeScreenState();
-  }
+  HomeScreenState createState() => HomeScreenState();
 }
 
 class HomeScreenState extends State<HomeScreen> {

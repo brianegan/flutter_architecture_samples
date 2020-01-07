@@ -1,11 +1,11 @@
 part of edit;
 
 Upd<EditTodoModel, EditTodoMessage> init(TodoEntity todo) {
-  var model = new EditTodoModel((b) => b
-    ..id = todo != null ? todo.id : ""
-    ..note = new TextEditingController(text: todo != null ? todo.note : "")
-    ..task = new TextEditingController(text: todo != null ? todo.task : ""));
-  return new Upd(model);
+  var model = EditTodoModel((b) => b
+    ..id = todo != null ? todo.id : ''
+    ..note = TextEditingController(text: todo != null ? todo.note : '')
+    ..task = TextEditingController(text: todo != null ? todo.task : ''));
+  return Upd(model);
 }
 
 Upd<EditTodoModel, EditTodoMessage> update(
@@ -15,11 +15,11 @@ Upd<EditTodoModel, EditTodoMessage> update(
         ? repo.createCmd((t) => OnSaved(t), model.task.text, model.note.text)
         : repo.updateDetailsCmd(
             (t) => OnSaved(t), model.id, model.task.text, model.note.text);
-    return new Upd(model, effects: updateCmd);
+    return Upd(model, effects: updateCmd);
   }
   if (msg is OnSaved && msg.todo != null) {
     var navCmd = router.goBack<EditTodoMessage>();
     return Upd(model, effects: navCmd);
   }
-  return new Upd(model);
+  return Upd(model);
 }

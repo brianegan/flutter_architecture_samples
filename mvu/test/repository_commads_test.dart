@@ -41,6 +41,7 @@ void main() {
       final saveCmd =
           cmdRepository.saveAllCmd<Message>(items, onSuccess: expectAsync0(() {
         expect(todosRepository.items, orderedEquals(items));
+        return null;
       }));
 
       runner.run(saveCmd);
@@ -51,6 +52,7 @@ void main() {
       final cmd = cmdRepository.removeCmd<Message>(itemToRemove,
           onSuccess: expectAsync0(() {
         expect(todosRepository.items, isNot(contains(itemToRemove)));
+        return null;
       }));
 
       runner.run(cmd);
@@ -64,6 +66,7 @@ void main() {
       final cmd =
           cmdRepository.saveCmd<Message>(updated, onSuccess: expectAsync0(() {
         expect(todosRepository.items, contains(updated));
+        return null;
       }));
 
       runner.run(cmd);
@@ -78,6 +81,7 @@ void main() {
             todosRepository.items,
             anyElement(predicate<TodoEntity>(
                 (x) => x.note == note && x.task == task && !x.complete)));
+        return null;
       }), task, note);
 
       runner.run(cmd);
@@ -93,6 +97,7 @@ void main() {
             todosRepository.items,
             anyElement(predicate<TodoEntity>((x) =>
                 x.id == idToUpdate && x.note == note && x.task == task)));
+        return null;
       }), idToUpdate, task, note);
 
       runner.run(cmd);

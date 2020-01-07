@@ -51,7 +51,7 @@ void main() {
   });
 }
 
-dynamic overridePrint(dynamic testFn()) => () {
+dynamic overridePrint(dynamic Function() testFn) => () {
       var spec = ZoneSpecification(print: (_, __, ___, String msg) {
         // Add to log instead of printing to stdout
         printLog.add(msg);

@@ -76,7 +76,7 @@ class StatsCounterState extends State<StatsCounter> {
               Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  "${snapshot.data?.numActive ?? 0}",
+                  '${snapshot.data?.numActive ?? 0}',
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,
                 ),

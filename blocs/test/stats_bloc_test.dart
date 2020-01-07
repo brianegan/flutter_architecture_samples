@@ -14,8 +14,8 @@ void main() {
     test('should stream the number of active todos', () {
       final interactor = MockTodosInteractor();
       final todos = [
-        Todo("Hallo", complete: true),
-        Todo("Friend"),
+        Todo('Hallo', complete: true),
+        Todo('Friend'),
       ];
       final source = BehaviorSubject<List<Todo>>.seeded(todos);
 
@@ -29,8 +29,8 @@ void main() {
     test('should stream the number of completed todos', () {
       final interactor = MockTodosInteractor();
       final todos = [
-        Todo("Hallo", complete: true),
-        Todo("Friend", complete: true),
+        Todo('Hallo', complete: true),
+        Todo('Friend', complete: true),
       ];
       final source = BehaviorSubject<List<Todo>>.seeded(todos);
 

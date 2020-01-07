@@ -9,7 +9,7 @@ import 'package:fire_redux_sample/selectors/selectors.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('State Reducer', () {
     test('should load todos into store', () {
       final todo1 = Todo('a');

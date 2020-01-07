@@ -20,7 +20,7 @@ abstract class StatsProps implements Built<StatsProps, StatsPropsBuilder> {
 
   StatsProps._();
 
-  factory StatsProps([updates(StatsPropsBuilder b)]) = _$StatsProps;
+  factory StatsProps([Function(StatsPropsBuilder b) updates]) = _$StatsProps;
 }
 
 class Stats extends StoreConnector<AppState, AppActions, StatsProps> {

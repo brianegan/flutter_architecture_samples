@@ -12,18 +12,18 @@ abstract class TodoModel implements Built<TodoModel, TodoModelBuilder> {
   String get task;
 
   TodoModel._();
-  factory TodoModel([updates(TodoModelBuilder b)]) = _$TodoModel;
+  factory TodoModel([void Function(TodoModelBuilder b) updates]) = _$TodoModel;
 
   TodoEntity toEntity() {
-    return new TodoEntity(task, id, note, complete);
+    return TodoEntity(task, id, note, complete);
   }
 
   static TodoModel fromEntity(TodoEntity entity) {
-    var model = new TodoModel((b) => b
+    var model = TodoModel((b) => b
       ..task = entity.task
       ..complete = entity.complete
       ..note = entity.note
-      ..id = entity.id ?? new Uuid().generateV4());
+      ..id = entity.id ?? Uuid().generateV4());
     return model;
   }
 }

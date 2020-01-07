@@ -25,5 +25,5 @@ class AddTodo extends StoreConnector<AppState, AppActions, Null> {
   }
 
   @override
-  connect(AppState state) {}
+  Null connect(AppState state) {}
 }

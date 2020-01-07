@@ -11,7 +11,7 @@ import 'package:mvc/src/models.dart';
 
 class TodoListModel {
   TodoListModel({TodosRepository repo, VisibilityFilter activeFilter})
-      : this._activeFilter = activeFilter ?? VisibilityFilter.all {
+      : _activeFilter = activeFilter ?? VisibilityFilter.all {
     /// The rest of the app need not know of its existence.
     repository = repo ??
         TodosRepositoryFlutter(
@@ -46,12 +46,14 @@ class TodoListModel {
   }
 
   List<Todo> get filteredTodos => _todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
+        switch (activeFilter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
         }
       }).toList();
 
@@ -106,9 +108,9 @@ class To {
 
   /// Used to 'interface' with the View in the MVC design pattern.
   static Map map(Todo obj) => {
-        "task": obj == null ? '' : obj.task,
-        "note": obj == null ? '' : obj.note,
-        "complete": obj == null ? false : obj.complete,
-        "id": obj == null ? null : obj.id,
+        'task': obj == null ? '' : obj.task,
+        'note': obj == null ? '' : obj.note,
+        'complete': obj == null ? false : obj.complete,
+        'id': obj == null ? null : obj.id,
       };
 }

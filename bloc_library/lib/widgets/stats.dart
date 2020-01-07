@@ -16,7 +16,7 @@ class Stats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final StatsBloc statsBloc = BlocProvider.of<StatsBloc>(context);
+    final statsBloc = BlocProvider.of<StatsBloc>(context);
     return BlocBuilder(
       bloc: statsBloc,
       builder: (BuildContext context, StatsState state) {
@@ -52,7 +52,7 @@ class Stats extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 24.0),
                   child: Text(
-                    "${state.numActive}",
+                    '${state.numActive}',
                     key: ArchSampleKeys.statsNumActive,
                     style: Theme.of(context).textTheme.subhead,
                   ),

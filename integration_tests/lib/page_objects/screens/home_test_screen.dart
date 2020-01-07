@@ -26,42 +26,41 @@ class HomeTestScreen extends TestScreen {
 
   @override
   Future<bool> isLoading({Duration timeout}) async =>
-      new TodoListElement(driver).isLoading;
+      TodoListElement(driver).isLoading;
 
   @override
-  Future<bool> isReady({Duration timeout}) =>
-      new TodoListElement(driver).isReady;
+  Future<bool> isReady({Duration timeout}) => TodoListElement(driver).isReady;
 
   TodoListElement get todoList {
-    return new TodoListElement(driver);
+    return TodoListElement(driver);
   }
 
   StatsElement get stats {
-    return new StatsElement(driver);
+    return StatsElement(driver);
   }
 
   TodoListElement tapTodosTab() {
     driver.tap(_todosTabFinder);
 
-    return new TodoListElement(driver);
+    return TodoListElement(driver);
   }
 
   StatsElement tapStatsTab() {
     driver.tap(_statsTabFinder);
 
-    return new StatsElement(driver);
+    return StatsElement(driver);
   }
 
   FiltersElement tapFilterButton() {
     driver.tap(_filterButtonFinder);
 
-    return new FiltersElement(driver);
+    return FiltersElement(driver);
   }
 
   ExtraActionsElement tapExtraActionsButton() {
     driver.tap(_extraActionsButtonFinder);
 
-    return new ExtraActionsElement(driver);
+    return ExtraActionsElement(driver);
   }
 
   Future<bool> get snackbarVisible {
@@ -71,7 +70,7 @@ class HomeTestScreen extends TestScreen {
   AddTestScreen tapAddTodoButton() {
     driver.tap(_addTodoButtonFinder);
 
-    return new AddTestScreen(driver);
+    return AddTestScreen(driver);
   }
 
   DetailsTestScreen tapTodo(String text) {

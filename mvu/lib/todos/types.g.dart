@@ -29,7 +29,7 @@ class _$TodosModel extends TodosModel {
   @override
   final String loadingError;
 
-  factory _$TodosModel([void updates(TodosModelBuilder b)]) =>
+  factory _$TodosModel([void Function(TodosModelBuilder b) updates]) =>
       (new TodosModelBuilder()..update(updates)).build();
 
   _$TodosModel._({this.isLoading, this.items, this.filter, this.loadingError})
@@ -46,7 +46,7 @@ class _$TodosModel extends TodosModel {
   }
 
   @override
-  TodosModel rebuild(void updates(TodosModelBuilder b)) =>
+  TodosModel rebuild(void Function(TodosModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -122,7 +122,7 @@ class TodosModelBuilder implements Builder<TodosModel, TodosModelBuilder> {
   }
 
   @override
-  void update(void updates(TodosModelBuilder b)) {
+  void update(void Function(TodosModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

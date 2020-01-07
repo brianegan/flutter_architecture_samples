@@ -31,5 +31,6 @@ abstract class StatsModel implements Built<StatsModel, StatsModelBuilder> {
   int get completedCount;
 
   StatsModel._();
-  factory StatsModel([updates(StatsModelBuilder b)]) = _$StatsModel;
+  factory StatsModel([void Function(StatsModelBuilder b) updates]) =
+      _$StatsModel;
 }

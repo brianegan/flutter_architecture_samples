@@ -1,5 +1,0 @@
-include: package:lint/analysis_options.yaml
-
-linter:
-  rules:
-    prefer_constructors_over_static_methods: false

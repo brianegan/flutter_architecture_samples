@@ -8,7 +8,7 @@ class FrideosLocalizations {
         context, FrideosLocalizations);
   }
 
-  String get appTitle => "Frideos Example";
+  String get appTitle => 'Frideos Example';
 }
 
 class FrideosLocalizationsDelegate
@@ -22,5 +22,5 @@ class FrideosLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

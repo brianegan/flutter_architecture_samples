@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:bloc_library/models/models.dart';
 
-typedef OnSaveCallback = Function(String task, String note);
+typedef OnSaveCallback = void Function(String task, String note);
 
 class AddEditScreen extends StatefulWidget {
   final bool isEditing;

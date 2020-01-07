@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-main() {
+void main() {
   group('FirebaseUserRepository', () {
     test('should log the user in anonymously', () async {
       final auth = MockFirebaseAuth();
@@ -73,7 +73,7 @@ main() {
       final documentMap = {todo.id: document};
       final event = MockEvent();
       final eventIterator = Stream.fromIterable([event]);
-      final data = {"key": todo.id, "value": documentMap};
+      final data = {'key': todo.id, 'value': documentMap};
       final snapshot = MockDataSnapshot(data);
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
