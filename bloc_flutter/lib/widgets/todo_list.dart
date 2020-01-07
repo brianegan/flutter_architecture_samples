@@ -54,8 +54,7 @@ class TodoList extends StatelessWidget {
             });
           },
           onCheckboxChanged: (complete) {
-            TodosBlocProvider
-                .of(context)
+            TodosBlocProvider.of(context)
                 .updateTodo
                 .add(todo.copyWith(complete: !todo.complete));
           },

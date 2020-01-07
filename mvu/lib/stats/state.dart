@@ -31,7 +31,8 @@ Upd<StatsModel, StatsMessage> update(
     return new Upd(updatedModel, effects: _saveItems(repo, updatedModel));
   }
   if (msg is OnNewTaskCreated) {
-    var updatedModel = model.rebuild((b) => b.items.add(TodoModel.fromEntity(msg.entity)));
+    var updatedModel =
+        model.rebuild((b) => b.items.add(TodoModel.fromEntity(msg.entity)));
     updatedModel = _calculateStats(updatedModel);
     return Upd(updatedModel);
   }

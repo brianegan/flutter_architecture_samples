@@ -47,10 +47,10 @@ class StatsCounterState extends State<StatsCounter> {
             child: StreamBuilder<int>(
               stream: bloc.numComplete,
               builder: (context, snapshot) => Text(
-                    '${snapshot.data ?? 0}',
-                    key: ArchSampleKeys.statsNumCompleted,
-                    style: Theme.of(context).textTheme.subhead,
-                  ),
+                '${snapshot.data ?? 0}',
+                key: ArchSampleKeys.statsNumCompleted,
+                style: Theme.of(context).textTheme.subhead,
+              ),
             ),
           ),
           Padding(

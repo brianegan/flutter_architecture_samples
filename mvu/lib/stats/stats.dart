@@ -11,6 +11,5 @@ import 'package:dartea/dartea.dart';
 import 'package:mvu/stats/types.dart';
 import 'package:mvu/common/extra_actions_menu.dart' as menu;
 
-
 part 'state.dart';
 part 'view.dart';

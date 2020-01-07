@@ -3,7 +3,8 @@
 // in the LICENSE file.
 
 import 'package:todos_app_core/todos_app_core.dart' show Uuid;
-import 'package:todos_repository_core/todos_repository_core.dart' show TodoEntity;
+import 'package:todos_repository_core/todos_repository_core.dart'
+    show TodoEntity;
 
 enum AppTab { todos, stats }
 

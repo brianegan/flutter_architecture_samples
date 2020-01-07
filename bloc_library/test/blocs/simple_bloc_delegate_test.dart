@@ -42,7 +42,7 @@ void main() {
     }));
 
     test('onEvent prints Event', overridePrint(() {
-      delegate.onError(null, 'event', null);
+      delegate.onEvent(null, 'event');
       expect(
         printLog[0],
         'event',

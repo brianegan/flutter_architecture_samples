@@ -54,7 +54,8 @@ void main() {
           _cmdRepo.createdEffects,
           orderedEquals([
             predicate<RepoEffect>((x) =>
-                x is RemoveTodoEffect && x.entity == updatedModel.todo.toEntity())
+                x is RemoveTodoEffect &&
+                x.entity == updatedModel.todo.toEntity())
           ]));
       expect(_cmdRunner.producedMessages, isEmpty);
     });

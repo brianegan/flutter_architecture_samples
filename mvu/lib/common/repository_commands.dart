@@ -48,8 +48,9 @@ class TodosCmdRepository implements CmdRepository {
           {T onError(Exception exc)}) =>
       Cmd.ofAsyncFunc(_repo.loadTodos, onSuccess: onSuccess, onError: onError);
 
-  Cmd<T> saveAllCmd<T>(List<TodoEntity> entities, {T onSuccess()}) => Cmd
-      .ofAsyncAction<T>(() => _repo.saveTodos(entities), onSuccess: onSuccess);
+  Cmd<T> saveAllCmd<T>(List<TodoEntity> entities, {T onSuccess()}) =>
+      Cmd.ofAsyncAction<T>(() => _repo.saveTodos(entities),
+          onSuccess: onSuccess);
 
   Cmd<T> removeCmd<T>(TodoEntity todo, {T onSuccess()}) =>
       Cmd.ofAsyncAction<T>(() async {

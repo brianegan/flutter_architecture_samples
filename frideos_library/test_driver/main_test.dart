@@ -17,8 +17,7 @@ void main() {
     });
 
     tearDownAll(() async {
-      if (driver != null)
-        driver.close();
+      if (driver != null) driver.close();
     });
 
     test('tap on the floating action button; verify counter', () async {
