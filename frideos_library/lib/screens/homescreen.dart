@@ -16,7 +16,7 @@ import 'package:frideos_library/widgets/stats_counter.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TodosBloc bloc = AppStateProvider.of<AppState>(context).todosBloc;
+    final bloc = AppStateProvider.of<AppState>(context).todosBloc;
     final tabController = AppStateProvider.of<AppState>(context).tabController;
 
     return ValueBuilder<AppTab>(

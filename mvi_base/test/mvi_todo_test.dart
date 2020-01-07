@@ -18,7 +18,7 @@ void main() {
     group('Presenter', () {
       test('should load a todo', () {
         final interactor = MockTodosInteractor();
-        final todo = Todo("Hallo");
+        final todo = Todo('Hallo');
 
         when(interactor.todo(todo.id))
             .thenAnswer((_) => Stream.fromIterable([todo]));
@@ -34,7 +34,7 @@ void main() {
 
       test('should send deletions to the interactor', () async {
         final interactor = MockTodosInteractor();
-        final todo = Todo("Hallo");
+        final todo = Todo('Hallo');
         final view = MockView();
 
         when(interactor.todo(todo.id))
@@ -53,7 +53,7 @@ void main() {
 
       test('should send updates to the interactor', () async {
         final interactor = MockTodosInteractor();
-        final todo = Todo("Hallo");
+        final todo = Todo('Hallo');
         final view = MockView();
 
         when(interactor.todo(todo.id))

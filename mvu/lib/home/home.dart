@@ -21,9 +21,8 @@ part 'state.dart';
 part 'view.dart';
 
 Program<HomeModel, HomeMessage, StreamSubscription<RepositoryEvent>>
-    createProgram(AppTab initTab) =>
-        new Program(() => init(initTab), update, view,
-            subscription: _repoSubscription);
+    createProgram(AppTab initTab) => Program(() => init(initTab), update, view,
+        subscription: _repoSubscription);
 
 StreamSubscription<RepositoryEvent> _repoSubscription(
     StreamSubscription<RepositoryEvent> currentSub,

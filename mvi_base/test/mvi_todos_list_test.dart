@@ -77,8 +77,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -104,8 +104,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -131,8 +131,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -157,8 +157,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -183,8 +183,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -208,8 +208,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -233,8 +233,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -258,8 +258,8 @@ void main() {
         final interactor = MockTodosListInteractor();
         final view = TodosListView();
         final todos = [
-          Todo("Hallo", complete: false),
-          Todo("Friend", complete: true),
+          Todo('Hallo', complete: false),
+          Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));

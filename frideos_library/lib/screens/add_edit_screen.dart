@@ -7,7 +7,6 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:frideos/frideos.dart';
 
 import 'package:frideos_library/app_state.dart';
-import 'package:frideos_library/blocs/todos_bloc.dart';
 import 'package:frideos_library/models/models.dart';
 
 class AddEditScreen extends StatefulWidget {
@@ -33,7 +32,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final TodosBloc bloc = AppStateProvider.of<AppState>(context).todosBloc;
+    final bloc = AppStateProvider.of<AppState>(context).todosBloc;
     var isEditing = widget.isEditing;
 
     return ValueBuilder<Todo>(

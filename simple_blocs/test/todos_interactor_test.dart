@@ -18,7 +18,7 @@ void main() {
     test('should convert repo entities into Todos', () {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
-      final todos = [TodoEntity("Hallo", "1", "Note", false)];
+      final todos = [TodoEntity('Hallo', '1', "Note", false)];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
 
@@ -29,8 +29,8 @@ void main() {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", false),
-        TodoEntity("Friend", "2", "Note", true),
+        TodoEntity('Hallo', '1', "Note", false),
+        TodoEntity('Friend', '2', "Note", true),
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -42,8 +42,8 @@ void main() {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", true),
-        TodoEntity("Friend", "2", "Note", true),
+        TodoEntity('Hallo', '1', "Note", true),
+        TodoEntity('Friend', '2', "Note", true),
       ];
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
 
@@ -54,8 +54,8 @@ void main() {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", true),
-        TodoEntity("Friend", "2", "Note", true),
+        TodoEntity('Hallo', '1', "Note", true),
+        TodoEntity('Friend', '2', "Note", true),
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -67,8 +67,8 @@ void main() {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", false),
-        TodoEntity("Friend", "2", "Note", true),
+        TodoEntity('Hallo', '1', "Note", false),
+        TodoEntity('Friend', '2', "Note", true),
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -80,8 +80,8 @@ void main() {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", false),
-        TodoEntity("Friend", "2", "Note", false),
+        TodoEntity('Hallo', '1', "Note", false),
+        TodoEntity('Friend', '2', "Note", false),
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -108,35 +108,35 @@ void main() {
       final interactor = TodosInteractor(repository);
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
-      when(repository.deleteTodo(["1"])).thenAnswer((_) => Future.value());
+      when(repository.deleteTodo(['1'])).thenAnswer((_) => Future.value());
 
-      interactor.deleteTodo("1");
+      interactor.deleteTodo('1');
 
-      verify(repository.deleteTodo(["1"]));
+      verify(repository.deleteTodo(['1']));
     });
 
     test('should remove completed todos from the repo', () async {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
       final todos = [
-        TodoEntity("Hallo", "1", "Note", false),
-        TodoEntity("Friend", "2", "Note", true),
+        TodoEntity('Hallo', '1', "Note", false),
+        TodoEntity('Friend', '2', "Note", true),
       ];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
-      when(repository.deleteTodo(["2"])).thenAnswer((_) => Future.sync(() {}));
+      when(repository.deleteTodo(['2'])).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.clearCompleted();
 
-      verify(repository.deleteTodo(["2"]));
+      verify(repository.deleteTodo(['2']));
     });
 
     test('if some todos incomplete, should toggle todos complete', () async {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
-      final e1 = TodoEntity("Hallo", "1", "Note", false);
-      final e1Update = TodoEntity("Hallo", "1", "Note", true);
-      final e2 = TodoEntity("Friend", "2", "Note", true);
+      final e1 = TodoEntity('Hallo', '1', "Note", false);
+      final e1Update = TodoEntity('Hallo', '1', "Note", true);
+      final e2 = TodoEntity('Friend', '2', "Note", true);
       final todos = [e1, e2];
       final source = BehaviorSubject<List<TodoEntity>>.seeded(
         todos,
@@ -155,10 +155,10 @@ void main() {
     test('if all todos incomplete, should toggle all todos complete', () async {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
-      final e1 = TodoEntity("Hallo", "1", "Note", false);
-      final e1Update = TodoEntity("Hallo", "1", "Note", true);
-      final e2 = TodoEntity("Friend", "2", "Note", false);
-      final e2Update = TodoEntity("Friend", "2", "Note", true);
+      final e1 = TodoEntity('Hallo', '1', "Note", false);
+      final e1Update = TodoEntity('Hallo', '1', "Note", true);
+      final e2 = TodoEntity('Friend', '2', "Note", false);
+      final e2Update = TodoEntity('Friend', '2', "Note", true);
       final todos = [e1, e2];
       final source = BehaviorSubject<List<TodoEntity>>.seeded(
         todos,
@@ -180,10 +180,10 @@ void main() {
     test('if all todos complete, should toggle todos incomplete', () async {
       final repository = MockReactiveTodosRepository();
       final interactor = TodosInteractor(repository);
-      final e1 = TodoEntity("Hallo", "1", "Note", true);
-      final e1Update = TodoEntity("Hallo", "1", "Note", false);
-      final e2 = TodoEntity("Friend", "2", "Note", true);
-      final e2Update = TodoEntity("Friend", "2", "Note", false);
+      final e1 = TodoEntity('Hallo', '1', "Note", true);
+      final e1Update = TodoEntity('Hallo', '1', "Note", false);
+      final e2 = TodoEntity('Friend', '2', "Note", true);
+      final e2Update = TodoEntity('Friend', '2', "Note", false);
       final todos = [e1, e2];
       final source = BehaviorSubject<List<TodoEntity>>.seeded(
         todos,

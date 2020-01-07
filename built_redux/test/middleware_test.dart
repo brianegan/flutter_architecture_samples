@@ -17,7 +17,7 @@ import 'package:test/test.dart';
 /// mock classes to verify the behavior of the TodosService.
 class MockTodosService extends Mock implements TodosRepository {}
 
-main() {
+void main() {
   group('TodosMiddleware', () {
     test(
         'should load todos when the app dispatches a fetch action and the app is loading',
@@ -30,7 +30,7 @@ main() {
         AppActions(),
         middleware: [middleware],
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
@@ -53,7 +53,7 @@ main() {
         AppActions(),
         middleware: [middleware],
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
@@ -74,19 +74,19 @@ main() {
         AppActions(),
         middleware: [middleware],
       );
-      final todos = [Todo("Task")];
+      final todos = [Todo('Task')];
 
       when(service.saveTodos(todos)).thenAnswer((_) => Future.value(todos));
 
       // Dispatch all actions that update our Todos. We expect each to
       // trigger a call to our Storage Service.
-      store.actions.addTodoAction(Todo("Wat"));
+      store.actions.addTodoAction(Todo('Wat'));
       store.actions.clearCompletedAction();
-      store.actions.deleteTodoAction("");
+      store.actions.deleteTodoAction('');
       store.actions.toggleAllAction();
       store.actions.updateTodoAction(UpdateTodoActionPayload(
-        "",
-        Todo("Update"),
+        '',
+        Todo('Update'),
       ));
 
       verify(service.saveTodos(any)).called(5);

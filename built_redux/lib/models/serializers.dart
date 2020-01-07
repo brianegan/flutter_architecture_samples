@@ -10,7 +10,7 @@ import 'package:built_value/serializer.dart';
 
 part 'serializers.g.dart';
 
-@SerializersFor(const [
+@SerializersFor([
   AppTab,
   ExtraAction,
   VisibilityFilter,

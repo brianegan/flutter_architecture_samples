@@ -10,19 +10,19 @@ import 'localization.dart';
 import 'package:mvu/common/repository_commands.dart' show repoCmds;
 
 void main() {
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
-        new ArchSampleLocalizationsDelegate(),
-        new MvuLocalizationsDelegate()
+        ArchSampleLocalizationsDelegate(),
+        MvuLocalizationsDelegate()
       ],
-      home: new Builder(
+      home: Builder(
         builder: (c) {
           router.init(c);
           return home.createProgram(AppTab.todos).build();

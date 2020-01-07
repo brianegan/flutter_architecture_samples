@@ -39,7 +39,7 @@ void main() {
 
     test('LoadTodos: model is in loading state', () {
       var model = init(VisibilityFilter.all).model;
-      var upd = update(_cmdRepo, new LoadTodos(), model);
+      var upd = update(_cmdRepo, LoadTodos(), model);
       final updatedModel = upd.model;
       _cmdRunner.run(upd.effects);
 
@@ -54,7 +54,7 @@ void main() {
     test('OnTodosLoaded: todos are loaded', () {
       var model = init(VisibilityFilter.all).model;
       var items = createTodos();
-      var upd = update(_cmdRepo, new OnTodosLoaded(items), model);
+      var upd = update(_cmdRepo, OnTodosLoaded(items), model);
       final updatedModel = upd.model;
 
       expect(updatedModel.isLoading, isFalse);
@@ -64,8 +64,8 @@ void main() {
 
     test('OnTodosLoadError: model is in error state', () {
       var model = init(VisibilityFilter.all).model;
-      var cause = new Exception("No connection");
-      var upd = update(_cmdRepo, new OnTodosLoadError(cause), model);
+      var cause = Exception('No connection');
+      var upd = update(_cmdRepo, OnTodosLoadError(cause), model);
       final updatedModel = upd.model;
 
       expect(updatedModel.isLoading, isFalse);
@@ -77,12 +77,14 @@ void main() {
       var items = createTodos().map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      List<Matcher> repoEffectsMatchers = List();
+      var repoEffectsMatchers = <Matcher>[];
       for (var item in items) {
-        var upd = update(_cmdRepo, new UpdateTodo(!item.complete, item), model);
+        var upd = update(_cmdRepo, UpdateTodo(!item.complete, item), model);
         final updatedModel = upd.model;
-        var updatedTodo =
-            updatedModel.items.firstWhere((x) => x.id == item.id, orElse: null);
+        var updatedTodo = updatedModel.items.firstWhere(
+          (x) => x.id == item.id,
+          orElse: () => null,
+        );
         _cmdRunner.run(upd.effects);
 
         expect(updatedModel.items.length, items.length);
@@ -98,9 +100,9 @@ void main() {
       var items = createTodos().map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      List<Matcher> repoEffectsMatchers = List();
+      final repoEffectsMatchers = [];
       for (var item in items) {
-        var upd = update(_cmdRepo, new RemoveTodo(item), model);
+        var upd = update(_cmdRepo, RemoveTodo(item), model);
         final updatedModel = upd.model;
         _cmdRunner.run(upd.effects);
 
@@ -115,11 +117,11 @@ void main() {
       var model = _createWith(items);
 
       for (var itemToRemove in items) {
-        var upd = update(_cmdRepo, new RemoveTodo(itemToRemove), model);
+        var upd = update(_cmdRepo, RemoveTodo(itemToRemove), model);
         final updatedModel = upd.model;
         expect(updatedModel.items, isNot(contains(itemToRemove)));
         final undoUpd =
-            update(_cmdRepo, new UndoRemoveItem(itemToRemove), updatedModel);
+            update(_cmdRepo, UndoRemoveItem(itemToRemove), updatedModel);
         final undoModel = undoUpd.model;
         expect(undoModel.items, contains(itemToRemove));
       }
@@ -131,7 +133,7 @@ void main() {
       expect(model.filter, equals(currentFilter));
 
       for (var filter in VisibilityFilter.values) {
-        var upd = update(_cmdRepo, new FilterChanged(filter), model);
+        var upd = update(_cmdRepo, FilterChanged(filter), model);
         expect(upd.model.filter, equals(filter));
       }
     });
@@ -141,7 +143,7 @@ void main() {
           createTodos(complete: false).map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      var upd = update(_cmdRepo, new ToggleAllMessage(), model);
+      var upd = update(_cmdRepo, ToggleAllMessage(), model);
       _cmdRunner.run(upd.effects);
 
       expect(upd.model.items,
@@ -155,7 +157,7 @@ void main() {
           createTodos(complete: true).map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      var upd = update(_cmdRepo, new ToggleAllMessage(), model);
+      var upd = update(_cmdRepo, ToggleAllMessage(), model);
 
       expect(upd.model.items,
           everyElement(predicate<TodoModel>((x) => !x.complete)));
@@ -166,7 +168,7 @@ void main() {
       var model = _createWith(items);
       expect(model.items, anyElement(predicate<TodoModel>((x) => x.complete)));
 
-      var upd = update(_cmdRepo, new CleareCompletedMessage(), model);
+      var upd = update(_cmdRepo, CleareCompletedMessage(), model);
       _cmdRunner.run(upd.effects);
 
       expect(upd.model.items,
@@ -179,7 +181,7 @@ void main() {
       var items = createTodos().map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      var upd = update(_cmdRepo, new ShowDetailsMessage(items.first), model);
+      var upd = update(_cmdRepo, ShowDetailsMessage(items.first), model);
 
       expect(upd.model, equals(model));
     });
@@ -193,8 +195,8 @@ void main() {
         ..note = b.note + 'v1'
         ..task = b.task + 'v1');
 
-      var upd = update(_cmdRepo,
-          new OnTodoItemChanged(updated: itemToUpdate.toEntity()), model);
+      var upd = update(
+          _cmdRepo, OnTodoItemChanged(updated: itemToUpdate.toEntity()), model);
       var updatedItem =
           upd.model.items.firstWhere((x) => x.id == itemToUpdate.id);
 
@@ -207,8 +209,8 @@ void main() {
 
       var itemToRemove = items.first;
 
-      var upd = update(_cmdRepo,
-          new OnTodoItemChanged(removed: itemToRemove.toEntity()), model);
+      var upd = update(
+          _cmdRepo, OnTodoItemChanged(removed: itemToRemove.toEntity()), model);
 
       expect(upd.model.items, isNot(contains(itemToRemove)));
     });
@@ -217,17 +219,16 @@ void main() {
       var items = createTodos().map((x) => TodoModel.fromEntity(x));
       var model = _createWith(items);
 
-      var newItem = new TodoEntity('New one', '11234', 'some note', false);
+      var newItem = TodoEntity('New one', '11234', 'some note', false);
 
-      var upd =
-          update(_cmdRepo, new OnTodoItemChanged(created: newItem), model);
+      var upd = update(_cmdRepo, OnTodoItemChanged(created: newItem), model);
 
       expect(upd.model.items, contains(TodoModel.fromEntity(newItem)));
     });
   });
 }
 
-TodosModel _createWith(Iterable<TodoModel> items) => new TodosModel((b) => b
+TodosModel _createWith(Iterable<TodoModel> items) => TodosModel((b) => b
   ..filter = VisibilityFilter.all
   ..isLoading = false
-  ..items = new BuiltList<TodoModel>(items).toBuilder());
+  ..items = BuiltList<TodoModel>(items).toBuilder());

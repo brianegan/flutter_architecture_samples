@@ -17,7 +17,7 @@ void main() {
     });
 
     test('App Title is correct', () {
-      expect(localizations.appTitle, "Bloc Library Example");
+      expect(localizations.appTitle, 'Bloc Library Example');
     });
 
     test('shouldReload returns false', () {

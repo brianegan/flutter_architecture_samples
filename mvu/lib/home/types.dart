@@ -37,7 +37,7 @@ abstract class HomeModel implements Built<HomeModel, HomeModelBuilder> {
   BodyModel get body;
 
   HomeModel._();
-  factory HomeModel([updates(HomeModelBuilder b)]) = _$HomeModel;
+  factory HomeModel([void Function(HomeModelBuilder b) updates]) = _$HomeModel;
 }
 
 abstract class BodyModel<TModel> {

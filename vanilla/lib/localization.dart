@@ -12,7 +12,7 @@ class VanillaLocalizations {
         context, VanillaLocalizations);
   }
 
-  String get appTitle => "Vanilla Example";
+  String get appTitle => 'Vanilla Example';
 }
 
 class VanillaLocalizationsDelegate
@@ -26,5 +26,5 @@ class VanillaLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

@@ -1,11 +1,11 @@
 part of todos;
 
 Upd<TodosModel, TodosMessage> init(VisibilityFilter filter) {
-  var model = new TodosModel((b) => b
+  var model = TodosModel((b) => b
     ..isLoading = false
     ..filter = filter
-    ..items = new BuiltList<TodoModel>().toBuilder());
-  return new Upd(model, effects: new Cmd.ofMsg(new LoadTodos()));
+    ..items = BuiltList<TodoModel>().toBuilder());
+  return Upd(model, effects: Cmd.ofMsg(LoadTodos()));
 }
 
 Upd<TodosModel, TodosMessage> update(
@@ -28,18 +28,18 @@ Upd<TodosModel, TodosMessage> update(
   }
   if (msg is UndoRemoveItem) {
     var updatedModel = model.rebuild((b) => b.items.add(msg.item));
-    return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
+    return Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
   }
   if (msg is FilterChanged) {
     var updatedModel = model.rebuild((b) => b..filter = msg.value);
-    return new Upd(updatedModel);
+    return Upd(updatedModel);
   }
   if (msg is ToggleAllMessage) {
     return _toggleAll(repo, model, msg);
   }
   if (msg is CleareCompletedMessage) {
     var updatedModel = model.rebuild((b) => b.items.where((t) => !t.complete));
-    return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
+    return Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
   }
   if (msg is ShowDetailsMessage) {
     var navigateCmd = router.goToDetailsScreen<TodosMessage>(msg.todo);
@@ -48,16 +48,16 @@ Upd<TodosModel, TodosMessage> update(
   if (msg is OnTodoItemChanged) {
     return _onRepoEvent(model, msg);
   }
-  return new Upd(model);
+  return Upd(model);
 }
 
 Upd<TodosModel, TodosMessage> _loadTodos(CmdRepository repo, TodosModel model) {
-  var loadCmd = repo.loadTodosCmd((items) => new OnTodosLoaded(items),
-      onError: (exc) => new OnTodosLoadError(exc));
+  var loadCmd = repo.loadTodosCmd((items) => OnTodosLoaded(items),
+      onError: (exc) => OnTodosLoadError(exc));
   var updatedModel = model.rebuild((b) => b
     ..isLoading = true
     ..loadingError = null);
-  return new Upd(updatedModel, effects: loadCmd);
+  return Upd(updatedModel, effects: loadCmd);
 }
 
 Upd<TodosModel, TodosMessage> _onTodosLoaded(
@@ -75,14 +75,14 @@ Upd<TodosModel, TodosMessage> _onLoadingError(
   var updatedModel = model.rebuild((b) => b
     ..isLoading = false
     ..loadingError = msg.cause.toString());
-  return new Upd(updatedModel);
+  return Upd(updatedModel);
 }
 
 Upd<TodosModel, TodosMessage> _toggleTodo(
     CmdRepository repo, TodosModel model, UpdateTodo msg) {
   var updatedTodo = msg.todo.rebuild((b) => b..complete = msg.value);
   var updatedModel = _updateTodoItem(model, updatedTodo);
-  return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
+  return Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
 }
 
 Upd<TodosModel, TodosMessage> _toggleAll(
@@ -90,7 +90,7 @@ Upd<TodosModel, TodosMessage> _toggleAll(
   var setComplete = model.items.any((x) => !x.complete);
   var updatedModel = model.rebuild(
       (b) => b.items.map((t) => t.rebuild((x) => x..complete = setComplete)));
-  return new Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
+  return Upd(updatedModel, effects: _saveTodosCmd(repo, updatedModel));
 }
 
 TodosModel _removeTodo(TodosModel model, String id) =>

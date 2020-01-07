@@ -66,7 +66,7 @@ class StatsCounterState extends State<StatsCounter> {
               stream: bloc.numActive,
               builder: (context, snapshot) {
                 return Text(
-                  "${snapshot.data ?? 0}",
+                  '${snapshot.data ?? 0}',
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,
                 );

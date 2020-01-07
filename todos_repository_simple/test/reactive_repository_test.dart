@@ -11,13 +11,13 @@ import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 class MockTodosRepository extends Mock implements TodosRepository {}
 
-main() {
+void main() {
   group('ReactiveTodosRepository', () {
-    List<TodoEntity> createTodos([String task = "Task"]) {
+    List<TodoEntity> createTodos([String task = 'Task']) {
       return [
-        TodoEntity(task, "1", "Hallo", false),
-        TodoEntity(task, "2", "Friend", false),
-        TodoEntity(task, "3", "Yo", false),
+        TodoEntity(task, '1', 'Hallo', false),
+        TodoEntity(task, '2', 'Friend', false),
+        TodoEntity(task, '3', 'Yo', false),
       ];
     }
 
@@ -61,7 +61,7 @@ main() {
       );
 
       when(repository.loadTodos())
-          .thenAnswer((_) => new Future.value(<TodoEntity>[]));
+          .thenAnswer((_) => Future.value(<TodoEntity>[]));
       when(repository.saveTodos(todos)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.addNewTodo(todos.first);
@@ -78,7 +78,7 @@ main() {
         repository: repository,
         seedValue: todos,
       );
-      final update = createTodos("task");
+      final update = createTodos('task');
 
       when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
       when(repository.saveTodos(any)).thenAnswer((_) => Future.value());

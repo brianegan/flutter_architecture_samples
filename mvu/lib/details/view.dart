@@ -4,50 +4,50 @@ Widget view(BuildContext context, Dispatch<DetailsMessage> dispatch,
     DetailsModel model) {
   final localizations = ArchSampleLocalizations.of(context);
 
-  return new Scaffold(
+  return Scaffold(
     key: ArchSampleKeys.todoDetailsScreen,
-    appBar: new AppBar(
-      title: new Text(localizations.todoDetails),
+    appBar: AppBar(
+      title: Text(localizations.todoDetails),
       actions: [
-        new IconButton(
+        IconButton(
           tooltip: localizations.deleteTodo,
-          icon: new Icon(Icons.delete),
+          icon: Icon(Icons.delete),
           key: ArchSampleKeys.deleteTodoButton,
-          onPressed: () => dispatch(new Remove()),
+          onPressed: () => dispatch(Remove()),
         )
       ],
     ),
-    body: new Padding(
-      padding: new EdgeInsets.all(16.0),
-      child: new ListView(
+    body: Padding(
+      padding: EdgeInsets.all(16.0),
+      child: ListView(
         children: [
-          new Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              new Padding(
-                padding: new EdgeInsets.only(right: 8.0),
-                child: new Checkbox(
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Checkbox(
                   key: ArchSampleKeys.detailsTodoItemCheckbox,
                   value: model.todo.complete,
-                  onChanged: (_) => dispatch(new ToggleCompleted()),
+                  onChanged: (_) => dispatch(ToggleCompleted()),
                 ),
               ),
-              new Expanded(
-                child: new Column(
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    new Padding(
-                      padding: new EdgeInsets.only(
+                    Padding(
+                      padding: EdgeInsets.only(
                         top: 8.0,
                         bottom: 16.0,
                       ),
-                      child: new Text(
+                      child: Text(
                         model.todo.task,
                         key: ArchSampleKeys.detailsTodoItemTask,
                         style: Theme.of(context).textTheme.headline,
                       ),
                     ),
-                    new Text(
+                    Text(
                       model.todo.note,
                       key: ArchSampleKeys.detailsTodoItemNote,
                       style: Theme.of(context).textTheme.subhead,
@@ -60,10 +60,10 @@ Widget view(BuildContext context, Dispatch<DetailsMessage> dispatch,
         ],
       ),
     ),
-    floatingActionButton: new FloatingActionButton(
+    floatingActionButton: FloatingActionButton(
       key: ArchSampleKeys.editTodoFab,
       tooltip: localizations.editTodo,
-      child: new Icon(Icons.edit),
+      child: Icon(Icons.edit),
       onPressed: () => dispatch(Edit()),
     ),
   );

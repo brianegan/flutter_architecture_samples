@@ -10,7 +10,8 @@ abstract class DetailsModel
   TodoModel get todo;
 
   DetailsModel._();
-  factory DetailsModel([updates(DetailsModelBuilder b)]) = _$DetailsModel;
+  factory DetailsModel([void Function(DetailsModelBuilder b) updates]) =
+      _$DetailsModel;
 }
 
 abstract class DetailsMessage {}

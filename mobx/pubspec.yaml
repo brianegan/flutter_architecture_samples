@@ -31,9 +31,8 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  lint: 1.1.0
-  mobx_codegen: ^0.3.13
-  build_runner: ^1.7.0
+  mobx_codegen: ^0.4.0+1
+  build_runner: ^1.7.3
   test:
   flutter_driver:
     sdk: flutter

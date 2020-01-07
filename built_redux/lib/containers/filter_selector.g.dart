@@ -21,27 +21,28 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
   final VisibilityFilter activeFilter;
 
   factory _$FilterSelectorViewModel(
-          [void updates(FilterSelectorViewModelBuilder b)]) =>
-      (new FilterSelectorViewModelBuilder()..update(updates)).build();
+          [void Function(FilterSelectorViewModelBuilder b) updates]) =>
+      (FilterSelectorViewModelBuilder()..update(updates)).build();
 
   _$FilterSelectorViewModel._({this.onFilterSelected, this.activeFilter})
       : super._() {
-    if (onFilterSelected == null)
-      throw new BuiltValueNullFieldError(
+    if (onFilterSelected == null) {
+      throw BuiltValueNullFieldError(
           'FilterSelectorViewModel', 'onFilterSelected');
-    if (activeFilter == null)
-      throw new BuiltValueNullFieldError(
-          'FilterSelectorViewModel', 'activeFilter');
+    }
+    if (activeFilter == null) {
+      throw BuiltValueNullFieldError('FilterSelectorViewModel', 'activeFilter');
+    }
   }
 
   @override
   FilterSelectorViewModel rebuild(
-          void updates(FilterSelectorViewModelBuilder b)) =>
+          void Function(FilterSelectorViewModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   FilterSelectorViewModelBuilder toBuilder() =>
-      new FilterSelectorViewModelBuilder()..replace(this);
+      FilterSelectorViewModelBuilder()..replace(this);
 
   @override
   bool operator ==(dynamic other) {
@@ -93,19 +94,19 @@ class FilterSelectorViewModelBuilder
 
   @override
   void replace(FilterSelectorViewModel other) {
-    if (other == null) throw new ArgumentError.notNull('other');
+    if (other == null) throw ArgumentError.notNull('other');
     _$v = other as _$FilterSelectorViewModel;
   }
 
   @override
-  void update(void updates(FilterSelectorViewModelBuilder b)) {
+  void update(void Function(FilterSelectorViewModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$FilterSelectorViewModel build() {
     final _$result = _$v ??
-        new _$FilterSelectorViewModel._(
+        _$FilterSelectorViewModel._(
             onFilterSelected: onFilterSelected, activeFilter: activeFilter);
     replace(_$result);
     return _$result;

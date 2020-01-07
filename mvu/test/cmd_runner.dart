@@ -2,7 +2,7 @@ import 'package:dartea/dartea.dart';
 
 ///run side-effects and save produced messages to the [producedMessages] list
 class CmdRunner<T> {
-  final List<T> producedMessages = List();
+  final producedMessages = <T>[];
 
   void run(Cmd<T> cmd) {
     for (var effect in cmd) {

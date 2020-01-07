@@ -48,7 +48,7 @@ void main() {
 
     test('OnStatsLoaded: stats is displayed', () {
       var model = init().model;
-      int activeCount = 5, completedCount = 8;
+      var activeCount = 5, completedCount = 8;
       var items = createTodosForStats(activeCount, completedCount);
 
       var updatedModel = update(_cmdRepo, OnStatsLoaded(items), model).model;
@@ -87,7 +87,7 @@ void main() {
 
     test('ToggleAllMessage(partially): stats is updated', () {
       var model = init().model;
-      int activeCount = 3, completedCount = 6;
+      var activeCount = 3, completedCount = 6;
       var items = createTodosForStats(activeCount, completedCount);
       var updatedModel = update(_cmdRepo, OnStatsLoaded(items), model).model;
 
@@ -101,7 +101,7 @@ void main() {
 
     test('CleareCompletedMessage: stats is updated', () {
       var model = init().model;
-      int activeCount = 3, completedCount = 6;
+      var activeCount = 3, completedCount = 6;
       var items = createTodosForStats(activeCount, completedCount);
       var updatedModel = update(_cmdRepo, OnStatsLoaded(items), model).model;
 

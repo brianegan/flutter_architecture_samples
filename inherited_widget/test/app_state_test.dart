@@ -5,7 +5,7 @@
 import 'package:inherited_widget_sample/models.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('AppState', () {
     test('should check if there are completed todos', () {
       final state = AppState(todos: [

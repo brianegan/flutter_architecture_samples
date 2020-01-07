@@ -31,5 +31,5 @@ class EditTodo extends StoreConnector<AppState, AppActions, Null> {
   }
 
   @override
-  connect(AppState state) {}
+  Null connect(AppState state) {}
 }

@@ -85,7 +85,7 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  _updateTab(AppTab tab) {
+  void _updateTab(AppTab tab) {
     setState(() {
       activeTab = tab;
     });

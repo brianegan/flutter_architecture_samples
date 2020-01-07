@@ -30,7 +30,7 @@ class TodosRepositoryFlutter implements TodosRepository {
     } catch (e) {
       final todos = await webClient.fetchTodos();
 
-      fileStorage.saveTodos(todos);
+      await fileStorage.saveTodos(todos);
 
       return todos;
     }

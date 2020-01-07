@@ -14,13 +14,12 @@ part of serializers;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(AppState.serializer)
       ..add(AppTab.serializer)
       ..add(ExtraAction.serializer)
       ..add(Todo.serializer)
       ..add(VisibilityFilter.serializer)
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(Todo)]),
-          () => new ListBuilder<Todo>()))
+      ..addBuilderFactory(const FullType(BuiltList, [FullType(Todo)]),
+          () => ListBuilder<Todo>()))
     .build();

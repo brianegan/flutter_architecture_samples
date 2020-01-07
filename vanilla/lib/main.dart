@@ -12,7 +12,7 @@ void main() {
     VanillaApp(
       repository: TodosRepositoryFlutter(
         fileStorage: FileStorage(
-          "vanilla_app",
+          'vanilla_app',
           getApplicationDocumentsDirectory,
         ),
         webClient: WebClient(),

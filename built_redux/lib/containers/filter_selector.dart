@@ -14,7 +14,7 @@ import 'package:flutter_built_redux/flutter_built_redux.dart';
 
 part 'filter_selector.g.dart';
 
-typedef OnFilterSelected = Function(VisibilityFilter filter);
+typedef OnFilterSelected = void Function(VisibilityFilter filter);
 
 abstract class FilterSelectorViewModel
     implements Built<FilterSelectorViewModel, FilterSelectorViewModelBuilder> {
@@ -24,7 +24,8 @@ abstract class FilterSelectorViewModel
 
   VisibilityFilter get activeFilter;
 
-  factory FilterSelectorViewModel([updates(FilterSelectorViewModelBuilder b)]) =
+  factory FilterSelectorViewModel(
+          [void Function(FilterSelectorViewModelBuilder b) updates]) =
       _$FilterSelectorViewModel;
 
   factory FilterSelectorViewModel.from(

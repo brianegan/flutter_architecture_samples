@@ -28,7 +28,7 @@ void main() {
     });
 
     testWidgets('should display a list after loading todos', (tester) async {
-      final SemanticsHandle handle = tester.ensureSemantics();
+      final handle = tester.ensureSemantics();
       await tester.pumpWidget(_TestWidget());
       await tester.pumpAndSettle();
 

@@ -18,14 +18,14 @@ class Optional<T> extends IterableBase<T> {
   /// Constructs an Optional of the given [value].
   ///
   /// Throws [ArgumentError] if [value] is null.
-  Optional.of(T value) : this._value = value {
-    if (this._value == null) throw ArgumentError('Must not be null.');
+  Optional.of(T value) : _value = value {
+    if (_value == null) throw ArgumentError('Must not be null.');
   }
 
   /// Constructs an Optional of the given [value].
   ///
   /// If [value] is null, returns [absent()].
-  const Optional.fromNullable(T value) : this._value = value;
+  const Optional.fromNullable(T value) : _value = value;
 
   /// Whether the Optional contains a value.
   bool get isPresent => _value != null;
@@ -37,21 +37,21 @@ class Optional<T> extends IterableBase<T> {
   ///
   /// Throws [StateError] if [value] is null.
   T get value {
-    if (this._value == null) {
+    if (_value == null) {
       throw StateError('value called on absent Optional.');
     }
     return _value;
   }
 
   /// Executes a function if the Optional value is present.
-  void ifPresent(void ifPresent(T value)) {
+  void ifPresent(void Function(T value) ifPresent) {
     if (isPresent) {
       ifPresent(_value);
     }
   }
 
   /// Execution a function if the Optional value is absent.
-  void ifAbsent(void ifAbsent()) {
+  void ifAbsent(void Function() ifAbsent) {
     if (!isPresent) {
       ifAbsent();
     }
@@ -66,7 +66,7 @@ class Optional<T> extends IterableBase<T> {
     if (defaultValue == null) {
       throw ArgumentError('defaultValue must not be null.');
     }
-    return _value == null ? defaultValue : _value;
+    return _value ?? defaultValue;
   }
 
   /// Gets the Optional value, or [null] if there is none.
@@ -77,7 +77,7 @@ class Optional<T> extends IterableBase<T> {
   /// If the Optional is [absent()], returns [absent()] without applying the transformer.
   ///
   /// The transformer must not return [null]. If it does, an [ArgumentError] is thrown.
-  Optional<S> transform<S>(S transformer(T value)) {
+  Optional<S> transform<S>(S Function(T value) transformer) {
     return _value == null
         ? Optional.absent()
         : Optional.of(transformer(_value));
@@ -88,11 +88,14 @@ class Optional<T> extends IterableBase<T> {
       isPresent ? <T>[_value].iterator : Iterable<T>.empty().iterator;
 
   /// Delegates to the underlying [value] hashCode.
+  @override
   int get hashCode => _value.hashCode;
 
   /// Delegates to the underlying [value] operator==.
+  @override
   bool operator ==(o) => o is Optional && o._value == _value;
 
+  @override
   String toString() {
     return _value == null
         ? 'Optional { absent }'

@@ -23,7 +23,7 @@ class _$DetailsModel extends DetailsModel {
   @override
   final TodoModel todo;
 
-  factory _$DetailsModel([void updates(DetailsModelBuilder b)]) =>
+  factory _$DetailsModel([void Function(DetailsModelBuilder b) updates]) =>
       (new DetailsModelBuilder()..update(updates)).build();
 
   _$DetailsModel._({this.todo}) : super._() {
@@ -33,7 +33,7 @@ class _$DetailsModel extends DetailsModel {
   }
 
   @override
-  DetailsModel rebuild(void updates(DetailsModelBuilder b)) =>
+  DetailsModel rebuild(void Function(DetailsModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -84,7 +84,7 @@ class DetailsModelBuilder
   }
 
   @override
-  void update(void updates(DetailsModelBuilder b)) {
+  void update(void Function(DetailsModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

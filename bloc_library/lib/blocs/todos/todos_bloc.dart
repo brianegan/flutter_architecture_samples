@@ -37,7 +37,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Stream<TodosState> _mapLoadTodosToState() async* {
     try {
-      final todos = await this.todosRepository.loadTodos();
+      final todos = await todosRepository.loadTodos();
       yield TodosLoaded(
         todos.map(Todo.fromEntity).toList(),
       );
@@ -48,20 +48,20 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Stream<TodosState> _mapAddTodoToState(AddTodo event) async* {
     if (state is TodosLoaded) {
-      final List<Todo> updatedTodos = List.from((state as TodosLoaded).todos)
+      final updatedTodos = List<Todo>.from((state as TodosLoaded).todos)
         ..add(event.todo);
       yield TodosLoaded(updatedTodos);
-      _saveTodos(updatedTodos);
+      await _saveTodos(updatedTodos);
     }
   }
 
   Stream<TodosState> _mapUpdateTodoToState(UpdateTodo event) async* {
     if (state is TodosLoaded) {
-      final List<Todo> updatedTodos = (state as TodosLoaded).todos.map((todo) {
+      final updatedTodos = (state as TodosLoaded).todos.map((todo) {
         return todo.id == event.updatedTodo.id ? event.updatedTodo : todo;
       }).toList();
       yield TodosLoaded(updatedTodos);
-      _saveTodos(updatedTodos);
+      await _saveTodos(updatedTodos);
     }
   }
 
@@ -72,7 +72,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
           .where((todo) => todo.id != event.todo.id)
           .toList();
       yield TodosLoaded(updatedTodos);
-      _saveTodos(updatedTodos);
+      await _saveTodos(updatedTodos);
     }
   }
 
@@ -80,21 +80,21 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
     if (state is TodosLoaded) {
       final allComplete =
           (state as TodosLoaded).todos.every((todo) => todo.complete);
-      final List<Todo> updatedTodos = (state as TodosLoaded)
+      final updatedTodos = (state as TodosLoaded)
           .todos
           .map((todo) => todo.copyWith(complete: !allComplete))
           .toList();
       yield TodosLoaded(updatedTodos);
-      _saveTodos(updatedTodos);
+      await _saveTodos(updatedTodos);
     }
   }
 
   Stream<TodosState> _mapClearCompletedToState() async* {
     if (state is TodosLoaded) {
-      final List<Todo> updatedTodos =
+      final updatedTodos =
           (state as TodosLoaded).todos.where((todo) => !todo.complete).toList();
       yield TodosLoaded(updatedTodos);
-      _saveTodos(updatedTodos);
+      await _saveTodos(updatedTodos);
     }
   }
 
