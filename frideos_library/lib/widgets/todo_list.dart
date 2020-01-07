@@ -21,34 +21,33 @@ class TodoList extends StatelessWidget {
       streamed: bloc.visibleTodos,
       noDataChild: LoadingSpinner(key: ArchSampleKeys.todosLoading),
       builder: (context, snapshot) => Container(
-            child: ListView.builder(
-                key: ArchSampleKeys.todoList,
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final todo = snapshot.data[index];
+        child: ListView.builder(
+            key: ArchSampleKeys.todoList,
+            itemCount: snapshot.data.length,
+            itemBuilder: (BuildContext context, int index) {
+              final todo = snapshot.data[index];
 
-                  return TodoItem(
-                    todo: todo,
-                    onDismissed: (direction) {
-                      _removeTodo(context, todo);
-                    },
-                    onTap: () {
-                      bloc.currentTodo.value = todo;
+              return TodoItem(
+                todo: todo,
+                onDismissed: (direction) {
+                  _removeTodo(context, todo);
+                },
+                onTap: () {
+                  bloc.currentTodo.value = todo;
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DetailScreen()),
-                      ).then((todo) {
-                        if (todo is Todo) {
-                          _showUndoSnackbar(context, todo);
-                        }
-                      });
-                    },
-                    onCheckboxChanged: (complete) =>
-                        bloc.onCheckboxChanged(todo),
-                  );
-                }),
-          ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DetailScreen()),
+                  ).then((todo) {
+                    if (todo is Todo) {
+                      _showUndoSnackbar(context, todo);
+                    }
+                  });
+                },
+                onCheckboxChanged: (complete) => bloc.onCheckboxChanged(todo),
+              );
+            }),
+      ),
     );
   }
 

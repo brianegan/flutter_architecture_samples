@@ -13,8 +13,7 @@ class MvuLocalizations {
   String get appTitle => "MVU Example";
 }
 
-class MvuLocalizationsDelegate
-    extends LocalizationsDelegate<MvuLocalizations> {
+class MvuLocalizationsDelegate extends LocalizationsDelegate<MvuLocalizations> {
   @override
   Future<MvuLocalizations> load(Locale locale) =>
       new Future(() => new MvuLocalizations());

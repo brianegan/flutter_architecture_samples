@@ -72,11 +72,10 @@ class TodoList extends StatelessWidget {
   }
 
   void _onTodoTap(BuildContext context, Todo todo) {
-    Navigator
-        .of(context)
+    Navigator.of(context)
         .push(MaterialPageRoute(
-          builder: (_) => TodoDetails(id: todo.id),
-        ))
+      builder: (_) => TodoDetails(id: todo.id),
+    ))
         .then((removedTodo) {
       if (removedTodo != null) {
         Scaffold.of(context).showSnackBar(SnackBar(

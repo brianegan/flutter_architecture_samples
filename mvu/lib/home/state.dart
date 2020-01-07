@@ -24,9 +24,12 @@ Upd<HomeModel, HomeMessage> update(HomeMessage msg, HomeModel model) {
 
   if (msg is OnNewTodoCreated) {
     if (model.body.tag == AppTab.todos) {
-      return Upd(model, effects:  new Cmd.ofMsg(TodosMsg(OnTodoItemChanged(created: msg.entity))));
+      return Upd(model,
+          effects:
+              new Cmd.ofMsg(TodosMsg(OnTodoItemChanged(created: msg.entity))));
     } else if (model.body.tag == AppTab.stats) {
-      return Upd(model, effects:  new Cmd.ofMsg(StatsMsg(OnNewTaskCreated(msg.entity))));
+      return Upd(model,
+          effects: new Cmd.ofMsg(StatsMsg(OnNewTaskCreated(msg.entity))));
     }
   }
 

@@ -39,71 +39,70 @@ class _AddEditScreenState extends State<AddEditScreen> {
     return ValueBuilder<Todo>(
       streamed: bloc.currentTodo,
       builder: (context, snapshot) => Scaffold(
-            appBar: AppBar(
-              title: Text(
-                isEditing
-                    ? ArchSampleLocalizations.of(context).editTodo
-                    : ArchSampleLocalizations.of(context).addTodo,
-              ),
-            ),
-            body: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Form(
-                key: formKey,
-                autovalidate: false,
-                onWillPop: () {
-                  return Future(() => true);
-                },
-                child: ListView(
-                  children: [
-                    TextFormField(
-                      initialValue: isEditing ? snapshot.data.task : '',
-                      key: ArchSampleKeys.taskField,
-                      autofocus: isEditing ? false : true,
-                      style: Theme.of(context).textTheme.headline,
-                      decoration: InputDecoration(
-                        hintText:
-                            ArchSampleLocalizations.of(context).newTodoHint,
-                      ),
-                      validator: (val) => val.trim().isEmpty
-                          ? ArchSampleLocalizations.of(context).emptyTodoError
-                          : null,
-                      onSaved: (value) => _task = value,
-                    ),
-                    TextFormField(
-                      initialValue: isEditing ? snapshot.data.note : '',
-                      key: ArchSampleKeys.noteField,
-                      maxLines: 10,
-                      style: Theme.of(context).textTheme.subhead,
-                      decoration: InputDecoration(
-                        hintText: ArchSampleLocalizations.of(context).notesHint,
-                      ),
-                      onSaved: (value) => _note = value,
-                    )
-                  ],
+        appBar: AppBar(
+          title: Text(
+            isEditing
+                ? ArchSampleLocalizations.of(context).editTodo
+                : ArchSampleLocalizations.of(context).addTodo,
+          ),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: formKey,
+            autovalidate: false,
+            onWillPop: () {
+              return Future(() => true);
+            },
+            child: ListView(
+              children: [
+                TextFormField(
+                  initialValue: isEditing ? snapshot.data.task : '',
+                  key: ArchSampleKeys.taskField,
+                  autofocus: isEditing ? false : true,
+                  style: Theme.of(context).textTheme.headline,
+                  decoration: InputDecoration(
+                    hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                  ),
+                  validator: (val) => val.trim().isEmpty
+                      ? ArchSampleLocalizations.of(context).emptyTodoError
+                      : null,
+                  onSaved: (value) => _task = value,
                 ),
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              key: isEditing
-                  ? ArchSampleKeys.saveTodoFab
-                  : ArchSampleKeys.saveNewTodo,
-              tooltip: isEditing
-                  ? ArchSampleLocalizations.of(context).saveChanges
-                  : ArchSampleLocalizations.of(context).addTodo,
-              child: Icon(isEditing ? Icons.check : Icons.add),
-              onPressed: () {
-                final form = formKey.currentState;
-                if (form.validate()) {
-                  form.save();
-
-                  bloc.addEdit(isEditing, _task, _note);
-
-                  Navigator.pop(context);
-                }
-              },
+                TextFormField(
+                  initialValue: isEditing ? snapshot.data.note : '',
+                  key: ArchSampleKeys.noteField,
+                  maxLines: 10,
+                  style: Theme.of(context).textTheme.subhead,
+                  decoration: InputDecoration(
+                    hintText: ArchSampleLocalizations.of(context).notesHint,
+                  ),
+                  onSaved: (value) => _note = value,
+                )
+              ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          key: isEditing
+              ? ArchSampleKeys.saveTodoFab
+              : ArchSampleKeys.saveNewTodo,
+          tooltip: isEditing
+              ? ArchSampleLocalizations.of(context).saveChanges
+              : ArchSampleLocalizations.of(context).addTodo,
+          child: Icon(isEditing ? Icons.check : Icons.add),
+          onPressed: () {
+            final form = formKey.currentState;
+            if (form.validate()) {
+              form.save();
+
+              bloc.addEdit(isEditing, _task, _note);
+
+              Navigator.pop(context);
+            }
+          },
+        ),
+      ),
     );
   }
 }

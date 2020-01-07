@@ -52,8 +52,7 @@ main() {
         Todo('c', complete: true),
       ];
       final model = TodoListModel(
-          repo: MockRepository(todos),
-          activeFilter: VisibilityFilter.all);
+          repo: MockRepository(todos), activeFilter: VisibilityFilter.all);
       await model.loadTodos();
 
       expect(model.filteredTodos, todos);

@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
         },
       ),
       routes: {
-        ArchSampleRoutes.addTodo: (_) =>
-            edit.createProgram(repoCmds).build()
+        ArchSampleRoutes.addTodo: (_) => edit.createProgram(repoCmds).build()
       },
     );
   }
