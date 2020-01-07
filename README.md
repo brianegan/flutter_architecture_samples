@@ -29,7 +29,6 @@ Examples have been updated to Dart 2.
 - [Firestore Redux Example](firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and
   adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
 - [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
-- [ReduRx Example](redurx) - Uses the [redurx](https://pub.dartlang.org/packages/redurx) + [flutter_redurx](https://pub.dartlang.org/packages/flutter_redurx) libraries as a new way to handle state using RxDart and StreamBuilder based on a Redux store.
 - [MVI Example](mvi_flutter) - Uses the concepts from Cycle.JS and applies them to Flutter.
 - [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
 - [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.

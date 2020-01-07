@@ -273,16 +273,6 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./mvu
     - <<: *integration-test
       os: linux
-      env: redurx_android
-      script: travis_retry ./scripts/ci.sh ./redurx
-    - <<: *integration-test
-      os: osx
-      osx_image: xcode11.3
-      env: redurx_ios
-      before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./redurx
-    - <<: *integration-test
-      os: linux
       env: redux_android
       script: travis_retry ./scripts/ci.sh ./redux
     - <<: *integration-test
@@ -340,7 +330,3 @@ jobs:
 #        - firestore_redux_ios
 #        - mvu_android
 #        - mvu_ios
-#        - redurx_android
-    - env: mvu_android
-    - env: mvu_ios
-    - env: redurx_android

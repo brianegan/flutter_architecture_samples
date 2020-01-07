@@ -33,7 +33,6 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
-      app_arch: redurx
       app_arch: redux
       app_arch: scoped_model
       app_arch: simple_bloc_flutter
@@ -43,7 +42,6 @@ task:
     cpu: 4
     memory: 10G
     kvm: true
-  allow_failures: $app_arch == "mvu" || $app_arch == "redurx"
   fix_kvm_script: sudo chown cirrus:cirrus /dev/kvm
   install_images_script: sdkmanager "system-images;android-$EMULATOR_API_LEVEL;$ANDROID_ABI"
   create_device_script:
@@ -75,12 +73,10 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
-      app_arch: redurx
       app_arch: redux
       app_arch: scoped_model
       app_arch: simple_bloc_flutter
       app_arch: vanilla
-  allow_failures: $app_arch == "mvu"
   osx_instance:
     image: mojave-xcode-11.2.1-flutter
   simulator_script:
