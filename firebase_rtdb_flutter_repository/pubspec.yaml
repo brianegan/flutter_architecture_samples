@@ -13,6 +13,7 @@ dependencies:
   firebase_database: ^0.4.6
 
 dev_dependencies:
-  mockito: ^3.0.0
+  test:
+  mockito:
   flutter_test:
     sdk: flutter

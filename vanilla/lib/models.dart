@@ -20,12 +20,14 @@ class AppState {
 
   List<Todo> filteredTodos(VisibilityFilter activeFilter) =>
       todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
+        switch (activeFilter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
         }
       }).toList();
 

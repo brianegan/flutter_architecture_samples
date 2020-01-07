@@ -7,8 +7,8 @@ environment:
 dependencies:
   todos_repository_core:
     path: ../todos_repository_core
-  rxdart: ^0.18.0
+  rxdart: ^0.23.1
 
 dev_dependencies:
-  test: ^1.3.0
-  mockito: ^3.0.0
+  test:
+  mockito:

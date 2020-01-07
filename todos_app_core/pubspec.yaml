@@ -4,13 +4,12 @@ environment:
   sdk: '>=2.0.0-dev.28.0 <3.0.0'
 
 dependencies:
-  intl: ^0.15.4
+  intl:
   flutter:
     sdk: flutter
-  path_provider: ^0.4.1
+  path_provider:
 
 dev_dependencies:
-  test: ^1.3.0
   intl_translation:
 
 # The following section is specific to Flutter.

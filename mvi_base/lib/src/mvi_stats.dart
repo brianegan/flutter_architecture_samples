@@ -9,7 +9,7 @@ import 'package:rxdart/rxdart.dart';
 class StatsPresenter extends MviPresenter<StatsModel> {
   StatsPresenter(TodosInteractor interactor)
       : super(
-          stream: Observable.combineLatest2(
+          stream: Rx.combineLatest2(
             interactor.todos.map(_numActive),
             interactor.todos.map(_numComplete),
             (numActive, numComplete) => StatsModel(numActive, numComplete),

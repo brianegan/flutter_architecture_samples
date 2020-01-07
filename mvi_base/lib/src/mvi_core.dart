@@ -37,8 +37,8 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
   void setUp() {}
 
   @mustCallSuper
-  Future tearDown() => Future
-      .wait([_subject.close()]..addAll(subscriptions.map((s) => s.cancel())));
+  Future tearDown() => Future.wait(
+      [_subject.close()]..addAll(subscriptions.map((s) => s.cancel())));
 
   static _createSubject<ViewState>(
     Stream<ViewState> model,
@@ -46,19 +46,28 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
   ) {
     StreamSubscription<ViewState> subscription;
     BehaviorSubject<ViewState> _subject;
+    void onListen() {
+      subscription = model.listen(
+        _subject.add,
+        onError: _subject.addError,
+        onDone: _subject.close,
+      );
+    }
 
-    _subject = BehaviorSubject<ViewState>(
-      seedValue: initialState,
-      onListen: () {
-        subscription = model.listen(
-          _subject.add,
-          onError: _subject.addError,
-          onDone: _subject.close,
-        );
-      },
-      onCancel: () => subscription.cancel(),
-      sync: true,
-    );
+    ;
+    void onCancel() => subscription.cancel();
+
+    _subject = initialState == null
+        ? BehaviorSubject<ViewState>(
+            onListen: onListen,
+            onCancel: onCancel,
+            sync: true,
+          )
+        : BehaviorSubject<ViewState>.seeded(
+            initialState,
+            onListen: onListen,
+            onCancel: onCancel,
+          );
 
     return _subject;
   }

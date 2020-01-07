@@ -20,6 +20,7 @@ Widget view(BuildContext context, Dispatch<EditTodoMessage> dispatch,
         child: new ListView(
           children: [
             new TextFormField(
+              key: ArchSampleKeys.taskField,
               controller: model.task,
               autofocus: !isEditing,
               style: textTheme.headline,
@@ -31,6 +32,7 @@ Widget view(BuildContext context, Dispatch<EditTodoMessage> dispatch,
               },
             ),
             new TextFormField(
+              key: ArchSampleKeys.noteField,
               controller: model.note,
               maxLines: 10,
               style: textTheme.subhead,
@@ -43,6 +45,7 @@ Widget view(BuildContext context, Dispatch<EditTodoMessage> dispatch,
       ),
     ),
     floatingActionButton: new FloatingActionButton(
+      key: isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
       tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
       child: new Icon(isEditing ? Icons.check : Icons.add),
       onPressed: () => dispatch(new Save()),

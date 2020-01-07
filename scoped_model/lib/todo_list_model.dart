@@ -63,14 +63,16 @@ class TodoListModel extends Model {
   }
 
   List<Todo> get filteredTodos => _todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
-        }
-      }).toList();
+    switch (activeFilter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 
   void clearCompleted() {
     _todos.removeWhere((todo) => todo.complete);

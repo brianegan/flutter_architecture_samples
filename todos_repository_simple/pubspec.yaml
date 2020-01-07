@@ -9,9 +9,10 @@ dependencies:
     sdk: flutter
   todos_repository_core:
     path: ../todos_repository_core
-  rxdart: ^0.18.0
+  rxdart: ^0.23.1
 
 dev_dependencies:
+  test:
   flutter_test:
     sdk: flutter
-  mockito: ^3.0.0
+  mockito:

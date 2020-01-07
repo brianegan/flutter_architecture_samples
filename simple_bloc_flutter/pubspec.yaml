@@ -27,19 +27,15 @@ dependencies:
     path: ../todos_app_core
   simple_blocs:
     path: ../simple_blocs
-  rxdart: 0.18.0
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  rxdart: ^0.23.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  test: 1.6.2
-  mockito: ^3.0.0
+  test:
+  mockito:
   integration_tests:
     path: ../integration_tests
 

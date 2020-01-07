@@ -1,6 +1,6 @@
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-import 'package:frideos/frideos_dart.dart';
+import 'package:frideos/frideos.dart';
 
 import 'package:frideos_library/models/models.dart';
 
