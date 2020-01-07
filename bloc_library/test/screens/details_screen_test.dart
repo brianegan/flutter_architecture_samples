@@ -25,6 +25,10 @@ void main() {
       todosBloc = MockTodosBloc();
     });
 
+    tearDown(() {
+      todosBloc.close();
+    });
+
     testWidgets('renders properly with no todos', (WidgetTester tester) async {
       when(todosBloc.state).thenReturn(TodosLoaded([]));
       await tester.pumpWidget(

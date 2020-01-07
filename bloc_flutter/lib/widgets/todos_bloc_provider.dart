@@ -17,8 +17,7 @@ class TodosBlocProvider extends StatefulWidget {
   _TodosBlocProviderState createState() => _TodosBlocProviderState();
 
   static TodosListBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_TodosBlocProvider)
-            as _TodosBlocProvider)
+    return context.dependOnInheritedWidgetOfExactType<_TodosBlocProvider>()
         .bloc;
   }
 }

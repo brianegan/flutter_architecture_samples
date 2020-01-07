@@ -108,12 +108,13 @@ class TodosListBloc {
   static List<Todo> _filterTodos(List<Todo> todos, VisibilityFilter filter) {
     return todos.where((todo) {
       switch (filter) {
-        case VisibilityFilter.all:
-          return true;
         case VisibilityFilter.active:
           return !todo.complete;
         case VisibilityFilter.completed:
           return todo.complete;
+        case VisibilityFilter.all:
+        default:
+          return true;
       }
     }).toList();
   }
