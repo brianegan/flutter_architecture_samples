@@ -12,25 +12,25 @@ formatted with dartfmt, and all comments / blank lines / generated code are
 excluded.
 
 For authors of frameworks or samples (hey, I'm one of those!): Please do not 
-take this comparison personally, nor should folks play "Code Golf" in an attempt
-to reduce the lines of code, unless doing so improves the application overall.  
+take this comparison personally, nor should folks play "Code Golf" with the
+samples to make them smaller, unless doing so improves the application overall.  
   
 | *Sample* | *LOC (no comments)* |
 |--------|-------------------|
-| scoped_model | 779 |
+| scoped_model | 778 |
 | mobx | 815 |
-| inherited_widget | 829 |
-| mvc | 839 |
+| inherited_widget | 832 |
+| mvc | 842 |
 | vanilla | 842 |
-| frideos_library | 881 |
+| frideos_library | 878 |
 | simple blocs | 1076 |
-| built_redux | 1170 |
-| mvu | 1181 |
-| bloc | 1188 |
-| bloc library | 1215 |
+| built_redux | 1172 |
+| bloc | 1186 |
+| mvu | 1191 |
+| bloc library | 1214 |
 | mvi | 1244 |
-| redux | 1365 |
-| firestore_redux | 1428 |
+| redux | 1362 |
+| firestore_redux | 1429 |
 
-Note: This file was generated on 2020-01-08 10:08:26.937197Z using `scripts/line_counter.dart`.  
+Note: This file was generated on 2020-01-08 13:03:29.947330Z using `scripts/line_counter.dart`.  
 
