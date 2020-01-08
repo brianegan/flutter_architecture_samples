@@ -57,7 +57,7 @@ class ReactiveTodosRepositoryFlutter implements ReactiveTodosRepository {
 
     _repository.loadTodos().then((entities) {
       _subject.add(List<TodoEntity>.unmodifiable(
-        [..._subject.value, ...entities],
+        [if (_subject.value != null ) ..._subject.value, ...entities],
       ));
     });
   }
