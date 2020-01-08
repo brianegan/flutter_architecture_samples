@@ -20,7 +20,7 @@ env:
 jobs:
   include:
 
-    - stage: Testing
+    - stage: Static analysis, formatting, and unit tests
       language: generic
       dist: bionic
       os: linux
