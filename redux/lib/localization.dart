@@ -14,7 +14,7 @@ class ReduxLocalizations {
     );
   }
 
-  String get appTitle => "Redux Example";
+  String get appTitle => 'Redux Example';
 }
 
 class ReduxLocalizationsDelegate
@@ -28,5 +28,5 @@ class ReduxLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

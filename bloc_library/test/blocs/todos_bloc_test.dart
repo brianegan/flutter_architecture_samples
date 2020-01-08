@@ -39,11 +39,11 @@ void main() {
       'should add a todo to the list in response to an AddTodo Event',
       build: () => todosBloc,
       act: (TodosBloc bloc) async =>
-          bloc..add(LoadTodos())..add(AddTodo(Todo("Hallo", id: '0'))),
+          bloc..add(LoadTodos())..add(AddTodo(Todo('Hallo', id: '0'))),
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
       ],
     );
 
@@ -54,13 +54,13 @@ void main() {
         return todosBloc;
       },
       act: (TodosBloc bloc) async {
-        final todo = Todo("Hallo", id: '0');
+        final todo = Todo('Hallo', id: '0');
         bloc..add(LoadTodos())..add(AddTodo(todo))..add(DeleteTodo(todo));
       },
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
         TodosLoaded([]),
       ],
     );
@@ -69,17 +69,17 @@ void main() {
       'should update a todo in response to an UpdateTodoAction',
       build: () => todosBloc,
       act: (TodosBloc bloc) async {
-        final todo = Todo("Hallo", id: '0');
+        final todo = Todo('Hallo', id: '0');
         bloc
           ..add(LoadTodos())
           ..add(AddTodo(todo))
-          ..add(UpdateTodo(todo.copyWith(task: "Tschüss")));
+          ..add(UpdateTodo(todo.copyWith(task: 'Tschüss')));
       },
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
-        TodosLoaded([Todo("Tschüss", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
+        TodosLoaded([Todo('Tschüss', id: '0')]),
       ],
     );
 
@@ -87,8 +87,8 @@ void main() {
       'should clear completed todos',
       build: () => todosBloc,
       act: (TodosBloc bloc) async {
-        final todo1 = Todo("Hallo", id: '0');
-        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        final todo1 = Todo('Hallo', id: '0');
+        final todo2 = Todo('Tschüss', complete: true, id: '1');
         bloc
           ..add(LoadTodos())
           ..add(AddTodo(todo1))
@@ -99,12 +99,12 @@ void main() {
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
         TodosLoaded([
-          Todo("Hallo", id: '0'),
-          Todo("Tschüss", id: '1', complete: true),
+          Todo('Hallo', id: '0'),
+          Todo('Tschüss', id: '1', complete: true),
         ]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
       ],
     );
 
@@ -112,8 +112,8 @@ void main() {
       'should mark all as completed if some todos are incomplete',
       build: () => todosBloc,
       act: (TodosBloc bloc) async {
-        final todo1 = Todo("Hallo", id: '0');
-        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        final todo1 = Todo('Hallo', id: '0');
+        final todo2 = Todo('Tschüss', complete: true, id: '1');
         bloc
           ..add(LoadTodos())
           ..add(AddTodo(todo1))
@@ -124,14 +124,14 @@ void main() {
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0')]),
+        TodosLoaded([Todo('Hallo', id: '0')]),
         TodosLoaded([
-          Todo("Hallo", id: '0'),
-          Todo("Tschüss", id: '1', complete: true),
+          Todo('Hallo', id: '0'),
+          Todo('Tschüss', id: '1', complete: true),
         ]),
         TodosLoaded([
-          Todo("Hallo", id: '0', complete: true),
-          Todo("Tschüss", id: '1', complete: true),
+          Todo('Hallo', id: '0', complete: true),
+          Todo('Tschüss', id: '1', complete: true),
         ]),
       ],
     );
@@ -140,8 +140,8 @@ void main() {
       'should mark all as incomplete if all todos are complete',
       build: () => todosBloc,
       act: (TodosBloc bloc) async {
-        final todo1 = Todo("Hallo", complete: true, id: '0');
-        final todo2 = Todo("Tschüss", complete: true, id: '1');
+        final todo1 = Todo('Hallo', complete: true, id: '0');
+        final todo2 = Todo('Tschüss', complete: true, id: '1');
         bloc
           ..add(LoadTodos())
           ..add(AddTodo(todo1))
@@ -152,14 +152,14 @@ void main() {
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
-        TodosLoaded([Todo("Hallo", id: '0', complete: true)]),
+        TodosLoaded([Todo('Hallo', id: '0', complete: true)]),
         TodosLoaded([
-          Todo("Hallo", id: '0', complete: true),
-          Todo("Tschüss", id: '1', complete: true),
+          Todo('Hallo', id: '0', complete: true),
+          Todo('Tschüss', id: '1', complete: true),
         ]),
         TodosLoaded([
-          Todo("Hallo", id: '0'),
-          Todo("Tschüss", id: '1'),
+          Todo('Hallo', id: '0'),
+          Todo('Tschüss', id: '1'),
         ]),
       ],
     );

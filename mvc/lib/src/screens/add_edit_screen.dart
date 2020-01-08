@@ -35,7 +35,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
   Widget build(BuildContext context) {
     /// Return the 'universally recognized' Map object.
     /// The data will only be known through the use of Map objects.
-    Map<String, Object> todo = _con.todoById(widget.todoId);
+    final todo = _con.todoById(widget.todoId);
 
     return Scaffold(
       appBar: AppBar(

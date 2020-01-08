@@ -14,9 +14,9 @@ part of visibility_filter;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-const VisibilityFilter _$all = const VisibilityFilter._('all');
-const VisibilityFilter _$active = const VisibilityFilter._('active');
-const VisibilityFilter _$completed = const VisibilityFilter._('completed');
+const VisibilityFilter _$all = VisibilityFilter._('all');
+const VisibilityFilter _$active = VisibilityFilter._('active');
+const VisibilityFilter _$completed = VisibilityFilter._('completed');
 
 VisibilityFilter _$visibilityFilterValueOf(String name) {
   switch (name) {
@@ -27,19 +27,19 @@ VisibilityFilter _$visibilityFilterValueOf(String name) {
     case 'completed':
       return _$completed;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
 final BuiltSet<VisibilityFilter> _$visibilityFilterValues =
-    new BuiltSet<VisibilityFilter>(const <VisibilityFilter>[
+    BuiltSet<VisibilityFilter>(const <VisibilityFilter>[
   _$all,
   _$active,
   _$completed,
 ]);
 
 Serializer<VisibilityFilter> _$visibilityFilterSerializer =
-    new _$VisibilityFilterSerializer();
+    _$VisibilityFilterSerializer();
 
 class _$VisibilityFilterSerializer
     implements PrimitiveSerializer<VisibilityFilter> {
@@ -50,11 +50,11 @@ class _$VisibilityFilterSerializer
 
   @override
   Object serialize(Serializers serializers, VisibilityFilter object,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       object.name;
 
   @override
   VisibilityFilter deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       VisibilityFilter.valueOf(serialized as String);
 }

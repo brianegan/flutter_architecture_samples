@@ -10,19 +10,18 @@ class MvuLocalizations {
     );
   }
 
-  String get appTitle => "MVU Example";
+  String get appTitle => 'MVU Example';
 }
 
-class MvuLocalizationsDelegate
-    extends LocalizationsDelegate<MvuLocalizations> {
+class MvuLocalizationsDelegate extends LocalizationsDelegate<MvuLocalizations> {
   @override
   Future<MvuLocalizations> load(Locale locale) =>
-      new Future(() => new MvuLocalizations());
+      Future(() => MvuLocalizations());
 
   @override
   bool shouldReload(MvuLocalizationsDelegate old) => false;
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

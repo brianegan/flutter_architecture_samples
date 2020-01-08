@@ -18,7 +18,7 @@ import 'package:mvc/src/Controller.dart' show Con;
 class HomeScreen extends StatefulWidget {
   @protected
   @override
-  createState() => HomeView();
+  State<HomeScreen> createState() => HomeView();
 }
 
 class HomeView extends State<HomeScreen> {

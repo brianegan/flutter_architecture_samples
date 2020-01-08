@@ -7,7 +7,7 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 part 'types.g.dart';
 
 enum AppTab { todos, stats }
-enum VisibilityFilter {all, active, completed}
+enum VisibilityFilter { all, active, completed }
 
 abstract class HomeMessage {}
 
@@ -34,11 +34,10 @@ class StatsMsg implements HomeMessage {
 }
 
 abstract class HomeModel implements Built<HomeModel, HomeModelBuilder> {
-
   BodyModel get body;
 
   HomeModel._();
-  factory HomeModel([updates(HomeModelBuilder b)]) = _$HomeModel;
+  factory HomeModel([void Function(HomeModelBuilder b) updates]) = _$HomeModel;
 }
 
 abstract class BodyModel<TModel> {

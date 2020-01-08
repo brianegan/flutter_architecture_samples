@@ -42,7 +42,7 @@ void main() {
     }));
 
     test('onEvent prints Event', overridePrint(() {
-      delegate.onError(null, 'event', null);
+      delegate.onEvent(null, 'event');
       expect(
         printLog[0],
         'event',
@@ -51,7 +51,7 @@ void main() {
   });
 }
 
-dynamic overridePrint(dynamic testFn()) => () {
+dynamic overridePrint(dynamic Function() testFn) => () {
       var spec = ZoneSpecification(print: (_, __, ___, String msg) {
         // Add to log instead of printing to stdout
         printLog.add(msg);

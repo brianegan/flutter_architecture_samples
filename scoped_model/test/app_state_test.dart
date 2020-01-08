@@ -9,7 +9,7 @@ import 'package:scoped_model_sample/todo_list_model.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-main() {
+void main() {
   group('TodoListModel', () {
     test('should check if there are completed todos', () async {
       final model = TodoListModel(
@@ -153,7 +153,7 @@ class MockRepository extends TodosRepository {
   List<TodoEntity> entities;
 
   MockRepository(List<Todo> todos)
-      : this.entities = todos.map((it) => it.toEntity()).toList();
+      : entities = todos.map((it) => it.toEntity()).toList();
 
   @override
   Future<List<TodoEntity>> loadTodos() {

@@ -7,7 +7,7 @@ import 'package:mvc/src/models.dart';
 import 'package:mvc/src/todo_list_model.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-main() {
+void main() {
   group('TodoListModel', () {
     test('should check if there are completed todos', () async {
       final model = TodoListModel(
@@ -52,8 +52,7 @@ main() {
         Todo('c', complete: true),
       ];
       final model = TodoListModel(
-          repo: MockRepository(todos),
-          activeFilter: VisibilityFilter.all);
+          repo: MockRepository(todos), activeFilter: VisibilityFilter.all);
       await model.loadTodos();
 
       expect(model.filteredTodos, todos);
@@ -151,7 +150,7 @@ class MockRepository extends TodosRepository {
   List<TodoEntity> entities;
 
   MockRepository(List<Todo> todos)
-      : this.entities = todos.map((it) => it.toEntity()).toList();
+      : entities = todos.map((it) => it.toEntity()).toList();
 
   @override
   Future<List<TodoEntity>> loadTodos() {

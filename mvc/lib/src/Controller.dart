@@ -13,8 +13,7 @@ import 'package:mvc/src/App.dart' show MVCApp;
 /// The Controller answers & responses to 'the events' while the Model execute 'the rules' and manipulates data.
 class Con extends ControllerMVC {
   factory Con() {
-    if (_this == null) _this = Con._();
-    return _this;
+    return _this ??= Con._();
   }
   static Con _this;
 

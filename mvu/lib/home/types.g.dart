@@ -23,7 +23,7 @@ class _$HomeModel extends HomeModel {
   @override
   final BodyModel body;
 
-  factory _$HomeModel([void updates(HomeModelBuilder b)]) =>
+  factory _$HomeModel([void Function(HomeModelBuilder b) updates]) =>
       (new HomeModelBuilder()..update(updates)).build();
 
   _$HomeModel._({this.body}) : super._() {
@@ -33,7 +33,7 @@ class _$HomeModel extends HomeModel {
   }
 
   @override
-  HomeModel rebuild(void updates(HomeModelBuilder b)) =>
+  HomeModel rebuild(void Function(HomeModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -83,7 +83,7 @@ class HomeModelBuilder implements Builder<HomeModel, HomeModelBuilder> {
   }
 
   @override
-  void update(void updates(HomeModelBuilder b)) {
+  void update(void Function(HomeModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

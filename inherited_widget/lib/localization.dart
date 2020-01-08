@@ -12,7 +12,7 @@ class InheritedWidgetLocalizations {
         context, InheritedWidgetLocalizations);
   }
 
-  String get appTitle => "InheritedWidget Example";
+  String get appTitle => 'InheritedWidget Example';
 }
 
 class InheritedWidgetLocalizationsDelegate
@@ -26,5 +26,5 @@ class InheritedWidgetLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

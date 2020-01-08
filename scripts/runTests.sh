@@ -31,15 +31,13 @@ runTests () {
   local repo_dir=$2
   cd $package_dir;
   if [[ -f "pubspec.yaml" ]] && [[ -d "test" ]]; then
-    echo "running tests in $1"
 #    flutter packages get || echo "Ignore exit(1)"
     flutter packages get
-   # check if build_runner needs to be run
-    # todo: fix build in ./built_redux (not regenerating *.g.dart files in dart 2.0)
-    if grep build_runner pubspec.yaml > /dev/null  && [[ "$package_dir" != "./built_redux" ]]; then
-      flutter packages pub run build_runner build --delete-conflicting-outputs
-    fi
-
+    echo "run analyzer in $1"
+    flutter analyze
+    echo "run dartfmt in $1"
+    flutter dartfmt -n --set-exit-if-changed ./
+    echo "running tests in $1"
     # run tests with coverage
     if grep flutter pubspec.yaml > /dev/null; then
       echo "run flutter tests"

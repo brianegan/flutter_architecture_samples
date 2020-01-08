@@ -29,7 +29,7 @@ class _$TodoModel extends TodoModel {
   @override
   final String task;
 
-  factory _$TodoModel([void updates(TodoModelBuilder b)]) =>
+  factory _$TodoModel([void Function(TodoModelBuilder b) updates]) =>
       (new TodoModelBuilder()..update(updates)).build();
 
   _$TodoModel._({this.id, this.complete, this.note, this.task}) : super._() {
@@ -48,7 +48,7 @@ class _$TodoModel extends TodoModel {
   }
 
   @override
-  TodoModel rebuild(void updates(TodoModelBuilder b)) =>
+  TodoModel rebuild(void Function(TodoModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -123,7 +123,7 @@ class TodoModelBuilder implements Builder<TodoModel, TodoModelBuilder> {
   }
 
   @override
-  void update(void updates(TodoModelBuilder b)) {
+  void update(void Function(TodoModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

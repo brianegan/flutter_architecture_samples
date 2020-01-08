@@ -1,5 +1,5 @@
-import 'package:integration_tests/integration_tests.dart' as integrationTests;
+import 'package:integration_tests/integration_tests.dart' as integration_tests;
 
-main() {
-  integrationTests.main();
+void main() {
+  integration_tests.main();
 }

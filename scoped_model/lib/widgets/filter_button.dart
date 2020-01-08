@@ -35,8 +35,7 @@ class FilterButton extends StatelessWidget {
 
   List<PopupMenuItem<VisibilityFilter>> _items(
       BuildContext context, TodoListModel model) {
-    final activeStyle = Theme
-        .of(context)
+    final activeStyle = Theme.of(context)
         .textTheme
         .body1
         .copyWith(color: Theme.of(context).accentColor);

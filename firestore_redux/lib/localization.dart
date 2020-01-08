@@ -14,7 +14,7 @@ class FirestoreReduxLocalizations {
     );
   }
 
-  String get appTitle => "Firestore Redux Example";
+  String get appTitle => 'Firestore Redux Example';
 }
 
 class FirestoreReduxLocalizationsDelegate
@@ -28,5 +28,5 @@ class FirestoreReduxLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

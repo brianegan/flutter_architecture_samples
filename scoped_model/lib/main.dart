@@ -9,7 +9,7 @@ import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 void main() {
   var todoRepo = const TodosRepositoryFlutter(
-    fileStorage: const FileStorage(
+    fileStorage: FileStorage(
       'scoped_model_todos',
       getApplicationDocumentsDirectory,
     ),

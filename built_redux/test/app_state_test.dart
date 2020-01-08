@@ -5,7 +5,7 @@
 import 'package:built_redux_sample/models/models.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('Selector Tests', () {
     test('should calculate the number of active todos', () {
       final state = AppState.fromTodos([
@@ -63,8 +63,7 @@ main() {
         todo2,
         todo3,
       ];
-      final state = AppState
-          .fromTodos(todos)
+      final state = AppState.fromTodos(todos)
           .rebuild((b) => b.activeFilter = VisibilityFilter.active);
 
       expect(state.filteredTodosSelector, [todo1, todo2]);
@@ -84,8 +83,7 @@ main() {
         todo2,
         todo3,
       ];
-      final state = AppState
-          .fromTodos(todos)
+      final state = AppState.fromTodos(todos)
           .rebuild((b) => b.activeFilter = VisibilityFilter.completed);
 
       expect(state.filteredTodosSelector, [todo3]);

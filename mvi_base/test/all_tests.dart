@@ -4,7 +4,7 @@ import 'mvi_todos_list_test.dart' as mviTodosList;
 import 'todos_interactor_test.dart' as todosInteractor;
 import 'user_interactor_test.dart' as userInteractor;
 
-main() {
+void main() {
   mviStats.main();
   mviTodo.main();
   mviTodosList.main();

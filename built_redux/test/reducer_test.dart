@@ -8,10 +8,10 @@ import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/reducers/reducers.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('State Reducer', () {
     test('should add a todo to the list in response to an AddTodoAction', () {
-      final todo = Todo("Hallo");
+      final todo = Todo('Hallo');
       final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
         AppState(),
@@ -24,7 +24,7 @@ main() {
     });
 
     test('should remove from the list in response to a DeleteTodoAction', () {
-      final todo = Todo("Hallo");
+      final todo = Todo('Hallo');
       final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
         AppState.fromTodos([todo]),
@@ -39,8 +39,8 @@ main() {
     });
 
     test('should update a todo in response to an UpdateTodoAction', () {
-      final todo = Todo("Hallo");
-      final updatedTodo = todo.rebuild((b) => b.task = "Tschuss");
+      final todo = Todo('Hallo');
+      final updatedTodo = todo.rebuild((b) => b.task = 'Tschuss');
       final store = Store<AppState, AppStateBuilder, AppActions>(
         reducerBuilder.build(),
         AppState.fromTodos([todo]),
@@ -54,10 +54,10 @@ main() {
     });
 
     test('should clear completed todos', () {
-      final todo1 = Todo("Hallo");
+      final todo1 = Todo('Hallo');
       final todo2 = Todo.builder(
         (b) => b
-          ..task = "Tschüss"
+          ..task = 'Tschüss'
           ..complete = true,
       );
       final store = Store<AppState, AppStateBuilder, AppActions>(
@@ -74,10 +74,10 @@ main() {
     });
 
     test('should mark all as completed if some todos are incomplete', () {
-      final todo1 = Todo("Hallo");
+      final todo1 = Todo('Hallo');
       final todo2 = Todo.builder(
         (b) => b
-          ..task = "Tschüss"
+          ..task = 'Tschüss'
           ..complete = true,
       );
       final store = Store<AppState, AppStateBuilder, AppActions>(
@@ -96,12 +96,12 @@ main() {
     test('should mark all as incomplete if all todos are complete', () {
       final todo1 = Todo.builder(
         (b) => b
-          ..task = "Hallo"
+          ..task = 'Hallo'
           ..complete = true,
       );
       final todo2 = Todo.builder(
         (b) => b
-          ..task = "Tschüss"
+          ..task = 'Tschüss'
           ..complete = true,
       );
       final store = Store<AppState, AppStateBuilder, AppActions>(

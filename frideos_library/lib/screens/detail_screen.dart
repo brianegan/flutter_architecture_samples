@@ -5,7 +5,6 @@ import 'package:todos_app_core/todos_app_core.dart';
 import 'package:frideos/frideos.dart';
 
 import 'package:frideos_library/app_state.dart';
-import 'package:frideos_library/blocs/todos_bloc.dart';
 import 'package:frideos_library/models/models.dart';
 import 'package:frideos_library/screens/add_edit_screen.dart';
 import 'package:frideos_library/widgets/loading.dart';
@@ -15,7 +14,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TodosBloc bloc = AppStateProvider.of<AppState>(context).todosBloc;
+    final bloc = AppStateProvider.of<AppState>(context).todosBloc;
 
     return ValueBuilder<Todo>(
       streamed: bloc.currentTodo,

@@ -5,24 +5,23 @@ import 'package:dartea/dartea.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 List<TodoEntity> createTodos({bool complete}) => [
-      new TodoEntity('Buy milk', '1', 'soy', complete ?? false),
-      new TodoEntity('Buy bread', '2', 'italian one', complete ?? true),
-      new TodoEntity('Buy meat', '3', 'or chicken', complete ?? false),
-      new TodoEntity(
-          'Buy water', '4', 'carbonated and still', complete ?? true),
-      new TodoEntity('Read book', '5', 'interesting one', complete ?? false),
-      new TodoEntity('Watch football', '6', '', complete ?? true),
-      new TodoEntity('Sleep', '7', 'well', complete ?? false),
+      TodoEntity('Buy milk', '1', 'soy', complete ?? false),
+      TodoEntity('Buy bread', '2', 'italian one', complete ?? true),
+      TodoEntity('Buy meat', '3', 'or chicken', complete ?? false),
+      TodoEntity('Buy water', '4', 'carbonated and still', complete ?? true),
+      TodoEntity('Read book', '5', 'interesting one', complete ?? false),
+      TodoEntity('Watch football', '6', '', complete ?? true),
+      TodoEntity('Sleep', '7', 'well', complete ?? false),
     ];
 
 List<TodoEntity> createTodosForStats(int activeCount, int completedCount) {
-  var result = List<TodoEntity>();
-  for (int i = 0; i < activeCount; i++) {
+  final result = <TodoEntity>[];
+  for (var i = 0; i < activeCount; i++) {
     var todo = TodoEntity('todo $i', '$i', 'note for todo #$i', false);
     result.add(todo);
   }
   var totalLength = result.length + completedCount;
-  for (int i = result.length; i < totalLength; i++) {
+  for (var i = result.length; i < totalLength; i++) {
     var todo = TodoEntity('todo $i', '$i', 'note for todo #$i', true);
     result.add(todo);
   }
@@ -30,7 +29,7 @@ List<TodoEntity> createTodosForStats(int activeCount, int completedCount) {
 }
 
 class InMemoryTodosRepository implements TodosRepository {
-  List<TodoEntity> items = List();
+  final items = <TodoEntity>[];
   final bool isBrokern;
   InMemoryTodosRepository(
       {Iterable<TodoEntity> initialItems, this.isBrokern = false}) {
@@ -54,12 +53,12 @@ class InMemoryTodosRepository implements TodosRepository {
 }
 
 class TestTodosCmdRepository implements CmdRepository {
-  final List<RepoEffect> createdEffects = List();
+  final createdEffects = <RepoEffect>[];
 
   @override
   Cmd<T> createCmd<T>(
       T Function(TodoEntity todo) onSuccess, String task, String note) {
-    final entity = TodoEntity(task, "new_id", note, false);
+    final entity = TodoEntity(task, 'new_id', note, false);
     createdEffects.add(CreateTodoEffect(task, note));
     return Cmd.ofFunc(() => entity, onSuccess: onSuccess);
   }

@@ -5,7 +5,7 @@
 import 'package:test/test.dart';
 import 'package:vanilla/models.dart';
 
-main() {
+void main() {
   group('AppState', () {
     test('should check if there are completed todos', () {
       final state = AppState(todos: [

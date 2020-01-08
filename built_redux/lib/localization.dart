@@ -14,7 +14,7 @@ class BuiltReduxLocalizations {
     );
   }
 
-  String get appTitle => "Built Redux Example";
+  String get appTitle => 'Built Redux Example';
 }
 
 class BuiltReduxLocalizationsDelegate
@@ -28,5 +28,5 @@ class BuiltReduxLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

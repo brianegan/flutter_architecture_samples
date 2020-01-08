@@ -15,8 +15,8 @@ void main() {
       final interactor = MockTodosInteractor();
       final bloc = StatsBloc(interactor);
       final todos = [
-        Todo("Hallo", complete: true),
-        Todo("Friend"),
+        Todo('Hallo', complete: true),
+        Todo('Friend'),
       ];
       final source = BehaviorSubject<List<Todo>>.seeded(todos);
 
@@ -29,8 +29,8 @@ void main() {
       final interactor = MockTodosInteractor();
       final bloc = StatsBloc(interactor);
       final todos = [
-        Todo("Hallo", complete: true),
-        Todo("Friend", complete: true),
+        Todo('Hallo', complete: true),
+        Todo('Friend', complete: true),
       ];
       final source = BehaviorSubject<List<Todo>>.seeded(todos);
 

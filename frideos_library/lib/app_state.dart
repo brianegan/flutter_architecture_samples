@@ -23,9 +23,9 @@ class AppState extends AppStateModel {
   final tabController = StreamedValue<AppTab>(initialData: AppTab.todos);
 
   @override
-  init() {
+  void init() {
     respository = const TodosRepositoryFlutter(
-      fileStorage: const FileStorage(
+      fileStorage: FileStorage(
         'frideos_library',
         getApplicationDocumentsDirectory,
       ),
@@ -38,7 +38,7 @@ class AppState extends AppStateModel {
   }
 
   @override
-  dispose() {
+  void dispose() {
     todosBloc.dispose();
     statsBloc.dispose();
     tabController.dispose();

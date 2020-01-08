@@ -10,41 +10,41 @@ Widget buildExtraActionsMenu(
 Widget view(
     BuildContext context, Dispatch<StatsMessage> dispatch, StatsModel model) {
   return model.loading
-      ? new Center(
+      ? Center(
           key: ArchSampleKeys.statsLoading,
-          child: new CircularProgressIndicator(
+          child: CircularProgressIndicator(
             key: ArchSampleKeys.statsLoading,
           ))
-      : new Center(
-          child: new Column(
+      : Center(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 8.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
                   ArchSampleLocalizations.of(context).completedTodos,
                   style: Theme.of(context).textTheme.title,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 24.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: Text(
                   '${model.completedCount}',
                   key: ArchSampleKeys.statsNumCompleted,
                   style: Theme.of(context).textTheme.subhead,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 8.0),
-                child: new Text(
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text(
                   ArchSampleLocalizations.of(context).activeTodos,
                   style: Theme.of(context).textTheme.title,
                 ),
               ),
-              new Padding(
-                padding: new EdgeInsets.only(bottom: 24.0),
-                child: new Text(
-                  "${model.activeCount}",
+              Padding(
+                padding: EdgeInsets.only(bottom: 24.0),
+                child: Text(
+                  '${model.activeCount}',
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,
                 ),
@@ -57,9 +57,9 @@ Widget view(
 StatsMessage _toMessage(menu.ExtraAction action) {
   switch (action) {
     case menu.ExtraAction.toggleAll:
-      return new ToggleAllMessage();
+      return ToggleAllMessage();
     case menu.ExtraAction.clearCompleted:
     default:
-      return new CleareCompletedMessage();
+      return CleareCompletedMessage();
   }
 }

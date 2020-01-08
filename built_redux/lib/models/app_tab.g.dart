@@ -14,8 +14,8 @@ part of app_tab;
 // ignore_for_file: prefer_expression_function_bodies
 // ignore_for_file: sort_constructors_first
 
-const AppTab _$todos = const AppTab._('todos');
-const AppTab _$stats = const AppTab._('stats');
+const AppTab _$todos = AppTab._('todos');
+const AppTab _$stats = AppTab._('stats');
 
 AppTab _$appTabValueOf(String name) {
   switch (name) {
@@ -24,16 +24,16 @@ AppTab _$appTabValueOf(String name) {
     case 'stats':
       return _$stats;
     default:
-      throw new ArgumentError(name);
+      throw ArgumentError(name);
   }
 }
 
-final BuiltSet<AppTab> _$appTabValues = new BuiltSet<AppTab>(const <AppTab>[
+final BuiltSet<AppTab> _$appTabValues = BuiltSet<AppTab>(const <AppTab>[
   _$todos,
   _$stats,
 ]);
 
-Serializer<AppTab> _$appTabSerializer = new _$AppTabSerializer();
+Serializer<AppTab> _$appTabSerializer = _$AppTabSerializer();
 
 class _$AppTabSerializer implements PrimitiveSerializer<AppTab> {
   @override
@@ -43,11 +43,11 @@ class _$AppTabSerializer implements PrimitiveSerializer<AppTab> {
 
   @override
   Object serialize(Serializers serializers, AppTab object,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       object.name;
 
   @override
   AppTab deserialize(Serializers serializers, Object serialized,
-          {FullType specifiedType: FullType.unspecified}) =>
+          {FullType specifiedType = FullType.unspecified}) =>
       AppTab.valueOf(serialized as String);
 }

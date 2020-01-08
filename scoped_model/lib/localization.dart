@@ -12,7 +12,7 @@ class ScopedModelLocalizations {
         context, ScopedModelLocalizations);
   }
 
-  String get appTitle => "scoped_model example";
+  String get appTitle => 'scoped_model example';
 }
 
 class ScopedModelLocalizationsDelegate
@@ -26,5 +26,5 @@ class ScopedModelLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

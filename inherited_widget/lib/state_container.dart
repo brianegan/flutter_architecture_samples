@@ -17,7 +17,7 @@ class StateContainer extends StatefulWidget {
   StateContainer({
     @required this.child,
     this.repository = const TodosRepositoryFlutter(
-      fileStorage: const FileStorage(
+      fileStorage: FileStorage(
         'inherited_widget_sample',
         getApplicationDocumentsDirectory,
       ),
@@ -26,7 +26,8 @@ class StateContainer extends StatefulWidget {
   });
 
   static StateContainerState of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<_InheritedStateContainer>()
+    return context
+        .dependOnInheritedWidgetOfExactType<_InheritedStateContainer>()
         .data;
   }
 
@@ -141,7 +142,7 @@ class _InheritedStateContainer extends InheritedWidget {
   bool updateShouldNotify(_InheritedStateContainer old) => true;
 }
 
-typedef TodoUpdater(
+typedef TodoUpdater = void Function(
   Todo todo, {
   bool complete,
   String id,

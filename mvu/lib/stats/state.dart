@@ -1,20 +1,20 @@
 part of stats;
 
 Upd<StatsModel, StatsMessage> init() {
-  var model = new StatsModel((b) => b
-    ..items = new BuiltList<TodoModel>().toBuilder()
+  var model = StatsModel((b) => b
+    ..items = BuiltList<TodoModel>().toBuilder()
     ..activeCount = 0
     ..completedCount = 0
     ..loading = false);
-  return new Upd(model, effects: new Cmd.ofMsg(new LoadStats()));
+  return Upd(model, effects: Cmd.ofMsg(LoadStats()));
 }
 
 Upd<StatsModel, StatsMessage> update(
     CmdRepository repo, StatsMessage msg, StatsModel model) {
   if (msg is LoadStats) {
     var updatedModel = model.rebuild((b) => b..loading = true);
-    var loadCmd = repo.loadTodosCmd((items) => new OnStatsLoaded(items));
-    return new Upd(updatedModel, effects: loadCmd);
+    var loadCmd = repo.loadTodosCmd((items) => OnStatsLoaded(items));
+    return Upd(updatedModel, effects: loadCmd);
   }
   if (msg is OnStatsLoaded) {
     var updatedModel = _onItemsChanged(model, msg.todos);
@@ -28,14 +28,15 @@ Upd<StatsModel, StatsMessage> update(
   if (msg is CleareCompletedMessage) {
     var updatedModel = model.rebuild((b) => b.items.where((t) => !t.complete));
     updatedModel = _calculateStats(updatedModel);
-    return new Upd(updatedModel, effects: _saveItems(repo, updatedModel));
+    return Upd(updatedModel, effects: _saveItems(repo, updatedModel));
   }
   if (msg is OnNewTaskCreated) {
-    var updatedModel = model.rebuild((b) => b.items.add(TodoModel.fromEntity(msg.entity)));
+    var updatedModel =
+        model.rebuild((b) => b.items.add(TodoModel.fromEntity(msg.entity)));
     updatedModel = _calculateStats(updatedModel);
     return Upd(updatedModel);
   }
-  return new Upd(model);
+  return Upd(model);
 }
 
 StatsModel _onItemsChanged(StatsModel model, List<TodoEntity> newItems) {

@@ -21,12 +21,14 @@ class AppState {
   bool get allComplete => todos.every((todo) => todo.complete);
 
   List<Todo> get filteredTodos => todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
+        switch (activeFilter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
         }
       }).toList();
 
@@ -54,9 +56,9 @@ class AppState {
   }
 
   void toggleAll() {
-    final allCompleted = this.allComplete;
+    final allCurrentlyComplete = allComplete;
 
-    todos.forEach((todo) => todo.complete = !allCompleted);
+    todos.forEach((todo) => todo.complete = !allCurrentlyComplete);
   }
 
   @override
@@ -76,7 +78,7 @@ class Todo {
   String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? Uuid().generateV4();
+      : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>

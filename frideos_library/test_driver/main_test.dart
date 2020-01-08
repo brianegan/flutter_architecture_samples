@@ -17,13 +17,12 @@ void main() {
     });
 
     tearDownAll(() async {
-      if (driver != null)
-        driver.close();
+      if (driver != null) await driver.close();
     });
 
     test('tap on the floating action button; verify counter', () async {
       // Finds the floating action button (fab) to tap on
-      SerializableFinder fab = find.byTooltip('Increment');
+      final fab = find.byTooltip('Increment');
 
       // Wait for the floating action button to appear
       await driver.waitFor(fab);

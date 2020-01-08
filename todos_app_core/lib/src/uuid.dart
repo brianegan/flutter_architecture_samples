@@ -21,7 +21,7 @@ class Uuid {
   /// random numbers as the source of the generated uuid.
   String generateV4() {
     // Generate xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx / 8-4-4-4-12.
-    final int special = 8 + _random.nextInt(4);
+    final special = 8 + _random.nextInt(4);
 
     return '${_bitsDigits(16, 4)}${_bitsDigits(16, 4)}-'
         '${_bitsDigits(16, 4)}-'

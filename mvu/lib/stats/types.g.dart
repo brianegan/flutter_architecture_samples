@@ -29,7 +29,7 @@ class _$StatsModel extends StatsModel {
   @override
   final int completedCount;
 
-  factory _$StatsModel([void updates(StatsModelBuilder b)]) =>
+  factory _$StatsModel([void Function(StatsModelBuilder b) updates]) =>
       (new StatsModelBuilder()..update(updates)).build();
 
   _$StatsModel._(
@@ -50,7 +50,7 @@ class _$StatsModel extends StatsModel {
   }
 
   @override
-  StatsModel rebuild(void updates(StatsModelBuilder b)) =>
+  StatsModel rebuild(void Function(StatsModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -128,7 +128,7 @@ class StatsModelBuilder implements Builder<StatsModel, StatsModelBuilder> {
   }
 
   @override
-  void update(void updates(StatsModelBuilder b)) {
+  void update(void Function(StatsModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

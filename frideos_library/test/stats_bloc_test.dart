@@ -12,7 +12,7 @@ class MockRepository extends TodosRepository {
   List<TodoEntity> entities;
 
   MockRepository(List<Todo> todos)
-      : this.entities = todos.map((it) => it.toEntity()).toList();
+      : entities = todos.map((it) => it.toEntity()).toList();
 
   @override
   Future<List<TodoEntity>> loadTodos() {
@@ -25,7 +25,7 @@ class MockRepository extends TodosRepository {
   }
 }
 
-main() {
+void main() {
   group('StatsBloc', () {
     test('should stream the number of active todos', () async {
       final statsBloc = StatsBloc();
@@ -51,9 +51,9 @@ main() {
       final todos = [
         Todo('a'),
         Todo('b'),
-        Todo("Hallo", complete: true),
-        Todo("Friend", complete: true),
-        Todo("Flutter", complete: true),
+        Todo('Hallo', complete: true),
+        Todo('Friend', complete: true),
+        Todo('Flutter', complete: true),
       ];
 
       final todosBloc = TodosBloc(repository: MockRepository(todos));

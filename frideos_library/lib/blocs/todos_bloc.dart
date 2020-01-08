@@ -11,7 +11,7 @@ class TodosBloc {
     _init();
   }
 
-  _init() async {
+  void _init() async {
     // Load the todos from the repository
     await loadTodos();
 
@@ -47,7 +47,7 @@ class TodosBloc {
   //
   void loadTodos() async {
     var todos = await repository.loadTodos();
-    todosItems.value = todos?.map(Todo.fromEntity).toList() ?? [];
+    todosItems.value = todos.map(Todo.fromEntity).toList() ?? [];
     todosSender.send(todosItems.value);
   }
 
@@ -139,12 +139,13 @@ class TodosBloc {
   static List<Todo> filterTodos(List<Todo> todos, VisibilityFilter filter) {
     return todos.where((todo) {
       switch (filter) {
-        case VisibilityFilter.all:
-          return true;
         case VisibilityFilter.active:
           return !todo.complete;
         case VisibilityFilter.completed:
           return todo.complete;
+        case VisibilityFilter.all:
+        default:
+          return true;
       }
     }).toList();
   }

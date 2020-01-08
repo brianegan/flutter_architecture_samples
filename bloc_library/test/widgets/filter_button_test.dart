@@ -48,7 +48,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      Finder filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
+      var filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
       expect(filterButtonFinder, findsOneWidget);
       await tester.tap(filterButtonFinder);
       await tester.pumpAndSettle();
@@ -79,7 +79,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      Finder filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
+      var filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
       expect(filterButtonFinder, findsOneWidget);
       await tester.tap(filterButtonFinder);
       await tester.pumpAndSettle();
@@ -110,7 +110,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      Finder filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
+      var filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
       expect(filterButtonFinder, findsOneWidget);
       await tester.tap(filterButtonFinder);
       await tester.pumpAndSettle();
@@ -143,8 +143,8 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      Finder filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
-      Finder allFilterFinder = find.byKey(ArchSampleKeys.allFilter);
+      var filterButtonFinder = find.byKey(ArchSampleKeys.filterButton);
+      var allFilterFinder = find.byKey(ArchSampleKeys.allFilter);
       expect(filterButtonFinder, findsOneWidget);
       await tester.tap(filterButtonFinder);
       await tester.pumpAndSettle();

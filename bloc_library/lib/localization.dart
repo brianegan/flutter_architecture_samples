@@ -14,7 +14,7 @@ class FlutterBlocLocalizations {
     );
   }
 
-  String get appTitle => "Bloc Library Example";
+  String get appTitle => 'Bloc Library Example';
 }
 
 class FlutterBlocLocalizationsDelegate
@@ -28,5 +28,5 @@ class FlutterBlocLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

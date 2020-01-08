@@ -7,7 +7,7 @@ import 'package:fire_redux_sample/selectors/selectors.dart';
 import 'package:quiver/core.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   group('Selectors', () {
     test('should list the active todos', () {
       final todoA = Todo('a');
@@ -93,7 +93,7 @@ main() {
     });
 
     test('should return an Optional todo based on id', () {
-      final todo1 = Todo('a', id: "1");
+      final todo1 = Todo('a', id: '1');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
       final todos = [
@@ -102,11 +102,11 @@ main() {
         todo3,
       ];
 
-      expect(todoSelector(todos, "1"), Optional.of(todo1));
+      expect(todoSelector(todos, '1'), Optional.of(todo1));
     });
 
     test('should return an absent Optional if the id is not found', () {
-      final todo1 = Todo('a', id: "1");
+      final todo1 = Todo('a', id: '1');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
       final todos = [
@@ -115,7 +115,7 @@ main() {
         todo3,
       ];
 
-      expect(todoSelector(todos, "2"), Optional.absent());
+      expect(todoSelector(todos, '2'), Optional.absent());
     });
   });
 }

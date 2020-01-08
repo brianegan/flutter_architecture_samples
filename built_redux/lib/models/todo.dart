@@ -32,7 +32,7 @@ abstract class Todo implements Built<Todo, TodoBuilder> {
     );
   }
 
-  factory Todo.builder([updates(TodoBuilder b)]) {
+  factory Todo.builder([void Function(TodoBuilder b) updates]) {
     final builder = TodoBuilder()
       ..id = Uuid().generateV4()
       ..complete = false

@@ -2,17 +2,17 @@ part of home;
 
 Widget view(
     BuildContext context, Dispatch<HomeMessage> dispatch, HomeModel model) {
-  return new Scaffold(
+  return Scaffold(
     key: ArchSampleKeys.homeScreen,
-    appBar: new AppBar(
-      title: new Text(new MvuLocalizations().appTitle),
+    appBar: AppBar(
+      title: Text(MvuLocalizations().appTitle),
       actions: _getAppBarActions(context, dispatch, model.body),
     ),
-    body: new Builder(builder: (ctx) => _body(ctx, dispatch, model.body)),
-    floatingActionButton: new FloatingActionButton(
+    body: Builder(builder: (ctx) => _body(ctx, dispatch, model.body)),
+    floatingActionButton: FloatingActionButton(
       key: ArchSampleKeys.addTodoFab,
       onPressed: () => dispatch(CreateNewTodo()),
-      child: new Icon(Icons.add),
+      child: Icon(Icons.add),
       tooltip: ArchSampleLocalizations.of(context).addTodo,
     ),
     bottomNavigationBar: _bottomNavigation(context, dispatch, model.body.tag),
@@ -22,35 +22,35 @@ Widget view(
 List<Widget> _getAppBarActions(
     BuildContext context, Dispatch<HomeMessage> dispatch, BodyModel body) {
   if (body.tag == AppTab.todos) {
-    var extraActions = todos.buildExtraActionsMenu(
-        (m) => dispatch(new TodosMsg(m)), body.model);
+    var extraActions =
+        todos.buildExtraActionsMenu((m) => dispatch(TodosMsg(m)), body.model);
     var filterMenu = todos.buildFilterMenu(
-        context, (m) => dispatch(new TodosMsg(m)), body.model);
+        context, (m) => dispatch(TodosMsg(m)), body.model);
     return [filterMenu, extraActions];
   }
   if (body.tag == AppTab.stats) {
-    var extraActions = stats.buildExtraActionsMenu(
-        (m) => dispatch(new StatsMsg(m)), body.model);
+    var extraActions =
+        stats.buildExtraActionsMenu((m) => dispatch(StatsMsg(m)), body.model);
     return [extraActions];
   }
-  return [new Container()];
+  return [Container()];
 }
 
 Widget _bottomNavigation(
     BuildContext context, Dispatch<HomeMessage> dispatch, AppTab current) {
-  return new BottomNavigationBar(
+  return BottomNavigationBar(
     key: ArchSampleKeys.tabs,
     currentIndex: AppTab.values.indexOf(current),
-    onTap: ((i) => dispatch(new TabChangedMessage(AppTab.values[i]))),
+    onTap: ((i) => dispatch(TabChangedMessage(AppTab.values[i]))),
     items: AppTab.values.map((tab) {
-      return new BottomNavigationBarItem(
-        icon: new Icon(
+      return BottomNavigationBarItem(
+        icon: Icon(
           tab == AppTab.todos ? Icons.list : Icons.show_chart,
           key: tab == AppTab.todos
               ? ArchSampleKeys.todoTab
               : ArchSampleKeys.statsTab,
         ),
-        title: new Text(tab == AppTab.stats
+        title: Text(tab == AppTab.stats
             ? ArchSampleLocalizations.of(context).stats
             : ArchSampleLocalizations.of(context).todos),
       );
@@ -63,9 +63,9 @@ Widget _body(
   snackbar.init(context);
   switch (body.tag) {
     case AppTab.todos:
-      return todos.view(context, (m) => dispatch(new TodosMsg(m)), body.model);
+      return todos.view(context, (m) => dispatch(TodosMsg(m)), body.model);
     case AppTab.stats:
-      return stats.view(context, (m) => dispatch(new StatsMsg(m)), body.model);
+      return stats.view(context, (m) => dispatch(StatsMsg(m)), body.model);
   }
-  return new Text("Unknown tag: ${body.tag}");
+  return Text('Unknown tag: ${body.tag}');
 }

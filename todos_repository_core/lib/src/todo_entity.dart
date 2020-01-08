@@ -26,10 +26,10 @@ class TodoEntity {
 
   Map<String, Object> toJson() {
     return {
-      "complete": complete,
-      "task": task,
-      "note": note,
-      "id": id,
+      'complete': complete,
+      'task': task,
+      'note': note,
+      'id': id,
     };
   }
 
@@ -40,10 +40,10 @@ class TodoEntity {
 
   static TodoEntity fromJson(Map<String, Object> json) {
     return TodoEntity(
-      json["task"] as String,
-      json["id"] as String,
-      json["note"] as String,
-      json["complete"] as bool,
+      json['task'] as String,
+      json['id'] as String,
+      json['note'] as String,
+      json['complete'] as bool,
     );
   }
 }

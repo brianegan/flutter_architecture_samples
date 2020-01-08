@@ -42,6 +42,6 @@ class TodoItemElement extends TestElement {
   DetailsTestScreen tap() {
     driver.tap(_taskFinder);
 
-    return new DetailsTestScreen(driver);
+    return DetailsTestScreen(driver);
   }
 }

@@ -13,16 +13,15 @@ void init(BuildContext context) {
 }
 
 Cmd<T> goToDetailsScreen<T>(TodoModel todo) =>
-    Cmd.ofAction<T>(() => _navigator.push(new MaterialPageRoute(
+    Cmd.ofAction<T>(() => _navigator.push(MaterialPageRoute(
         builder: (_) => details.createProgram(repoCmds, todo).build())));
 
 Cmd<T> goToEditTodoScreen<T>(TodoModel todo) =>
-    Cmd.ofAction<T>(() => _navigator.push(new MaterialPageRoute(
+    Cmd.ofAction<T>(() => _navigator.push(MaterialPageRoute(
         builder: (_) =>
             edit.createProgram(repoCmds, todo: todo.toEntity()).build())));
 
-Cmd<T> goToCreateNewScreen<T>() =>
-    Cmd.ofAction<T>(() => _navigator.push(new MaterialPageRoute(
-        builder: (_) => edit.createProgram(repoCmds).build())));
+Cmd<T> goToCreateNewScreen<T>() => Cmd.ofAction<T>(() => _navigator.push(
+    MaterialPageRoute(builder: (_) => edit.createProgram(repoCmds).build())));
 
 Cmd<T> goBack<T>() => Cmd.ofAction<T>(() => _navigator.pop());

@@ -12,7 +12,7 @@ class MockRepository extends TodosRepository {
   List<TodoEntity> entities;
 
   MockRepository(List<Todo> todos)
-      : this.entities = todos.map((it) => it.toEntity()).toList();
+      : entities = todos.map((it) => it.toEntity()).toList();
 
   @override
   Future<List<TodoEntity>> loadTodos() {
@@ -25,7 +25,7 @@ class MockRepository extends TodosRepository {
   }
 }
 
-main() {
+void main() {
   group('TodosBloc', () {
     test('Add a new todo', () async {
       final todosBloc = TodosBloc(

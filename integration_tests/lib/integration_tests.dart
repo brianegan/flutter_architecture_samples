@@ -9,19 +9,19 @@ import 'package:test/test.dart';
 
 import 'page_objects/page_objects.dart';
 
-main() {
+void main() {
   group('Todo App Test', () {
     FlutterDriver driver;
     HomeTestScreen homeScreen;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
-      homeScreen = new HomeTestScreen(driver);
+      homeScreen = HomeTestScreen(driver);
     });
 
     tearDownAll(() async {
       if (driver != null) {
-        driver.close();
+        await driver.close();
       }
     });
 
@@ -51,7 +51,7 @@ main() {
     });
 
     test('should be able to delete a todo on the details screen', () async {
-      final detailsScreen = new DetailsTestScreen(driver);
+      final detailsScreen = DetailsTestScreen(driver);
 
       await detailsScreen.tapDeleteButton();
 

@@ -4,8 +4,8 @@
 
 import 'package:redux_sample/models/models.dart';
 
-typedef TodoAdder(Todo todo);
+typedef TodoAdder = void Function(Todo todo);
 
-typedef TodoRemover(String id);
+typedef TodoRemover = void Function(String id);
 
-typedef TodoUpdater(String id, Todo todo);
+typedef TodoUpdater = void Function(String id, Todo todo);

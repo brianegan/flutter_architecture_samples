@@ -27,12 +27,13 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   AppState._();
 
-  factory AppState([updates(AppStateBuilder b)]) => _$AppState((b) => b
-    ..isLoading = false
-    ..todos = ListBuilder<Todo>([])
-    ..activeTab = AppTab.todos
-    ..activeFilter = VisibilityFilter.all
-    ..update(updates));
+  factory AppState([void Function(AppStateBuilder b) updates]) =>
+      _$AppState((b) => b
+        ..isLoading = false
+        ..todos = ListBuilder<Todo>([])
+        ..activeTab = AppTab.todos
+        ..activeFilter = VisibilityFilter.all
+        ..update(updates));
 
   factory AppState.loading() => AppState((b) => b..isLoading = true);
 
@@ -58,12 +59,14 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   @memoized
   List<Todo> get filteredTodosSelector => todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
-          return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
-          return todo.complete;
+        switch (activeFilter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
         }
       }).toList();
 

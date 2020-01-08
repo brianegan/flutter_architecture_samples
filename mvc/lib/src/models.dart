@@ -3,7 +3,8 @@
 // in the LICENSE file.
 
 import 'package:todos_app_core/todos_app_core.dart' show Uuid;
-import 'package:todos_repository_core/todos_repository_core.dart' show TodoEntity;
+import 'package:todos_repository_core/todos_repository_core.dart'
+    show TodoEntity;
 
 enum AppTab { todos, stats }
 
@@ -16,7 +17,7 @@ class Todo {
   final String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? Uuid().generateV4();
+      : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>

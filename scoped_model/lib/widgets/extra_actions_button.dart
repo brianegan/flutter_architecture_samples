@@ -27,19 +27,19 @@ class ExtraActionsButton extends StatelessWidget {
           }
         },
         itemBuilder: (BuildContext context) => <PopupMenuItem<ExtraAction>>[
-              PopupMenuItem<ExtraAction>(
-                key: ArchSampleKeys.toggleAll,
-                value: ExtraAction.toggleAllComplete,
-                child: Text(model.todos.any((it) => !it.complete)
-                    ? ArchSampleLocalizations.of(context).markAllIncomplete
-                    : ArchSampleLocalizations.of(context).markAllComplete),
-              ),
-              PopupMenuItem<ExtraAction>(
-                key: ArchSampleKeys.clearCompleted,
-                value: ExtraAction.clearCompleted,
-                child: Text(ArchSampleLocalizations.of(context).clearCompleted),
-              ),
-            ],
+          PopupMenuItem<ExtraAction>(
+            key: ArchSampleKeys.toggleAll,
+            value: ExtraAction.toggleAllComplete,
+            child: Text(model.todos.any((it) => !it.complete)
+                ? ArchSampleLocalizations.of(context).markAllIncomplete
+                : ArchSampleLocalizations.of(context).markAllComplete),
+          ),
+          PopupMenuItem<ExtraAction>(
+            key: ArchSampleKeys.clearCompleted,
+            value: ExtraAction.clearCompleted,
+            child: Text(ArchSampleLocalizations.of(context).clearCompleted),
+          ),
+        ],
       );
     });
   }
