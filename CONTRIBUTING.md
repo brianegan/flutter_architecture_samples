@@ -20,3 +20,4 @@ like to make and the reasoning behind it!
   * Ensure your code is properly formatted with `dartfmt`
   * Please ensure tests are up to date
   * Verify `dartanalyzer` isn't throwing any warning or errors/
+

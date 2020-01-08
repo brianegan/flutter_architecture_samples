@@ -81,3 +81,20 @@ All of these ideas and even some of the language are directly influenced by two 
 - [Kushagra Saxena](https://github.com/kush3107)
 
 I'd like to thank all of the folks who have helped write new samples, improve the current implementations, and added documentation! You're amazing! :)
+
+| *Sample* | *LOC (no comments)* |
+|--------|-------------------|
+| bloc | 1367 |
+| bloc library | 1388 |
+| built_redux | 1528 |
+| firestore_redux | 1641 |
+| frideos_library | 1012 |
+| inherited_widget | 941 |
+| mobx | 918 |
+| mvc | 982 |
+| mvi | 1445 |
+| mvu | 1366 |
+| redux | 1579 |
+| scoped_model | 883 |
+| simple blocs | 1253 |
+| vanilla | 946 |  
