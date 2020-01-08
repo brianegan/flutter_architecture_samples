@@ -8,8 +8,8 @@ import 'package:provider_sample/app.dart';
 import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 void main() {
-  const todoRepo = const TodosRepositoryFlutter(
-    fileStorage: const FileStorage(
+  const todoRepo = TodosRepositoryFlutter(
+    fileStorage: FileStorage(
       'provider_todos',
       getApplicationDocumentsDirectory,
     ),

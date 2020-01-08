@@ -15,16 +15,16 @@ enum VisibilityFilter { all, active, completed }
 class TodoListModel extends ChangeNotifier {
   final TodosRepository repository;
 
-  VisibilityFilter _activeFilter;
+  VisibilityFilter _filter;
 
-  VisibilityFilter get activeFilter => _activeFilter;
+  VisibilityFilter get filter => _filter;
 
-  set activeFilter(VisibilityFilter filter) {
-    _activeFilter = filter;
+  set filter(VisibilityFilter filter) {
+    _filter = filter;
     notifyListeners();
   }
 
-  List<Todo> _todos = [];
+  List<Todo> _todos;
 
   UnmodifiableListView<Todo> get todos => UnmodifiableListView(_todos);
 
@@ -32,12 +32,12 @@ class TodoListModel extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  TodoListModel({@required this.repository, VisibilityFilter activeFilter})
-      : this._activeFilter = activeFilter ?? VisibilityFilter.all;
-
-  /// Wraps [ScopedModel.of] for this [Model]. See [ScopedModel.of] for more
-  // static TodoListModel of(BuildContext context) =>
-  //     ScopedModel.of<TodoListModel>(context);
+  TodoListModel({
+    @required this.repository,
+    VisibilityFilter filter,
+    List<Todo> todos,
+  })  : _todos = todos ?? [],
+        _filter = filter ?? VisibilityFilter.all;
 
   @override
   void addListener(VoidCallback listener) {
@@ -54,29 +54,33 @@ class TodoListModel extends ChangeNotifier {
     notifyListeners();
 
     return repository.loadTodos().then((loadedTodos) {
-      _todos = loadedTodos.map(Todo.fromEntity).toList();
+      _todos.addAll(loadedTodos.map(Todo.fromEntity));
       _isLoading = false;
       notifyListeners();
     }).catchError((err) {
       _isLoading = false;
-      _todos = [];
       notifyListeners();
     });
   }
 
-  List<Todo> get filteredTodos => _todos.where((todo) {
-        if (activeFilter == VisibilityFilter.all) {
-          return true;
-        } else if (activeFilter == VisibilityFilter.active) {
+  List<Todo> get filteredTodos {
+    return _todos.where((todo) {
+      switch (filter) {
+        case VisibilityFilter.active:
           return !todo.complete;
-        } else if (activeFilter == VisibilityFilter.completed) {
+        case VisibilityFilter.completed:
           return todo.complete;
-        }
-      }).toList();
+        case VisibilityFilter.all:
+        default:
+          return true;
+      }
+    }).toList();
+  }
 
   void clearCompleted() {
     _todos.removeWhere((todo) => todo.complete);
     notifyListeners();
+    _uploadItems();
   }
 
   void toggleAll() {
@@ -116,4 +120,14 @@ class TodoListModel extends ChangeNotifier {
   Todo todoById(String id) {
     return _todos.firstWhere((it) => it.id == id, orElse: () => null);
   }
+
+  int get numCompleted =>
+      todos.where((Todo todo) => todo.complete).toList().length;
+
+  bool get hasCompleted => numCompleted > 0;
+
+  int get numActive =>
+      todos.where((Todo todo) => !todo.complete).toList().length;
+
+  bool get hasActiveTodos => numActive > 0;
 }

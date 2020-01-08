@@ -27,7 +27,7 @@ class _$EditTodoModel extends EditTodoModel {
   @override
   final String id;
 
-  factory _$EditTodoModel([void updates(EditTodoModelBuilder b)]) =>
+  factory _$EditTodoModel([void Function(EditTodoModelBuilder b) updates]) =>
       (new EditTodoModelBuilder()..update(updates)).build();
 
   _$EditTodoModel._({this.task, this.note, this.id}) : super._() {
@@ -43,7 +43,7 @@ class _$EditTodoModel extends EditTodoModel {
   }
 
   @override
-  EditTodoModel rebuild(void updates(EditTodoModelBuilder b)) =>
+  EditTodoModel rebuild(void Function(EditTodoModelBuilder b) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
@@ -110,7 +110,7 @@ class EditTodoModelBuilder
   }
 
   @override
-  void update(void updates(EditTodoModelBuilder b)) {
+  void update(void Function(EditTodoModelBuilder b) updates) {
     if (updates != null) updates(this);
   }
 

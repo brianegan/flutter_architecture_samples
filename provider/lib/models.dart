@@ -16,7 +16,7 @@ class Todo {
   final String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
-      : this.id = id ?? Uuid().generateV4();
+      : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>

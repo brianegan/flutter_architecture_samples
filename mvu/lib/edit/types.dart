@@ -12,7 +12,7 @@ abstract class EditTodoModel
   String get id;
 
   EditTodoModel._();
-  factory EditTodoModel([update(EditTodoModelBuilder b)]) = _$EditTodoModel;
+  factory EditTodoModel([void Function(EditTodoModelBuilder b) update]) = _$EditTodoModel;
 }
 
 abstract class EditTodoMessage {}
