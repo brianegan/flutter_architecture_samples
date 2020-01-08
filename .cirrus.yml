@@ -1,12 +1,12 @@
 timeout_in: 30m
 env:
   FLUTTER_CHANNEL: stable
-  FLUTTER_VERSION: v1.12.13+hotfix.6
-  DOCKER_VERSION: v1.12.13-hotfix.6 # docker tags cannot have plus
+  FLUTTER_VERSION: v1.12.13+hotfix.5
+  DOCKER_VERSION: v1.12.13-hotfix.5 # docker tags cannot have plus
 
 task:
   # this task should fail fast or rely on 'depends_on' for all other tasks
-  name: Tests (Unit)
+  name: Static analysis, formatting, and unit tests
   container:
     image: cirrusci/flutter:$DOCKER_VERSION
   pub_cache:
