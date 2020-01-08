@@ -14,7 +14,6 @@ Cmd<TMsg> showUndoCmd<TMsg>(String task, TMsg Function() onUndo) {
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: Duration(seconds: 2),
-        backgroundColor: Theme.of(_scaffoldState.context).backgroundColor,
         content: Text(
           ArchSampleLocalizations.of(_scaffoldState.context).todoDeleted(task),
           maxLines: 1,

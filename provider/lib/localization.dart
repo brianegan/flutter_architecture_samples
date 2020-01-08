@@ -12,7 +12,7 @@ class ProviderLocalizations {
         context, ProviderLocalizations);
   }
 
-  String get appTitle => "provider example";
+  String get appTitle => 'Provider Example';
 }
 
 class ProviderLocalizationsDelegate
@@ -26,5 +26,5 @@ class ProviderLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

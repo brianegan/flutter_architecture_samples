@@ -141,7 +141,7 @@ class _$AppState extends AppState {
     return isLoading == other.isLoading &&
         todos == other.filteredTodos &&
         activeTab == other.activeTab &&
-        activeFilter == other.activeFilter;
+        activeFilter == other.filter;
   }
 
   @override

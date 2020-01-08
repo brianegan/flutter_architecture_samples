@@ -49,7 +49,7 @@ class _$FilterSelectorViewModel extends FilterSelectorViewModel {
     if (identical(other, this)) return true;
     if (other is! FilterSelectorViewModel) return false;
     return onFilterSelected == other.onFilterSelected &&
-        activeFilter == other.activeFilter;
+        activeFilter == other.filter;
   }
 
   @override
