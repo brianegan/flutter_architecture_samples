@@ -10,22 +10,23 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 /// Loads and saves a List of Todos using a provided KeyValueStore, which works
 /// on mobile and web.
 class LocalStorage {
-  final String tag;
+  final String key;
   final KeyValueStore store;
   final JsonCodec codec;
 
-  const LocalStorage(this.tag, this.store, [this.codec = json]);
+  const LocalStorage(this.key, this.store, [this.codec = json]);
 
   List<TodoEntity> loadTodos() {
     return codec
-        .decode(store.getString(tag))['todos']
+        .decode(store.getString(key))['todos']
+        .cast<Map<String, Object>>()
         .map<TodoEntity>(TodoEntity.fromJson)
         .toList(growable: false);
   }
 
   Future<bool> saveTodos(List<TodoEntity> todos) {
     return store.setString(
-      tag,
+      key,
       codec.encode({
         'todos': todos.map((todo) => todo.toJson()).toList(),
       }),

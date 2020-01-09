@@ -8,3 +8,5 @@ export 'src/file_storage.dart';
 export 'src/reactive_repository.dart';
 export 'src/flutter_repository.dart';
 export 'src/web_client.dart';
+export 'src/local_storage.dart';
+export 'src/local_storage_repository.dart';
