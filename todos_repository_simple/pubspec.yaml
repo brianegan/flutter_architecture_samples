@@ -10,6 +10,7 @@ dependencies:
   todos_repository_core:
     path: ../todos_repository_core
   rxdart: ^0.23.1
+  key_value_store:
 
 dev_dependencies:
   test:
