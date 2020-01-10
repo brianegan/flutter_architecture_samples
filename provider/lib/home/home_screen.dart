@@ -34,10 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(ProviderLocalizations.of(context).appTitle),
         actions: <Widget>[
-          AnimatedBuilder(
-            animation: _tab,
-            builder: (_, __) => FilterButton(
-              isActive: _tab.value == _HomeScreenTab.todos,
+          ValueListenableBuilder<_HomeScreenTab>(
+            valueListenable: _tab,
+            builder: (_, tab, __) => FilterButton(
+              isActive: tab == _HomeScreenTab.todos,
             ),
           ),
           const ExtraActionsButton(),
@@ -60,10 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
 
-          return AnimatedBuilder(
-            animation: _tab,
-            builder: (context, _) {
-              switch (_tab.value) {
+          return ValueListenableBuilder<_HomeScreenTab>(
+            valueListenable: _tab,
+            builder: (context, tab, _) {
+              switch (tab) {
                 case _HomeScreenTab.stats:
                   return const StatsView();
                 case _HomeScreenTab.todos:
@@ -80,19 +80,25 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        key: ArchSampleKeys.tabs,
-        currentIndex: _HomeScreenTab.values.indexOf(_tab.value),
-        onTap: (int index) {
-          _tab.value = _HomeScreenTab.values[index];
+      bottomNavigationBar: ValueListenableBuilder<_HomeScreenTab>(
+        valueListenable: _tab,
+        builder: (context, tab, _) {
+          return BottomNavigationBar(
+            key: ArchSampleKeys.tabs,
+            currentIndex: _HomeScreenTab.values.indexOf(tab),
+            onTap: (int index) => _tab.value = _HomeScreenTab.values[index],
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list, key: ArchSampleKeys.todoTab),
+                title: Text(ArchSampleLocalizations.of(context).todos),
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.show_chart, key: ArchSampleKeys.statsTab),
+                title: Text(ArchSampleLocalizations.of(context).stats),
+              ),
+            ],
+          );
         },
-        items: [
-          for (final tab in _HomeScreenTab.values)
-            BottomNavigationBarItem(
-              icon: Icon(tab.icon, key: tab.key),
-              title: Text(tab.title),
-            )
-        ],
       ),
     );
   }
@@ -119,19 +125,3 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 enum _HomeScreenTab { todos, stats }
-
-extension TabExtensions on _HomeScreenTab {
-  IconData get icon {
-    return (this == _HomeScreenTab.todos) ? Icons.list : Icons.show_chart;
-  }
-
-  String get title {
-    return this == _HomeScreenTab.todos ? 'Todos' : 'Stats';
-  }
-
-  Key get key {
-    return this == _HomeScreenTab.stats
-        ? ArchSampleKeys.statsTab
-        : ArchSampleKeys.todoTab;
-  }
-}

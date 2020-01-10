@@ -25,12 +25,13 @@ class ProviderApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => TodoListModel(repository: repository),
       child: MaterialApp(
-        title: ProviderLocalizations().appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           ProviderLocalizationsDelegate(),
         ],
+        onGenerateTitle: (context) =>
+            ProviderLocalizations.of(context).appTitle,
         routes: {
           ArchSampleRoutes.home: (context) => HomeScreen(),
           ArchSampleRoutes.addTodo: (context) {
