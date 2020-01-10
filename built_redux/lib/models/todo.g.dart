@@ -3,18 +3,10 @@
 part of todo;
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltValueGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: annotate_overrides
-// ignore_for_file: avoid_annotating_with_dynamic
-// ignore_for_file: avoid_returning_this
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: prefer_expression_function_bodies
-// ignore_for_file: sort_constructors_first
-
-Serializer<Todo> _$todoSerializer = _$TodoSerializer();
+Serializer<Todo> _$todoSerializer = new _$TodoSerializer();
 
 class _$TodoSerializer implements StructuredSerializer<Todo> {
   @override
@@ -23,7 +15,7 @@ class _$TodoSerializer implements StructuredSerializer<Todo> {
   final String wireName = 'Todo';
 
   @override
-  Iterable serialize(Serializers serializers, Todo object,
+  Iterable<Object> serialize(Serializers serializers, Todo object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'complete',
@@ -41,9 +33,9 @@ class _$TodoSerializer implements StructuredSerializer<Todo> {
   }
 
   @override
-  Todo deserialize(Serializers serializers, Iterable serialized,
+  Todo deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = TodoBuilder();
+    final result = new TodoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -84,30 +76,36 @@ class _$Todo extends Todo {
   @override
   final String task;
 
-  factory _$Todo([void Function(TodoBuilder b) updates]) =>
-      (TodoBuilder()..update(updates)).build();
+  factory _$Todo([void Function(TodoBuilder) updates]) =>
+      (new TodoBuilder()..update(updates)).build();
 
   _$Todo._({this.complete, this.id, this.note, this.task}) : super._() {
     if (complete == null) {
-      throw BuiltValueNullFieldError('Todo', 'complete');
+      throw new BuiltValueNullFieldError('Todo', 'complete');
     }
-    if (id == null) throw BuiltValueNullFieldError('Todo', 'id');
-    if (note == null) throw BuiltValueNullFieldError('Todo', 'note');
-    if (task == null) throw BuiltValueNullFieldError('Todo', 'task');
+    if (id == null) {
+      throw new BuiltValueNullFieldError('Todo', 'id');
+    }
+    if (note == null) {
+      throw new BuiltValueNullFieldError('Todo', 'note');
+    }
+    if (task == null) {
+      throw new BuiltValueNullFieldError('Todo', 'task');
+    }
   }
 
   @override
-  Todo rebuild(void Function(TodoBuilder b) updates) =>
+  Todo rebuild(void Function(TodoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  TodoBuilder toBuilder() => TodoBuilder()..replace(this);
+  TodoBuilder toBuilder() => new TodoBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! Todo) return false;
-    return complete == other.complete &&
+    return other is Todo &&
+        complete == other.complete &&
         id == other.id &&
         note == other.note &&
         task == other.task;
@@ -165,20 +163,24 @@ class TodoBuilder implements Builder<Todo, TodoBuilder> {
 
   @override
   void replace(Todo other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$Todo;
   }
 
   @override
-  void update(void Function(TodoBuilder b) updates) {
+  void update(void Function(TodoBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$Todo build() {
     final _$result =
-        _$v ?? _$Todo._(complete: complete, id: id, note: note, task: task);
+        _$v ?? new _$Todo._(complete: complete, id: id, note: note, task: task);
     replace(_$result);
     return _$result;
   }
 }
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new

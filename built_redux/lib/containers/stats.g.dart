@@ -3,16 +3,8 @@
 part of stats;
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltValueGenerator
 // **************************************************************************
-
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: annotate_overrides
-// ignore_for_file: avoid_annotating_with_dynamic
-// ignore_for_file: avoid_returning_this
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: prefer_expression_function_bodies
-// ignore_for_file: sort_constructors_first
 
 class _$StatsProps extends StatsProps {
   @override
@@ -20,30 +12,31 @@ class _$StatsProps extends StatsProps {
   @override
   final int numActive;
 
-  factory _$StatsProps([void Function(StatsPropsBuilder b) updates]) =>
-      (StatsPropsBuilder()..update(updates)).build();
+  factory _$StatsProps([void Function(StatsPropsBuilder) updates]) =>
+      (new StatsPropsBuilder()..update(updates)).build();
 
   _$StatsProps._({this.numCompleted, this.numActive}) : super._() {
     if (numCompleted == null) {
-      throw BuiltValueNullFieldError('StatsProps', 'numCompleted');
+      throw new BuiltValueNullFieldError('StatsProps', 'numCompleted');
     }
     if (numActive == null) {
-      throw BuiltValueNullFieldError('StatsProps', 'numActive');
+      throw new BuiltValueNullFieldError('StatsProps', 'numActive');
     }
   }
 
   @override
-  StatsProps rebuild(void Function(StatsPropsBuilder b) updates) =>
+  StatsProps rebuild(void Function(StatsPropsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  StatsPropsBuilder toBuilder() => StatsPropsBuilder()..replace(this);
+  StatsPropsBuilder toBuilder() => new StatsPropsBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! StatsProps) return false;
-    return numCompleted == other.numCompleted && numActive == other.numActive;
+    return other is StatsProps &&
+        numCompleted == other.numCompleted &&
+        numActive == other.numActive;
   }
 
   @override
@@ -84,20 +77,24 @@ class StatsPropsBuilder implements Builder<StatsProps, StatsPropsBuilder> {
 
   @override
   void replace(StatsProps other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$StatsProps;
   }
 
   @override
-  void update(void Function(StatsPropsBuilder b) updates) {
+  void update(void Function(StatsPropsBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
   _$StatsProps build() {
-    final _$result =
-        _$v ?? _$StatsProps._(numCompleted: numCompleted, numActive: numActive);
+    final _$result = _$v ??
+        new _$StatsProps._(numCompleted: numCompleted, numActive: numActive);
     replace(_$result);
     return _$result;
   }
 }
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
