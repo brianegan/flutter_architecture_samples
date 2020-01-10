@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<TodoListModel>(context, listen: true);
+    final model = Provider.of<TodoListModel>(context);
     final todo = model.todoById(id) ?? Todo('');
 
     return Scaffold(
