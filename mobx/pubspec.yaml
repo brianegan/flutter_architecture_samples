@@ -20,7 +20,6 @@ dependencies:
   mobx: ^0.4.0
   flutter_mobx: ^0.3.0
   provider: ^4.0.0
-  path_provider:
   todos_repository_simple:
     path: ../todos_repository_simple
   todos_repository_core:
