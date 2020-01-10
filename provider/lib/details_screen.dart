@@ -8,7 +8,7 @@ import 'models.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
-  final void Function() onRemove;
+  final VoidCallback onRemove;
 
   const DetailsScreen({@required this.id, @required this.onRemove})
       : super(key: ArchSampleKeys.todoDetailsScreen);
