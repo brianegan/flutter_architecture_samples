@@ -19,10 +19,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_built_redux: ^0.6.0
-  built_redux: ^7.4.5
-  built_value: ^6.3.1
-  built_collection: ^4.1.0
+  flutter_built_redux:
+  built_redux:
+  built_value:
+  built_collection:
   todos_app_core:
     path: ../todos_app_core
 
@@ -32,10 +32,10 @@ dev_dependencies:
   flutter_driver:
     sdk: flutter
   test:
-  build: ^1.2.1
-  build_runner: ^1.2.8
-  built_value_generator: ^6.1.0
-  source_gen: ^0.9.0+1
+  build:
+  build_runner:
+  built_value_generator:
+  source_gen:
   mockito:
   integration_tests:
     path: ../integration_tests

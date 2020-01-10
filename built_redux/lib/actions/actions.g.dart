@@ -3,33 +3,37 @@
 part of actions;
 
 // **************************************************************************
-// Generator: BuiltReduxGenerator
+// BuiltReduxGenerator
 // **************************************************************************
 
+// ignore_for_file: avoid_classes_with_only_static_members
+// ignore_for_file: annotate_overrides
+// ignore_for_file: overridden_fields
+// ignore_for_file: type_annotate_public_apis
+
 class _$AppActions extends AppActions {
-  factory _$AppActions() => _$AppActions._();
+  factory _$AppActions() => new _$AppActions._();
   _$AppActions._() : super._();
 
-  final ActionDispatcher<Todo> addTodoAction =
-      ActionDispatcher<Todo>('AppActions-addTodoAction');
-  final ActionDispatcher<Null> clearCompletedAction =
-      ActionDispatcher<Null>('AppActions-clearCompletedAction');
-  final ActionDispatcher<String> deleteTodoAction =
-      ActionDispatcher<String>('AppActions-deleteTodoAction');
-  final ActionDispatcher<Null> fetchTodosAction =
-      ActionDispatcher<Null>('AppActions-fetchTodosAction');
-  final ActionDispatcher<Null> toggleAllAction =
-      ActionDispatcher<Null>('AppActions-toggleAllAction');
-  final ActionDispatcher<List<Todo>> loadTodosSuccess =
-      ActionDispatcher<List<Todo>>('AppActions-loadTodosSuccess');
-  final ActionDispatcher<Object> loadTodosFailure =
-      ActionDispatcher<Object>('AppActions-loadTodosFailure');
-  final ActionDispatcher<VisibilityFilter> updateFilterAction =
-      ActionDispatcher<VisibilityFilter>('AppActions-updateFilterAction');
-  final ActionDispatcher<AppTab> updateTabAction =
-      ActionDispatcher<AppTab>('AppActions-updateTabAction');
-  final ActionDispatcher<UpdateTodoActionPayload> updateTodoAction =
-      ActionDispatcher<UpdateTodoActionPayload>('AppActions-updateTodoAction');
+  final addTodoAction = new ActionDispatcher<Todo>('AppActions-addTodoAction');
+  final clearCompletedAction =
+      new ActionDispatcher<Null>('AppActions-clearCompletedAction');
+  final deleteTodoAction =
+      new ActionDispatcher<String>('AppActions-deleteTodoAction');
+  final fetchTodosAction =
+      new ActionDispatcher<Null>('AppActions-fetchTodosAction');
+  final toggleAllAction =
+      new ActionDispatcher<Null>('AppActions-toggleAllAction');
+  final loadTodosSuccess =
+      new ActionDispatcher<List<Todo>>('AppActions-loadTodosSuccess');
+  final loadTodosFailure =
+      new ActionDispatcher<Object>('AppActions-loadTodosFailure');
+  final updateFilterAction =
+      new ActionDispatcher<VisibilityFilter>('AppActions-updateFilterAction');
+  final updateTabAction =
+      new ActionDispatcher<AppTab>('AppActions-updateTabAction');
+  final updateTodoAction = new ActionDispatcher<UpdateTodoActionPayload>(
+      'AppActions-updateTodoAction');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -47,42 +51,33 @@ class _$AppActions extends AppActions {
 }
 
 class AppActionsNames {
-  static final ActionName<Todo> addTodoAction =
-      ActionName<Todo>('AppActions-addTodoAction');
-  static final ActionName<Null> clearCompletedAction =
-      ActionName<Null>('AppActions-clearCompletedAction');
-  static final ActionName<String> deleteTodoAction =
-      ActionName<String>('AppActions-deleteTodoAction');
-  static final ActionName<Null> fetchTodosAction =
-      ActionName<Null>('AppActions-fetchTodosAction');
-  static final ActionName<Null> toggleAllAction =
-      ActionName<Null>('AppActions-toggleAllAction');
-  static final ActionName<List<Todo>> loadTodosSuccess =
-      ActionName<List<Todo>>('AppActions-loadTodosSuccess');
-  static final ActionName<Object> loadTodosFailure =
-      ActionName<Object>('AppActions-loadTodosFailure');
-  static final ActionName<VisibilityFilter> updateFilterAction =
-      ActionName<VisibilityFilter>('AppActions-updateFilterAction');
-  static final ActionName<AppTab> updateTabAction =
-      ActionName<AppTab>('AppActions-updateTabAction');
-  static final ActionName<UpdateTodoActionPayload> updateTodoAction =
-      ActionName<UpdateTodoActionPayload>('AppActions-updateTodoAction');
+  static final addTodoAction = new ActionName<Todo>('AppActions-addTodoAction');
+  static final clearCompletedAction =
+      new ActionName<Null>('AppActions-clearCompletedAction');
+  static final deleteTodoAction =
+      new ActionName<String>('AppActions-deleteTodoAction');
+  static final fetchTodosAction =
+      new ActionName<Null>('AppActions-fetchTodosAction');
+  static final toggleAllAction =
+      new ActionName<Null>('AppActions-toggleAllAction');
+  static final loadTodosSuccess =
+      new ActionName<List<Todo>>('AppActions-loadTodosSuccess');
+  static final loadTodosFailure =
+      new ActionName<Object>('AppActions-loadTodosFailure');
+  static final updateFilterAction =
+      new ActionName<VisibilityFilter>('AppActions-updateFilterAction');
+  static final updateTabAction =
+      new ActionName<AppTab>('AppActions-updateTabAction');
+  static final updateTodoAction =
+      new ActionName<UpdateTodoActionPayload>('AppActions-updateTodoAction');
 }
 
 // **************************************************************************
-// Generator: BuiltValueGenerator
+// BuiltValueGenerator
 // **************************************************************************
 
-// ignore_for_file: always_put_control_body_on_new_line
-// ignore_for_file: annotate_overrides
-// ignore_for_file: avoid_annotating_with_dynamic
-// ignore_for_file: avoid_returning_this
-// ignore_for_file: omit_local_variable_types
-// ignore_for_file: prefer_expression_function_bodies
-// ignore_for_file: sort_constructors_first
-
 Serializer<UpdateTodoActionPayload> _$updateTodoActionPayloadSerializer =
-    _$UpdateTodoActionPayloadSerializer();
+    new _$UpdateTodoActionPayloadSerializer();
 
 class _$UpdateTodoActionPayloadSerializer
     implements StructuredSerializer<UpdateTodoActionPayload> {
@@ -95,7 +90,8 @@ class _$UpdateTodoActionPayloadSerializer
   final String wireName = 'UpdateTodoActionPayload';
 
   @override
-  Iterable serialize(Serializers serializers, UpdateTodoActionPayload object,
+  Iterable<Object> serialize(
+      Serializers serializers, UpdateTodoActionPayload object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -110,9 +106,9 @@ class _$UpdateTodoActionPayloadSerializer
 
   @override
   UpdateTodoActionPayload deserialize(
-      Serializers serializers, Iterable serialized,
+      Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = UpdateTodoActionPayloadBuilder();
+    final result = new UpdateTodoActionPayloadBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -142,32 +138,34 @@ class _$UpdateTodoActionPayload extends UpdateTodoActionPayload {
   final Todo updatedTodo;
 
   factory _$UpdateTodoActionPayload(
-          [void Function(UpdateTodoActionPayloadBuilder b) updates]) =>
-      (UpdateTodoActionPayloadBuilder()..update(updates)).build();
+          [void Function(UpdateTodoActionPayloadBuilder) updates]) =>
+      (new UpdateTodoActionPayloadBuilder()..update(updates)).build();
 
   _$UpdateTodoActionPayload._({this.id, this.updatedTodo}) : super._() {
     if (id == null) {
-      throw BuiltValueNullFieldError('UpdateTodoActionPayload', 'id');
+      throw new BuiltValueNullFieldError('UpdateTodoActionPayload', 'id');
     }
     if (updatedTodo == null) {
-      throw BuiltValueNullFieldError('UpdateTodoActionPayload', 'updatedTodo');
+      throw new BuiltValueNullFieldError(
+          'UpdateTodoActionPayload', 'updatedTodo');
     }
   }
 
   @override
   UpdateTodoActionPayload rebuild(
-          void Function(UpdateTodoActionPayloadBuilder b) updates) =>
+          void Function(UpdateTodoActionPayloadBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   UpdateTodoActionPayloadBuilder toBuilder() =>
-      UpdateTodoActionPayloadBuilder()..replace(this);
+      new UpdateTodoActionPayloadBuilder()..replace(this);
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    if (other is! UpdateTodoActionPayload) return false;
-    return id == other.id && updatedTodo == other.updatedTodo;
+    return other is UpdateTodoActionPayload &&
+        id == other.id &&
+        updatedTodo == other.updatedTodo;
   }
 
   @override
@@ -194,7 +192,7 @@ class UpdateTodoActionPayloadBuilder
   set id(String id) => _$this._id = id;
 
   TodoBuilder _updatedTodo;
-  TodoBuilder get updatedTodo => _$this._updatedTodo ??= TodoBuilder();
+  TodoBuilder get updatedTodo => _$this._updatedTodo ??= new TodoBuilder();
   set updatedTodo(TodoBuilder updatedTodo) => _$this._updatedTodo = updatedTodo;
 
   UpdateTodoActionPayloadBuilder();
@@ -210,12 +208,14 @@ class UpdateTodoActionPayloadBuilder
 
   @override
   void replace(UpdateTodoActionPayload other) {
-    if (other == null) throw ArgumentError.notNull('other');
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
     _$v = other as _$UpdateTodoActionPayload;
   }
 
   @override
-  void update(void Function(UpdateTodoActionPayloadBuilder b) updates) {
+  void update(void Function(UpdateTodoActionPayloadBuilder) updates) {
     if (updates != null) updates(this);
   }
 
@@ -224,14 +224,15 @@ class UpdateTodoActionPayloadBuilder
     _$UpdateTodoActionPayload _$result;
     try {
       _$result = _$v ??
-          _$UpdateTodoActionPayload._(id: id, updatedTodo: updatedTodo.build());
+          new _$UpdateTodoActionPayload._(
+              id: id, updatedTodo: updatedTodo.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'updatedTodo';
         updatedTodo.build();
       } catch (e) {
-        throw BuiltValueNestedFieldError(
+        throw new BuiltValueNestedFieldError(
             'UpdateTodoActionPayload', _$failedField, e.toString());
       }
       rethrow;
@@ -240,3 +241,5 @@ class UpdateTodoActionPayloadBuilder
     return _$result;
   }
 }
+
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
