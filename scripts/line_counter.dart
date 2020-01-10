@@ -43,11 +43,12 @@ void main() {
       sample.name,
       _countLines(sample.directories),
     );
-  }).toList(growable: false)..sort((a, b) => a.lineCount - b.lineCount);
+  }).toList(growable: false)
+    ..sort((a, b) => a.lineCount - b.lineCount);
 
-
-  final strings = outputs.map<String>((output) => '| ${output.name} | ${output.lineCount} |').join('\n');
-
+  final strings = outputs
+      .map<String>((output) => '| ${output.name} | ${output.lineCount} |')
+      .join('\n');
 
   print('''
 # Line Counts
@@ -77,8 +78,10 @@ int _countLines(List<Directory> directories) {
   final dartFiles = _findDartFiles(directories);
 
   return dartFiles.fold(0, (count, file) {
-    final nonCommentsLineCount =
-        file.readAsLinesSync().where((line) => !line.startsWith('//') && line.trim().isNotEmpty).length;
+    final nonCommentsLineCount = file
+        .readAsLinesSync()
+        .where((line) => !line.startsWith('//') && line.trim().isNotEmpty)
+        .length;
 
     return count + nonCommentsLineCount;
   });
@@ -90,7 +93,12 @@ List<File> _findDartFiles(List<Directory> directories) {
         .listSync(recursive: true)
         .whereType<File>()
         .map((file) => file.path)
-        .where((path) => path.endsWith('.dart') && !path.endsWith('.g.dart') && !path.contains('todos_repository') && !path.contains('file_storage') && !path.contains('web_client'))
+        .where((path) =>
+            path.endsWith('.dart') &&
+            !path.endsWith('.g.dart') &&
+            !path.contains('todos_repository') &&
+            !path.contains('file_storage') &&
+            !path.contains('web_client'))
         .toSet();
 
     return {...files, ...currentDirectoryDartFiles};

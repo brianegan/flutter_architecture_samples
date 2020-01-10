@@ -47,9 +47,7 @@ class TodoListView extends StatelessWidget {
                   value: todo.complete,
                   onChanged: (complete) {
                     Provider.of<TodoListModel>(context, listen: false)
-                        .updateTodo(
-                      todo.copy(complete: complete),
-                    );
+                        .updateTodo(todo.copy(complete: complete));
                   },
                 ),
                 title: Text(
