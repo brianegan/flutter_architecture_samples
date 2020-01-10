@@ -5,6 +5,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 import 'edit_todo_screen.dart';
 import 'models.dart';
+import 'todo_list_model.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
@@ -15,9 +16,6 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<TodoListModel>(context);
-    final todo = model.todoById(id) ?? Todo('');
-
     return Scaffold(
       appBar: AppBar(
         title: Text(ArchSampleLocalizations.of(context).todoDetails),
@@ -30,6 +28,58 @@ class DetailsScreen extends StatelessWidget {
           )
         ],
       ),
+      body: Selector<TodoListModel, Todo>(
+        selector: (context, model) => model.todoById(id),
+        shouldRebuild: (prev, next) => next != null,
+        builder: (context, todo, _) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Checkbox(
+                        key: ArchSampleKeys.detailsTodoItemCheckbox,
+                        value: todo.complete,
+                        onChanged: (complete) {
+                          Provider.of<TodoListModel>(context, listen: false)
+                              .updateTodo(todo.copy(complete: !todo.complete));
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 8.0,
+                              bottom: 16.0,
+                            ),
+                            child: Text(
+                              todo.task,
+                              key: ArchSampleKeys.detailsTodoItemTask,
+                              style: Theme.of(context).textTheme.headline,
+                            ),
+                          ),
+                          Text(
+                            todo.note,
+                            key: ArchSampleKeys.detailsTodoItemNote,
+                            style: Theme.of(context).textTheme.subhead,
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         key: ArchSampleKeys.editTodoFab,
         onPressed: () {
@@ -39,9 +89,11 @@ class DetailsScreen extends StatelessWidget {
               builder: (context) => EditTodoScreen(
                 id: id,
                 onEdit: (task, note) {
-                  Provider.of<TodoListModel>(context, listen: false).updateTodo(
-                    todo.copy(task: task, note: note),
-                  );
+                  final model =
+                      Provider.of<TodoListModel>(context, listen: false);
+                  final todo = model.todoById(id);
+
+                  model.updateTodo(todo.copy(task: task, note: note));
 
                   return Navigator.pop(context);
                 },
@@ -50,51 +102,6 @@ class DetailsScreen extends StatelessWidget {
           );
         },
         child: const Icon(Icons.edit),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Checkbox(
-                    key: ArchSampleKeys.detailsTodoItemCheckbox,
-                    value: todo.complete,
-                    onChanged: (complete) {
-                      model.updateTodo(todo.copy(complete: !todo.complete));
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
-                        child: Text(
-                          todo.task,
-                          key: ArchSampleKeys.detailsTodoItemTask,
-                          style: Theme.of(context).textTheme.headline,
-                        ),
-                      ),
-                      Text(
-                        todo.note,
-                        key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }

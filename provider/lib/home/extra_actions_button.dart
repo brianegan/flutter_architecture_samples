@@ -15,15 +15,18 @@ class ExtraActionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<TodoListModel>(context);
+    final model = Provider.of<TodoListModel>(context);
 
     return PopupMenuButton<ExtraAction>(
       key: ArchSampleKeys.extraActionsButton,
       onSelected: (action) {
-        if (action == ExtraAction.toggleAllComplete) {
-          store.toggleAll();
-        } else if (action == ExtraAction.clearCompleted) {
-          store.clearCompleted();
+        switch (action) {
+          case ExtraAction.toggleAllComplete:
+            model.toggleAll();
+            break;
+          case ExtraAction.clearCompleted:
+            model.clearCompleted();
+            break;
         }
       },
       itemBuilder: (BuildContext context) {
@@ -31,7 +34,7 @@ class ExtraActionsButton extends StatelessWidget {
           PopupMenuItem<ExtraAction>(
             key: ArchSampleKeys.toggleAll,
             value: ExtraAction.toggleAllComplete,
-            child: Text(store.hasActiveTodos
+            child: Text(model.hasActiveTodos
                 ? ArchSampleLocalizations.of(context).markAllComplete
                 : ArchSampleLocalizations.of(context).markAllIncomplete),
           ),
