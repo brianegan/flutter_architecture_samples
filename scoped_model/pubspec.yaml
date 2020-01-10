@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  scoped_model: ^0.3.0
+  scoped_model: ^1.0.1
   todos_repository_simple:
     path: ../todos_repository_simple
   todos_app_core:
