@@ -34,15 +34,7 @@ class ProviderApp extends StatelessWidget {
             ProviderLocalizations.of(context).appTitle,
         routes: {
           ArchSampleRoutes.home: (context) => HomeScreen(),
-          ArchSampleRoutes.addTodo: (context) {
-            return AddTodoScreen(
-              onAdd: (todo) {
-                Provider.of<TodoListModel>(context, listen: false)
-                    .addTodo(todo);
-                Navigator.pop(context);
-              },
-            );
-          },
+          ArchSampleRoutes.addTodo: (context) => AddTodoScreen(),
         },
       ),
     );

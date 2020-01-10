@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import 'models.dart';
+import 'todo_list_model.dart';
 
 class AddTodoScreen extends StatefulWidget {
-  final void Function(Todo) onAdd;
-
-  const AddTodoScreen({@required this.onAdd})
-      : super(key: ArchSampleKeys.addTodoScreen);
+  const AddTodoScreen() : super(key: ArchSampleKeys.addTodoScreen);
 
   @override
   _AddTodoScreenState createState() => _AddTodoScreenState();
@@ -71,10 +70,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         tooltip: localizations.addTodo,
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            widget.onAdd(Todo(
+            Provider.of<TodoListModel>(context, listen: false).addTodo(Todo(
               _titleEditingController.text,
               note: _notesEditingController.text,
             ));
+            Navigator.pop(context);
           }
         },
         child: const Icon(Icons.add),
