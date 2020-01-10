@@ -33,7 +33,7 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
-      app_arch: provider
+      app_arch: change_notifier_provider
       app_arch: redux
       app_arch: scoped_model
       app_arch: simple_bloc_flutter
@@ -74,7 +74,7 @@ task:
       app_arch: mvc
       app_arch: mvi_flutter
       app_arch: mvu
-      app_arch: provider
+      app_arch: change_notifier_provider
       app_arch: redux
       app_arch: scoped_model
       app_arch: simple_bloc_flutter

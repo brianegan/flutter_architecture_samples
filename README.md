@@ -33,7 +33,7 @@ Examples have been updated to Dart 2.
 - [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
 - [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
 - [MobX Example](mobx) - Uses the [MobX](https://pub.dev/packages/mobx) library to manage app state and update widgets using `Observables`, `Actions` and `Reactions`.
-- [Provider Example](provider) - Uses the [provider](https://pub.dev/packages/provider) package now recommended by the Flutter team.
+- [Change Notifier + Provider Example](change_notifier_provider) - Uses the [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) class from Flutter with [provider](https://pub.dev/packages/provider) package now recommended by the Flutter team.
 
 ### Supporting Code
 

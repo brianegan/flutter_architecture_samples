@@ -283,14 +283,14 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./redux
     - <<: *integration-test
       os: linux
-      env: provider_android
-      script: travis_retry ./scripts/ci.sh ./provider
+      env: change_notifier_provider_android
+      script: travis_retry ./scripts/ci.sh ./change_notifier_provider
     - <<: *integration-test
       os: osx
       osx_image: xcode8.0
-      env: provider_ios
+      env: change_notifier_provider_ios
       before_install: *before_install_osx
-      script: travis_retry ./scripts/ci.sh ./provider
+      script: travis_retry ./scripts/ci.sh ./change_notifier_provider
     - <<: *integration-test
       os: linux
       env: scoped_model_android
