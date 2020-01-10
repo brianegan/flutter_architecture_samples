@@ -287,7 +287,7 @@ jobs:
       script: travis_retry ./scripts/ci.sh ./change_notifier_provider
     - <<: *integration-test
       os: osx
-      osx_image: xcode8.0
+      osx_image: xcode11.3
       env: change_notifier_provider_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./change_notifier_provider
