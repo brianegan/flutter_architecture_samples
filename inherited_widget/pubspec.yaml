@@ -23,6 +23,9 @@ dependencies:
     path: ../todos_repository_simple
   todos_app_core:
     path: ../todos_app_core
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
