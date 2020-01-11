@@ -2,22 +2,15 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:path_provider/path_provider.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
 
-List<Middleware<AppState>> createStoreTodosMiddleware([
-  TodosRepository repository = const TodosRepositoryFlutter(
-    fileStorage: FileStorage(
-      '__redux_app__',
-      getApplicationDocumentsDirectory,
-    ),
-  ),
-]) {
+List<Middleware<AppState>> createStoreTodosMiddleware(
+  TodosRepository repository,
+) {
   final saveTodos = _createSaveTodos(repository);
   final loadTodos = _createLoadTodos(repository);
 
