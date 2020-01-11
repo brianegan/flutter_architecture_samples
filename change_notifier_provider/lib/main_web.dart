@@ -10,6 +10,8 @@ import 'package:key_value_store_web/key_value_store_web.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(ProviderApp(
     repository: LocalStorageRepository(
       localStorage: KeyValueStorage(

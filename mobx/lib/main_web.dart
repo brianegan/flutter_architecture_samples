@@ -7,6 +7,8 @@ import 'package:todos_repository_local_storage/todos_repository_local_storage.da
 import 'app.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MobxApp(
       repository: LocalStorageRepository(

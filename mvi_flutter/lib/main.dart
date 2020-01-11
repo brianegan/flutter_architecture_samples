@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_flutter_sample/run_mvi_app.dart';
+import 'package:mvi_flutter_sample/mvi_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';

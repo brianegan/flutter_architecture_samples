@@ -37,7 +37,7 @@ class MockReactiveTodosRepository implements ReactiveTodosRepository {
 
   @override
   Stream<List<TodoEntity>> todos({webClient = const WebClient()}) async* {
-    _todos = await webClient.fetchTodos();
+    _todos = await webClient.loadTodos();
 
     yield _todos;
 
