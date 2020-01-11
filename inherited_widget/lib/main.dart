@@ -14,7 +14,7 @@ Future<void> main() async {
     child: const InheritedWidgetApp(),
     repository: LocalStorageRepository(
       localStorage: LocalStorage(
-        'mobx_todos',
+        'inherited_widget_todos',
         FlutterKeyValueStore(await SharedPreferences.getInstance()),
       ),
     ),

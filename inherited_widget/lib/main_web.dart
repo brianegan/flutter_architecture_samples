@@ -15,7 +15,7 @@ void main() {
     child: const InheritedWidgetApp(),
     repository: LocalStorageRepository(
       localStorage: LocalStorage(
-        'mobx_todos',
+        'inherited_widget_todos',
         WebKeyValueStore(window.localStorage),
       ),
     ),
