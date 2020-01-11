@@ -19,7 +19,7 @@ void runMviApp({
     todosInteractor: todosRepository,
     userInteractor: userInteractor,
     child: MaterialApp(
-      title: BlocLocalizations().appTitle,
+      onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),

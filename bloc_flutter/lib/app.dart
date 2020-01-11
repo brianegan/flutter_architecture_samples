@@ -31,7 +31,7 @@ class BlocApp extends StatelessWidget {
       child: TodosBlocProvider(
         bloc: TodosListBloc(todosInteractor),
         child: MaterialApp(
-          title: BlocLocalizations().appTitle,
+          onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
           theme: ArchSampleTheme.theme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),

@@ -13,8 +13,8 @@ import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/home_screen.dart';
 import 'package:built_redux_sample/reducers/reducers.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_built_redux/flutter_built_redux.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 void main() {
   runApp(BuiltReduxApp());
@@ -53,7 +53,8 @@ class BuiltReduxAppState extends State<BuiltReduxApp> {
     return ReduxProvider(
       store: store,
       child: MaterialApp(
-        title: BuiltReduxLocalizations().appTitle,
+        onGenerateTitle: (context) =>
+            BuiltReduxLocalizations.of(context).appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),

@@ -3,13 +3,13 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/localization.dart';
 import 'package:scoped_model_sample/screens/add_edit_screen.dart';
 import 'package:scoped_model_sample/screens/home_screen.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 class ScopedModelApp extends StatelessWidget {
@@ -22,7 +22,8 @@ class ScopedModelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var app = MaterialApp(
-      title: ScopedModelLocalizations().appTitle,
+      onGenerateTitle: (context) =>
+          ScopedModelLocalizations.of(context).appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),
