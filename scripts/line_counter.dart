@@ -22,6 +22,7 @@ class Output {
 
 void main() {
   final samples = [
+    Sample('change_notifier_provider', ['change_notifier_provider']),
     Sample('bloc', ['bloc_flutter', 'blocs']),
     Sample('bloc library', ['bloc_library']),
     Sample('built_redux', ['built_redux']),
@@ -42,11 +43,12 @@ void main() {
       sample.name,
       _countLines(sample.directories),
     );
-  }).toList(growable: false)..sort((a, b) => a.lineCount - b.lineCount);
+  }).toList(growable: false)
+    ..sort((a, b) => a.lineCount - b.lineCount);
 
-
-  final strings = outputs.map<String>((output) => '| ${output.name} | ${output.lineCount} |').join('\n');
-
+  final strings = outputs
+      .map<String>((output) => '| ${output.name} | ${output.lineCount} |')
+      .join('\n');
 
   print('''
 # Line Counts
@@ -55,12 +57,10 @@ Though not the only factor or even most important factor, the amount of code it
 takes to achieve a working product is an important consideration when comparing
 frameworks.
 
-While this is an imperfect line count comparison -- some of the samples contain
-a bit more functionality than others -- it's a pretty fair comparison overall:
-All of the apps implement the spec using the provided `app_core` and
-`todos_repository`, implement the same Flutter keys, use the same theme, are
-formatted with dartfmt, and all comments / blank lines / generated code are
-excluded.
+This is an imperfect line count comparison -- some of the samples contain a bit
+more functionality / are structured a bit differently than others -- and should
+be taken with a grain of salt. All generated files, blank lines and comment 
+lines are removed for this comparison.
 
 For authors of frameworks or samples (hey, I'm one of those!): Please do not 
 take this comparison personally, nor should folks play "Code Golf" with the
@@ -75,11 +75,13 @@ Note: This file was generated on ${DateTime.now().toUtc()} using `scripts/line_c
 }
 
 int _countLines(List<Directory> directories) {
-  final List<File> dartFiles = _findDartFiles(directories);
+  final dartFiles = _findDartFiles(directories);
 
   return dartFiles.fold(0, (count, file) {
-    final nonCommentsLineCount =
-        file.readAsLinesSync().where((line) => !line.startsWith('//') && line.trim().isNotEmpty).length;
+    final nonCommentsLineCount = file
+        .readAsLinesSync()
+        .where((line) => !line.startsWith('//') && line.trim().isNotEmpty)
+        .length;
 
     return count + nonCommentsLineCount;
   });
@@ -91,7 +93,12 @@ List<File> _findDartFiles(List<Directory> directories) {
         .listSync(recursive: true)
         .whereType<File>()
         .map((file) => file.path)
-        .where((path) => path.endsWith('.dart') && !path.endsWith('.g.dart') && !path.contains('todos_repository') && !path.contains('file_storage') && !path.contains('web_client'))
+        .where((path) =>
+            path.endsWith('.dart') &&
+            !path.endsWith('.g.dart') &&
+            !path.contains('todos_repository') &&
+            !path.contains('file_storage') &&
+            !path.contains('web_client'))
         .toSet();
 
     return {...files, ...currentDirectoryDartFiles};

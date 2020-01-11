@@ -10,7 +10,7 @@ dependencies:
   todos_repository_core:
     path: ../todos_repository_core
   firebase_auth: 0.5.9
-  firebase_database: ^0.4.6
+  firebase_database: ^3.1.1
 
 dev_dependencies:
   test:
