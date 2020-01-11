@@ -13,12 +13,10 @@ import 'package:flutter/widgets.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(
-    BlocApp(
-      todosInteractor: TodosInteractor(
-        FirestoreReactiveTodosRepository(Firestore.instance),
-      ),
-      userRepository: FirebaseUserRepository(FirebaseAuth.instance),
-    )
-  );
+  runApp(BlocApp(
+    todosInteractor: TodosInteractor(
+      FirestoreReactiveTodosRepository(Firestore.instance),
+    ),
+    userRepository: FirebaseUserRepository(FirebaseAuth.instance),
+  ));
 }
