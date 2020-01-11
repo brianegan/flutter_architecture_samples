@@ -5,302 +5,348 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Flutter Architecture Samples</title>
-    <link rel="shortcut icon" href="assets/favicon.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="assets/favicon-32x32.png" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="assets/favicon-16x16.png" sizes="16x16"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <style>
-        body {
-            color: rgb(17, 17, 17);
-        }
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Flutter Architecture Samples</title>
+  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/favicon-32x32.png"
+        sizes="32x32"/>
+  <link rel="icon" type="image/png" href="assets/favicon-16x16.png"
+        sizes="16x16"/>
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <style>
+    body {
+      color: rgb(17, 17, 17);
+    }
 
-        .site-title {
-            font-size: 4.2rem;
-            margin-bottom: 0.25rem;
-        }
+    .site-title {
+      font-size: 4.2rem;
+      margin-bottom: 0.25rem;
+    }
 
-        .button-blue {
-            background-color: #3FBCCC;
-            border-color: #3FBCCC;
-        }
+    .button-blue {
+      background-color: #3FBCCC;
+      border-color: #3FBCCC;
+    }
 
-        a {
-            color: #3FBCCC;
-        }
+    a {
+      color: #3FBCCC;
+    }
 
-        a:focus,
-        a:hover,
-        a:hover {
-            color: #028A9C
-        }
+    a:focus,
+    a:hover,
+    a:hover {
+      color: #028A9C
+    }
 
-        .button-blue:active,
-        .button-blue:focus,
-        .button-blue:hover {
-            background-color: #028A9C;
-            border-color: #028A9C;
-        }
+    .button-blue:active,
+    .button-blue:focus,
+    .button-blue:hover {
+      background-color: #028A9C;
+      border-color: #028A9C;
+    }
 
-        .button-blue.button-outline:active,
-        .button-blue.button-outline:focus,
-        .button-blue.button-outline:hover {
-            border-color: #028A9C;
-            color: #028A9C;
-        }
+    .button-blue.button-outline:active,
+    .button-blue.button-outline:focus,
+    .button-blue.button-outline:hover {
+      border-color: #028A9C;
+      color: #028A9C;
+    }
 
-        .button-blue.button-clear,
-        .button-blue.button-outline {
-            background-color: transparent;
-            color: #3FBCCC;
-        }
+    .button-blue.button-clear,
+    .button-blue.button-outline {
+      background-color: transparent;
+      color: #3FBCCC;
+    }
 
-        .button-blue.button-clear {
-            border-color: transparent;
-        }
+    .button-blue.button-clear {
+      border-color: transparent;
+    }
 
-        .site-subtitle {
-            color: rgb(120, 120, 120);
-            margin-bottom: 1.2rem;
-        }
+    .site-subtitle {
+      color: rgb(120, 120, 120);
+      margin-bottom: 1.2rem;
+    }
 
-        .downloads {
-            margin-bottom: 2.4rem;
-        }
+    .downloads {
+      margin-bottom: 2.4rem;
+    }
 
-        h2 {
-            color: rgb(70, 70, 70);
-        }
+    h2 {
+      color: rgb(70, 70, 70);
+    }
 
-        .site-header {
-            margin-top: 3.2rem;
-            margin-bottom: 1.2rem;
-        }
+    .site-header {
+      margin-top: 3.2rem;
+      margin-bottom: 1.2rem;
+    }
 
-        .container {
-            max-width: 80rem;
-        }
+    .container {
+      max-width: 80rem;
+    }
 
-        .logo {
-            max-width: 9rem;
-            margin-right: 2.4rem;
-            margin-bottom: 1.2rem;
-            padding-left: 1.0rem;
-        }
+    .logo {
+      max-width: 9rem;
+      margin-right: 2.4rem;
+      margin-bottom: 1.2rem;
+      padding-left: 1.0rem;
+    }
 
-        .card {
-            background-color: white;
-            border-radius: 0.25rem;
-            box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-            min-height: 180px;
-            padding: 2.4rem 2.4rem 1.2rem 2.4rem;
-            border: solid transparent;
-            border-bottom-color: transparent;
-            border-bottom-color: #3FBCCC;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 4rem;
-        }
+    .card {
+      background-color: white;
+      border-radius: 0.25rem;
+      box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      min-height: 180px;
+      padding: 2.4rem 2.4rem 1.2rem 2.4rem;
+      border: solid transparent;
+      border-bottom-color: transparent;
+      border-bottom-color: #3FBCCC;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 4rem;
+    }
 
-        .site-title-container {
-            flex-basis: min-content;
-        }
+    .site-title-container {
+      flex-basis: min-content;
+    }
 
-        .screenshot {
-            margin-bottom: 2.4rem;
-        }
+    .screenshot {
+      margin-bottom: 2.4rem;
+    }
 
-        .screenshot img {
-            -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
-            -moz-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
-            box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
-        }
+    .screenshot img {
+      -webkit-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
+      -moz-box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
+      box-shadow: 0px 10px 20px 0px rgba(50, 50, 50, 0.4);
+    }
 
-        /* Larger than mobile screen */
+    /* Larger than mobile screen */
 
-        @media (min-width: 40.0rem) {
-            .screenshot {
-                max-width: 16rem;
-                float: right;
-                margin-left: 2.4rem;
-            }
-        }
+    @media (min-width: 40.0rem) {
+      .screenshot {
+        max-width: 16rem;
+        float: right;
+        margin-left: 2.4rem;
+      }
+    }
 
-        /* Larger than tablet screen */
+    /* Larger than tablet screen */
 
-        @media (min-width: 80.0rem) {}
+    @media (min-width: 80.0rem) {
+    }
 
-        /* Larger than desktop screen */
+    /* Larger than desktop screen */
 
-        @media (min-width: 120.0rem) {}
+    @media (min-width: 120.0rem) {
+    }
 
-    </style>
+  </style>
 </head>
 
 <body>
 <div class="container">
-    <div class="row site-header">
-        <div class="logo">
-            <img src="assets/logo.png" alt="Flutter Architecture Samples Logo">
-        </div>
-        <div class="site-title-container">
-            <h1 class="site-title">Flutter Architecture Samples</h1>
-            <h5 class="site-subtitle">A gallery of app architectures</h5>
-        </div>
+  <div class="row site-header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Flutter Architecture Samples Logo">
+    </div>
+    <div class="site-title-container">
+      <h1 class="site-title">Flutter Architecture Samples</h1>
+      <h5 class="site-subtitle">A gallery of app architectures</h5>
+    </div>
+  </div>
+
+  <aside class="screenshot">
+    <picture>
+      <img src="assets/screenshot.png" alt="Screenshot of the app">
+    </picture>
+  </aside>
+  <div class="content">
+    <div class="description">
+      <p>
+        Flutter provides a lot of flexibility in deciding how to organize and
+        architect your apps. While this
+        freedom is very valuable,
+        it can also lead to apps with large classes, inconsistent naming
+        schemes, as well as mismatching or
+        missing
+        architectures. These types of issues can make testing, maintaining and
+        extending your apps
+        difficult.</p>
+      <p>The Flutter Architecture Samples project demonstrates strategies to
+        help solve or avoid these common
+        problems.
+        This project implements the same "Todos" app using different
+        architectural concepts and tools.</p>
     </div>
 
-    <aside class="screenshot">
-        <picture>
-            <img src="assets/screenshot.png" alt="Screenshot of the app">
-        </picture>
-    </aside>
-    <div class="content">
-        <div class="description">
-            <p>
-                Flutter provides a lot of flexibility in deciding how to organize and architect your apps. While this
-                freedom is very valuable,
-                it can also lead to apps with large classes, inconsistent naming schemes, as well as mismatching or
-                missing
-                architectures. These types of issues can make testing, maintaining and extending your apps
-                difficult.</p>
-            <p>The Flutter Architecture Samples project demonstrates strategies to help solve or avoid these common
-                problems.
-                This project implements the same "Todos" app using different architectural concepts and tools.</p>
-        </div>
-
-        <div class="downloads">
-            <a href="https://github.com/brianegan/flutter_architecture_samples/archive/master.zip"
-               class="button button-blue">Download</a>
-            <a href="https://github.com/brianegan/flutter_architecture_samples"
-               class="button button-blue button-outline">Github</a>
-        </div>
-
-        <div class="card">
-            <h3>Samples</h3>
-            <ul>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/vanilla">Lifting
-                        State Up (Vanilla)</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/inherited_widget">InheritedWidget</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_flutter">BLoC</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/simple_bloc_flutter">"Simple" BLoC Example</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_library">Bloc Library</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/redux">Redux</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/built_redux">built_redux</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/scoped_model">scoped_model</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/firestore_redux">Redux
-                        and Firestore</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvu">MVU</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvi_flutter">MVI</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvc">MVC Example</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/frideos_library">Frideos library</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mobx">Mobx</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/change_notifier_provider">ChangeNotifier + Provider</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h3>Supporting code</h3>
-            <ul>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/integration_tests">Integration
-                        Tests</a>
-                </li>
-                <li>
-                    <a href="https://github.com/brianegan/flutter_architecture_samples/tree/master/example/todos_repository">Todos
-                        Repository</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h3>Contributors</h3>
-            <ul>
-                <li>
-                    <a href="https://github.com/brianegan">Brian Egan</a>
-                </li>
-                <li>
-                    <a href="https://github.com/davidmarne">David Marne</a>
-                </li>
-                <li>
-                    <a href="https://github.com/passsy">Pascal Welsch</a>
-                </li>
-                <li>
-                    <a href="https://github.com/kinggolf">Larry King</a>
-                </li>
-                <li>
-                    <a href="https://github.com/franklinharper">Frank Harper</a>
-                </li>
-                <li>
-                    <a href="https://github.com/p69">Pavel Shilyagov</a>
-                </li>
-                <li>
-                    <a href="https://github.com/mmcc007">Maurice McCabe</a>
-                </li>
-                <li>
-                    <a href="https://github.com/leocavalcante">Leo Cavalcante</a>
-                </li>
-                <li>
-                    <a href="https://github.com/AndriousSolutions">Greg Perry</a>
-                </li>
-                <li>
-                    <a href="https://github.com/felangel">Felix Angelov</a>
-                </li>
-                <li>
-                    <a href="https://github.com/frideosapps">Francesco Mineo</a>
-                </li>
-                <li>
-                    <a href="https://github.com/pavanpodila">Pavan Podila</a>
-                </li>
-                <li>
-                    <a href="https://github.com/kush3107">Kushagra Saxena</a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="copyright">
-            <p> &copy; 2017
-                <a href="https://github.com/brianegan">Brian Egan</a> and contributors.
-            </p>
-        </div>
+    <div class="downloads">
+      <a
+        href="https://github.com/brianegan/flutter_architecture_samples/archive/master.zip"
+        class="button button-blue">Download</a>
+      <a href="https://github.com/brianegan/flutter_architecture_samples"
+         class="button button-blue button-outline">Github</a>
     </div>
+
+    <div class="card">
+      <h3>Samples</h3>
+      <ul>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/vanilla">Vanilla
+            Lifting State Up
+          </a>
+          <a href="https://fas_vanilla.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/inherited_widget">InheritedWidget</a>
+          <a href="https://fas_inherited_widget.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/change_notifier_provider">ChangeNotifier
+            + Provider</a>
+          <a href="https://fas_change_notifier_provider.codemagic.app">(Web
+            Demo)</a>
+        </li>
+
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_flutter">BLoC</a>
+          <a href="https://fas_bloc_flutter.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_library">Bloc
+            Library</a>
+          <a href="https://fas_bloc_library.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mobx">Mobx</a>
+          <a href="https://fas_mobx.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/redux">Redux</a>
+          <a href="https://fas_redux.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/simple_bloc_flutter">"Simple"
+            BLoC Example</a>
+          <a href="https://fas_simple_bloc.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvi_flutter">MVI</a>
+          <a href="https://fas_mvi.codemagic.app">(Web Demo)</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/built_redux">built_redux</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/scoped_model">scoped_model</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/firestore_redux">Redux
+            and Firestore</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvu">MVU</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvc">MVC
+            Example</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/frideos_library">Frideos
+            library</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Supporting code</h3>
+      <ul>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/integration_tests">Integration
+            Tests</a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/example/todos_repository">Todos
+            Repository</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Contributors</h3>
+      <ul>
+        <li>
+          <a href="https://github.com/brianegan">Brian Egan</a>
+        </li>
+        <li>
+          <a href="https://github.com/davidmarne">David Marne</a>
+        </li>
+        <li>
+          <a href="https://github.com/passsy">Pascal Welsch</a>
+        </li>
+        <li>
+          <a href="https://github.com/kinggolf">Larry King</a>
+        </li>
+        <li>
+          <a href="https://github.com/franklinharper">Frank Harper</a>
+        </li>
+        <li>
+          <a href="https://github.com/p69">Pavel Shilyagov</a>
+        </li>
+        <li>
+          <a href="https://github.com/mmcc007">Maurice McCabe</a>
+        </li>
+        <li>
+          <a href="https://github.com/leocavalcante">Leo Cavalcante</a>
+        </li>
+        <li>
+          <a href="https://github.com/AndriousSolutions">Greg Perry</a>
+        </li>
+        <li>
+          <a href="https://github.com/felangel">Felix Angelov</a>
+        </li>
+        <li>
+          <a href="https://github.com/frideosapps">Francesco Mineo</a>
+        </li>
+        <li>
+          <a href="https://github.com/pavanpodila">Pavan Podila</a>
+        </li>
+        <li>
+          <a href="https://github.com/kush3107">Kushagra Saxena</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="copyright">
+      <p> &copy; 2017
+        <a href="https://github.com/brianegan">Brian Egan</a> and contributors.
+      </p>
+    </div>
+  </div>
 </div>
 </body>
 
