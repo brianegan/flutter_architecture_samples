@@ -3,25 +3,23 @@
 // in the LICENSE file.
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:flutter/widgets.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:key_value_store_web/key_value_store_web.dart';
 import 'package:simple_bloc_flutter_sample/app.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   runApp(SimpleBlocApp(
     todosInteractor: TodosInteractor(
       ReactiveTodosRepositoryFlutter(
         repository: LocalStorageRepository(
           localStorage: LocalStorage(
             'simple_bloc',
-            FlutterKeyValueStore(await SharedPreferences.getInstance()),
+            WebKeyValueStore(window.localStorage),
           ),
         ),
       ),
