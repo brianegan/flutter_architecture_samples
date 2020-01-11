@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 void main() {
   group('FileStorage', () {

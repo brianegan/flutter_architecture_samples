@@ -1,4 +1,4 @@
-name: todos_repository_simple
+name: todos_repository_local_storage
 description: An app-agnostic data source that can be used by all implementations
 
 environment:

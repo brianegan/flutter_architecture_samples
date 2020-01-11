@@ -8,7 +8,7 @@ import 'dart:io';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 /// We create two Mocks for our Web Client and File Storage. We will use these
 /// mock classes to verify the behavior of the TodosRepository.
@@ -27,8 +27,8 @@ void main() {
         () {
       final fileStorage = MockFileStorage();
       final webClient = MockWebClient();
-      final repository = TodosRepositoryFlutter(
-        fileStorage: fileStorage,
+      final repository = LocalStorageRepository(
+        localStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
@@ -39,7 +39,7 @@ void main() {
       when(fileStorage.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(repository.loadTodos(), completion(todos));
-      verifyNever(webClient.fetchTodos());
+      verifyNever(webClient.loadTodos());
     });
 
     test(
@@ -47,8 +47,8 @@ void main() {
         () async {
       final fileStorage = MockFileStorage();
       final webClient = MockWebClient();
-      final repository = TodosRepositoryFlutter(
-        fileStorage: fileStorage,
+      final repository = LocalStorageRepository(
+        localStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
@@ -56,12 +56,12 @@ void main() {
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web client to be called instead.
       when(fileStorage.loadTodos()).thenThrow('Uh ohhhh');
-      when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
+      when(webClient.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
-      // webClient.fetchTodos method was in fact called!
+      // webClient.loadTodos method was in fact called!
       expect(await repository.loadTodos(), todos);
-      verify(webClient.fetchTodos());
+      verify(webClient.loadTodos());
     });
 
     test(
@@ -69,37 +69,37 @@ void main() {
         () async {
       final fileStorage = MockFileStorage();
       final webClient = MockWebClient();
-      final repository = TodosRepositoryFlutter(
-        fileStorage: fileStorage,
+      final repository = LocalStorageRepository(
+        localStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
 
       when(fileStorage.loadTodos()).thenThrow(Exception('Oh no.'));
-      when(webClient.fetchTodos()).thenAnswer((_) => Future.value(todos));
+      when(webClient.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await repository.loadTodos(), todos);
-      verify(webClient.fetchTodos());
+      verify(webClient.loadTodos());
     });
 
     test('should persist the todos to local disk and the web client', () {
       final fileStorage = MockFileStorage();
       final webClient = MockWebClient();
-      final repository = TodosRepositoryFlutter(
-        fileStorage: fileStorage,
+      final repository = LocalStorageRepository(
+        localStorage: fileStorage,
         webClient: webClient,
       );
       final todos = createTodos();
 
       when(fileStorage.saveTodos(todos))
           .thenAnswer((_) => Future.value(File('falsch')));
-      when(webClient.postTodos(todos)).thenAnswer((_) => Future.value(true));
+      when(webClient.saveTodos(todos)).thenAnswer((_) => Future.value(true));
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.
       expect(repository.saveTodos(todos), completes);
       verify(fileStorage.saveTodos(todos));
-      verify(webClient.postTodos(todos));
+      verify(webClient.saveTodos(todos));
     });
   });
 }

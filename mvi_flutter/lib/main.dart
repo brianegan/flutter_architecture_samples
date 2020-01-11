@@ -10,16 +10,16 @@ import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/run_mvi_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MviApp(
     todosRepository: TodosInteractor(
-      ReactiveTodosRepositoryFlutter(
+      ReactiveLocalStorageRepository(
         repository: LocalStorageRepository(
-          localStorage: LocalStorage(
+          localStorage: KeyValueStorage(
             'mvi_flutter',
             FlutterKeyValueStore(await SharedPreferences.getInstance()),
           ),

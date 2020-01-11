@@ -12,13 +12,14 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 ///
 /// Since we're trying to keep this example simple, it doesn't communicate with
 /// a real server but simply emulates the functionality.
-class WebClient {
+class WebClient implements TodosRepository {
   final Duration delay;
 
   const WebClient([this.delay = const Duration(milliseconds: 3000)]);
 
   /// Mock that "fetches" some Todos from a "web service" after a short delay
-  Future<List<TodoEntity>> fetchTodos() async {
+  @override
+  Future<List<TodoEntity>> loadTodos() async {
     return Future.delayed(
         delay,
         () => [
@@ -57,7 +58,8 @@ class WebClient {
 
   /// Mock that returns true or false for success or failure. In this case,
   /// it will "Always Succeed"
-  Future<bool> postTodos(List<TodoEntity> todos) async {
+  @override
+  Future<bool> saveTodos(List<TodoEntity> todos) async {
     return Future.value(true);
   }
 }

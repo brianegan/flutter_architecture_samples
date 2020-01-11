@@ -24,8 +24,8 @@ dependencies:
   dartea: "^0.5.5"
   todos_app_core:
     path: ../todos_app_core
-  todos_repository_simple:
-    path: ../todos_repository_simple
+  todos_repository_local_storage:
+    path: ../todos_repository_local_storage
 
 dev_dependencies:
   flutter_test:

@@ -20,8 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
   scoped_model: ^1.0.1
-  todos_repository_simple:
-    path: ../todos_repository_simple
+  todos_repository_local_storage:
+    path: ../todos_repository_local_storage
   todos_app_core:
     path: ../todos_app_core
 

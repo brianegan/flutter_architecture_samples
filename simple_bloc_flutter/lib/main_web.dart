@@ -10,14 +10,14 @@ import 'package:key_value_store_web/key_value_store_web.dart';
 import 'package:simple_bloc_flutter_sample/app.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
   runApp(SimpleBlocApp(
     todosInteractor: TodosInteractor(
-      ReactiveTodosRepositoryFlutter(
+      ReactiveLocalStorageRepository(
         repository: LocalStorageRepository(
-          localStorage: LocalStorage(
+          localStorage: KeyValueStorage(
             'simple_bloc',
             WebKeyValueStore(window.localStorage),
           ),
