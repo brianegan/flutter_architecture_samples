@@ -1,7 +1,8 @@
+import 'dart:html';
+
 import 'package:bloc_library/run_app.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:key_value_store_web/key_value_store_web.dart';
 import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 Future<void> main() async {
@@ -10,7 +11,7 @@ Future<void> main() async {
   runBlocLibraryApp(LocalStorageRepository(
     localStorage: LocalStorage(
       'bloc_library',
-      FlutterKeyValueStore(await SharedPreferences.getInstance()),
+      WebKeyValueStore(window.localStorage),
     ),
   ));
 }
