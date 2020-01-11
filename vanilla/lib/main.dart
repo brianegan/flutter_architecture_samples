@@ -3,19 +3,21 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:key_value_store_flutter/key_value_store_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 import 'package:vanilla/app.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     VanillaApp(
-      repository: TodosRepositoryFlutter(
-        fileStorage: FileStorage(
-          'vanilla_app',
-          getApplicationDocumentsDirectory,
+      repository: LocalStorageRepository(
+        localStorage: KeyValueStorage(
+          'vanilla',
+          FlutterKeyValueStore(await SharedPreferences.getInstance()),
         ),
-        webClient: WebClient(),
       ),
     ),
   );

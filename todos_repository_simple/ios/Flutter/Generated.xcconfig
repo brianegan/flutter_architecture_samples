@@ -1,7 +1,0 @@
-// This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/jenkins/Library/flutter
-FLUTTER_APPLICATION_PATH=/Users/jenkins/dev/github.com/mmcc007/flutter_architecture_samples/example/todos_repository_simple
-FLUTTER_TARGET=lib/main.dart
-FLUTTER_BUILD_DIR=build
-SYMROOT=${SOURCE_ROOT}/../build/ios
-FLUTTER_FRAMEWORK_DIR=/Users/jenkins/Library/flutter/bin/cache/artifacts/engine/ios

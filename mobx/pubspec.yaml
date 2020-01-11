@@ -20,15 +20,17 @@ dependencies:
   mobx: ^0.4.0
   flutter_mobx: ^0.3.0
   provider: ^4.0.0
-  path_provider:
-  todos_repository_simple:
-    path: ../todos_repository_simple
+  todos_repository_local_storage:
+    path: ../todos_repository_local_storage
   todos_repository_core:
     path: ../todos_repository_core
   todos_app_core:
     path: ../todos_app_core
   flutter:
     sdk: flutter
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
 
 dev_dependencies:
   mobx_codegen: ^0.4.0+1

@@ -3,52 +3,29 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:redux/redux.dart';
-import 'package:redux_sample/actions/actions.dart';
-import 'package:redux_sample/containers/add_todo.dart';
-import 'package:redux_sample/localization.dart';
-import 'package:redux_sample/middleware/store_todos_middleware.dart';
-import 'package:redux_sample/models/models.dart';
-import 'package:redux_sample/presentation/home_screen.dart';
+import 'package:redux_sample/app.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-void main() {
-  runApp(ReduxApp());
-}
+import 'middleware/store_todos_middleware.dart';
+import 'models/app_state.dart';
 
-class ReduxApp extends StatelessWidget {
-  final store = Store<AppState>(
-    appReducer,
-    initialState: AppState.loading(),
-    middleware: createStoreTodosMiddleware(),
-  );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-  @override
-  Widget build(BuildContext context) {
-    return StoreProvider(
-      store: store,
-      child: MaterialApp(
-        title: ReduxLocalizations().appTitle,
-        theme: ArchSampleTheme.theme,
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-          ReduxLocalizationsDelegate(),
-        ],
-        routes: {
-          ArchSampleRoutes.home: (context) {
-            return HomeScreen(
-              onInit: () {
-                StoreProvider.of<AppState>(context).dispatch(LoadTodosAction());
-              },
-            );
-          },
-          ArchSampleRoutes.addTodo: (context) {
-            return AddTodo();
-          },
-        },
-      ),
-    );
-  }
+  runApp(ReduxApp(
+    store: Store<AppState>(
+      appReducer,
+      initialState: AppState.loading(),
+      middleware: createStoreTodosMiddleware(LocalStorageRepository(
+        localStorage: KeyValueStorage(
+          'redux',
+          FlutterKeyValueStore(await SharedPreferences.getInstance()),
+        ),
+      )),
+    ),
+  ));
 }

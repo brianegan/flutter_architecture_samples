@@ -7,13 +7,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/models/models.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-class MockTodosRepository extends Mock implements TodosRepositoryFlutter {}
+class MockTodosRepository extends Mock implements LocalStorageRepository {}
 
 void main() {
   group('TodosBloc', () {
-    TodosRepositoryFlutter todosRepository;
+    LocalStorageRepository todosRepository;
     TodosBloc todosBloc;
 
     setUp(() {

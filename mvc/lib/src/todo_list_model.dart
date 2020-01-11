@@ -6,7 +6,7 @@ import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 import 'package:mvc/src/models.dart';
 
 class TodoListModel {
@@ -14,8 +14,8 @@ class TodoListModel {
       : _activeFilter = activeFilter ?? VisibilityFilter.all {
     /// The rest of the app need not know of its existence.
     repository = repo ??
-        TodosRepositoryFlutter(
-          fileStorage: const FileStorage(
+        LocalStorageRepository(
+          localStorage: const FileStorage(
             'mvc_app',
             getApplicationDocumentsDirectory,
           ),

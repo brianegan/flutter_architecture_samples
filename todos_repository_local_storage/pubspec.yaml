@@ -1,0 +1,19 @@
+name: todos_repository_local_storage
+description: An app-agnostic data source that can be used by all implementations
+
+environment:
+  sdk: '>=2.2.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  todos_repository_core:
+    path: ../todos_repository_core
+  rxdart: ^0.23.1
+  key_value_store:
+
+dev_dependencies:
+  test:
+  flutter_test:
+    sdk: flutter
+  mockito:
