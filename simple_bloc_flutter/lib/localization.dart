@@ -11,7 +11,7 @@ class BlocLocalizations {
     return Localizations.of<BlocLocalizations>(context, BlocLocalizations);
   }
 
-  String get appTitle => 'Bloc Example';
+  String get appTitle => 'Simple Bloc Example';
 }
 
 class InheritedWidgetLocalizationsDelegate
