@@ -10,16 +10,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_bloc_flutter_sample/app.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(SimpleBlocApp(
     todosInteractor: TodosInteractor(
-      ReactiveTodosRepositoryFlutter(
+      ReactiveLocalStorageRepository(
         repository: LocalStorageRepository(
-          localStorage: LocalStorage(
+          localStorage: KeyValueStorage(
             'simple_bloc',
             FlutterKeyValueStore(await SharedPreferences.getInstance()),
           ),

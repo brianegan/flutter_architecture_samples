@@ -7,17 +7,16 @@ import 'dart:core';
 
 import 'package:meta/meta.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'file_storage.dart';
 import 'web_client.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Todos and Persist todos.
-class TodosRepositoryFlutter implements TodosRepository {
-  final FileStorage fileStorage;
-  final WebClient webClient;
+class LocalStorageRepository implements TodosRepository {
+  final TodosRepository localStorage;
+  final TodosRepository webClient;
 
-  const TodosRepositoryFlutter({
-    @required this.fileStorage,
+  const LocalStorageRepository({
+    @required this.localStorage,
     this.webClient = const WebClient(),
   });
 
@@ -26,11 +25,11 @@ class TodosRepositoryFlutter implements TodosRepository {
   @override
   Future<List<TodoEntity>> loadTodos() async {
     try {
-      return await fileStorage.loadTodos();
+      return await localStorage.loadTodos();
     } catch (e) {
-      final todos = await webClient.fetchTodos();
+      final todos = await webClient.loadTodos();
 
-      await fileStorage.saveTodos(todos);
+      await localStorage.saveTodos(todos);
 
       return todos;
     }
@@ -40,8 +39,8 @@ class TodosRepositoryFlutter implements TodosRepository {
   @override
   Future saveTodos(List<TodoEntity> todos) {
     return Future.wait<dynamic>([
-      fileStorage.saveTodos(todos),
-      webClient.postTodos(todos),
+      localStorage.saveTodos(todos),
+      webClient.saveTodos(todos),
     ]);
   }
 }

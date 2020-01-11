@@ -13,7 +13,7 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 /// Note: This class has no direct dependencies on any Flutter dependencies.
 /// Instead, the `getDirectory` method should be injected. This allows for
 /// testing.
-class FileStorage {
+class FileStorage implements TodosRepository {
   final String tag;
   final Future<Directory> Function() getDirectory;
 
@@ -22,6 +22,7 @@ class FileStorage {
     this.getDirectory,
   );
 
+  @override
   Future<List<TodoEntity>> loadTodos() async {
     final file = await _getLocalFile();
     final string = await file.readAsString();
@@ -33,6 +34,7 @@ class FileStorage {
     return todos;
   }
 
+  @override
   Future<File> saveTodos(List<TodoEntity> todos) async {
     final file = await _getLocalFile();
 

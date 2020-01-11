@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 class MockTodosRepository extends Mock implements TodosRepository {}
 
@@ -25,7 +25,7 @@ void main() {
         () {
       final todos = createTodos();
       final repository = MockTodosRepository();
-      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
@@ -39,7 +39,7 @@ void main() {
     test('should only load from the base repo once', () {
       final todos = createTodos();
       final repository = MockTodosRepository();
-      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
@@ -55,7 +55,7 @@ void main() {
     test('should add todos to the repository and emit the change', () async {
       final todos = createTodos();
       final repository = MockTodosRepository();
-      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: [],
       );
@@ -74,7 +74,7 @@ void main() {
         () async {
       final todos = createTodos();
       final repository = MockTodosRepository();
-      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
@@ -95,7 +95,7 @@ void main() {
     test('should remove todos from the repo and emit the change', () async {
       final repository = MockTodosRepository();
       final todos = createTodos();
-      final reactiveRepository = ReactiveTodosRepositoryFlutter(
+      final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );

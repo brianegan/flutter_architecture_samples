@@ -11,12 +11,12 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Todos and Persist todos.
-class ReactiveTodosRepositoryFlutter implements ReactiveTodosRepository {
+class ReactiveLocalStorageRepository implements ReactiveTodosRepository {
   final TodosRepository _repository;
   final BehaviorSubject<List<TodoEntity>> _subject;
   bool _loaded = false;
 
-  ReactiveTodosRepositoryFlutter({
+  ReactiveLocalStorageRepository({
     @required TodosRepository repository,
     List<TodoEntity> seedValue,
   })  : _repository = repository,

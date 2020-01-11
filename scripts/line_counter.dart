@@ -98,7 +98,8 @@ List<File> _findDartFiles(List<Directory> directories) {
             !path.endsWith('.g.dart') &&
             !path.contains('todos_repository') &&
             !path.contains('file_storage') &&
-            !path.contains('web_client'))
+            !path.contains('web_client') &&
+            !path.contains('main_'))
         .toSet();
 
     return {...files, ...currentDirectoryDartFiles};
