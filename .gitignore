@@ -90,3 +90,4 @@ lcov.info
 !**/*/ios/**/default.mode2v3
 !**/*/ios/**/default.pbxuser
 !**/*/ios/**/default.perspectivev3
+**/*/generated_plugin_registrant.dart
