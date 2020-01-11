@@ -12,7 +12,7 @@ Future<void> main() async {
   runApp(ProviderApp(
     repository: LocalStorageRepository(
       localStorage: LocalStorage(
-        'mobx_todos',
+        'change_notifier_provider_todos',
         FlutterKeyValueStore(await SharedPreferences.getInstance()),
       ),
     ),

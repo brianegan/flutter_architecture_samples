@@ -28,6 +28,9 @@ dependencies:
   mvi_base:
     path: ../mvi_base
   rxdart: ^0.23.1
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:

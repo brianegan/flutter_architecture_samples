@@ -3,9 +3,11 @@
 // in the LICENSE file.
 
 import 'dart:async';
+import 'dart:html';
 
 import 'package:flutter/widgets.dart';
 import 'package:key_value_store_flutter/key_value_store_flutter.dart';
+import 'package:key_value_store_web/key_value_store_web.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/run_mvi_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +23,7 @@ Future<void> main() async {
         repository: LocalStorageRepository(
           localStorage: LocalStorage(
             'mvi_flutter',
-            FlutterKeyValueStore(await SharedPreferences.getInstance()),
+            WebKeyValueStore(window.localStorage),
           ),
         ),
       ),
