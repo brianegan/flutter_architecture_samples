@@ -10,12 +10,8 @@ Future<void> main() async {
 
   runApp(
       MobxApp(
-        repository: LocalStorageRepository(
-          localStorage: LocalStorage(
-            'mobx_todos',
-            FlutterKeyValueStore(await SharedPreferences.getInstance()),
-          ),
-        ),
+        repository:
+        ,
       ),
     );
 }

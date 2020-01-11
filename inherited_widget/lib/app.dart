@@ -9,6 +9,8 @@ import 'package:inherited_widget_sample/screens/home_screen.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class InheritedWidgetApp extends StatelessWidget {
+  const InheritedWidgetApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
