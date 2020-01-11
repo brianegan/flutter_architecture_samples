@@ -9,13 +9,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
-      MobxApp(
-        repository: LocalStorageRepository(
-          localStorage: LocalStorage(
-            'mobx_todos',
-            FlutterKeyValueStore(await SharedPreferences.getInstance()),
-          ),
+    MobxApp(
+      repository: LocalStorageRepository(
+        localStorage: LocalStorage(
+          'mobx_todos',
+          FlutterKeyValueStore(await SharedPreferences.getInstance()),
         ),
       ),
-    );
+    ),
+  );
 }
