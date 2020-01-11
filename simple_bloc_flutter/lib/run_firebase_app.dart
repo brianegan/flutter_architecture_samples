@@ -3,7 +3,6 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:meta/meta.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/localization.dart';
@@ -11,6 +10,7 @@ import 'package:simple_bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:simple_bloc_flutter_sample/screens/home_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 void runSimpleBlocApp({
@@ -23,7 +23,7 @@ void runSimpleBlocApp({
     child: TodosBlocProvider(
       bloc: TodosListBloc(todosInteractor),
       child: MaterialApp(
-        title: BlocLocalizations().appTitle,
+        onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),

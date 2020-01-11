@@ -2,16 +2,16 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
-import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/localization.dart';
 import 'package:bloc_library/blocs/blocs.dart';
+import 'package:bloc_library/localization.dart';
 import 'package:bloc_library/models/models.dart';
 import 'package:bloc_library/screens/screens.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:todos_app_core/todos_app_core.dart';
+import 'package:todos_repository_simple/todos_repository_simple.dart';
 
 void main() {
   // BlocSupervisor oversees Blocs and delegates to BlocDelegate.
@@ -40,7 +40,8 @@ class TodosApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final todosBloc = BlocProvider.of<TodosBloc>(context);
     return MaterialApp(
-      title: FlutterBlocLocalizations().appTitle,
+      onGenerateTitle: (context) =>
+          FlutterBlocLocalizations.of(context).appTitle,
       theme: ArchSampleTheme.theme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),

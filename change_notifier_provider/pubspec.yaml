@@ -24,6 +24,9 @@ dependencies:
     path: ../todos_app_core
   flutter:
     sdk: flutter
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
 
 dev_dependencies:
   mockito:
