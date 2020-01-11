@@ -13,6 +13,8 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(SimpleBlocApp(
     todosInteractor: TodosInteractor(
       ReactiveLocalStorageRepository(

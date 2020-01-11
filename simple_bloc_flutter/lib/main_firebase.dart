@@ -11,6 +11,8 @@ import 'package:simple_bloc_flutter_sample/app.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(SimpleBlocApp(
     todosInteractor: TodosInteractor(
       FirestoreReactiveTodosRepository(Firestore.instance),
