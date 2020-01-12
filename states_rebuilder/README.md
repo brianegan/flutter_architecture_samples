@@ -9,6 +9,23 @@ For more information and tutorials on how states_rebuilder work please check out
 * Business logic is written using Plain Old Dart Object without any need to extend, notify, annotate any thing.
 * The app is divided into there layers : Domain, Service, and the outer layer for UI and external services which has three parts (UI, repository, and infrastructure).
 
+The folders structure is :
+
+lib - 
+  |-domain
+  |  |-entities
+  |  |-exceptions
+  |-service
+  |      |-interfaces
+  |      |-exceptions
+  |      |-common
+  |-repository
+  |-ui
+  |  |-pages
+  |  |-exceptions
+  |  |-common
+ 
+
 ## domain
 Contains enterprise wide business logic. It encapsulates entities, value_objects, exceptions. In case of todoMVC we need one entity `Todo`.
 
