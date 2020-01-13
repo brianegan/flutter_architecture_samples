@@ -15,6 +15,7 @@ class TodoList extends StatelessWidget {
   final todosServiceRM = Injector.getAsReactive<TodosService>();
   @override
   Widget build(BuildContext context) {
+    //use whenConnectionState method to go through all the possible status of the ReactiveModel
     return todosServiceRM.whenConnectionState(
       onIdle: () => Container(),
       onWaiting: () => Center(
@@ -33,6 +34,7 @@ class TodoList extends StatelessWidget {
         );
       },
       onError: (error) {
+        //Delegate error handling to the static method ErrorHandler.getErrorMessage
         return Center(child: Text(ErrorHandler.getErrorMessage(error)));
       },
     );
