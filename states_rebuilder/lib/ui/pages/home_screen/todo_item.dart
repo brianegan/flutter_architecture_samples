@@ -26,6 +26,7 @@ class TodoItem extends StatelessWidget {
     return Dismissible(
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: (direction) {
+        //delegate removing todo to the static method HelperMethods.removeTodo.
         HelperMethods.removeTodo(todo);
       },
       child: ListTile(

@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StateBuilder<TodosService>(
         models: [Injector.getAsReactive<TodosService>()],
         initState: (_, todosServiceRM) {
+          //update state and notify observer
           return todosServiceRM.setState((s) => s.loadTodos());
         },
         builder: (_, todosServiceRM) {
@@ -52,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         key: ArchSampleKeys.tabs,
         currentIndex: AppTab.values.indexOf(_activeTab),
         onTap: (index) {
+          //mutate the state of the private field _activeTab and use Flutter setState because
           setState(() => _activeTab = AppTab.values[index]);
         },
         items: AppTab.values.map(

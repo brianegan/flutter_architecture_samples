@@ -3,18 +3,21 @@ import 'package:states_rebuilder_sample/domain/entities/todo.dart';
 import 'common/enums.dart';
 import 'interfaces/i_todo_repository.dart';
 
+//`TodosService` is a pure dart class that can be easily tested (see test folder).
+
 class TodosService {
+  //Constructor injection of the ITodoRepository abstract class.
   TodosService(ITodosRepository todoRepository)
       : _todoRepository = todoRepository;
 
+  //private fields
   final ITodosRepository _todoRepository;
-
   List<Todo> _todos = const [];
-  List<Todo> get _completedTodos => _todos.where((t) => t.complete).toList();
-  List<Todo> get _activeTodos => _todos.where((t) => !t.complete).toList();
 
+  //public field
   VisibilityFilter activeFilter = VisibilityFilter.all;
 
+  //getters
   List<Todo> get todos {
     if (activeFilter == VisibilityFilter.active) {
       return _activeTodos;
@@ -25,10 +28,13 @@ class TodosService {
     return _todos;
   }
 
+  List<Todo> get _completedTodos => _todos.where((t) => t.complete).toList();
+  List<Todo> get _activeTodos => _todos.where((t) => !t.complete).toList();
   int get numCompleted => _completedTodos.length;
   int get numActive => _activeTodos.length;
   bool get allComplete => _activeTodos.isEmpty;
 
+  //methods for CRUD
   void loadTodos() async {
     _todos = await _todoRepository.loadTodos();
   }

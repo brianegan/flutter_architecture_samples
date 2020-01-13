@@ -20,6 +20,7 @@ class Todo {
     complete = map['complete'] as bool;
   }
 
+  // toJson is called just before persistance.
   Map<String, Object> toJson() {
     _validation();
     return {
@@ -32,6 +33,7 @@ class Todo {
 
   void _validation() {
     if (id == null) {
+      // Custom defined error classes
       throw ValidationException('This todo has no ID!');
     }
     if (task == null || task.isEmpty) {

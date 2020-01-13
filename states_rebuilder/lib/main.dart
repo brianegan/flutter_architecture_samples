@@ -8,18 +8,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 import 'app.dart';
-import 'repository/todo_repository.dart';
+import 'data_source/todo_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
     StatesRebuilderApp(
-      repository: StatesRebuilderTodosRepository(
-          todosRepository: KeyValueStorage(
-        'states_rebuilder',
-        FlutterKeyValueStore(await SharedPreferences.getInstance()),
-      )),
+      repository: StatesBuilderTodosRepository(
+        todosRepository: LocalStorageRepository(
+          localStorage: KeyValueStorage(
+            'states_rebuilder',
+            FlutterKeyValueStore(await SharedPreferences.getInstance()),
+          ),
+        ),
+      ),
     ),
   );
 }
