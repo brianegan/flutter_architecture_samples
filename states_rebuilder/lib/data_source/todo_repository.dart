@@ -1,15 +1,14 @@
 import 'package:todos_repository_core/src/todo_entity.dart';
-import 'package:todos_repository_core/src/todos_repository.dart';
+import 'package:todos_repository_core/src/todos_repository.dart' as core;
 import '../domain/entities/todo.dart';
 import '../service/exceptions/persistance_exception.dart';
 import '../service/interfaces/i_todo_repository.dart';
 
-class StatesRebuilderTodosRepository implements ITodosRepository {
+class StatesBuilderTodosRepository implements ITodosRepository {
+  final core.TodosRepository _todosRepository;
 
-  TodosRepository _todosRepository;
-
-  StatesRebuilderTodosRepository({TodosRepository todosRepository})
-      : _todosRepository =todosRepository;
+  StatesBuilderTodosRepository({core.TodosRepository todosRepository})
+      : _todosRepository = todosRepository;
 
   @override
   Future<List<Todo>> loadTodos() async {

@@ -15,6 +15,7 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //context is used to register FilterButton as observer in todosServiceRM
     final todosServiceRM =
         Injector.getAsReactive<TodosService>(context: context);
 

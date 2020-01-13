@@ -9,6 +9,7 @@ import 'package:states_rebuilder_sample/service/todos_service.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatelessWidget {
+  //use Injector.get, because this class need not to be reactive and its rebuild is ensured by its parent.
   final todosService = Injector.get<TodosService>();
 
   StatsCounter() : super(key: ArchSampleKeys.statsCounter);
