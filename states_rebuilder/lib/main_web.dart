@@ -16,8 +16,8 @@ void main() async {
 
   runApp(
     StatesRebuilderApp(
-      repository: TodosRepository(
-          localStorage: KeyValueStorage(
+      repository: StatesRebuilderTodosRepository(
+          todosRepository: KeyValueStorage(
         'states_rebuilder',
         WebKeyValueStore(window.localStorage),
       )),

@@ -38,6 +38,7 @@ task:
       app_arch: scoped_model
       app_arch: simple_bloc_flutter
       app_arch: vanilla
+      app_arch: states_rebuilder
   container:
     image: cirrusci/flutter:$DOCKER_VERSION
     cpu: 4
@@ -79,6 +80,7 @@ task:
       app_arch: scoped_model
       app_arch: simple_bloc_flutter
       app_arch: vanilla
+      app_arch: states_rebuilder
   osx_instance:
     image: mojave-xcode-11.2.1-flutter
   simulator_script:
