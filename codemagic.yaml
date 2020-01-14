@@ -1,0 +1,309 @@
+# Automatically generated on 2020-01-14 UTC from https://codemagic.io/app/5e193a8c48f5bc001d576a59/settings
+# Note that this configuration is not an exact match to UI settings. Review and adjust as necessary.
+
+workflows:
+  mobx:
+    name: Mobx
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd mobx && flutter packages pub get
+      - cd mobx && flutter config --enable-web
+      - cd mobx && flutter analyze
+      - cd mobx && flutter drive --target=test_driver/todo_app.dart
+      - cd mobx && flutter test
+      - |
+        # build web
+        cd mobx
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - mobx/build/web.zip
+      - mobx/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  mvi:
+    name: mvi
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd mvi_flutter && flutter packages pub get
+      - cd mvi_flutter && flutter config --enable-web
+      - cd mvi_flutter && flutter drive --target=test_driver/todo_app.dart
+      - cd mvi_flutter && flutter test
+      - |
+        # build web
+        cd mvi_flutter
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - mvi_flutter/build/web.zip
+      - mvi_flutter/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  bloc_library:
+    name: bloc_library
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd bloc_library && flutter packages pub get
+      - cd bloc_library && flutter config --enable-web
+      - cd bloc_library && flutter analyze
+      - cd bloc_library && flutter drive --target=test_driver/todo_app.dart
+      - cd bloc_library && flutter test
+      - |
+        # build web
+        cd bloc_library
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - bloc_library/build/web.zip
+      - bloc_library/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  inherited_widget:
+    name: inherited_widget
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd inherited_widget && flutter packages pub get
+      - cd inherited_widget && flutter config --enable-web
+      - cd inherited_widget && flutter analyze
+      - cd inherited_widget && flutter drive --target=test_driver/todo_app.dart
+      - cd inherited_widget && flutter test
+      - |
+        # build web
+        cd inherited_widget
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - inherited_widget/build/web.zip
+      - inherited_widget/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  simple_bloc:
+    name: simple_bloc
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd simple_bloc_flutter && flutter packages pub get
+      - cd simple_bloc_flutter && flutter config --enable-web
+      - cd simple_bloc_flutter && flutter drive --target=test_driver/todo_app.dart
+      - |
+        # build web
+        cd simple_bloc_flutter
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - simple_bloc_flutter/build/web.zip
+      - simple_bloc_flutter/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  bloc_flutter:
+    name: bloc_flutter
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd bloc_flutter && flutter packages pub get
+      - cd bloc_flutter && flutter config --enable-web
+      - cd bloc_flutter && flutter drive --target=test_driver/todo_app.dart
+      - |
+        # build web
+        cd bloc_flutter
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - bloc_flutter/build/web.zip
+      - bloc_flutter/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  vanilla:
+    name: vanilla
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd vanilla && flutter packages pub get
+      - cd vanilla && flutter config --enable-web
+      - cd vanilla && flutter analyze
+      - cd vanilla && flutter drive --target=test_driver/todo_app.dart
+      - cd vanilla && flutter test
+      - |
+        # build web
+        cd vanilla
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - vanilla/build/web.zip
+      - vanilla/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  redux:
+    name: redux
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd redux && flutter packages pub get
+      - cd redux && flutter config --enable-web
+      - cd redux && flutter analyze
+      - cd redux && flutter drive --target=test_driver/todo_app.dart
+      - cd redux && flutter test
+      - |
+        # build web
+        cd redux
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - redux/build/web.zip
+      - redux/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  change_notifier_provider:
+    name: change_notifier_provider
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd change_notifier_provider && flutter packages pub get
+      - cd change_notifier_provider && flutter config --enable-web
+      - cd change_notifier_provider && flutter analyze
+      - cd change_notifier_provider && flutter drive --target=test_driver/todo_app.dart
+      - cd change_notifier_provider && flutter test
+      - |
+        # build web
+        cd change_notifier_provider
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - change_notifier_provider/build/web.zip
+      - change_notifier_provider/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com
+  states_rebuilder:
+    name: states_rebuilder
+    environment:
+      flutter: beta
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: master
+          include: true
+          source: true
+    scripts:
+      - flutter emulators --launch apple_ios_simulator
+      - cd states_rebuilder && flutter packages pub get
+      - cd states_rebuilder && flutter config --enable-web
+      - cd states_rebuilder && flutter analyze
+      - cd states_rebuilder && flutter drive --target=test_driver/todo_app.dart
+      - cd states_rebuilder && flutter test
+      - |
+        # build web
+        cd states_rebuilder
+        flutter build web --release -t lib/main_web.dart
+        cd build/web
+        7z a -r ../web.zip ./*
+    artifacts:
+      - states_rebuilder/build/web.zip
+      - states_rebuilder/flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - brian@brianegan.com

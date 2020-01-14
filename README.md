@@ -39,6 +39,7 @@ a simple UI.
 - [Redux Example](redux) ([Web Demo](https://fas_redux.codemagic.app)) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
 - ["Simple" BLoC Example](simple_bloc_flutter) ([Web Demo](https://fas_simple_bloc.codemagic.app)) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
 - [MVI Example](mvi_flutter) ([Web Demo](https://fas_mvi.codemagic.app)) - Uses the concepts from Cycle.JS and applies them to Flutter.
+- [states_rebuilder Example](states_rebuilder) ([Web Demo](https://fas_states_rebuilder.codemagic.app)) - Uses the [states_rebuilder](https://pub.dev/packages/states_rebuilder) library to manage app state and update Widgets.
 - [built_redux Example](built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
 - [scoped_model Example](scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
 - [Firestore Redux Example](firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and
@@ -46,7 +47,6 @@ a simple UI.
 - [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
 - [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
 - [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
-- [states_rebuilder Example](states_rebuilder) - Uses the [states_rebuilder](https://pub.dev/packages/states_rebuilder) library to manage app state and update Widgets.
 
 ### Supporting Code
 
