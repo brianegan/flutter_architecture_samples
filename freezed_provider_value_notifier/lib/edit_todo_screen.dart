@@ -54,7 +54,9 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
                 validator: (val) {
-                  return val.trim().isEmpty ? ArchSampleLocalizations.of(context).emptyTodoError : null;
+                  return val.trim().isEmpty
+                      ? ArchSampleLocalizations.of(context).emptyTodoError
+                      : null;
                 },
               ),
               TextFormField(

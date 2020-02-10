@@ -41,7 +41,8 @@ void main() {
       expect(model.value.filteredTodos, todos);
     });
 
-    test('should return active todos if the VisibilityFilter is active', () async {
+    test('should return active todos if the VisibilityFilter is active',
+        () async {
       final todo1 = Todo('a');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
@@ -54,7 +55,8 @@ void main() {
       expect(model.value.filteredTodos, [todo1, todo2]);
     });
 
-    test('should return completed todos if the VisibilityFilter is completed', () async {
+    test('should return completed todos if the VisibilityFilter is completed',
+        () async {
       final todo1 = Todo('a');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
@@ -122,7 +124,8 @@ void main() {
     test('should remove a todo', () async {
       final repository = MockRepository();
       final todo = Todo('A');
-      final model = TodoListController(todosRepository: repository, todos: [todo]);
+      final model =
+          TodoListController(todosRepository: repository, todos: [todo]);
 
       model.removeTodoWithId(todo.id);
 

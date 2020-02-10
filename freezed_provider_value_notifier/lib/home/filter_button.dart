@@ -25,7 +25,8 @@ class FilterButton extends StatelessWidget {
               key: ArchSampleKeys.filterButton,
               tooltip: ArchSampleLocalizations.of(context).filterTodos,
               initialValue: model.filter,
-              onSelected: (filter) => context.read<TodoListController>().filter = filter,
+              onSelected: (filter) =>
+                  context.read<TodoListController>().filter = filter,
               itemBuilder: (BuildContext context) => _items(context, model),
               icon: const Icon(Icons.filter_list),
             );

@@ -30,7 +30,8 @@ class ProviderApp extends StatelessWidget {
           ArchSampleLocalizationsDelegate(),
           ProviderLocalizationsDelegate(),
         ],
-        onGenerateTitle: (context) => ProviderLocalizations.of(context).appTitle,
+        onGenerateTitle: (context) =>
+            ProviderLocalizations.of(context).appTitle,
         routes: {
           ArchSampleRoutes.home: (context) => HomeScreen(),
           ArchSampleRoutes.addTodo: (context) => AddTodoScreen(),

@@ -70,7 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 default:
                   return TodoListView(
                     onRemove: (context, todo) {
-                      context.read<TodoListController>().removeTodoWithId(todo.id);
+                      context
+                          .read<TodoListController>()
+                          .removeTodoWithId(todo.id);
                       _showUndoSnackbar(context, todo);
                     },
                   );
