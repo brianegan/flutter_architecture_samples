@@ -23,8 +23,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
 
   @override
   void initState() {
-    final todo =
-        Provider.of<TodoListModel>(context, listen: false).todoById(widget.id);
+    final todo = context.read<TodoList>().todoById(widget.id);
     _taskController = TextEditingController(text: todo?.task);
     _noteController = TextEditingController(text: todo?.note);
     super.initState();
@@ -55,9 +54,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
                 validator: (val) {
-                  return val.trim().isEmpty
-                      ? ArchSampleLocalizations.of(context).emptyTodoError
-                      : null;
+                  return val.trim().isEmpty ? ArchSampleLocalizations.of(context).emptyTodoError : null;
                 },
               ),
               TextFormField(

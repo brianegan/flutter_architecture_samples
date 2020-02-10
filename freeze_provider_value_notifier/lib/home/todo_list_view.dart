@@ -13,7 +13,7 @@ class TodoListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<TodoListModel, List<Todo>>(
+    return Selector<TodoList, List<Todo>>(
       selector: (_, model) => model.filteredTodos,
       builder: (context, todos, _) {
         return ListView.builder(
@@ -46,8 +46,7 @@ class TodoListView extends StatelessWidget {
                   key: ArchSampleKeys.todoItemCheckbox(todo.id),
                   value: todo.complete,
                   onChanged: (complete) {
-                    Provider.of<TodoListModel>(context, listen: false)
-                        .updateTodo(todo.copy(complete: complete));
+                    context.read<TodoListController>().updateTodo(todo.copy(complete: complete));
                   },
                 ),
                 title: Text(

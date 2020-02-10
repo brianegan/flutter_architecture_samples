@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
-  provider: ^4.0.1
+  provider: ^4.1.0-dev
   todos_repository_local_storage:
     path: ../todos_repository_local_storage
   todos_app_core:

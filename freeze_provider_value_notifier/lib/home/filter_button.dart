@@ -19,13 +19,13 @@ class FilterButton extends StatelessWidget {
       child: AnimatedOpacity(
         opacity: isActive ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 150),
-        child: Consumer<TodoListModel>(
+        child: Consumer<TodoList>(
           builder: (context, model, _) {
             return PopupMenuButton<VisibilityFilter>(
               key: ArchSampleKeys.filterButton,
               tooltip: ArchSampleLocalizations.of(context).filterTodos,
               initialValue: model.filter,
-              onSelected: (filter) => model.filter = filter,
+              onSelected: (filter) => context.read<TodoListController>().filter = filter,
               itemBuilder: (BuildContext context) => _items(context, model),
               icon: const Icon(Icons.filter_list),
             );
@@ -36,7 +36,7 @@ class FilterButton extends StatelessWidget {
   }
 
   List<PopupMenuItem<VisibilityFilter>> _items(
-      BuildContext context, TodoListModel store) {
+      BuildContext context, TodoList store) {
     final activeStyle = Theme.of(context)
         .textTheme
         .bodyText2

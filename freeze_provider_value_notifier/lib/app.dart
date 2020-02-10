@@ -3,8 +3,8 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:freeze_provider_value_notifier/value_notifier_provider.dart';
 import 'package:meta/meta.dart';
-import 'package:provider/provider.dart';
 import 'package:freeze_provider_value_notifier/add_todo_screen.dart';
 import 'package:freeze_provider_value_notifier/localization.dart';
 import 'package:freeze_provider_value_notifier/todo_list_model.dart';
@@ -22,16 +22,15 @@ class ProviderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TodoListModel(repository: repository),
+    return ValueNotifierProvider<TodoListController, TodoList>(
+      create: (_) => TodoListController(todosRepository: repository),
       child: MaterialApp(
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           ProviderLocalizationsDelegate(),
         ],
-        onGenerateTitle: (context) =>
-            ProviderLocalizations.of(context).appTitle,
+        onGenerateTitle: (context) => ProviderLocalizations.of(context).appTitle,
         routes: {
           ArchSampleRoutes.home: (context) => HomeScreen(),
           ArchSampleRoutes.addTodo: (context) => AddTodoScreen(),

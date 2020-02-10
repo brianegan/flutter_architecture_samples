@@ -22,7 +22,7 @@ class StatsView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 24.0),
-            child: Selector<TodoListModel, int>(
+            child: Selector<TodoList, int>(
               selector: (_, model) => model.numCompleted,
               builder: (context, numCompleted, _) => Text(
                 '$numCompleted',
@@ -40,7 +40,7 @@ class StatsView extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 24.0),
-            child: Selector<TodoListModel, int>(
+            child: Selector<TodoList, int>(
               selector: (_, model) => model.numActive,
               builder: (context, numActive, _) => Text(
                 '$numActive',

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
+import 'package:freeze_provider_value_notifier/value_notifier_provider.dart';
 import 'package:freeze_provider_value_notifier/home/home_screen.dart';
 import 'package:freeze_provider_value_notifier/localization.dart';
 import 'package:freeze_provider_value_notifier/models.dart';
@@ -85,21 +85,19 @@ void main() {
 class _TestWidget extends StatelessWidget {
   final Widget child;
   final TodosRepository repository;
-  final List<Todo> todos;
 
   const _TestWidget({
     Key key,
     this.child,
     this.repository,
-    this.todos = const [],
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<TodoListModel>(
-      create: (_) => TodoListModel(
-        repository: MockRepository([]),
-        todos: defaultTodos(),
+    return ValueNotifierProvider<TodoListController, TodoList>(
+      create: (_) => TodoListController(
+        todosRepository: MockRepository(defaultTodos),
+        todos: defaultTodos,
       ),
       child: MaterialApp(
         localizationsDelegates: [
@@ -112,13 +110,11 @@ class _TestWidget extends StatelessWidget {
   }
 }
 
-List<Todo> defaultTodos() {
-  return [
-    Todo('T1', id: '1', note: 'N1'),
-    Todo('T2', id: '2'),
-    Todo('T3', id: '3', complete: true),
-  ];
-}
+final List<Todo> defaultTodos = [
+  Todo('T1', id: '1', note: 'N1'),
+  Todo('T2', id: '2'),
+  Todo('T3', id: '3', complete: true),
+];
 
 Matcher isChecked(bool isChecked) {
   return matchesSemantics(

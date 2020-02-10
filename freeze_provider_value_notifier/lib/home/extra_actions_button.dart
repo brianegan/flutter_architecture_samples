@@ -15,17 +15,17 @@ class ExtraActionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = Provider.of<TodoListModel>(context);
+    final model = Provider.of<TodoList>(context);
 
     return PopupMenuButton<ExtraAction>(
       key: ArchSampleKeys.extraActionsButton,
       onSelected: (action) {
         switch (action) {
           case ExtraAction.toggleAllComplete:
-            model.toggleAll();
+            context.read<TodoListController>().toggleAll();
             break;
           case ExtraAction.clearCompleted:
-            model.clearCompleted();
+            context.read<TodoListController>().clearCompleted();
             break;
         }
       },
