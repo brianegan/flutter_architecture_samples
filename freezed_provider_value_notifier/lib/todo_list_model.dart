@@ -36,15 +36,18 @@ extension TodoListStateExtensions on TodoList {
     }).toList();
   }
 
-  int get numCompleted => todos.where((Todo todo) => todo.complete).toList().length;
+  int get numCompleted =>
+      todos.where((Todo todo) => todo.complete).toList().length;
 
   bool get hasCompleted => numCompleted > 0;
 
-  int get numActive => todos.where((Todo todo) => !todo.complete).toList().length;
+  int get numActive =>
+      todos.where((Todo todo) => !todo.complete).toList().length;
 
   bool get hasActiveTodos => numActive > 0;
 
-  Todo todoById(String id) => todos.firstWhere((it) => it.id == id, orElse: () => null);
+  Todo todoById(String id) =>
+      todos.firstWhere((it) => it.id == id, orElse: () => null);
 }
 
 class TodoListController extends ValueNotifier<TodoList> {
@@ -59,11 +62,13 @@ class TodoListController extends ValueNotifier<TodoList> {
 
   final TodosRepository todosRepository;
 
-  set filter(VisibilityFilter filter) => setState(value.copyWith(filter: filter));
+  set filter(VisibilityFilter filter) =>
+      setState(value.copyWith(filter: filter));
 
   void setState(TodoList state) {
     if (!const DeepCollectionEquality().equals(state.todos, value.todos)) {
-      todosRepository.saveTodos(state.todos.map((it) => it.toEntity()).toList());
+      todosRepository
+          .saveTodos(state.todos.map((it) => it.toEntity()).toList());
     }
     value = state;
   }
@@ -73,7 +78,8 @@ class TodoListController extends ValueNotifier<TodoList> {
 
     try {
       final todos = await todosRepository.loadTodos();
-      setState(value.copyWith(todos: todos.map(Todo.fromEntity).toList(), loading: false));
+      setState(value.copyWith(
+          todos: todos.map(Todo.fromEntity).toList(), loading: false));
     } catch (_) {
       setState(value.copyWith(loading: false));
     }
@@ -88,7 +94,8 @@ class TodoListController extends ValueNotifier<TodoList> {
   void updateTodo(Todo updatedTodo) {
     setState(
       value.copyWith(todos: [
-        for (final todo in value.todos) if (todo.id == updatedTodo.id) updatedTodo else todo,
+        for (final todo in value.todos)
+          if (todo.id == updatedTodo.id) updatedTodo else todo,
       ]),
     );
   }

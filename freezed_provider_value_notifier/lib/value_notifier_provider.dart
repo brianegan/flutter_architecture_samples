@@ -6,8 +6,10 @@ import 'package:provider/single_child_widget.dart';
 // Don't bother about understand this – you can just copy-paste it in your app.
 // It may get merged into `provider` at some point.
 
-class ValueNotifierProvider<Controller extends ValueNotifier<Value>, Value> extends SingleChildStatelessWidget {
-  ValueNotifierProvider({@required this.create, Widget child}) : super(child: child);
+class ValueNotifierProvider<Controller extends ValueNotifier<Value>, Value>
+    extends SingleChildStatelessWidget {
+  ValueNotifierProvider({@required this.create, Widget child})
+      : super(child: child);
 
   final Create<Controller> create;
 

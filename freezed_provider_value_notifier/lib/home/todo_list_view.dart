@@ -46,7 +46,9 @@ class TodoListView extends StatelessWidget {
                   key: ArchSampleKeys.todoItemCheckbox(todo.id),
                   value: todo.complete,
                   onChanged: (complete) {
-                    context.read<TodoListController>().updateTodo(todo.copy(complete: complete));
+                    context
+                        .read<TodoListController>()
+                        .updateTodo(todo.copy(complete: complete));
                   },
                 ),
                 title: Text(

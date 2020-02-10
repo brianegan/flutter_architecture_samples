@@ -71,9 +71,9 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             context.read<TodoListController>().addTodo(Todo(
-              _titleEditingController.text,
-              note: _notesEditingController.text,
-            ));
+                  _titleEditingController.text,
+                  note: _notesEditingController.text,
+                ));
             Navigator.pop(context);
           }
         },

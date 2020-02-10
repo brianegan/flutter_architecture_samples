@@ -11,7 +11,8 @@ class DetailsScreen extends StatelessWidget {
   final String id;
   final VoidCallback onRemove;
 
-  const DetailsScreen({@required this.id, @required this.onRemove}) : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({@required this.id, @required this.onRemove})
+      : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,9 @@ class DetailsScreen extends StatelessWidget {
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         value: todo.complete,
                         onChanged: (complete) {
-                          context.read<TodoListController>().updateTodo(todo.copy(complete: !todo.complete));
+                          context
+                              .read<TodoListController>()
+                              .updateTodo(todo.copy(complete: !todo.complete));
                         },
                       ),
                     ),
@@ -87,9 +90,10 @@ class DetailsScreen extends StatelessWidget {
               builder: (context) => EditTodoScreen(
                 id: id,
                 onEdit: (task, note) {
-                  context
-                      .read<TodoListController>()
-                      .updateTodo(context.read<TodoList>().todoById(id)?.copy(task: task, note: note));
+                  context.read<TodoListController>().updateTodo(context
+                      .read<TodoList>()
+                      .todoById(id)
+                      ?.copy(task: task, note: note));
 
                   return Navigator.pop(context);
                 },
