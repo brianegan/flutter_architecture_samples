@@ -49,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen> {
         tooltip: ArchSampleLocalizations.of(context).addTodo,
         child: const Icon(Icons.add),
       ),
-      body: Selector<TodoListModel, bool>(
-        selector: (context, model) => model.isLoading,
+      body: Selector<TodoList, bool>(
+        selector: (context, model) => model.loading,
         builder: (context, isLoading, _) {
           if (isLoading) {
             return Center(
@@ -70,8 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 default:
                   return TodoListView(
                     onRemove: (context, todo) {
-                      Provider.of<TodoListModel>(context, listen: false)
-                          .removeTodo(todo);
+                      context.read<TodoListController>().removeTodoWithId(todo.id);
                       _showUndoSnackbar(context, todo);
                     },
                   );
@@ -116,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
         action: SnackBarAction(
           key: ArchSampleKeys.snackbarAction(todo.id),
           label: ArchSampleLocalizations.of(context).undo,
-          onPressed: () =>
-              Provider.of<TodoListModel>(context, listen: false).addTodo(todo),
+          onPressed: () => context.read<TodoListController>().addTodo(todo),
         ),
       ),
     );

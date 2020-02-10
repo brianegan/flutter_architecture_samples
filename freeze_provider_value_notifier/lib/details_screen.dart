@@ -11,8 +11,7 @@ class DetailsScreen extends StatelessWidget {
   final String id;
   final VoidCallback onRemove;
 
-  const DetailsScreen({@required this.id, @required this.onRemove})
-      : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({@required this.id, @required this.onRemove}) : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
           )
         ],
       ),
-      body: Selector<TodoListModel, Todo>(
+      body: Selector<TodoList, Todo>(
         selector: (context, model) => model.todoById(id),
         shouldRebuild: (prev, next) => next != null,
         builder: (context, todo, _) {
@@ -45,8 +44,7 @@ class DetailsScreen extends StatelessWidget {
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         value: todo.complete,
                         onChanged: (complete) {
-                          Provider.of<TodoListModel>(context, listen: false)
-                              .updateTodo(todo.copy(complete: !todo.complete));
+                          context.read<TodoListController>().updateTodo(todo.copy(complete: !todo.complete));
                         },
                       ),
                     ),
@@ -89,11 +87,9 @@ class DetailsScreen extends StatelessWidget {
               builder: (context) => EditTodoScreen(
                 id: id,
                 onEdit: (task, note) {
-                  final model =
-                      Provider.of<TodoListModel>(context, listen: false);
-                  final todo = model.todoById(id);
-
-                  model.updateTodo(todo.copy(task: task, note: note));
+                  context
+                      .read<TodoListController>()
+                      .updateTodo(context.read<TodoList>().todoById(id)?.copy(task: task, note: note));
 
                   return Navigator.pop(context);
                 },

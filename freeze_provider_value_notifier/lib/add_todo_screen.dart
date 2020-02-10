@@ -70,7 +70,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         tooltip: localizations.addTodo,
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            Provider.of<TodoListModel>(context, listen: false).addTodo(Todo(
+            context.read<TodoListController>().addTodo(Todo(
               _titleEditingController.text,
               note: _notesEditingController.text,
             ));
