@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: deprecated_member_use_from_same_package
 
 part of 'todo_list_model.dart';
 
@@ -6,7 +7,7 @@ part of 'todo_list_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
-abstract class _$TodoList {
+mixin _$TodoList {
   List<Todo> get todos;
   VisibilityFilter get filter;
   bool get loading;
@@ -15,8 +16,10 @@ abstract class _$TodoList {
 }
 
 class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
-  const _$TodoListState(this.todos,
-      {@required this.filter, @required this.loading});
+  _$TodoListState(this.todos, {@required this.filter, @required this.loading})
+      : assert(todos != null),
+        assert(filter != null),
+        assert(loading != null);
 
   @override
   final List<Todo> todos;
@@ -26,7 +29,7 @@ class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
   final bool loading;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.debug}) {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'TodoList(todos: $todos, filter: $filter, loading: $loading)';
   }
 
@@ -42,10 +45,14 @@ class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
 
   @override
   bool operator ==(dynamic other) {
-    return other is TodoListState &&
-        (identical(other.todos, todos) || other.todos == todos) &&
-        (identical(other.filter, filter) || other.filter == filter) &&
-        (identical(other.loading, loading) || other.loading == loading);
+    return identical(this, other) ||
+        (other is TodoListState &&
+            (identical(other.todos, todos) ||
+                const DeepCollectionEquality().equals(other.todos, todos)) &&
+            (identical(other.filter, filter) ||
+                const DeepCollectionEquality().equals(other.filter, filter)) &&
+            (identical(other.loading, loading) ||
+                const DeepCollectionEquality().equals(other.loading, loading)));
   }
 
   @override
@@ -57,20 +64,23 @@ class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
 
   @override
   _$TodoListState copyWith({
-    Object todos = immutable,
-    Object filter = immutable,
-    Object loading = immutable,
+    Object todos = freezed,
+    Object filter = freezed,
+    Object loading = freezed,
   }) {
+    assert(todos != null);
+    assert(filter != null);
+    assert(loading != null);
     return _$TodoListState(
-      todos == immutable ? this.todos : todos as List<Todo>,
-      filter: filter == immutable ? this.filter : filter as VisibilityFilter,
-      loading: loading == immutable ? this.loading : loading as bool,
+      todos == freezed ? this.todos : todos as List<Todo>,
+      filter: filter == freezed ? this.filter : filter as VisibilityFilter,
+      loading: loading == freezed ? this.loading : loading as bool,
     );
   }
 }
 
 abstract class TodoListState implements TodoList {
-  const factory TodoListState(List<Todo> todos,
+  factory TodoListState(List<Todo> todos,
       {@required VisibilityFilter filter,
       @required bool loading}) = _$TodoListState;
 
