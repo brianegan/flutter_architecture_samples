@@ -5,6 +5,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:freezed_provider_value_notifier/models.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
@@ -12,7 +13,7 @@ part 'todo_list_model.freezed.dart';
 
 enum VisibilityFilter { all, active, completed }
 
-@immutable
+@freezed
 abstract class TodoList with _$TodoList {
   factory TodoList(
     List<Todo> todos, {
