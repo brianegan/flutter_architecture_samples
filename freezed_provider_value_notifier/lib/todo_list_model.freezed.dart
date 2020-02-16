@@ -27,10 +27,79 @@ class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
   final VisibilityFilter filter;
   @override
   final bool loading;
+  bool _didnumCompleted = false;
+  int _numCompleted;
+
+  @override
+  int get numCompleted {
+    if (_didnumCompleted == false) {
+      _didnumCompleted = true;
+      _numCompleted = todos.where((Todo todo) => todo.complete).toList().length;
+    }
+    return _numCompleted;
+  }
+
+  bool _didhasCompleted = false;
+  bool _hasCompleted;
+
+  @override
+  bool get hasCompleted {
+    if (_didhasCompleted == false) {
+      _didhasCompleted = true;
+      _hasCompleted = numCompleted > 0;
+    }
+    return _hasCompleted;
+  }
+
+  bool _didnumActive = false;
+  int _numActive;
+
+  @override
+  int get numActive {
+    if (_didnumActive == false) {
+      _didnumActive = true;
+      _numActive = todos.where((Todo todo) => !todo.complete).toList().length;
+    }
+    return _numActive;
+  }
+
+  bool _didhasActiveTodos = false;
+  bool _hasActiveTodos;
+
+  @override
+  bool get hasActiveTodos {
+    if (_didhasActiveTodos == false) {
+      _didhasActiveTodos = true;
+      _hasActiveTodos = numActive > 0;
+    }
+    return _hasActiveTodos;
+  }
+
+  bool _didfilteredTodos = false;
+  List<Todo> _filteredTodos;
+
+  @override
+  List<Todo> get filteredTodos {
+    if (_didfilteredTodos == false) {
+      _didfilteredTodos = true;
+      _filteredTodos = todos.where((todo) {
+        switch (filter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
+        }
+      }).toList();
+    }
+    return _filteredTodos;
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TodoList(todos: $todos, filter: $filter, loading: $loading)';
+    return 'TodoList(todos: $todos, filter: $filter, loading: $loading, numCompleted: $numCompleted, hasCompleted: $hasCompleted, numActive: $numActive, hasActiveTodos: $hasActiveTodos, filteredTodos: $filteredTodos)';
   }
 
   @override
@@ -40,7 +109,12 @@ class _$TodoListState with DiagnosticableTreeMixin implements TodoListState {
       ..add(DiagnosticsProperty('type', 'TodoList'))
       ..add(DiagnosticsProperty('todos', todos))
       ..add(DiagnosticsProperty('filter', filter))
-      ..add(DiagnosticsProperty('loading', loading));
+      ..add(DiagnosticsProperty('loading', loading))
+      ..add(DiagnosticsProperty('numCompleted', numCompleted))
+      ..add(DiagnosticsProperty('hasCompleted', hasCompleted))
+      ..add(DiagnosticsProperty('numActive', numActive))
+      ..add(DiagnosticsProperty('hasActiveTodos', hasActiveTodos))
+      ..add(DiagnosticsProperty('filteredTodos', filteredTodos));
   }
 
   @override
