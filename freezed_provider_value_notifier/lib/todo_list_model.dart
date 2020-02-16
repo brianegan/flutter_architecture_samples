@@ -20,33 +20,36 @@ abstract class TodoList with _$TodoList {
     @required VisibilityFilter filter,
     @required bool loading,
   }) = TodoListState;
-}
 
-extension TodoListStateExtensions on TodoList {
-  List<Todo> get filteredTodos {
-    return todos.where((todo) {
-      switch (filter) {
-        case VisibilityFilter.active:
-          return !todo.complete;
-        case VisibilityFilter.completed:
-          return todo.complete;
-        case VisibilityFilter.all:
-        default:
-          return true;
-      }
-    }).toList();
-  }
-
+  @late
   int get numCompleted =>
       todos.where((Todo todo) => todo.complete).toList().length;
 
+  @late
   bool get hasCompleted => numCompleted > 0;
 
+  @late
   int get numActive =>
       todos.where((Todo todo) => !todo.complete).toList().length;
 
+  @late
   bool get hasActiveTodos => numActive > 0;
 
+  @late
+  List<Todo> get filteredTodos => todos.where((todo) {
+        switch (filter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
+        }
+      }).toList();
+}
+
+extension TodoById on TodoList {
   Todo todoById(String id) =>
       todos.firstWhere((it) => it.id == id, orElse: () => null);
 }
