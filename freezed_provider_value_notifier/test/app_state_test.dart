@@ -71,6 +71,20 @@ void main() {
     });
   });
   group('TodoListController', () {
+    test('should load todos from the repository', () async {
+      final todos = [Todo('D')];
+      final repository = MockRepository(todos);
+      final model = TodoListController(todosRepository: repository);
+
+      expect(model.value.loading, isTrue);
+      expect(model.value.todos, []);
+
+      await Future.doWhile(() => Future.value(model.value.loading));
+
+      expect(model.value.todos, todos);
+      expect(model.value.loading, isFalse);
+
+    });
     test('should clear the completed todos', () async {
       final repository = MockRepository();
       final todo1 = Todo('a');
