@@ -1,0 +1,35 @@
+name: freezed_provider_value_notifier
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+dependencies:
+  freezed_annotation: ^0.6.0
+  provider: ^4.1.0-dev
+  todos_repository_local_storage:
+    path: ../todos_repository_local_storage
+  todos_app_core:
+    path: ../todos_app_core
+  flutter:
+    sdk: flutter
+  key_value_store_flutter:
+  key_value_store_web:
+  shared_preferences:
+
+dev_dependencies:
+  freezed: ^0.6.1
+  build_runner:
+  mockito:
+  test:
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+  integration_tests:
+    path: ../integration_tests
+
+flutter:
+  uses-material-design: true
