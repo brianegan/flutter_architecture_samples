@@ -39,13 +39,6 @@ class TodoListModel extends ChangeNotifier {
   })  : _todos = todos ?? [],
         _filter = filter ?? VisibilityFilter.all;
 
-  @override
-  void addListener(VoidCallback listener) {
-    super.addListener(listener);
-    // update data for every subscriber, especially for the first one
-    loadTodos();
-  }
-
   /// Loads remote data
   ///
   /// Call this initially and when the user manually refreshes
