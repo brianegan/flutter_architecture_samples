@@ -77,7 +77,7 @@ class TodoListController extends ValueNotifier<TodoList> {
       todosRepository
           .saveTodos(state.todos.map((it) => it.toEntity()).toList());
     }
-    value = state;
+    super.value = state;
   }
 
   Future<void> _loadTodos() async {
