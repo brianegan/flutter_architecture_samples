@@ -1,17 +1,17 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:change_notifier_provider_sample/home/home_screen.dart';
 import 'package:change_notifier_provider_sample/localization.dart';
 import 'package:change_notifier_provider_sample/models.dart';
 import 'package:change_notifier_provider_sample/todo_list_model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 import 'mock_repository.dart';
 
-/// Demonstrates how to test Widgets
+/// Demonstrates how to test Widgets in combination with a ChangeNotifier
 void main() {
   group('HomeScreen', () {
     final todoListFinder = find.byKey(ArchSampleKeys.todoList);
@@ -91,16 +91,16 @@ class _TestWidget extends StatelessWidget {
     Key key,
     this.child,
     this.repository,
-    this.todos = const [],
+    this.todos,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TodoListModel>(
-      create: (_) => TodoListModel(
-        repository: MockRepository([]),
-        todos: defaultTodos(),
-      ),
+      create: (_) {
+        final repo = MockRepository(todos ?? _defaultTodos);
+        return TodoListModel(repository: repo)..loadTodos();
+      },
       child: MaterialApp(
         localizationsDelegates: [
           ProviderLocalizationsDelegate(),
@@ -110,14 +110,14 @@ class _TestWidget extends StatelessWidget {
       ),
     );
   }
-}
 
-List<Todo> defaultTodos() {
-  return [
-    Todo('T1', id: '1', note: 'N1'),
-    Todo('T2', id: '2'),
-    Todo('T3', id: '3', complete: true),
-  ];
+  static List<Todo> get _defaultTodos {
+    return [
+      Todo('T1', id: '1', note: 'N1'),
+      Todo('T2', id: '2'),
+      Todo('T3', id: '3', complete: true),
+    ];
+  }
 }
 
 Matcher isChecked(bool isChecked) {
