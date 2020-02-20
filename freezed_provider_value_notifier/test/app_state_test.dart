@@ -9,36 +9,37 @@ import 'package:test/test.dart';
 import 'mock_repository.dart';
 
 void main() {
-  group('TodoListModel', () {
+  group('TodoList', () {
     test('should check if there are completed todos', () async {
-      final model = TodoListController(
-        todosRepository: MockRepository(),
-        todos: [Todo('a'), Todo('b'), Todo('c', complete: true)],
+      final model = TodoList(
+        [Todo('a'), Todo('b'), Todo('c', complete: true)],
+        loading: false,
+        filter: VisibilityFilter.all,
       );
 
-      expect(model.value.numCompleted, 1);
-      expect(model.value.hasCompleted, isTrue);
+      expect(model.numCompleted, 1);
+      expect(model.hasCompleted, isTrue);
     });
-
     test('should calculate the number of active todos', () async {
-      final model = TodoListController(
-        todosRepository: MockRepository(),
-        todos: [Todo('a'), Todo('b'), Todo('c', complete: true)],
+      final model = TodoList(
+        [Todo('a'), Todo('b'), Todo('c', complete: true)],
+        loading: false,
+        filter: VisibilityFilter.all,
       );
 
-      expect(model.value.hasActiveTodos, isTrue);
-      expect(model.value.numActive, 2);
+      expect(model.hasActiveTodos, isTrue);
+      expect(model.numActive, 2);
     });
 
     test('should return all todos if the VisibilityFilter is all', () async {
       final todos = [Todo('a'), Todo('b'), Todo('c', complete: true)];
-      final model = TodoListController(
+      final model = TodoList(
+        todos,
+        loading: false,
         filter: VisibilityFilter.all,
-        todosRepository: MockRepository(),
-        todos: todos,
       );
 
-      expect(model.value.filteredTodos, todos);
+      expect(model.filteredTodos, todos);
     });
 
     test('should return active todos if the VisibilityFilter is active',
@@ -46,13 +47,13 @@ void main() {
       final todo1 = Todo('a');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
-      final model = TodoListController(
+      final model = TodoList(
+        [todo1, todo2, todo3],
+        loading: false,
         filter: VisibilityFilter.active,
-        todosRepository: MockRepository(),
-        todos: [todo1, todo2, todo3],
       );
 
-      expect(model.value.filteredTodos, [todo1, todo2]);
+      expect(model.filteredTodos, [todo1, todo2]);
     });
 
     test('should return completed todos if the VisibilityFilter is completed',
@@ -60,15 +61,16 @@ void main() {
       final todo1 = Todo('a');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
-      final model = TodoListController(
+      final model = TodoList(
+        [todo1, todo2, todo3],
         filter: VisibilityFilter.completed,
-        todosRepository: MockRepository(),
-        todos: [todo1, todo2, todo3],
+        loading: false,
       );
 
-      expect(model.value.filteredTodos, [todo3]);
+      expect(model.filteredTodos, [todo3]);
     });
-
+  });
+  group('TodoListController', () {
     test('should clear the completed todos', () async {
       final repository = MockRepository();
       final todo1 = Todo('a');
