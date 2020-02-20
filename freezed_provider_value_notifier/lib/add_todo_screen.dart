@@ -46,7 +46,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 decoration: InputDecoration(
                   hintText: localizations.newTodoHint,
                 ),
-                style: textTheme.headline5,
+                style: textTheme.headline,
                 autofocus: true,
                 validator: (val) {
                   return val.trim().isEmpty
@@ -57,7 +57,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               TextFormField(
                 key: ArchSampleKeys.noteField,
                 controller: _notesEditingController,
-                style: textTheme.subtitle1,
+                style: textTheme.subhead,
                 decoration: InputDecoration(hintText: localizations.notesHint),
                 maxLines: 10,
               )
