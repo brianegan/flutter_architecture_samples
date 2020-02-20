@@ -141,5 +141,23 @@ void main() {
       expect(model.todos, [todo1, update, todo3]);
       expect(repository.saveCount, 1);
     });
+
+    test('should load todos from the repository', () async {
+      final todos = [Todo('a'), Todo('b'), Todo('c', complete: true)];
+      final repository = MockRepository(todos);
+      final model = TodoListModel(repository: repository);
+
+      expect(model.isLoading, isFalse);
+      expect(model.todos, []);
+
+      final loading = model.loadTodos();
+
+      expect(model.isLoading, isTrue);
+
+      await loading;
+
+      expect(model.isLoading, isFalse);
+      expect(model.todos, todos);
+    });
   });
 }
