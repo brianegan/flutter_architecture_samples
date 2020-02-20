@@ -17,7 +17,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).completedTodos,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.title,
             ),
           ),
           Padding(
@@ -27,7 +27,7 @@ class StatsView extends StatelessWidget {
               builder: (context, numCompleted, _) => Text(
                 '$numCompleted',
                 key: ArchSampleKeys.statsNumCompleted,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subhead,
               ),
             ),
           ),
@@ -35,7 +35,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).activeTodos,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.title,
             ),
           ),
           Padding(
@@ -45,7 +45,7 @@ class StatsView extends StatelessWidget {
               builder: (context, numActive, _) => Text(
                 '$numActive',
                 key: ArchSampleKeys.statsNumActive,
-                style: Theme.of(context).textTheme.subtitle1,
+                style: Theme.of(context).textTheme.subhead,
               ),
             ),
           )
