@@ -66,10 +66,13 @@ class TodoListController extends ValueNotifier<TodoList> {
 
   final TodosRepository todosRepository;
 
-  set filter(VisibilityFilter filter) =>
-      setState(value.copyWith(filter: filter));
+  set filter(VisibilityFilter filter) {
+    value = value.copyWith(filter: filter);
+  }
 
-  void setState(TodoList state) {
+  @override
+  @protected
+  set value(TodoList state) {
     if (!const DeepCollectionEquality().equals(state.todos, value.todos)) {
       todosRepository
           .saveTodos(state.todos.map((it) => it.toEntity()).toList());
@@ -78,54 +81,44 @@ class TodoListController extends ValueNotifier<TodoList> {
   }
 
   Future<void> _loadTodos() async {
-    setState(value.copyWith(loading: true));
+    value = (value.copyWith(loading: true));
 
     try {
       final todos = await todosRepository.loadTodos();
-      setState(value.copyWith(
+      value = (value.copyWith(
           todos: todos.map(Todo.fromEntity).toList(), loading: false));
     } catch (_) {
-      setState(value.copyWith(loading: false));
+      value = (value.copyWith(loading: false));
     }
   }
 
   void addTodo(Todo todo) {
-    setState(
-      value.copyWith(todos: [...value.todos, todo]),
-    );
+    value = value.copyWith(todos: [...value.todos, todo]);
   }
 
   void updateTodo(Todo updatedTodo) {
-    setState(
-      value.copyWith(todos: [
-        for (final todo in value.todos)
-          if (todo.id == updatedTodo.id) updatedTodo else todo,
-      ]),
-    );
+    value = value.copyWith(todos: [
+      for (final todo in value.todos)
+        if (todo.id == updatedTodo.id) updatedTodo else todo,
+    ]);
   }
 
   void removeTodoWithId(String id) {
-    setState(
-      value.copyWith(todos: [
-        for (final todo in value.todos) if (todo.id != id) todo,
-      ]),
-    );
+    value = value.copyWith(todos: [
+      for (final todo in value.todos) if (todo.id != id) todo,
+    ]);
   }
 
   void toggleAll() {
     final allComplete = value.todos.every((todo) => todo.complete);
-    setState(
-      value.copyWith(todos: [
-        for (final todo in value.todos) todo.copy(complete: !allComplete),
-      ]),
-    );
+    value = value.copyWith(todos: [
+      for (final todo in value.todos) todo.copy(complete: !allComplete),
+    ]);
   }
 
   void clearCompleted() {
-    setState(
-      value.copyWith(
-        todos: value.todos.where((todo) => !todo.complete).toList(),
-      ),
+    value = value.copyWith(
+      todos: value.todos.where((todo) => !todo.complete).toList(),
     );
   }
 }

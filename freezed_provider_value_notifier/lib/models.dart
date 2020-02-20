@@ -5,10 +5,6 @@
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-enum AppTab { todos, stats }
-
-enum ExtraAction { toggleAllComplete, clearCompleted }
-
 class Todo {
   final bool complete;
   final String id;
