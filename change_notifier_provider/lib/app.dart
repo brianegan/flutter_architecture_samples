@@ -23,7 +23,7 @@ class ProviderApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => TodoListModel(repository: repository),
+      create: (_) => TodoListModel(repository: repository)..loadTodos(),
       child: MaterialApp(
         theme: ArchSampleTheme.theme,
         localizationsDelegates: [
