@@ -4,10 +4,10 @@ import '../domain/entities/todo.dart';
 import '../service/exceptions/persistance_exception.dart';
 import '../service/interfaces/i_todo_repository.dart';
 
-class StatesBuilderTodosRepository implements ITodosRepository {
+class StatesRebuilderTodosRepository implements ITodosRepository {
   final core.TodosRepository _todosRepository;
 
-  StatesBuilderTodosRepository({core.TodosRepository todosRepository})
+  StatesRebuilderTodosRepository({core.TodosRepository todosRepository})
       : _todosRepository = todosRepository;
 
   @override
@@ -27,16 +27,17 @@ class StatesBuilderTodosRepository implements ITodosRepository {
   }
 
   @override
-  Future saveTodos(List<Todo> todos) {
+  Future saveTodos(List<Todo> todos) async {
     try {
       var todosEntities = <TodoEntity>[];
+      // await Future.delayed(Duration(milliseconds: 200));
+      // throw Exception();
       for (var todo in todos) {
         todosEntities.add(TodoEntity.fromJson(todo.toJson()));
       }
-
       return _todosRepository.saveTodos(todosEntities);
     } catch (e) {
-      throw PersistanceException('There is a problem in saving todos : $e');
+      throw PersistanceException('There is a problem in saving todos');
     }
   }
 }

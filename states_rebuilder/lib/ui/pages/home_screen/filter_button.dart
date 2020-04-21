@@ -7,17 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/service/common/enums.dart';
 import 'package:states_rebuilder_sample/service/todos_service.dart';
+import 'package:states_rebuilder_sample/ui/common/enums.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({this.isActive, Key key}) : super(key: key);
-  final bool isActive;
-
+  const FilterButton({this.activeTabRM, Key key}) : super(key: key);
+  final ReactiveModel<AppTab> activeTabRM;
   @override
   Widget build(BuildContext context) {
     //context is used to register FilterButton as observer in todosServiceRM
-    final todosServiceRM =
-        Injector.getAsReactive<TodosService>(context: context);
+    final todosServiceRM = RM.get<TodosService>(context: context);
 
     final defaultStyle = Theme.of(context).textTheme.body1;
     final activeStyle = Theme.of(context)
@@ -33,11 +32,16 @@ class FilterButton extends StatelessWidget {
       defaultStyle: defaultStyle,
     );
 
-    return AnimatedOpacity(
-      opacity: isActive ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 150),
-      child: isActive ? button : IgnorePointer(child: button),
-    );
+    return StateBuilder(
+        observe: () => activeTabRM,
+        builder: (context, activeTabRM) {
+          final _isActive = activeTabRM.value == AppTab.todos;
+          return AnimatedOpacity(
+            opacity: _isActive ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 150),
+            child: _isActive ? button : IgnorePointer(child: button),
+          );
+        });
   }
 }
 

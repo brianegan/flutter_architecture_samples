@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
+import 'package:states_rebuilder_sample/service/interfaces/i_todo_repository.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'data_source/todo_repository.dart';
 import 'localization.dart';
 import 'service/todos_service.dart';
 import 'ui/pages/add_edit_screen.dart/add_edit_screen.dart';
 import 'ui/pages/home_screen/home_screen.dart';
 
 class StatesRebuilderApp extends StatelessWidget {
-  final StatesBuilderTodosRepository repository;
+  final ITodosRepository repository;
 
   const StatesRebuilderApp({Key key, this.repository}) : super(key: key);
 
@@ -25,8 +25,9 @@ class StatesRebuilderApp extends StatelessWidget {
           ArchSampleLocalizationsDelegate(),
           StatesRebuilderLocalizationsDelegate(),
         ],
+        home: HomeScreen(),
         routes: {
-          ArchSampleRoutes.home: (context) => HomeScreen(),
+          // ArchSampleRoutes.home: (context) => HomeScreen(),
           ArchSampleRoutes.addTodo: (context) => AddEditPage(),
         },
       ),

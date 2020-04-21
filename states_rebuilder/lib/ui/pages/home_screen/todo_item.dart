@@ -4,11 +4,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
 import 'package:states_rebuilder_sample/ui/common/helper_methods.dart';
 import 'package:states_rebuilder_sample/ui/pages/detail_screen/detail_screen.dart';
+import 'package:states_rebuilder_sample/ui/pages/shared_widgets/check_favorite_box.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoItem extends StatelessWidget {
@@ -19,15 +18,13 @@ class TodoItem extends StatelessWidget {
     @required this.todo,
   }) : super(key: key);
 
-  final todosServiceRM = Injector.getAsReactive<TodosService>();
-
   @override
   Widget build(BuildContext context) {
     return Dismissible(
       key: ArchSampleKeys.todoItem(todo.id),
       onDismissed: (direction) {
         //delegate removing todo to the static method HelperMethods.removeTodo.
-        HelperMethods.removeTodo(todo);
+        HelperMethods.removeTodo(context, todo);
       },
       child: ListTile(
         onTap: () {
@@ -39,13 +36,9 @@ class TodoItem extends StatelessWidget {
             ),
           );
         },
-        leading: Checkbox(
+        leading: CheckFavoriteBox(
+          todo: todo,
           key: ArchSampleKeys.todoItemCheckbox(todo.id),
-          value: todo.complete,
-          onChanged: (complete) {
-            todo.complete = !todo.complete;
-            todosServiceRM.setState((state) => state.updateTodo(todo));
-          },
         ),
         title: Text(
           todo.task,

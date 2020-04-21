@@ -15,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     StatesRebuilderApp(
-      repository: StatesBuilderTodosRepository(
+      repository: StatesRebuilderTodosRepository(
         todosRepository: LocalStorageRepository(
           localStorage: KeyValueStorage(
             'states_rebuilder',

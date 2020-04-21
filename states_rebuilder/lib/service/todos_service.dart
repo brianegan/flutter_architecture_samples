@@ -35,39 +35,58 @@ class TodosService {
   bool get allComplete => _activeTodos.isEmpty;
 
   //methods for CRUD
-  void loadTodos() async {
-    _todos = await _todoRepository.loadTodos();
+  Future<void> loadTodos() async {
+    return _todos = await _todoRepository.loadTodos();
   }
 
-  void addTodo(Todo todo) {
+  Future<void> addTodo(Todo todo) async {
     _todos.add(todo);
-    _todoRepository.saveTodos(_todos);
+    await _todoRepository.saveTodos(_todos);
   }
 
-  void updateTodo(Todo todo) {
-    final index = _todos.indexOf(todo);
-    if (index == -1) return;
+  Future<void> updateTodo(Todo todo) async {
+    final oldTodo = _todos.firstWhere((t) => t.id == todo.id);
+    final index = _todos.indexOf(oldTodo);
     _todos[index] = todo;
-    _todoRepository.saveTodos(_todos);
+    await _todoRepository.saveTodos(_todos).catchError((error) {
+      _todos[index] = oldTodo;
+      throw error;
+    });
   }
 
-  void deleteTodo(Todo todo) {
-    if (_todos.remove(todo)) {
-      _todoRepository.saveTodos(_todos);
-    }
+  Future<void> deleteTodo(Todo todo) async {
+    final index = _todos.indexOf(todo);
+    _todos.removeAt(index);
+    return _todoRepository.saveTodos(_todos).catchError((error) {
+      _todos.insert(index, todo);
+      throw error;
+    });
   }
 
-  void toggleAll() {
+  Future<void> toggleAll() async {
     final allComplete = _todos.every((todo) => todo.complete);
+    var beforeTodos = <Todo>[];
 
-    for (final todo in _todos) {
-      todo.complete = !allComplete;
+    for (var i = 0; i < _todos.length; i++) {
+      beforeTodos.add(_todos[i]);
+      _todos[i] = _todos[i].copyWith(complete: !allComplete);
     }
-    _todoRepository.saveTodos(_todos);
+    return _todoRepository.saveTodos(_todos).catchError(
+      (error) {
+        _todos = beforeTodos;
+        throw error;
+      },
+    );
   }
 
-  void clearCompleted() {
+  Future<void> clearCompleted() async {
+    var beforeTodos = List<Todo>.from(_todos);
     _todos.removeWhere((todo) => todo.complete);
-    _todoRepository.saveTodos(_todos);
+    await _todoRepository.saveTodos(_todos).catchError(
+      (error) {
+        _todos = beforeTodos;
+        throw error;
+      },
+    );
   }
 }

@@ -29,7 +29,7 @@ class _AddEditPageState extends State<AddEditPage> {
   String _task;
   String _note;
   bool get isEditing => widget.todo != null;
-  final todosService = Injector.get<TodosService>();
+  final todosServiceRM = RM.get<TodosService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,19 +86,17 @@ class _AddEditPageState extends State<AddEditPage> {
           if (form.validate()) {
             form.save();
 
-            if (isEditing) {
-              widget.todo
-                ..task = _task
-                ..note = _note;
-              todosService.updateTodo(widget.todo);
-            } else {
-              todosService.addTodo(
-                Todo(
-                  _task,
-                  note: _note,
-                ),
-              );
-            }
+            todosServiceRM.setState(
+              (s) {
+                if (isEditing) {
+                  return s.updateTodo(widget.todo.copyWith(
+                    task: _task,
+                    note: _note,
+                  ));
+                }
+                return s.addTodo(Todo(_task, note: _note));
+              },
+            );
 
             Navigator.pop(context);
           }
