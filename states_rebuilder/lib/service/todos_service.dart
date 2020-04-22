@@ -41,7 +41,10 @@ class TodosService {
 
   Future<void> addTodo(Todo todo) async {
     _todos.add(todo);
-    await _todoRepository.saveTodos(_todos);
+    await _todoRepository.saveTodos(_todos).catchError((error) {
+      _todos.remove(todo);
+      throw error;
+    });
   }
 
   Future<void> updateTodo(Todo todo) async {

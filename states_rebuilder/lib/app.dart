@@ -14,6 +14,7 @@ class StatesRebuilderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RM.printActiveRM = true;
     //Injecting the TodoService globally before MaterialApp widget.
     //It will be available throughout all the widget tree even after navigation.
     return Injector(
@@ -25,9 +26,8 @@ class StatesRebuilderApp extends StatelessWidget {
           ArchSampleLocalizationsDelegate(),
           StatesRebuilderLocalizationsDelegate(),
         ],
-        home: HomeScreen(),
         routes: {
-          // ArchSampleRoutes.home: (context) => HomeScreen(),
+          ArchSampleRoutes.home: (context) => HomeScreen(),
           ArchSampleRoutes.addTodo: (context) => AddEditPage(),
         },
       ),

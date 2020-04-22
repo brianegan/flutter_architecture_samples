@@ -9,14 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
 import 'package:states_rebuilder_sample/service/todos_service.dart';
+import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditPage extends StatefulWidget {
-  final Todo todo;
+  final ReactiveModel<Todo> todoRM;
 
   AddEditPage({
     Key key,
-    this.todo,
+    this.todoRM,
   }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
@@ -28,8 +29,8 @@ class _AddEditPageState extends State<AddEditPage> {
   // Here we use a StatefulWidget to hold local fields _task and _note
   String _task;
   String _note;
-  bool get isEditing => widget.todo != null;
-  final todosServiceRM = RM.get<TodosService>();
+  bool get isEditing => widget.todoRM != null;
+  Todo get todo => widget.todoRM?.value;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +50,7 @@ class _AddEditPageState extends State<AddEditPage> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.task : '',
+                initialValue: todo != null ? todo.task : '',
                 key: ArchSampleKeys.taskField,
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
@@ -61,7 +62,7 @@ class _AddEditPageState extends State<AddEditPage> {
                 onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.note : '',
+                initialValue: todo != null ? todo.note : '',
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: Theme.of(context).textTheme.subhead,
@@ -85,20 +86,41 @@ class _AddEditPageState extends State<AddEditPage> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
-
-            todosServiceRM.setState(
-              (s) {
-                if (isEditing) {
-                  return s.updateTodo(widget.todo.copyWith(
-                    task: _task,
-                    note: _note,
-                  ));
-                }
-                return s.addTodo(Todo(_task, note: _note));
-              },
-            );
-
-            Navigator.pop(context);
+            final todosServiceRM = RM.get<TodosService>();
+            if (isEditing) {
+              final oldTodo = todo;
+              final newTodo = todo.copyWith(
+                task: _task,
+                note: _note,
+              );
+              widget.todoRM.setState(
+                (s) async {
+                  await todosServiceRM.setState(
+                    (s) {
+                      widget.todoRM.value = newTodo;
+                      Navigator.pop(context, newTodo);
+                      return s.updateTodo(newTodo);
+                    },
+                    onError: (context, error) {
+                      throw error;
+                    },
+                  );
+                },
+                watch: (todoRM) => widget.todoRM.hasError,
+                onError: (context, error) {
+                  widget.todoRM.value = oldTodo;
+                  ErrorHandler.showErrorSnackBar(context, error);
+                },
+              );
+            } else {
+              todosServiceRM.setState(
+                (s) {
+                  Navigator.pop(context);
+                  return s.addTodo(Todo(_task, note: _note));
+                },
+                onError: ErrorHandler.showErrorSnackBar,
+              );
+            }
           }
         },
       ),

@@ -30,7 +30,7 @@ class StatesRebuilderTodosRepository implements ITodosRepository {
   Future saveTodos(List<Todo> todos) async {
     try {
       var todosEntities = <TodoEntity>[];
-      // await Future.delayed(Duration(milliseconds: 200));
+      // await Future.delayed(Duration(milliseconds: 500));
       // throw Exception();
       for (var todo in todos) {
         todosEntities.add(TodoEntity.fromJson(todo.toJson()));

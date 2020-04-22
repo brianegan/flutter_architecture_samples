@@ -58,12 +58,20 @@ class Todo {
   }
 
   @override
-  int get hashCode => _id.hashCode;
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is Todo &&
+        o._id == _id &&
+        o.complete == complete &&
+        o.note == note &&
+        o.task == task;
+  }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Todo && runtimeType == other.runtimeType && _id == other._id;
+  int get hashCode {
+    return _id.hashCode ^ complete.hashCode ^ note.hashCode ^ task.hashCode;
+  }
 
   @override
   String toString() {
