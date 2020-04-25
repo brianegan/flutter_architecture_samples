@@ -1,4 +1,5 @@
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
+import 'package:states_rebuilder_sample/service/exceptions/persistance_exception.dart';
 
 import 'common/enums.dart';
 import 'interfaces/i_todo_repository.dart';
@@ -36,6 +37,8 @@ class TodosService {
 
   //methods for CRUD
   Future<void> loadTodos() async {
+    // await Future.delayed(Duration(seconds: 5));
+    // throw PersistanceException('net work error');
     return _todos = await _todoRepository.loadTodos();
   }
 
@@ -47,12 +50,20 @@ class TodosService {
     });
   }
 
+  //on updating todos, states_rebuilder will instantly update the UI,
+  //Meanwhile the asynchronous method saveTodos is executed in the background.
+  //If an error occurs, the old state is returned and states_rebuilder update the UI
+  //to display the old state and shows a snackBar informing the user of the error.
+
   Future<void> updateTodo(Todo todo) async {
     final oldTodo = _todos.firstWhere((t) => t.id == todo.id);
     final index = _todos.indexOf(oldTodo);
     _todos[index] = todo;
+    //here states_rebuild will update the UI to display the new todos
     await _todoRepository.saveTodos(_todos).catchError((error) {
+      //on error return to the initial state
       _todos[index] = oldTodo;
+      //for states_rebuild to be informed of the error, we rethrow the error
       throw error;
     });
   }
@@ -61,6 +72,7 @@ class TodosService {
     final index = _todos.indexOf(todo);
     _todos.removeAt(index);
     return _todoRepository.saveTodos(_todos).catchError((error) {
+      //on error reinsert the deleted todo
       _todos.insert(index, todo);
       throw error;
     });
@@ -76,6 +88,7 @@ class TodosService {
     }
     return _todoRepository.saveTodos(_todos).catchError(
       (error) {
+        //on error return to the initial state
         _todos = beforeTodos;
         throw error;
       },
@@ -87,6 +100,7 @@ class TodosService {
     _todos.removeWhere((todo) => todo.complete);
     await _todoRepository.saveTodos(_todos).catchError(
       (error) {
+        //on error return to the initial state
         _todos = beforeTodos;
         throw error;
       },

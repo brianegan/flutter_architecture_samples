@@ -86,7 +86,6 @@ class _AddEditPageState extends State<AddEditPage> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
-            final todosServiceRM = RM.get<TodosService>();
             if (isEditing) {
               final oldTodo = todo;
               final newTodo = todo.copyWith(
@@ -95,16 +94,9 @@ class _AddEditPageState extends State<AddEditPage> {
               );
               widget.todoRM.setState(
                 (s) async {
-                  await todosServiceRM.setState(
-                    (s) {
-                      widget.todoRM.value = newTodo;
-                      Navigator.pop(context, newTodo);
-                      return s.updateTodo(newTodo);
-                    },
-                    onError: (context, error) {
-                      throw error;
-                    },
-                  );
+                  widget.todoRM.value = newTodo;
+                  Navigator.pop(context, newTodo);
+                  await IN.get<TodosService>().updateTodo(todo);
                 },
                 watch: (todoRM) => widget.todoRM.hasError,
                 onError: (context, error) {
@@ -113,7 +105,7 @@ class _AddEditPageState extends State<AddEditPage> {
                 },
               );
             } else {
-              todosServiceRM.setState(
+              RM.getSetState<TodosService>(
                 (s) {
                   Navigator.pop(context);
                   return s.addTodo(Todo(_task, note: _note));

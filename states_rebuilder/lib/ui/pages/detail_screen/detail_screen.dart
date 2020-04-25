@@ -80,8 +80,8 @@ class DetailScreen extends StatelessWidget {
         tooltip: ArchSampleLocalizations.of(context).editTodo,
         child: Icon(Icons.edit),
         key: ArchSampleKeys.editTodoFab,
-        onPressed: () async {
-          await Navigator.of(context).push(
+        onPressed: () {
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
                 return AddEditPage(

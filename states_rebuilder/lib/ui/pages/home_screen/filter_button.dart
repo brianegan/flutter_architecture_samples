@@ -5,29 +5,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:states_rebuilder_sample/service/common/enums.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
-import 'package:states_rebuilder_sample/ui/common/enums.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
+import '../../../service/common/enums.dart';
+import '../../../service/todos_service.dart';
+import '../../common/enums.dart';
+
 class FilterButton extends StatelessWidget {
+  //Accept the activeTabRM defined in the HomePage
   const FilterButton({this.activeTabRM, Key key}) : super(key: key);
   final ReactiveModel<AppTab> activeTabRM;
   @override
   Widget build(BuildContext context) {
-    //context is used to register FilterButton as observer in todosServiceRM
-    final todosServiceRM = RM.get<TodosService>(context: context);
-
     final defaultStyle = Theme.of(context).textTheme.body1;
     final activeStyle = Theme.of(context)
         .textTheme
         .body1
         .copyWith(color: Theme.of(context).accentColor);
     final button = _Button(
-      onSelected: (filter) {
-        todosServiceRM.setState((s) => s.activeFilter = filter);
-      },
-      activeFilter: todosServiceRM.state.activeFilter,
       activeStyle: activeStyle,
       defaultStyle: defaultStyle,
     );
@@ -48,56 +43,76 @@ class FilterButton extends StatelessWidget {
 class _Button extends StatelessWidget {
   const _Button({
     Key key,
-    @required this.onSelected,
-    @required this.activeFilter,
     @required this.activeStyle,
     @required this.defaultStyle,
   }) : super(key: key);
 
-  final PopupMenuItemSelected<VisibilityFilter> onSelected;
-  final VisibilityFilter activeFilter;
   final TextStyle activeStyle;
   final TextStyle defaultStyle;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<VisibilityFilter>(
-      key: ArchSampleKeys.filterButton,
-      tooltip: ArchSampleLocalizations.of(context).filterTodos,
-      onSelected: onSelected,
-      itemBuilder: (BuildContext context) => <PopupMenuItem<VisibilityFilter>>[
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.allFilter,
-          value: VisibilityFilter.all,
-          child: Text(
-            ArchSampleLocalizations.of(context).showAll,
-            style: activeFilter == VisibilityFilter.all
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.activeFilter,
-          value: VisibilityFilter.active,
-          child: Text(
-            ArchSampleLocalizations.of(context).showActive,
-            style: activeFilter == VisibilityFilter.active
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.completedFilter,
-          value: VisibilityFilter.completed,
-          child: Text(
-            ArchSampleLocalizations.of(context).showCompleted,
-            style: activeFilter == VisibilityFilter.completed
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-      ],
-      icon: Icon(Icons.filter_list),
-    );
+    //This is an example of Local ReactiveModel
+    return StateBuilder<VisibilityFilter>(
+        //Create and subscribe to a ReactiveModel of type VisibilityFilter
+        observe: () => RM.create(VisibilityFilter.all),
+        builder: (context, activeFilterRM) {
+          return PopupMenuButton<VisibilityFilter>(
+            key: ArchSampleKeys.filterButton,
+            tooltip: ArchSampleLocalizations.of(context).filterTodos,
+            onSelected: (filter) {
+              //Compere this onSelected callBack with that of the ExtraActionsButton widget.
+              //
+              //In ExtraActionsButton, we did not use the setValue.
+              //Here we use the setValue (although we can use  activeFilterRM.value = filter ).
+
+              //
+              //The reason we use setValue is to minimize the rebuild process.
+              //If the use select the same option, the setValue method will not notify observers.
+              //and onData will not invoked.
+              activeFilterRM.setValue(
+                () => filter,
+                onData: (_, __) {
+                  //get and setState of the global ReactiveModel TodosService
+                  RM.getSetState<TodosService>((s) => s.activeFilter = filter);
+                },
+              );
+            },
+            itemBuilder: (BuildContext context) =>
+                <PopupMenuItem<VisibilityFilter>>[
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.allFilter,
+                value: VisibilityFilter.all,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showAll,
+                  style: activeFilterRM.value == VisibilityFilter.all
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.activeFilter,
+                value: VisibilityFilter.active,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showActive,
+                  style: activeFilterRM.value == VisibilityFilter.active
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.completedFilter,
+                value: VisibilityFilter.completed,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showCompleted,
+                  style: activeFilterRM.value == VisibilityFilter.completed
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+            ],
+            icon: Icon(Icons.filter_list),
+          );
+        });
   }
 }

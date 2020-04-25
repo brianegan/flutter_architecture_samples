@@ -14,7 +14,10 @@ class StatesRebuilderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //uncomment this line to consol log and see the notification timeline
     RM.printActiveRM = true;
+
+    //
     //Injecting the TodoService globally before MaterialApp widget.
     //It will be available throughout all the widget tree even after navigation.
     return Injector(

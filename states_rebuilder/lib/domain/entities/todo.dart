@@ -2,8 +2,6 @@ import 'package:todos_app_core/todos_app_core.dart' as flutter_arch_sample_app;
 
 import '../exceptions/validation_exception.dart';
 
-//Entity is a mutable object with an ID. It should contain all the logic It controls.
-//Entity is validated just before persistance, ie, in toMap() method.
 class Todo {
   String _id;
   String get id => _id;
@@ -17,6 +15,7 @@ class Todo {
   factory Todo.fromJson(Map<String, Object> map) {
     return Todo(
       map['task'] as String,
+      id: map['id'] as String,
       note: map['note'] as String,
       complete: map['complete'] as bool,
     );

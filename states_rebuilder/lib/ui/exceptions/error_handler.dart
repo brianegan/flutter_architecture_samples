@@ -32,4 +32,24 @@ class ErrorHandler {
       ),
     );
   }
+
+  static void showErrorDialog(BuildContext context, dynamic error) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.error_outline,
+                color: Colors.yellow,
+              ),
+              Text(ErrorHandler.getErrorMessage(error)),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
