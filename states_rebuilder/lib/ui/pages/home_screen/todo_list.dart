@@ -47,19 +47,24 @@ class TodoList extends StatelessWidget {
             //For this reason, we Wrapped each todo with a StateBuilder and subscribe it to
             //a ReactiveModel model created from the todo
             return StateBuilder<Todo>(
+              //Key here is very important because StateBuilder is a StatefulWidget (this is a Flutter concept)
+              key: Key(todo.id),
               //here we created a local ReactiveModel from one todo of the list
               observe: () => RM.create(todo),
               //This didUpdateWidget is used because if we mark all complete from the ExtraActionsButton,
               //The listBuilder will update, but the StateBuilder for single todo will still have the old todo.
               //In the didUpdateWidget, we check if the todo is modified, we set it and notify
               //the StateBuilder to change
+
               didUpdateWidget: (context, todoRM, oldWidget) {
                 if (todoRM.value != todo) {
+                  print('didUpdateWidget (${todoRM.value} $todo');
                   //set and notify the observer this StateBuilder to rebuild
                   todoRM.value = todo;
                 }
               },
               builder: (context, todoRM) {
+                print("builder");
                 //render TodoItem and pass the local ReactiveModel through the constructor
                 return TodoItem(todoRM: todoRM);
               },

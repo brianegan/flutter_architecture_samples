@@ -67,28 +67,7 @@ class TodoItem extends StatelessWidget {
     //get the global ReactiveModel, because we want to update the view of the list after removing a todo
     final todosServiceRM = RM.get<TodosService>();
     todosServiceRM.setState(
-      (s) async {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            key: ArchSampleKeys.snackbar,
-            duration: Duration(seconds: 2),
-            content: Text(
-              ArchSampleLocalizations.of(context).todoDeleted(todo.task),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            action: SnackBarAction(
-              label: ArchSampleLocalizations.of(context).undo,
-              onPressed: () {
-                //another nested setState to voluntary add the todo back
-                todosServiceRM.setState((s) => s.addTodo(todo));
-              },
-            ),
-          ),
-        );
-        //await for the to do to delete from the persistent storage
-        await s.deleteTodo(todo);
-      },
+      (s) => s.deleteTodo(todo),
       //another watch, there are tow watch in states_rebuild:
       // 1- This one, in setState, the notification will not be sent unless the watched parameters changes
       // 2- The watch in StateBuilder which is more local, it prevent the watch StateBuilder from rebuilding
@@ -97,6 +76,25 @@ class TodoItem extends StatelessWidget {
       //Handling the error.
       //Error handling is centralized id the ErrorHandler class
       onError: ErrorHandler.showErrorSnackBar,
+    );
+
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        key: ArchSampleKeys.snackbar,
+        duration: Duration(seconds: 2),
+        content: Text(
+          ArchSampleLocalizations.of(context).todoDeleted(todo.task),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        action: SnackBarAction(
+          label: ArchSampleLocalizations.of(context).undo,
+          onPressed: () {
+            //another nested setState to voluntary add the todo back
+            todosServiceRM.setState((s) => s.addTodo(todo));
+          },
+        ),
+      ),
     );
   }
 }

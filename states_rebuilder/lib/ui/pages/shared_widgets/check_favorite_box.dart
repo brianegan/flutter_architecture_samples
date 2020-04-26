@@ -30,13 +30,8 @@ class CheckFavoriteBox extends StatelessWidget {
 
         //Here we get the global ReactiveModel and from it we create a new Local ReactiveModel.
         //The created ReactiveModel is based of the future of updateTodo method.
-        RM
-            .get<TodosService>()
-            .future(
-              (t) => t.updateTodo(newTodo),
-            )
-            .onError(
-          (error) {
+        RM.future(IN.get<TodosService>().updateTodo(newTodo)).onError(
+          (context, error) {
             //on Error set the todo value to the old value
             todoRM.value = oldTodo;
             //show SnackBar to display the error message

@@ -12,10 +12,10 @@ import 'stats_counter.dart';
 import 'todo_list.dart';
 
 //states_rebuilder is based on the concept fo ReactiveModels.
-//ReactiveModels can be local or globe.
+//ReactiveModels can be local or global.
 class HomeScreen extends StatelessWidget {
   //Create a reactive model key to handle app tab navigation.
-  //ReactiveModel keys are used for local ReactiveModels
+  //ReactiveModel keys are used for local ReactiveModels (similar to Flutter global key)
   final _activeTabRMKey = RMKey(AppTab.todos);
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,8 @@ class HomeScreen extends StatelessWidget {
         //This widget will rebuild when the loadTodos future method resolves and,
         //when the state of the active AppTab is changed
         observeMany: [
-          //This means get the injected TodosService  and create a ReactiveModel to
-          //handle the loadTodos async methods.
-          () => RM.get<TodosService>().future((s) => s.loadTodos())
+          //Here we are creating a local ReactiveModel form the future of loadTodos method.
+          () => RM.future(IN.get<TodosService>().loadTodos())
             //using the cascade operator,
             //Invoke the error callBack to handle the error
             //In states_rebuild there are three level of error handling:
@@ -46,9 +45,7 @@ class HomeScreen extends StatelessWidget {
             //   When defined it will override the gobble error handler.
             //3- local-global, for onError defined in the StateBuilder and OnSetStateListener widgets.
             //   they override the global and semi-global error for the widget where it is defined
-            ..onError(
-              (error) => ErrorHandler.showErrorDialog(context, error),
-            ),
+            ..onError(ErrorHandler.showErrorDialog),
           //Her we subscribe to the activeTab ReactiveModel key
           () => _activeTabRMKey,
         ],
