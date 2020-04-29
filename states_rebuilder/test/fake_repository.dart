@@ -5,7 +5,7 @@ import 'package:states_rebuilder_sample/service/interfaces/i_todo_repository.dar
 class FakeRepository implements ITodosRepository {
   @override
   Future<List<Todo>> loadTodos() async {
-    await Future.delayed(Duration(milliseconds: 20));
+    await Future.delayed(Duration(milliseconds: delay ?? 20));
     return [
       Todo(
         'Task1',
@@ -28,10 +28,11 @@ class FakeRepository implements ITodosRepository {
   }
 
   bool throwError = false;
+  int delay;
   bool isSaved = false;
   @override
   Future saveTodos(List<Todo> todos) async {
-    await Future.delayed(Duration(milliseconds: 50));
+    await Future.delayed(Duration(milliseconds: delay ?? 50));
     if (throwError) {
       throw PersistanceException('There is a problem in saving todos');
     }

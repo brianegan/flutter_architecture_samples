@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
+import 'package:states_rebuilder_sample/service/todos_state.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatelessWidget {
@@ -12,9 +12,9 @@ class StatsCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StateBuilder<TodosService>(
-      observe: () => RM.get<TodosService>(),
-      builder: (_, todosServiceRM) {
+    return StateBuilder<TodosState>(
+      observe: () => RM.get<TodosState>(),
+      builder: (_, todosStateRM) {
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +29,7 @@ class StatsCounter extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  '${todosServiceRM.state.numCompleted}',
+                  '${todosStateRM.value.numCompleted}',
                   key: ArchSampleKeys.statsNumCompleted,
                   style: Theme.of(context).textTheme.subhead,
                 ),
@@ -44,7 +44,7 @@ class StatsCounter extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  '${todosServiceRM.state.numActive}',
+                  '${todosStateRM.value.numActive}',
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,
                 ),

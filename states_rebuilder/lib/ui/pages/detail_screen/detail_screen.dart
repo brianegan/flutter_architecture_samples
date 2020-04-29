@@ -4,16 +4,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
+import 'package:states_rebuilder_sample/service/todos_state.dart';
+import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:states_rebuilder_sample/ui/pages/add_edit_screen.dart/add_edit_screen.dart';
-import 'package:states_rebuilder_sample/ui/pages/shared_widgets/check_favorite_box.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatelessWidget {
-  DetailScreen(this.todoRM) : super(key: ArchSampleKeys.todoDetailsScreen);
-  final ReactiveModel<Todo> todoRM;
-  Todo get todo => todoRM.value;
+  DetailScreen(this.todo) : super(key: ArchSampleKeys.todoDetailsScreen);
+  final Todo todo;
+  final todoRMKey = RMKey<Todo>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,19 +35,27 @@ class DetailScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            StateBuilder(
-                observe: () => todoRM,
-                builder: (_, __) {
+            StateBuilder<Todo>(
+                //create a local ReactiveModel for the todo
+                observe: () => RM.create(todo),
+                //associate ti with todoRMKey
+                rmKey: todoRMKey,
+                builder: (context, todosStateRM) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: CheckFavoriteBox(
-                          todoRM: todoRM,
-                          key: ArchSampleKeys.detailsTodoItemCheckbox,
-                        ),
-                      ),
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Checkbox(
+                            key: ArchSampleKeys.detailsTodoItemCheckbox,
+                            value: todosStateRM.value.complete,
+                            onChanged: (value) {
+                              final newTodo = todosStateRM.value.copyWith(
+                                complete: value,
+                              );
+                              _updateTodo(context, newTodo);
+                            },
+                          )),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,13 +66,13 @@ class DetailScreen extends StatelessWidget {
                                 bottom: 16.0,
                               ),
                               child: Text(
-                                todo.task,
+                                todosStateRM.value.task,
                                 key: ArchSampleKeys.detailsTodoItemTask,
                                 style: Theme.of(context).textTheme.headline,
                               ),
                             ),
                             Text(
-                              todo.note,
+                              todosStateRM.value.note,
                               key: ArchSampleKeys.detailsTodoItemNote,
                               style: Theme.of(context).textTheme.subhead,
                             )
@@ -76,23 +85,43 @@ class DetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: ArchSampleLocalizations.of(context).editTodo,
-        child: Icon(Icons.edit),
-        key: ArchSampleKeys.editTodoFab,
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return AddEditPage(
-                  key: ArchSampleKeys.editTodoScreen,
-                  todoRM: todoRM,
-                );
-              },
-            ),
+      floatingActionButton: Builder(
+        builder: (context) {
+          return FloatingActionButton(
+            tooltip: ArchSampleLocalizations.of(context).editTodo,
+            child: Icon(Icons.edit),
+            key: ArchSampleKeys.editTodoFab,
+            onPressed: () async {
+              final newTodo = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddEditPage(
+                      key: ArchSampleKeys.editTodoScreen,
+                      todo: todoRMKey.value,
+                    );
+                  },
+                ),
+              );
+              if (newTodo == null) {
+                return;
+              }
+              _updateTodo(context, newTodo);
+            },
           );
         },
       ),
     );
+  }
+
+  void _updateTodo(BuildContext context, Todo newTodo) {
+    final oldTodo = todoRMKey.value;
+    todoRMKey.value = newTodo;
+    RM
+        .get<TodosState>()
+        .stream((t) => t.updateTodo(newTodo))
+        .onError((ctx, error) {
+      todoRMKey.value = oldTodo;
+      ErrorHandler.showErrorSnackBar(context, error);
+    });
   }
 }

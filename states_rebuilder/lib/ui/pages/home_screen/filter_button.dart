@@ -8,7 +8,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import '../../../service/common/enums.dart';
-import '../../../service/todos_service.dart';
+import '../../../service/todos_state.dart';
 import '../../common/enums.dart';
 
 class FilterButton extends StatelessWidget {
@@ -28,6 +28,7 @@ class FilterButton extends StatelessWidget {
     );
 
     return StateBuilder(
+        //register to activeTabRM
         observe: () => activeTabRM,
         builder: (context, activeTabRM) {
           final _isActive = activeTabRM.value == AppTab.todos;
@@ -73,8 +74,9 @@ class _Button extends StatelessWidget {
               activeFilterRM.setValue(
                 () => filter,
                 onData: (_, __) {
-                  //get and setState of the global ReactiveModel TodosService
-                  RM.getSetState<TodosService>((s) => s.activeFilter = filter);
+                  //get and set the value of the global ReactiveModel TodosStore
+                  RM.get<TodosState>().value =
+                      RM.get<TodosState>().value.copyWith(activeFilter: filter);
                 },
               );
             },

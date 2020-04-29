@@ -1,16 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:todos_app_core/todos_app_core.dart' as flutter_arch_sample_app;
 
 import '../exceptions/validation_exception.dart';
 
+@immutable
 class Todo {
-  String _id;
-  String get id => _id;
+  final String id;
   final bool complete;
   final String note;
   final String task;
 
   Todo(this.task, {String id, this.note, this.complete = false})
-      : _id = id ?? flutter_arch_sample_app.Uuid().generateV4();
+      : id = id ?? flutter_arch_sample_app.Uuid().generateV4();
 
   factory Todo.fromJson(Map<String, Object> map) {
     return Todo(
@@ -33,7 +34,7 @@ class Todo {
   }
 
   void _validation() {
-    if (_id == null) {
+    if (id == null) {
       // Custom defined error classes
       throw ValidationException('This todo has no ID!');
     }
@@ -61,7 +62,7 @@ class Todo {
     if (identical(this, o)) return true;
 
     return o is Todo &&
-        o._id == _id &&
+        o.id == id &&
         o.complete == complete &&
         o.note == note &&
         o.task == task;
@@ -69,7 +70,7 @@ class Todo {
 
   @override
   int get hashCode {
-    return _id.hashCode ^ complete.hashCode ^ note.hashCode ^ task.hashCode;
+    return id.hashCode ^ complete.hashCode ^ note.hashCode ^ task.hashCode;
   }
 
   @override

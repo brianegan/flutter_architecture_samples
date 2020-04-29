@@ -3,7 +3,7 @@ import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import '../../../localization.dart';
-import '../../../service/todos_service.dart';
+import '../../../service/todos_state.dart';
 import '../../common/enums.dart';
 import '../../exceptions/error_handler.dart';
 import 'extra_actions_button.dart';
@@ -35,17 +35,19 @@ class HomeScreen extends StatelessWidget {
         //This widget will rebuild when the loadTodos future method resolves and,
         //when the state of the active AppTab is changed
         observeMany: [
-          //Here we are creating a local ReactiveModel form the future of loadTodos method.
-          () => RM.future(IN.get<TodosService>().loadTodos())
-            //using the cascade operator,
-            //Invoke the error callBack to handle the error
-            //In states_rebuild there are three level of error handling:
-            //1- global such as this one : (This is considered the default error handler).
-            //2- semi-global : for onError defined in setState and setValue methods.
-            //   When defined it will override the gobble error handler.
-            //3- local-global, for onError defined in the StateBuilder and OnSetStateListener widgets.
-            //   they override the global and semi-global error for the widget where it is defined
-            ..onError(ErrorHandler.showErrorDialog),
+          //Here get a new reactiveModel of the injected TodosStore
+          //we use the HomeScreen seed so that if other pages emits a notification this widget will not be notified
+          () => RM.get<TodosState>().asNew(HomeScreen)
+            //using the cascade operator, we call the todosLoad method informing states_rebuilder that is is a future
+            ..future((t) => t.loadTodos())
+                //Invoke the error callBack to handle the error
+                //In states_rebuild there are three level of error handling:
+                //1- global such as this one : (This is considered the default error handler).
+                //2- semi-global : for onError defined in setState and setValue methods.
+                //   When defined it will override the gobble error handler.
+                //3- local-global, for onError defined in the StateBuilder and OnSetStateListener widgets.
+                //   they override the global and semi-global error for the widget where it is defined
+                .onError(ErrorHandler.showErrorDialog),
           //Her we subscribe to the activeTab ReactiveModel key
           () => _activeTabRMKey,
         ],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
-import 'package:states_rebuilder_sample/ui/common/enums.dart';
-import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+
+import '../../../service/todos_state.dart';
+import '../../common/enums.dart';
+import '../../exceptions/error_handler.dart';
 
 class ExtraActionsButton extends StatelessWidget {
   ExtraActionsButton({Key key}) : super(key: key);
@@ -21,30 +22,22 @@ class ExtraActionsButton extends StatelessWidget {
               //first set the value to the new action
               //See FilterButton where we use setValue there.
               extraActionRM.value = action;
-              //then we use the getSetState to get the global registered ReactiveModel of TodosService
-              //and call setState method.
-              //There is one widget registered to the global ReactiveModel of TodosService, it is the
-              //StateBuilder in the TodoList Widget.
-              RM.getSetState<TodosService>(
-                (s) async {
-                  if (action == ExtraAction.toggleAllComplete) {
-                    return s.toggleAll();
-                  } else if (action == ExtraAction.clearCompleted) {
-                    return s.clearCompleted();
-                  }
-                },
-                //If and error happens, the global ReactiveModel of TodosService will notify listener widgets,
-                //so that these widgets will display the origin state before calling onSelected method
-                //and call showErrorSnackBar to show a snackBar
-                onError: ErrorHandler.showErrorSnackBar,
-              );
+
+              RM
+                  .get<TodosState>()
+                  .stream(
+                    (action == ExtraAction.toggleAllComplete)
+                        ? (t) => t.toggleAll()
+                        : (t) => t.clearCompleted(),
+                  )
+                  .onError(ErrorHandler.showErrorSnackBar);
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuItem<ExtraAction>>[
                 PopupMenuItem<ExtraAction>(
                   key: ArchSampleKeys.toggleAll,
                   value: ExtraAction.toggleAllComplete,
-                  child: Text(IN.get<TodosService>().allComplete
+                  child: Text(IN.get<TodosState>().allComplete
                       ? ArchSampleLocalizations.of(context).markAllIncomplete
                       : ArchSampleLocalizations.of(context).markAllComplete),
                 ),

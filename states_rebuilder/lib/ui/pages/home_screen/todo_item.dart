@@ -4,21 +4,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
+import 'package:states_rebuilder_sample/service/todos_state.dart';
 import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:states_rebuilder_sample/ui/pages/detail_screen/detail_screen.dart';
-import 'package:states_rebuilder_sample/ui/pages/shared_widgets/check_favorite_box.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoItem extends StatelessWidget {
-  final ReactiveModel<Todo> todoRM;
-  Todo get todo => todoRM.value;
-  //Accept the todo ReactiveModel from the TodoList widget
+  final Todo todo;
+
+  //Accept the todo from the TodoList widget
   TodoItem({
     Key key,
-    @required this.todoRM,
+    @required this.todo,
   }) : super(key: key);
 
   @override
@@ -33,7 +31,7 @@ class TodoItem extends StatelessWidget {
           final shouldDelete = await Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) {
-                return DetailScreen(todoRM);
+                return DetailScreen(todo);
               },
             ),
           );
@@ -41,11 +39,20 @@ class TodoItem extends StatelessWidget {
             removeTodo(context, todo);
           }
         },
-        //Because checkbox for favorite is use here and in the detailed screen, and the both share the same logic,
-        //we isolate the widget in a dedicated widget in the shared_widgets folder
-        leading: CheckFavoriteBox(
-          todoRM: todoRM,
+        leading: Checkbox(
           key: ArchSampleKeys.todoItemCheckbox(todo.id),
+          value: todo.complete,
+          onChanged: (value) {
+            final newTodo = todo.copyWith(
+              complete: value,
+            );
+            //Here we get the global ReactiveModel, and use the stream method to call the updateTodo.
+            //states_rebuilder will subscribe to this stream and notify observer widgets to rebuild when data is emitted.
+            RM.get<TodosState>().stream((t) => t.updateTodo(newTodo)).onError(
+                  //on Error we want to display a snackbar
+                  ErrorHandler.showErrorSnackBar,
+                );
+          },
         ),
         title: Text(
           todo.task,
@@ -65,18 +72,11 @@ class TodoItem extends StatelessWidget {
 
   void removeTodo(BuildContext context, Todo todo) {
     //get the global ReactiveModel, because we want to update the view of the list after removing a todo
-    final todosServiceRM = RM.get<TodosService>();
-    todosServiceRM.setState(
-      (s) => s.deleteTodo(todo),
-      //another watch, there are tow watch in states_rebuild:
-      // 1- This one, in setState, the notification will not be sent unless the watched parameters changes
-      // 2- The watch in StateBuilder which is more local, it prevent the watch StateBuilder from rebuilding
-      //  even after a ReactiveModel sends a notification
-      watch: (todosService) => [todosService.todos.length],
-      //Handling the error.
-      //Error handling is centralized id the ErrorHandler class
-      onError: ErrorHandler.showErrorSnackBar,
-    );
+    final todosStateRM = RM.get<TodosState>();
+
+    todosStateRM
+        .stream((t) => t.deleteTodo(todo))
+        .onError(ErrorHandler.showErrorSnackBar);
 
     Scaffold.of(context).showSnackBar(
       SnackBar(
@@ -90,8 +90,10 @@ class TodoItem extends StatelessWidget {
         action: SnackBarAction(
           label: ArchSampleLocalizations.of(context).undo,
           onPressed: () {
-            //another nested setState to voluntary add the todo back
-            todosServiceRM.setState((s) => s.addTodo(todo));
+            //another nested call of stream method to voluntary add the todo back
+            todosStateRM
+                .stream((t) => t.addTodo(todo))
+                .onError(ErrorHandler.showErrorSnackBar);
           },
         ),
       ),

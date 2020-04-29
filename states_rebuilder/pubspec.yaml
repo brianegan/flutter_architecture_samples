@@ -19,8 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  states_rebuilder: 
-    path: E:\flutter\_libraries\_states_rebuilder\states_rebuilder\states_rebuilder_package
+  states_rebuilder: ^1.15.0
   key_value_store_flutter:
   key_value_store_web:
   shared_preferences:
