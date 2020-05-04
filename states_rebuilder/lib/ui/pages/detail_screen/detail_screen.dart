@@ -118,7 +118,7 @@ class DetailScreen extends StatelessWidget {
     todoRMKey.value = newTodo;
     RM
         .get<TodosState>()
-        .stream((t) => t.updateTodo(newTodo))
+        .stream((t) => TodosState.updateTodo(t, newTodo))
         .onError((ctx, error) {
       todoRMKey.value = oldTodo;
       ErrorHandler.showErrorSnackBar(context, error);

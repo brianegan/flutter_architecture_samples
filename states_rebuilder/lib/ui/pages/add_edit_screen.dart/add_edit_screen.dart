@@ -96,7 +96,8 @@ class _AddEditPageState extends State<AddEditPage> {
 
               RM
                   .get<TodosState>()
-                  .stream((t) => t.addTodo(Todo(_task, note: _note)))
+                  .stream(
+                      (t) => TodosState.addTodo(t, Todo(_task, note: _note)))
                   .onError(ErrorHandler.showErrorSnackBar);
             }
           }

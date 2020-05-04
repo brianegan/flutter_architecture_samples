@@ -27,8 +27,8 @@ class ExtraActionsButton extends StatelessWidget {
                   .get<TodosState>()
                   .stream(
                     (action == ExtraAction.toggleAllComplete)
-                        ? (t) => t.toggleAll()
-                        : (t) => t.clearCompleted(),
+                        ? (t) => TodosState.toggleAll(t)
+                        : (t) => TodosState.clearCompleted(t),
                   )
                   .onError(ErrorHandler.showErrorSnackBar);
             },

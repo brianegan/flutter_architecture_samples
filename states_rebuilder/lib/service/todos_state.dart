@@ -45,12 +45,12 @@ class TodosState {
 
   //When we want to await for the future and display something in the screen,
   //we use future.
-  Future<TodosState> loadTodos() async {
+  static Future<TodosState> loadTodos(TodosState todosState) async {
     ////If you want to simulate loading failure uncomment theses lines
     // await Future.delayed(Duration(seconds: 5));
     // throw PersistanceException('net work error');
-    final _todos = await _todoRepository.loadTodos();
-    return copyWith(
+    final _todos = await todosState._todoRepository.loadTodos();
+    return todosState.copyWith(
       todos: _todos,
       activeFilter: VisibilityFilter.all,
     );
@@ -58,49 +58,57 @@ class TodosState {
 
   //We use stream generator when we want to instantly display the update, and execute the the saveTodos in the background,
   //and if the saveTodos fails we want to display the old state and a snackbar containing the error message
-  Stream<TodosState> addTodo(Todo todo) async* {
-    final newTodos = List<Todo>.from(_todos)..add(todo);
-    //_saveTodos is common to all crud operation
-    yield* _saveTodos(newTodos);
+  //
+  //Notice that this method is static pure function, it is already isolated to be tested easily
+  static Stream<TodosState> addTodo(TodosState todosState, Todo todo) async* {
+    final newTodos = List<Todo>.from(todosState._todos)..add(todo);
+
+    yield* _saveTodos(todosState, newTodos);
   }
 
-  Stream<TodosState> updateTodo(Todo todo) async* {
-    final newTodos = _todos.map((t) => t.id == todo.id ? todo : t).toList();
-    yield* _saveTodos(newTodos);
+  static Stream<TodosState> updateTodo(
+      TodosState todosState, Todo todo) async* {
+    final newTodos =
+        todosState._todos.map((t) => t.id == todo.id ? todo : t).toList();
+    yield* _saveTodos(todosState, newTodos);
   }
 
-  Stream<TodosState> deleteTodo(Todo todo) async* {
-    final newTodos = List<Todo>.from(_todos)..remove(todo);
-    yield* _saveTodos(newTodos);
+  static Stream<TodosState> deleteTodo(
+      TodosState todosState, Todo todo) async* {
+    final newTodos = List<Todo>.from(todosState._todos)..remove(todo);
+    yield* _saveTodos(todosState, newTodos);
   }
 
-  Stream<TodosState> toggleAll() async* {
-    final newTodos = _todos
+  static Stream<TodosState> toggleAll(TodosState todosState) async* {
+    final newTodos = todosState._todos
         .map(
-          (t) => t.copyWith(complete: !allComplete),
+          (t) => t.copyWith(complete: !todosState.allComplete),
         )
         .toList();
-    yield* _saveTodos(newTodos);
+    yield* _saveTodos(todosState, newTodos);
   }
 
-  Stream<TodosState> clearCompleted() async* {
-    final newTodos = List<Todo>.from(_todos)
+  static Stream<TodosState> clearCompleted(TodosState todosState) async* {
+    final newTodos = List<Todo>.from(todosState._todos)
       ..removeWhere(
         (t) => t.complete,
       );
-    yield* _saveTodos(newTodos);
+    yield* _saveTodos(todosState, newTodos);
   }
 
-  Stream<TodosState> _saveTodos(List<Todo> newTodos) async* {
+  static Stream<TodosState> _saveTodos(
+    TodosState todosState,
+    List<Todo> newTodos,
+  ) async* {
     //Yield the new state, and states_rebuilder will rebuild observer widgets
-    yield copyWith(
+    yield todosState.copyWith(
       todos: newTodos,
     );
     try {
-      await _todoRepository.saveTodos(newTodos);
+      await todosState._todoRepository.saveTodos(newTodos);
     } catch (e) {
       //on error yield the old state, states_rebuilder will rebuild the UI to display the old state
-      yield this;
+      yield todosState;
       //rethrow the error so that states_rebuilder can display the snackbar containing the error message
       rethrow;
     }

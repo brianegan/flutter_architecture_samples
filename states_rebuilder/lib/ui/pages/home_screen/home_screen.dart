@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
           //we use the HomeScreen seed so that if other pages emits a notification this widget will not be notified
           () => RM.get<TodosState>().asNew(HomeScreen)
             //using the cascade operator, we call the todosLoad method informing states_rebuilder that is is a future
-            ..future((t) => t.loadTodos())
+            ..future((t) => TodosState.loadTodos(t))
                 //Invoke the error callBack to handle the error
                 //In states_rebuild there are three level of error handling:
                 //1- global such as this one : (This is considered the default error handler).

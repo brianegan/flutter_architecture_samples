@@ -28,7 +28,7 @@ void main() {
       test(
         'should load todos works',
         () async {
-          final todosNewState = await todosState.loadTodos();
+          final todosNewState = await TodosState.loadTodos(todosState);
           expect(todosNewState.todos.length, equals(3));
         },
       );
@@ -36,7 +36,7 @@ void main() {
       test(
         'should filler todos works',
         () async {
-          var todosNewState = await todosState.loadTodos();
+          var todosNewState = await TodosState.loadTodos(todosState);
           //all todos
           expect(todosNewState.todos.length, equals(3));
           //active todos
@@ -53,7 +53,7 @@ void main() {
       test(
         'should add todo works',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           final todoToAdd = Todo('addTask');
           final expectedTodosState = startingTodosState.copyWith(
@@ -61,7 +61,7 @@ void main() {
           );
 
           expect(
-            startingTodosState.addTodo(todoToAdd),
+            TodosState.addTodo(startingTodosState, todoToAdd),
             emitsInOrder([expectedTodosState, emitsDone]),
           );
         },
@@ -70,7 +70,7 @@ void main() {
       test(
         'should add todo and remove it on error',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           final todoToAdd = Todo('addTask');
 
@@ -80,7 +80,7 @@ void main() {
           );
 
           expect(
-            startingTodosState.addTodo(todoToAdd),
+            TodosState.addTodo(startingTodosState, todoToAdd),
             emitsInOrder([
               expectedTodosState,
               startingTodosState,
@@ -94,7 +94,7 @@ void main() {
       test(
         'should update todo works',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           final updatedTodo =
               startingTodosState.todos.first.copyWith(task: 'updated task');
@@ -106,7 +106,7 @@ void main() {
           );
 
           expect(
-            startingTodosState.updateTodo(updatedTodo),
+            TodosState.updateTodo(startingTodosState, updatedTodo),
             emitsInOrder([expectedTodosState, emitsDone]),
           );
         },
@@ -115,14 +115,15 @@ void main() {
       test(
         'should delete todo works',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           final expectedTodosState = startingTodosState.copyWith(
             todos: List<Todo>.from(startingTodosState.todos)..removeLast(),
           );
 
           expect(
-            startingTodosState.deleteTodo(startingTodosState.todos.last),
+            TodosState.deleteTodo(
+                startingTodosState, startingTodosState.todos.last),
             emitsInOrder([expectedTodosState, emitsDone]),
           );
         },
@@ -131,7 +132,7 @@ void main() {
       test(
         'should toggleAll todos works',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           expect(startingTodosState.numActive, equals(2));
           expect(startingTodosState.numCompleted, equals(1));
@@ -145,7 +146,7 @@ void main() {
                   .toList());
 
           expect(
-            startingTodosState.toggleAll(),
+            TodosState.toggleAll(startingTodosState),
             emitsInOrder([expectedTodosState, emitsDone]),
           );
           expect(expectedTodosState.numActive, equals(0));
@@ -156,7 +157,7 @@ void main() {
       test(
         'should clearCompleted todos works',
         () async {
-          var startingTodosState = await todosState.loadTodos();
+          var startingTodosState = await TodosState.loadTodos(todosState);
 
           expect(startingTodosState.numActive, equals(2));
           expect(startingTodosState.numCompleted, equals(1));
@@ -169,7 +170,7 @@ void main() {
                   .toList());
 
           expect(
-            startingTodosState.clearCompleted(),
+            TodosState.clearCompleted(startingTodosState),
             emitsInOrder([expectedTodosState, emitsDone]),
           );
         },
