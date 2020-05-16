@@ -39,15 +39,11 @@ class HomeScreen extends StatelessWidget {
           //we use the HomeScreen seed so that if other pages emits a notification this widget will not be notified
           () => RM.get<TodosState>().asNew(HomeScreen)
             //using the cascade operator, we call the todosLoad method informing states_rebuilder that is is a future
-            ..future((t) => TodosState.loadTodos(t))
-                //Invoke the error callBack to handle the error
-                //In states_rebuild there are three level of error handling:
-                //1- global such as this one : (This is considered the default error handler).
-                //2- semi-global : for onError defined in setState and setValue methods.
-                //   When defined it will override the gobble error handler.
-                //3- local-global, for onError defined in the StateBuilder and OnSetStateListener widgets.
-                //   they override the global and semi-global error for the widget where it is defined
-                .onError(ErrorHandler.showErrorDialog),
+            ..setState(
+              (t) => TodosState.loadTodos(t),
+              //Invoke the error callBack to handle the error
+              onError: ErrorHandler.showErrorDialog,
+            ),
           //Her we subscribe to the activeTab ReactiveModel key
           () => _activeTabRMKey,
         ],
@@ -63,7 +59,7 @@ class HomeScreen extends StatelessWidget {
         //WhenRebuilderOr has other optional callBacks (onData, onIdle, onError).
         //the builder is the default one.
         builder: (context, _activeTabRM) {
-          return _activeTabRM.value == AppTab.todos
+          return _activeTabRM.state == AppTab.todos
               ? TodoList()
               : StatsCounter();
         },
@@ -89,13 +85,13 @@ class HomeScreen extends StatelessWidget {
           builder: (context, _activeTabRM) {
             return BottomNavigationBar(
               key: ArchSampleKeys.tabs,
-              currentIndex: AppTab.values.indexOf(_activeTabRM.value),
+              currentIndex: AppTab.values.indexOf(_activeTabRM.state),
               onTap: (index) {
-                //mutate the value of the private field _activeTabRM,
+                //mutate the state of the private field _activeTabRM,
                 //observing widget will be notified to rebuild
                 //We have three observing widgets : this StateBuilder, the WhenRebuilderOr,
                 //ond the StateBuilder defined in the FilterButton widget
-                _activeTabRM.value = AppTab.values[index];
+                _activeTabRM.state = AppTab.values[index];
               },
               items: AppTab.values.map(
                 (tab) {

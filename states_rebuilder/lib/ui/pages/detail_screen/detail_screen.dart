@@ -48,9 +48,9 @@ class DetailScreen extends StatelessWidget {
                           padding: EdgeInsets.only(right: 8.0),
                           child: Checkbox(
                             key: ArchSampleKeys.detailsTodoItemCheckbox,
-                            value: todosStateRM.value.complete,
+                            value: todosStateRM.state.complete,
                             onChanged: (value) {
-                              final newTodo = todosStateRM.value.copyWith(
+                              final newTodo = todosStateRM.state.copyWith(
                                 complete: value,
                               );
                               _updateTodo(context, newTodo);
@@ -66,13 +66,13 @@ class DetailScreen extends StatelessWidget {
                                 bottom: 16.0,
                               ),
                               child: Text(
-                                todosStateRM.value.task,
+                                todosStateRM.state.task,
                                 key: ArchSampleKeys.detailsTodoItemTask,
                                 style: Theme.of(context).textTheme.headline,
                               ),
                             ),
                             Text(
-                              todosStateRM.value.note,
+                              todosStateRM.state.note,
                               key: ArchSampleKeys.detailsTodoItemNote,
                               style: Theme.of(context).textTheme.subhead,
                             )
@@ -97,7 +97,7 @@ class DetailScreen extends StatelessWidget {
                   builder: (context) {
                     return AddEditPage(
                       key: ArchSampleKeys.editTodoScreen,
-                      todo: todoRMKey.value,
+                      todo: todoRMKey.state,
                     );
                   },
                 ),
@@ -114,13 +114,11 @@ class DetailScreen extends StatelessWidget {
   }
 
   void _updateTodo(BuildContext context, Todo newTodo) {
-    final oldTodo = todoRMKey.value;
-    todoRMKey.value = newTodo;
-    RM
-        .get<TodosState>()
-        .stream((t) => TodosState.updateTodo(t, newTodo))
-        .onError((ctx, error) {
-      todoRMKey.value = oldTodo;
+    final oldTodo = todoRMKey.state;
+    todoRMKey.state = newTodo;
+    RM.get<TodosState>().setState((t) => TodosState.updateTodo(t, newTodo),
+        onError: (ctx, error) {
+      todoRMKey.state = oldTodo;
       ErrorHandler.showErrorSnackBar(context, error);
     });
   }

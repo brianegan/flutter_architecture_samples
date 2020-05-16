@@ -48,12 +48,10 @@ class TodoItem extends StatelessWidget {
             );
             //Here we get the global ReactiveModel, and use the stream method to call the updateTodo.
             //states_rebuilder will subscribe to this stream and notify observer widgets to rebuild when data is emitted.
-            RM
-                .get<TodosState>()
-                .stream((t) => TodosState.updateTodo(t, newTodo))
-                .onError(
+            RM.get<TodosState>().setState(
+                  (t) => TodosState.updateTodo(t, newTodo),
                   //on Error we want to display a snackbar
-                  ErrorHandler.showErrorSnackBar,
+                  onError: ErrorHandler.showErrorSnackBar,
                 );
           },
         ),
@@ -77,9 +75,10 @@ class TodoItem extends StatelessWidget {
     //get the global ReactiveModel, because we want to update the view of the list after removing a todo
     final todosStateRM = RM.get<TodosState>();
 
-    todosStateRM
-        .stream((t) => TodosState.deleteTodo(t, todo))
-        .onError(ErrorHandler.showErrorSnackBar);
+    todosStateRM.setState(
+      (t) => TodosState.deleteTodo(t, todo),
+      onError: ErrorHandler.showErrorSnackBar,
+    );
 
     Scaffold.of(context).showSnackBar(
       SnackBar(
@@ -94,9 +93,10 @@ class TodoItem extends StatelessWidget {
           label: ArchSampleLocalizations.of(context).undo,
           onPressed: () {
             //another nested call of stream method to voluntary add the todo back
-            todosStateRM
-                .stream((t) => TodosState.addTodo(t, todo))
-                .onError(ErrorHandler.showErrorSnackBar);
+            todosStateRM.setState(
+              (t) => TodosState.addTodo(t, todo),
+              onError: ErrorHandler.showErrorSnackBar,
+            );
           },
         ),
       ),

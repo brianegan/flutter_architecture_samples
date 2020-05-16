@@ -94,11 +94,10 @@ class _AddEditPageState extends State<AddEditPage> {
             } else {
               Navigator.pop(context);
 
-              RM
-                  .get<TodosState>()
-                  .stream(
-                      (t) => TodosState.addTodo(t, Todo(_task, note: _note)))
-                  .onError(ErrorHandler.showErrorSnackBar);
+              RM.get<TodosState>().setState(
+                    (t) => TodosState.addTodo(t, Todo(_task, note: _note)),
+                    onError: ErrorHandler.showErrorSnackBar,
+                  );
             }
           }
         },

@@ -19,18 +19,16 @@ class ExtraActionsButton extends StatelessWidget {
           return PopupMenuButton<ExtraAction>(
             key: ArchSampleKeys.extraActionsButton,
             onSelected: (action) {
-              //first set the value to the new action
-              //See FilterButton where we use setValue there.
-              extraActionRM.value = action;
+              //first set the state to the new action
+              //See FilterButton where we use setState there.
+              extraActionRM.state = action;
 
-              RM
-                  .get<TodosState>()
-                  .stream(
+              RM.get<TodosState>().setState(
                     (action == ExtraAction.toggleAllComplete)
                         ? (t) => TodosState.toggleAll(t)
                         : (t) => TodosState.clearCompleted(t),
-                  )
-                  .onError(ErrorHandler.showErrorSnackBar);
+                    onError: ErrorHandler.showErrorSnackBar,
+                  );
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuItem<ExtraAction>>[

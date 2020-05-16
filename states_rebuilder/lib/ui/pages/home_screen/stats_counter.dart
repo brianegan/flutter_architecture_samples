@@ -29,7 +29,7 @@ class StatsCounter extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  '${todosStateRM.value.numCompleted}',
+                  '${todosStateRM.state.numCompleted}',
                   key: ArchSampleKeys.statsNumCompleted,
                   style: Theme.of(context).textTheme.subhead,
                 ),
@@ -44,7 +44,7 @@ class StatsCounter extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: 24.0),
                 child: Text(
-                  '${todosStateRM.value.numActive}',
+                  '${todosStateRM.state.numActive}',
                   key: ArchSampleKeys.statsNumActive,
                   style: Theme.of(context).textTheme.subhead,
                 ),
