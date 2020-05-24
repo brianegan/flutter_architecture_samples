@@ -5,95 +5,119 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:states_rebuilder_sample/service/common/enums.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
-class FilterButton extends StatelessWidget {
-  const FilterButton({this.isActive, Key key}) : super(key: key);
-  final bool isActive;
+import '../../../service/common/enums.dart';
+import '../../../service/todos_state.dart';
+import '../../common/enums.dart';
 
+class FilterButton extends StatelessWidget {
+  //Accept the activeTabRM defined in the HomePage
+  const FilterButton({this.activeTabRM, Key key}) : super(key: key);
+  final ReactiveModel<AppTab> activeTabRM;
   @override
   Widget build(BuildContext context) {
-    //context is used to register FilterButton as observer in todosServiceRM
-    final todosServiceRM =
-        Injector.getAsReactive<TodosService>(context: context);
-
     final defaultStyle = Theme.of(context).textTheme.body1;
     final activeStyle = Theme.of(context)
         .textTheme
         .body1
         .copyWith(color: Theme.of(context).accentColor);
     final button = _Button(
-      onSelected: (filter) {
-        todosServiceRM.setState((s) => s.activeFilter = filter);
-      },
-      activeFilter: todosServiceRM.state.activeFilter,
       activeStyle: activeStyle,
       defaultStyle: defaultStyle,
     );
 
-    return AnimatedOpacity(
-      opacity: isActive ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 150),
-      child: isActive ? button : IgnorePointer(child: button),
-    );
+    return StateBuilder(
+        //register to activeTabRM
+        observe: () => activeTabRM,
+        builder: (context, activeTabRM) {
+          final _isActive = activeTabRM.state == AppTab.todos;
+          return AnimatedOpacity(
+            opacity: _isActive ? 1.0 : 0.0,
+            duration: Duration(milliseconds: 150),
+            child: _isActive ? button : IgnorePointer(child: button),
+          );
+        });
   }
 }
 
 class _Button extends StatelessWidget {
   const _Button({
     Key key,
-    @required this.onSelected,
-    @required this.activeFilter,
     @required this.activeStyle,
     @required this.defaultStyle,
   }) : super(key: key);
 
-  final PopupMenuItemSelected<VisibilityFilter> onSelected;
-  final VisibilityFilter activeFilter;
   final TextStyle activeStyle;
   final TextStyle defaultStyle;
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<VisibilityFilter>(
-      key: ArchSampleKeys.filterButton,
-      tooltip: ArchSampleLocalizations.of(context).filterTodos,
-      onSelected: onSelected,
-      itemBuilder: (BuildContext context) => <PopupMenuItem<VisibilityFilter>>[
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.allFilter,
-          value: VisibilityFilter.all,
-          child: Text(
-            ArchSampleLocalizations.of(context).showAll,
-            style: activeFilter == VisibilityFilter.all
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.activeFilter,
-          value: VisibilityFilter.active,
-          child: Text(
-            ArchSampleLocalizations.of(context).showActive,
-            style: activeFilter == VisibilityFilter.active
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-        PopupMenuItem<VisibilityFilter>(
-          key: ArchSampleKeys.completedFilter,
-          value: VisibilityFilter.completed,
-          child: Text(
-            ArchSampleLocalizations.of(context).showCompleted,
-            style: activeFilter == VisibilityFilter.completed
-                ? activeStyle
-                : defaultStyle,
-          ),
-        ),
-      ],
-      icon: Icon(Icons.filter_list),
-    );
+    //This is an example of Local ReactiveModel
+    return StateBuilder<VisibilityFilter>(
+        //Create and subscribe to a ReactiveModel of type VisibilityFilter
+        observe: () => RM.create(VisibilityFilter.all),
+        builder: (context, activeFilterRM) {
+          return PopupMenuButton<VisibilityFilter>(
+            key: ArchSampleKeys.filterButton,
+            tooltip: ArchSampleLocalizations.of(context).filterTodos,
+            onSelected: (filter) {
+              //Compere this onSelected callBack with that of the ExtraActionsButton widget.
+              //
+              //In ExtraActionsButton, we did not use the setState.
+              //Here we use the setState (although we can use  activeFilterRM.state = filter ).
+
+              //
+              //The reason we use setState is to minimize the rebuild process.
+              //If the use select the same option, the setState method will not notify observers.
+              //and onData will not invoked.
+              activeFilterRM.setState(
+                (_) => filter,
+                onData: (_, __) {
+                  //get and set the state of the global ReactiveModel TodosStore
+                  RM.get<TodosState>().setState(
+                        (currentSate) => currentSate.copyWith(
+                          activeFilter: filter,
+                        ),
+                      );
+                },
+              );
+            },
+            itemBuilder: (BuildContext context) =>
+                <PopupMenuItem<VisibilityFilter>>[
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.allFilter,
+                value: VisibilityFilter.all,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showAll,
+                  style: activeFilterRM.state == VisibilityFilter.all
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.activeFilter,
+                value: VisibilityFilter.active,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showActive,
+                  style: activeFilterRM.state == VisibilityFilter.active
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+              PopupMenuItem<VisibilityFilter>(
+                key: ArchSampleKeys.completedFilter,
+                value: VisibilityFilter.completed,
+                child: Text(
+                  ArchSampleLocalizations.of(context).showCompleted,
+                  style: activeFilterRM.state == VisibilityFilter.completed
+                      ? activeStyle
+                      : defaultStyle,
+                ),
+              ),
+            ],
+            icon: Icon(Icons.filter_list),
+          );
+        });
   }
 }

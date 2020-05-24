@@ -1,40 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
-import 'package:states_rebuilder_sample/ui/common/enums.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+
+import '../../../service/todos_state.dart';
+import '../../common/enums.dart';
+import '../../exceptions/error_handler.dart';
 
 class ExtraActionsButton extends StatelessWidget {
   ExtraActionsButton({Key key}) : super(key: key);
-  final todosServiceRM = Injector.getAsReactive<TodosService>();
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<ExtraAction>(
-      key: ArchSampleKeys.extraActionsButton,
-      onSelected: (action) {
-        if (action == ExtraAction.toggleAllComplete) {
-          todosServiceRM.setState((s) => s.toggleAll());
-        } else if (action == ExtraAction.clearCompleted) {
-          todosServiceRM.setState((s) => s.clearCompleted());
-        }
-      },
-      itemBuilder: (BuildContext context) {
-        return <PopupMenuItem<ExtraAction>>[
-          PopupMenuItem<ExtraAction>(
-            key: ArchSampleKeys.toggleAll,
-            value: ExtraAction.toggleAllComplete,
-            child: Text(todosServiceRM.state.allComplete
-                ? ArchSampleLocalizations.of(context).markAllIncomplete
-                : ArchSampleLocalizations.of(context).markAllComplete),
-          ),
-          PopupMenuItem<ExtraAction>(
-            key: ArchSampleKeys.clearCompleted,
-            value: ExtraAction.clearCompleted,
-            child: Text(ArchSampleLocalizations.of(context).clearCompleted),
-          ),
-        ];
-      },
-    );
+    //This is an example of local ReactiveModel
+    return StateBuilder<ExtraAction>(
+        //Create a reactiveModel of type  ExtraAction and set its initialValue to ExtraAction.clearCompleted)
+        observe: () => RM.create(ExtraAction.clearCompleted),
+        builder: (context, extraActionRM) {
+          return PopupMenuButton<ExtraAction>(
+            key: ArchSampleKeys.extraActionsButton,
+            onSelected: (action) {
+              //first set the state to the new action
+              //See FilterButton where we use setState there.
+              extraActionRM.state = action;
+
+              RM.get<TodosState>().setState(
+                    (action == ExtraAction.toggleAllComplete)
+                        ? (t) => TodosState.toggleAll(t)
+                        : (t) => TodosState.clearCompleted(t),
+                    onError: ErrorHandler.showErrorSnackBar,
+                  );
+            },
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuItem<ExtraAction>>[
+                PopupMenuItem<ExtraAction>(
+                  key: ArchSampleKeys.toggleAll,
+                  value: ExtraAction.toggleAllComplete,
+                  child: Text(IN.get<TodosState>().allComplete
+                      ? ArchSampleLocalizations.of(context).markAllIncomplete
+                      : ArchSampleLocalizations.of(context).markAllComplete),
+                ),
+                PopupMenuItem<ExtraAction>(
+                  key: ArchSampleKeys.clearCompleted,
+                  value: ExtraAction.clearCompleted,
+                  child:
+                      Text(ArchSampleLocalizations.of(context).clearCompleted),
+                ),
+              ];
+            },
+          );
+        });
   }
 }

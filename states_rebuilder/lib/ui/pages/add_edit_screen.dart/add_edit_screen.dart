@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
+import 'package:states_rebuilder_sample/service/todos_state.dart';
+import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditPage extends StatefulWidget {
@@ -29,7 +30,6 @@ class _AddEditPageState extends State<AddEditPage> {
   String _task;
   String _note;
   bool get isEditing => widget.todo != null;
-  final todosService = Injector.get<TodosService>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,22 +85,20 @@ class _AddEditPageState extends State<AddEditPage> {
           final form = formKey.currentState;
           if (form.validate()) {
             form.save();
-
             if (isEditing) {
-              widget.todo
-                ..task = _task
-                ..note = _note;
-              todosService.updateTodo(widget.todo);
-            } else {
-              todosService.addTodo(
-                Todo(
-                  _task,
-                  note: _note,
-                ),
+              final newTodo = widget.todo.copyWith(
+                task: _task,
+                note: _note,
               );
-            }
+              Navigator.pop(context, newTodo);
+            } else {
+              Navigator.pop(context);
 
-            Navigator.pop(context);
+              RM.get<TodosState>().setState(
+                    (t) => TodosState.addTodo(t, Todo(_task, note: _note)),
+                    onError: ErrorHandler.showErrorSnackBar,
+                  );
+            }
           }
         },
       ),

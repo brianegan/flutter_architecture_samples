@@ -5,16 +5,16 @@
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/domain/entities/todo.dart';
-import 'package:states_rebuilder_sample/service/todos_service.dart';
-import 'package:states_rebuilder_sample/ui/common/helper_methods.dart';
+import 'package:states_rebuilder_sample/service/todos_state.dart';
+import 'package:states_rebuilder_sample/ui/exceptions/error_handler.dart';
 import 'package:states_rebuilder_sample/ui/pages/add_edit_screen.dart/add_edit_screen.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatelessWidget {
   DetailScreen(this.todo) : super(key: ArchSampleKeys.todoDetailsScreen);
   final Todo todo;
-  //use Injector.get because DetailScreen need not be reactive
-  final todosService = Injector.get<TodosService>();
+  final todoRMKey = RMKey<Todo>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +26,7 @@ class DetailScreen extends StatelessWidget {
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
             icon: Icon(Icons.delete),
             onPressed: () {
-              //This is one particularity of states_rebuilder
-              //We have the ability to call a method form an injected model without notify observers
-              //This can be done by consuming the injected model using Injector.get and call the method we want.
-              todosService.deleteTodo(todo);
-              //When navigating back to home page, rebuild is granted by flutter framework.
-              Navigator.pop(context, todo);
-              //delegate to the static method HelperMethods.removeTodo to remove todo
-              HelperMethods.removeTodo(todo);
+              Navigator.pop(context, true);
             },
           )
         ],
@@ -42,71 +35,91 @@ class DetailScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 8.0),
-                  child: StateBuilder<TodosService>(
-                    //getting a new ReactiveModel of TodosService to optimize rebuild of widgets
-                    builder: (_, todosServiceRM) {
-                      return Checkbox(
-                        value: todo.complete,
-                        key: ArchSampleKeys.detailsTodoItemCheckbox,
-                        onChanged: (complete) {
-                          todo.complete = !todo.complete;
-                          //only this checkBox will rebuild
-                          todosServiceRM.setState((s) => s.updateTodo(todo));
-                        },
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Column(
+            StateBuilder<Todo>(
+                //create a local ReactiveModel for the todo
+                observe: () => RM.create(todo),
+                //associate ti with todoRMKey
+                rmKey: todoRMKey,
+                builder: (context, todosStateRM) {
+                  return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
-                        child: Text(
-                          todo.task,
-                          key: ArchSampleKeys.detailsTodoItemTask,
-                          style: Theme.of(context).textTheme.headline,
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Checkbox(
+                            key: ArchSampleKeys.detailsTodoItemCheckbox,
+                            value: todosStateRM.state.complete,
+                            onChanged: (value) {
+                              final newTodo = todosStateRM.state.copyWith(
+                                complete: value,
+                              );
+                              _updateTodo(context, newTodo);
+                            },
+                          )),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 8.0,
+                                bottom: 16.0,
+                              ),
+                              child: Text(
+                                todosStateRM.state.task,
+                                key: ArchSampleKeys.detailsTodoItemTask,
+                                style: Theme.of(context).textTheme.headline,
+                              ),
+                            ),
+                            Text(
+                              todosStateRM.state.note,
+                              key: ArchSampleKeys.detailsTodoItemNote,
+                              style: Theme.of(context).textTheme.subhead,
+                            )
+                          ],
                         ),
                       ),
-                      Text(
-                        todo.note,
-                        key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
-                      )
                     ],
-                  ),
-                ),
-              ],
-            ),
+                  );
+                }),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: ArchSampleLocalizations.of(context).editTodo,
-        child: Icon(Icons.edit),
-        key: ArchSampleKeys.editTodoFab,
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return AddEditPage(
-                  key: ArchSampleKeys.editTodoScreen,
-                  todo: todo,
-                );
-              },
-            ),
+      floatingActionButton: Builder(
+        builder: (context) {
+          return FloatingActionButton(
+            tooltip: ArchSampleLocalizations.of(context).editTodo,
+            child: Icon(Icons.edit),
+            key: ArchSampleKeys.editTodoFab,
+            onPressed: () async {
+              final newTodo = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AddEditPage(
+                      key: ArchSampleKeys.editTodoScreen,
+                      todo: todoRMKey.state,
+                    );
+                  },
+                ),
+              );
+              if (newTodo == null) {
+                return;
+              }
+              _updateTodo(context, newTodo);
+            },
           );
         },
       ),
     );
+  }
+
+  void _updateTodo(BuildContext context, Todo newTodo) {
+    final oldTodo = todoRMKey.state;
+    todoRMKey.state = newTodo;
+    RM.get<TodosState>().setState((t) => TodosState.updateTodo(t, newTodo),
+        onError: (ctx, error) {
+      todoRMKey.state = oldTodo;
+      ErrorHandler.showErrorSnackBar(context, error);
+    });
   }
 }

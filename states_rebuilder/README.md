@@ -46,37 +46,88 @@ Contains service application use cases business logic. It defines a set of API t
 
 1. With states_rebuilder you can achieve a clear separation between UI and business logic;
 2. Your business logic is made up of pure dart classes without the need to refer to external packages or frameworks (NO extension, NO notification, NO annotation);
-```dart
-class Foo {
- //Vanilla dart class
- //NO inheritance form external libraries
- //NO notification
- //No annotation
-}
-```
-3. You make a singleton of your logical class available to the widget tree by injecting it using the Injector widget.
-```dart
-Injector(
- inject : [Inject(()=>Foo())]
- builder : (context) => MyChildWidget()
-)
-```
-Injector is a StatefulWidget. It can be used any where in the widget tree. 
-4. From any child widget of the Injector widget, you can get the registered raw singleton using the static method `Injector.get<T>()` method;
-```dart
-final Foo foo = Injector.get<Foo>();
-```
-5. To get the registered singleton wrapped with a reactive environment, you use the static method 
-`Injector.getAsReactive<T>()` method:
-```dart
-final ReactiveModel<Foo> foo = Injector.getAsReactive<Foo>();
-```
-In fact, for each injected model, states_rebuilder registers two singletons:
-- The raw singleton of the model
-- The reactive singleton of the model which is the raw singleton wrapped with a reactive environment:
-The reactive environment adds getters, fields, and methods to modify the state, track the state of the reactive environment and notify the widgets which are subscribed to it.
-6. To subscribe a widget as observer, we use `StateBuilder` widget or define the context parameter in `Injector.getAsReactive<Foo>(context:context)`.
-7. The `setState` method is where actions that mutate the state and send notifications are defined.
-What happens is that from the user interface, we use the `setState` method to mutate the state and notify subscribed widgets after the state mutation. In the `setState`, we can define a callback for all the side effects to be executed after the state change and just before rebuilding subscribed widgets using `onSetState`, `onData` and `onError` parameter(or `onRebuild` so that the code executes after the reconstruction). From inside `onSetState`, we can call another `setState` to mutate the state and notify the user interface with another call `onSetState` (`onRebuild`) and so on …
+3. With states_rebuilder you can manage immutable as well as mutable state.
 
-For more information and tutorials on how states_rebuilder work please check out the [official documentation](https://github.com/GIfatahTH/states_rebuilder).
+In this demo implementation, I choose to use immutable state, you can find the same app implemented with mutable state in the example folder of the [official repo in github](https://github.com/GIfatahTH/states_rebuilder).
+
+In this implementation, I add the requirement that when a todo is added, deleted or updated, it will be instantly displayed in the user interface, so that the user will not notice any delay, and the async method `saveTodo` will be called in the background to persist the change. If the `saveTodo` method fails, the old state is returned and displayed back with a` SnackBar` containing the error message.
+
+The idea is simple:
+1- Write your immutable `TodosState` class using pure dart without any use of external libraries.
+  ```dart
+    @immutable
+    class TodosState {
+      TodosState({
+        ITodosRepository todoRepository,
+        List<Todo> todos,
+        VisibilityFilter activeFilter,
+      })  : _todoRepository = todoRepository,
+            _todos = todos,
+            _activeFilter = activeFilter;
+
+    //....
+    }
+  ```
+2- Inject the `TodosState` using the `Injector` widget,
+  ```dart
+    return Injector(
+    inject: [
+      Inject(
+        () => TodosState(
+          todos: [],
+          activeFilter: VisibilityFilter.all,
+          todoRepository: repository,
+        ),
+      )
+    ],
+  ```
+3- use one of the available observer widgets offered by states_rebuilder to subscribed to the `TodosState` `ReactiveModel`.
+  ```dart
+       return StateBuilder<TodosState>(
+          observe: () => RM.get<TodosState>(),
+          builder: (context, todosStoreRM) {
+              //...
+
+          }
+      )  
+  ```
+4- to notify the observing widgets use: 
+  * for sync method: use `setValue` method or the `value` setter.
+    ```dart
+    onSelected: (filter) {
+
+      activeFilterRM.setValue(
+        () => filter,
+        onData: (context, data) {
+          RM.get<TodosState>().value =
+              RM.get<TodosState>().value.copyWith(activeFilter: filter);
+        },
+      );
+    ```
+  * for async future method: use future method.
+  ```dart
+        body: WhenRebuilderOr<AppTab>(
+        observeMany: [
+            () => RM.get<TodosState>().asNew(HomeScreen)
+                      ..future((t) => t.loadTodos())
+                      .onError(ErrorHandler.showErrorDialog),
+            () => _activeTabRMKey,
+        ]
+
+        //...
+      )  
+  ```
+  * for async stream method: use stream method.
+    ```dart
+        onSelected: (action) {
+
+          RM.get<TodosState>()
+            .stream(
+                (action == ExtraAction.toggleAllComplete)
+                    ? (t) => t.toggleAll()
+                    : (t) => t.clearCompleted(),
+              )
+            .onError(ErrorHandler.showErrorSnackBar);
+        }
+    ```
+

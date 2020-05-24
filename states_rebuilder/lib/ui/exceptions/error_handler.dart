@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:states_rebuilder_sample/domain/exceptions/validation_exception.dart';
 import 'package:states_rebuilder_sample/service/exceptions/persistance_exception.dart';
 
@@ -12,5 +13,43 @@ class ErrorHandler {
     }
 
     throw (error);
+  }
+
+  static void showErrorSnackBar(BuildContext context, dynamic error) {
+    Scaffold.of(context).hideCurrentSnackBar();
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: <Widget>[
+            Text(ErrorHandler.getErrorMessage(error)),
+            Spacer(),
+            Icon(
+              Icons.error_outline,
+              color: Colors.yellow,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  static void showErrorDialog(BuildContext context, dynamic error) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.error_outline,
+                color: Colors.yellow,
+              ),
+              Text(ErrorHandler.getErrorMessage(error)),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
