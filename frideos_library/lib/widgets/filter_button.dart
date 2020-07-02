@@ -15,8 +15,8 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final defaultStyle = theme.textTheme.body1;
-    final activeStyle = theme.textTheme.body1.copyWith(
+    final defaultStyle = theme.textTheme.bodyText2;
+    final activeStyle = theme.textTheme.bodyText2.copyWith(
       color: theme.accentColor,
     );
     final button = _Button(

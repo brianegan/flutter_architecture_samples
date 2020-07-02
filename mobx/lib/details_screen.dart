@@ -71,7 +71,7 @@ class DetailsScreen extends StatelessWidget {
                           builder: (context) => Text(
                             todo.task,
                             key: ArchSampleKeys.detailsTodoItemTask,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headline5,
                           ),
                         ),
                       ),
@@ -79,7 +79,7 @@ class DetailsScreen extends StatelessWidget {
                         builder: (_) => Text(
                           todo.note,
                           key: ArchSampleKeys.detailsTodoItemNote,
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
                       )
                     ],

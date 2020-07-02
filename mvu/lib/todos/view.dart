@@ -18,10 +18,10 @@ Widget buildExtraActionsMenu(
 
 Widget buildFilterMenu(
     BuildContext context, Dispatch<TodosMessage> dispatch, TodosModel model) {
-  final defaultStyle = Theme.of(context).textTheme.body1;
+  final defaultStyle = Theme.of(context).textTheme.bodyText2;
   final activeStyle = Theme.of(context)
       .textTheme
-      .body1
+      .bodyText2
       .copyWith(color: Theme.of(context).accentColor);
 
   return PopupMenuButton<VisibilityFilter>(
@@ -106,14 +106,14 @@ Widget _item(BuildContext context, Dispatch<TodosMessage> dispatch,
       title: Text(
         model.task,
         key: ArchSampleKeys.todoItemTask(model.id),
-        style: Theme.of(context).textTheme.title,
+        style: Theme.of(context).textTheme.headline6,
       ),
       subtitle: Text(
         model.note,
         key: ArchSampleKeys.todoItemNote(model.id),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.subhead,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     ),
   );
