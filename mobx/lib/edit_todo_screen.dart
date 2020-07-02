@@ -31,7 +31,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               TextFormField(
                 key: ArchSampleKeys.taskField,
                 initialValue: widget.todo.task,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),

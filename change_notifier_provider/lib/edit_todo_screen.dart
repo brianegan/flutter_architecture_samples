@@ -50,7 +50,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               TextFormField(
                 controller: _taskController,
                 key: ArchSampleKeys.taskField,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headline5,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),

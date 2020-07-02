@@ -42,9 +42,9 @@ class FilterButton extends StatelessWidget {
       BuildContext context, TodoStore store) {
     final activeStyle = Theme.of(context)
         .textTheme
-        .body1
+        .bodyText2
         .copyWith(color: Theme.of(context).accentColor);
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    final defaultStyle = Theme.of(context).textTheme.bodyText2;
 
     return [
       PopupMenuItem<VisibilityFilter>(

@@ -15,10 +15,10 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    final defaultStyle = Theme.of(context).textTheme.bodyText1;
     final activeStyle = Theme.of(context)
         .textTheme
-        .body1
+        .bodyText2
         .copyWith(color: Theme.of(context).accentColor);
     final filteredTodosBloc = BlocProvider.of<FilteredTodosBloc>(context);
     return BlocBuilder(
