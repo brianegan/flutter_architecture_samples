@@ -2,10 +2,8 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wire/wire.dart';
-import 'package:wire_flutter_todo/service/WebDatabaseService.dart';
 
 import 'app.dart';
 import 'const/TodoDataParams.dart';
@@ -22,7 +20,7 @@ Future<void> main() async {
 
   Wire.data(TodoDataParams.STATE, TodoApplicationState.LOADING);
 
-  var databaseService = kIsWeb ? WebDatabaseService() : MobileDatabaseService();
+  var databaseService = MobileDatabaseService();
   await databaseService.init(TodoModel.LOCAL_STORAGE_KEY);
 
   todoModel = TodoModel(databaseService);

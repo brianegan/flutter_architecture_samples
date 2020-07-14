@@ -32,10 +32,10 @@ class TodoModel {
     Wire.data(TodoDataParams.COUNT, notCompletedCount);
   }
 
-  TodoVO create(String text, String note) {
+  TodoVO create(String text, String note, bool completed) {
     final time = DateTime.now().millisecondsSinceEpoch;
     final id = time.toString();
-    final todoVO = TodoVO(id, text, note, false);
+    final todoVO = TodoVO(id, text, note, completed);
     final listData = Wire.data(TodoDataParams.LIST);
     final todoList = listData.value as List;
     final count = Wire.data(TodoDataParams.COUNT).value as int;
@@ -43,7 +43,7 @@ class TodoModel {
     todoList.add(todoVO.id);
     Wire.data(todoVO.id, todoVO);
     Wire.data(TodoDataParams.LIST, todoList);
-    Wire.data(TodoDataParams.COUNT, count + 1);
+    Wire.data(TodoDataParams.COUNT, count + (completed ? 0 : 1));
 
     _save();
 
@@ -61,8 +61,10 @@ class TodoModel {
     todoWireData.remove();
 
     if (todoVO.completed == false) {
-      Wire.data(TodoDataParams.COUNT, count -1);
+      Wire.data(TodoDataParams.COUNT, count - 1);
     }
+    // Only difference with web version in Wire repositories (example TodoMVC)
+    Wire.data(TodoDataParams.LIST, todoList);
 
     _save();
 
@@ -121,6 +123,7 @@ class TodoModel {
   void setCompletionToAll(value) {
     final todoList = Wire.data(TodoDataParams.LIST).value as List;
     var count = Wire.data(TodoDataParams.COUNT).value as int;
+    print('> TodoModel -> setCompletionToAll: $value - ' + count.toString());
     todoList.forEach((id) {
       var todoWireData = Wire.data(id);
       var todoVO = todoWireData.value as TodoVO;

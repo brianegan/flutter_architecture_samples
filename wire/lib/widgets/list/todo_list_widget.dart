@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:wire_flutter_todo/const/TodoDataParams.dart';
@@ -86,7 +85,7 @@ class TodoList extends StatelessWidget {
         ),
         action: SnackBarAction(
           label: ArchSampleLocalizations.of(context).undo,
-          onPressed: () => Wire.send(TodoViewSignal.INPUT, CreateDTO(todoVO.text, todoVO.note))
+          onPressed: () => Wire.send(TodoViewSignal.INPUT, CreateDTO(todoVO.text, todoVO.note, todoVO.completed))
         ),
       ),
     );

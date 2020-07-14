@@ -17,9 +17,9 @@ class StatsCounter extends StatelessWidget {
     return Center(
       child: WireDataBuilder<int>(
         param: TodoDataParams.COUNT,
-        builder: (context, not_completed_count) {
+        builder: (context, notCompletedCount) {
           var allTodoCount = Wire.data(TodoDataParams.LIST).value.length;
-          var numCompleted = allTodoCount - not_completed_count;
+          var numCompleted = allTodoCount - notCompletedCount;
           return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -27,29 +27,29 @@ class StatsCounter extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 8.0),
               child: Text(
                 ArchSampleLocalizations.of(context).completedTodos,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 24.0),
               child: Text('$numCompleted',
                 key: ArchSampleKeys.statsNumCompleted,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 8.0),
               child: Text(
                 ArchSampleLocalizations.of(context).activeTodos,
-                style: Theme.of(context).textTheme.title,
+                style: Theme.of(context).textTheme.subtitle2,
               ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 24.0),
               child: Text(
-                '$not_completed_count',
+                '$notCompletedCount',
                 key: ArchSampleKeys.statsNumActive,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.subtitle1,
               ),
             )
           ],

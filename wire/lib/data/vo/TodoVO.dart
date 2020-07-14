@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class TodoVO {
   bool completed;
   String text;

@@ -3,7 +3,6 @@
 // in the LICENSE file.
 
 import 'package:test/test.dart';
-import 'package:wire_flutter_todo/models.dart';
 
 void main() {
   group('AppState', () {

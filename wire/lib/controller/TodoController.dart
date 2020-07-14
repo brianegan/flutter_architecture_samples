@@ -45,8 +45,9 @@ class TodoController {
         var createDTO = data as CreateDTO;
         var text = createDTO.text;
         var note = createDTO.note;
+        var completed = createDTO.completed;
         if (text != null && text.isNotEmpty) {
-          todoModel.create(text, note);
+          todoModel.create(text, note, completed);
           Wire.send(TodoViewSignal.CLEAR_INPUT);
         }
         break;

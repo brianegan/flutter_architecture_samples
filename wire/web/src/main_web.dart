@@ -2,17 +2,15 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:wire/wire.dart';
 import 'package:wire_flutter_todo/app.dart';
 import 'package:wire_flutter_todo/const/TodoApplicationState.dart';
 import 'package:wire_flutter_todo/controller/TodoController.dart';
-import 'package:wire_flutter_todo/service/WebDatabaseService.dart';
+import 'file:///Users/vladimir.minkin/Documents/Projects/Personal/Flutter/flutter_architecture_samples/wire/web/src/WebDatabaseService.dart';
 
-import 'const/TodoDataParams.dart';
-import 'model/TodoModel.dart';
+import '../../lib/const/TodoDataParams.dart';
+import '../../lib/model/TodoModel.dart';
 
 var todoModel;
 var todoController;

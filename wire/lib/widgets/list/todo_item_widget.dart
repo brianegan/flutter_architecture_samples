@@ -5,10 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:wire_flutter_todo/const/TodoViewSignal.dart';
 import 'package:wire_flutter_todo/data/vo/TodoVO.dart';
-import 'package:wire_flutter_todo/models.dart';
-import 'package:wire/wire.dart';
 import 'package:wire_flutter/wire_flutter.dart';
 
 class TodoItem extends StatelessWidget {
@@ -40,14 +37,14 @@ class TodoItem extends StatelessWidget {
             title: Text(
               todoVO.text,
               key: ArchSampleKeys.todoItemTask(todoVO.id),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.headline6,
             ),
             subtitle: Text(
               todoVO.note,
               key: ArchSampleKeys.todoItemNote(todoVO.id),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
       ),

@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'dart:convert';
 
-import 'IDatabaseService.dart';
+import '../../lib/service/IDatabaseService.dart';
 
 class WebDatabaseService extends IDatabaseService {
   @override
@@ -20,5 +20,5 @@ class WebDatabaseService extends IDatabaseService {
   }
 
   @override
-  Future init([String key]) { }
+  Future init([String key]) { return null; }
 }

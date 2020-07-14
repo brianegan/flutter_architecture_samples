@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wire/wire.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -45,10 +44,10 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           WireDataBuilder<int>(
             param: TodoDataParams.COUNT,
-            builder: (context, not_completed_count) {
+            builder: (context, notCompletedCount) {
               var allTodoCount = Wire.data(TodoDataParams.LIST).value.length;
-              var allCompleted = not_completed_count == 0 && allTodoCount > 0;
-              var hasCompletedTodos = (allTodoCount - not_completed_count) > 0;
+              var allCompleted = notCompletedCount == 0 && allTodoCount > 0;
+              var hasCompletedTodos = (allTodoCount - notCompletedCount) > 0;
               return ExtraActionsButton(
                 allComplete: allCompleted,
                 hasCompletedTodos: hasCompletedTodos,
