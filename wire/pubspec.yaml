@@ -26,8 +26,8 @@ dependencies:
   key_value_store_flutter:
   key_value_store_web:
   shared_preferences:
-  wire:
-  wire_flutter:
+  wire: ^0.9.7
+  wire_flutter: ^0.9.0
 
 dev_dependencies:
   flutter_test:

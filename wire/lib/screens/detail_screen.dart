@@ -40,7 +40,7 @@ class DetailScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: WireDataBuilder<TodoVO>(
-          param: id,
+          dataKey: id,
           builder: (context, todoVO) => ListView(
             children: [ Row( crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -43,7 +43,7 @@ class HomeScreenState extends State<HomeScreen> {
             onSelected: (filter) => Wire.send(TodoViewSignal.FILTER, filter),
           ),
           WireDataBuilder<int>(
-            param: TodoDataParams.COUNT,
+            dataKey: TodoDataParams.COUNT,
             builder: (context, notCompletedCount) {
               var allTodoCount = Wire.data(TodoDataParams.LIST).value.length;
               var allCompleted = notCompletedCount == 0 && allTodoCount > 0;

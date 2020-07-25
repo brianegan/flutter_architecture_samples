@@ -16,7 +16,7 @@ class StatsCounter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: WireDataBuilder<int>(
-        param: TodoDataParams.COUNT,
+        dataKey: TodoDataParams.COUNT,
         builder: (context, notCompletedCount) {
           var allTodoCount = Wire.data(TodoDataParams.LIST).value.length;
           var numCompleted = allTodoCount - notCompletedCount;

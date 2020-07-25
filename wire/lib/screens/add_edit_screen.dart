@@ -48,7 +48,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             return Future(() => true);
           },
           child: !isEditing ? ListViewWidget(context, null) :
-          WireDataBuilder<TodoVO>( param: widget.id,
+          WireDataBuilder<TodoVO>( dataKey: widget.id,
             builder: (ctx, todoVO) => ListViewWidget(ctx, todoVO),
           ),
         ),

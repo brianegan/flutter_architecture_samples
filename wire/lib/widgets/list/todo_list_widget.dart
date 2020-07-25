@@ -23,7 +23,7 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WireDataBuilder<TodoApplicationState>(
-      param: TodoDataParams.STATE,
+      dataKey: TodoDataParams.STATE,
       builder: (context, state) => Container(
         child: state == TodoApplicationState.LOADING
             ? Center(
@@ -31,7 +31,7 @@ class TodoList extends StatelessWidget {
                 key: ArchSampleKeys.todosLoading,
               ))
             : WireDataBuilder<List<String>>(
-                param: TodoDataParams.LIST,
+                dataKey: TodoDataParams.LIST,
                 builder: (context, list) => ListView.builder(
                   key: ArchSampleKeys.todoList,
                   itemCount: list.length,

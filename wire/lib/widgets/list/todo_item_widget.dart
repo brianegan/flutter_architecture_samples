@@ -24,7 +24,7 @@ class TodoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WireDataBuilder<TodoVO>(
-      param: id,
+      dataKey: id,
       builder: (context, todoVO) => Visibility(
         visible: todoVO.visible,
         child: ListTile(
