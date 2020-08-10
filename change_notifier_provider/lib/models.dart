@@ -14,13 +14,15 @@ class Todo {
   final String id;
   final String note;
   final String task;
+  final AssignInfo assignInfo;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
-      : id = id ?? Uuid().generateV4();
+  Todo(this.task, {this.complete = false, this.note = '', String id, AssignInfo assignInfo})
+      : id = id ?? Uuid().generateV4(),
+        assignInfo = assignInfo ?? AssignInfo(Person.values);
 
   @override
   int get hashCode =>
-      complete.hashCode ^ task.hashCode ^ note.hashCode ^ id.hashCode;
+      complete.hashCode ^ task.hashCode ^ note.hashCode ^ assignInfo.hashCode ^ id.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -28,13 +30,14 @@ class Todo {
       other is Todo &&
           runtimeType == other.runtimeType &&
           complete == other.complete &&
+          assignInfo == other.assignInfo &&
           task == other.task &&
           note == other.note &&
           id == other.id;
 
   @override
   String toString() {
-    return 'Todo{complete: $complete, task: $task, note: $note, id: $id}';
+    return 'Todo{complete: $complete, task: $task, note: $note, assignInfo: $assignInfo, id: $id}';
   }
 
   TodoEntity toEntity() {
@@ -50,12 +53,28 @@ class Todo {
     );
   }
 
-  Todo copy({String task, bool complete, String note, String id}) {
+  Todo copy({String task, bool complete, String note, String id, AssignInfo assignInfo}) {
     return Todo(
       task ?? this.task,
       complete: complete ?? this.complete,
       note: note ?? this.note,
+      assignInfo: assignInfo?.copy() ?? this.assignInfo?.copy(),
       id: id ?? this.id,
     );
   }
+}
+
+class AssignInfo {
+  final List<Person> person;
+
+  AssignInfo(this.person);
+
+  AssignInfo copy({List<Person> person}) {
+    final newPerson = person ?? this.person;
+    return AssignInfo(newPerson != null ? List.of(newPerson) : null);
+  }
+}
+
+enum Person {
+  sasha, masha, dasha
 }
