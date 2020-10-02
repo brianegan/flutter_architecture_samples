@@ -12,7 +12,8 @@ Flutter provides a lot of flexibility in deciding how to organize and architect
 your apps. While this freedom is very valuable, it can also lead to apps with
 large classes, inconsistent naming schemes, as well as mismatching or missing
 architectures. These types of issues can make testing, maintaining and extending
-your apps difficult.
+your apps difficult. Flutter uses hot reload and hot restart technique to minimize
+the time taken during app rebuilt.
 
 The Flutter Architecture Samples project demonstrates strategies to help solve
 or avoid these common problems. This project implements the same app using
