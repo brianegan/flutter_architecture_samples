@@ -136,7 +136,7 @@ class _$AppState extends AppState {
     if (identical(other, this)) return true;
     if (other is! AppState) return false;
     return isLoading == other.isLoading &&
-        todos == other.todos &&
+        todos == other.filteredTodos &&
         activeTab == other.activeTab &&
         activeFilter == other.activeFilter;
   }
