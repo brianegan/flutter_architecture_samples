@@ -3,6 +3,7 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rvms_model_sample/display_todos/_model/typedefs.dart';
 import 'package:rvms_model_sample/display_todos/widgets/extra_actions_button.dart';
 import 'package:rvms_model_sample/display_todos/widgets/filter_button.dart';
@@ -25,44 +26,54 @@ class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(RvmsLocalizations.of(context).appTitle),
-        actions: [
-          FilterButton(isActive: _activeTab == AppTab.todos),
-          ExtraActionsButton()
-        ],
-      ),
-      body: _activeTab == AppTab.todos ? TodoList() : StatsCounter(),
-      floatingActionButton: FloatingActionButton(
-        key: ArchSampleKeys.addTodoFab,
-        onPressed: () {
-          Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
-        },
-        child: Icon(Icons.add),
-        tooltip: ArchSampleLocalizations.of(context).addTodo,
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        key: ArchSampleKeys.tabs,
-        currentIndex: AppTab.values.indexOf(_activeTab),
-        onTap: (index) {
-          _updateTab(AppTab.values[index]);
-        },
-        items: AppTab.values.map((tab) {
-          return BottomNavigationBarItem(
-            icon: Icon(
-              tab == AppTab.todos ? Icons.list : Icons.show_chart,
-              key: tab == AppTab.stats
-                  ? ArchSampleKeys.statsTab
-                  : ArchSampleKeys.todoTab,
-            ),
-            label: tab == AppTab.stats
-                ? ArchSampleLocalizations.of(context).stats
-                : ArchSampleLocalizations.of(context).todos,
-          );
-        }).toList(),
-      ),
-    );
+    return FutureBuilder<void>(
+        future: GetIt.I.allReady(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(RvmsLocalizations.of(context).appTitle),
+                actions: [
+                  FilterButton(isActive: _activeTab == AppTab.todos),
+                  ExtraActionsButton()
+                ],
+              ),
+              body: _activeTab == AppTab.todos ? TodoList() : StatsCounter(),
+              floatingActionButton: FloatingActionButton(
+                key: ArchSampleKeys.addTodoFab,
+                onPressed: () {
+                  Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
+                },
+                child: Icon(Icons.add),
+                tooltip: ArchSampleLocalizations.of(context).addTodo,
+              ),
+              bottomNavigationBar: BottomNavigationBar(
+                key: ArchSampleKeys.tabs,
+                currentIndex: AppTab.values.indexOf(_activeTab),
+                onTap: (index) {
+                  _updateTab(AppTab.values[index]);
+                },
+                items: AppTab.values.map((tab) {
+                  return BottomNavigationBarItem(
+                    icon: Icon(
+                      tab == AppTab.todos ? Icons.list : Icons.show_chart,
+                      key: tab == AppTab.stats
+                          ? ArchSampleKeys.statsTab
+                          : ArchSampleKeys.todoTab,
+                    ),
+                    label: tab == AppTab.stats
+                        ? ArchSampleLocalizations.of(context).stats
+                        : ArchSampleLocalizations.of(context).todos,
+                  );
+                }).toList(),
+              ),
+            );
+          }
+        });
   }
 
   _updateTab(AppTab tab) {

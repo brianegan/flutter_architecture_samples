@@ -3,8 +3,10 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:rvms_model_sample/locator.dart';
 import 'package:rvms_model_sample/startup/app.dart';
 
 void main() {
+  initLocator();
   runApp(RvmsApp());
 }

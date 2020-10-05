@@ -16,10 +16,13 @@ class TodoManagerImplementation implements TodoManager {
   TodosRepository repository;
 
   ValueListenable<List<Todo>> get allTodos => _todos;
-  ValueNotifier<List<Todo>> _todos;
+  ValueNotifier<List<Todo>> _todos = ValueNotifier<List<Todo>>([]);
 
   ValueListenable<List<Todo>> get filteredTodos => _filteredTodos;
   ValueNotifier<List<Todo>> _filteredTodos;
+
+  ValueListenable<String> get errors => _errors;
+  ValueNotifier<String> _errors;
 
   @override
   VisibilityFilter get activeFilter => selectFilterCommand.value;
@@ -57,18 +60,19 @@ class TodoManagerImplementation implements TodoManager {
     /// the combineLatest ensures that [todos] get's updated whenever [_todos]
     /// changes or when [selectFilterCommand is called]
     _filteredTodos = selectFilterCommand
-        .map<List<Todo>>((filter) => _todos.value.where((todo) {
-              switch (filter) {
-                case VisibilityFilter.active:
-                  return !todo.complete;
-                case VisibilityFilter.completed:
-                  return todo.complete;
-                case VisibilityFilter.all:
-                default:
-                  return true;
-              }
-            }).toList())
-        .combineLatest(_todos, (filtered, _) => filtered);
+        .combineLatest<List<Todo>, List<Todo>>(_todos, (filter, todos) {
+      return todos.where((todo) {
+        switch (filter) {
+          case VisibilityFilter.active:
+            return !todo.complete;
+          case VisibilityFilter.completed:
+            return todo.complete;
+          case VisibilityFilter.all:
+          default:
+            return true;
+        }
+      }).toList();
+    });
   }
 
   /// Loads remote data

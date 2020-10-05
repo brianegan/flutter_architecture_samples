@@ -9,6 +9,7 @@ import 'package:rvms_model_sample/display_todos/_model/todo.dart';
 abstract class TodoManager {
   ValueListenable<List<Todo>> get filteredTodos;
   ValueListenable<List<Todo>> get allTodos;
+  ValueListenable<String> get errors;
 
   Command<VisibilityFilter, VisibilityFilter> selectFilterCommand;
   Command<void, void> loadTodoCommand;
