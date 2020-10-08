@@ -1,16 +1,11 @@
-# scoped_model
+# rvms
 
-A new Flutter project.
+This is an implementation of the architecture sample following the RVMS approach where you have Views over Managers that contain the business logic which uses Services to connect to the outside world.
 
-## Getting Started
+It uses the following packages:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* `get_it`: as ServiceLocator to access Managers from the UI and Services from Managers
+* `get_it_mixin`: to bind the data inside GetIt to the the Widgets
++ `flutter_command`: as connector between Manager UI
+* `functional_listener`: rx like extension methods for `ValueListenables`
+* `listenable_collections`: We use `ListNotifier` of this package which is a List that behaves like a `ValueNofitier`

@@ -1,4 +1,4 @@
-package com.example.scoped_model
+package com.example.rvms
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

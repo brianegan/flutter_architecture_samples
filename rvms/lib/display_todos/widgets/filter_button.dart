@@ -3,9 +3,10 @@
 // in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:rvms_model_sample/display_todos/_manager/todo_manager_.dart';
 import 'package:todos_app_core/todos_app_core.dart';
+
+import '../../locator.dart';
 
 class FilterButton extends StatelessWidget {
   final bool isActive;
@@ -20,7 +21,7 @@ class FilterButton extends StatelessWidget {
       child: PopupMenuButton<VisibilityFilter>(
         key: ArchSampleKeys.filterButton,
         tooltip: ArchSampleLocalizations.of(context).filterTodos,
-        onSelected: GetIt.I<TodoManager>().selectFilterCommand,
+        onSelected: locator<TodoManager>().selectFilterCommand,
         itemBuilder: (BuildContext context) => _items(context),
         icon: Icon(Icons.filter_list),
       ),
@@ -34,7 +35,7 @@ class FilterButton extends StatelessWidget {
         .copyWith(color: Theme.of(context).accentColor);
     final defaultStyle = Theme.of(context).textTheme.bodyText1;
 
-    final activeFilter = GetIt.I<TodoManager>().activeFilter;
+    final activeFilter = locator<TodoManager>().activeFilter;
     return [
       PopupMenuItem<VisibilityFilter>(
         key: ArchSampleKeys.allFilter,

@@ -6,17 +6,16 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_command/flutter_command.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:listenable_collections/listenable_collections.dart';
 import 'package:rvms_model_sample/display_todos/_manager/todo_manager_.dart';
 import 'package:rvms_model_sample/display_todos/_model/todo.dart';
-import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:rvms_model_sample/display_todos/_services/repository_service_.dart';
+
+import '../../locator.dart';
 
 class TodoManagerImplementation implements TodoManager {
-  TodosRepository repository;
-
   ValueListenable<List<Todo>> get allTodos => _todos;
-  ValueNotifier<List<Todo>> _todos = ValueNotifier<List<Todo>>([]);
+  final _todos = ListNotifier<Todo>(data: []);
 
   ValueListenable<List<Todo>> get filteredTodos => _filteredTodos;
   ValueNotifier<List<Todo>> _filteredTodos;
@@ -32,30 +31,32 @@ class TodoManagerImplementation implements TodoManager {
   Command<void, void> clearCompletedCommand;
   Command<String, String> upLoadCommand;
 
-  // ValueListenable errors = upLoadCommand.thrownExceptions.combineLatest(loadTodoCommand.thrownExceptions,)
-
-  TodoManagerImplementation({VisibilityFilter activeFilter}) {
-    repository = const TodosRepositoryFlutter(
-      fileStorage: const FileStorage(
-        'rvms_todos',
-        getApplicationDocumentsDirectory,
-      ),
-    );
-
+  TodoManagerImplementation({
+    VisibilityFilter activeFilter,
+  }) {
     loadTodoCommand = Command.createAsyncNoParamNoResult(loadTodos)
-      ..thrownExceptions.listen((_, __) => _todos.value = []);
+      ..thrownExceptions.listen((_, __) => _todos.clear());
 
-    selectFilterCommand =
-        Command.createSync((filter) => filter, VisibilityFilter.all);
-
+    /// We wouldn't need to implement this as a command as we are not using any of the
+    /// features that a command gives us.
     clearCompletedCommand = Command.createSyncNoParamNoResult(() {
-      _todos.value = _todos.value..removeWhere((todo) => todo.complete);
+      _todos.removeWhere((todo) => todo.complete);
     });
 
+    /// if this app didn't have already a snackbar with undo function
+    /// we could pass a changing text for  the snackbar that should
+    /// be displayed when the command is finished
+    ///
+    /// I will add the needed code in the UI but comment it out
     upLoadCommand = Command.createAsync((snackBarText) async {
       await _uploadItems();
       return snackBarText;
     }, '');
+
+    _errors = loadTodoCommand.thrownExceptions.mergeWith(
+        [upLoadCommand.thrownExceptions]).map((error) => error.toString());
+
+    selectFilterCommand = Command.createSync((filter) => filter, activeFilter);
 
     /// the combineLatest ensures that [todos] get's updated whenever [_todos]
     /// changes or when [selectFilterCommand is called]
@@ -78,16 +79,18 @@ class TodoManagerImplementation implements TodoManager {
   /// Loads remote data
   ///
   /// Call this initially and when the user manually refreshes
-  Future loadTodos() {
-    return repository.loadTodos().then((loadedTodos) {
-      _todos.value = loadedTodos.map(Todo.fromEntity).toList();
-    });
+  Future loadTodos() async {
+    _todos.clear();
+    return _todos.addAll(await locator<RepositoryService>().loadTodos());
   }
 
   void toggleAll() {
-    var allComplete = _filteredTodos.value.every((todo) => todo.complete);
-    _todos.value =
-        _todos.value.map((todo) => todo.copy(complete: !allComplete)).toList();
+    var allComplete = _todos.every((todo) => todo.complete);
+    _todos.startTransAction();
+    for (int i = 0; i < _todos.length; i++) {
+      _todos[i] = _todos[i].copy(complete: !allComplete);
+    }
+    _todos.endTransAction();
     upLoadCommand('Upload finished');
   }
 
@@ -95,29 +98,30 @@ class TodoManagerImplementation implements TodoManager {
   void updateTodo(Todo todo) {
     assert(todo != null);
     assert(todo.id != null);
-    var oldTodo = _todos.value.firstWhere((it) => it.id == todo.id);
-    var replaceIndex = _todos.value.indexOf(oldTodo);
-    _todos.value = _todos.value
-      ..replaceRange(replaceIndex, replaceIndex + 1, [todo]);
+    var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
+    var replaceIndex = _todos.indexOf(oldTodo);
+    _todos[replaceIndex] = todo;
     upLoadCommand('Update finished');
   }
 
   void removeTodo(Todo todo) {
-    _todos.value = _todos.value..removeWhere((it) => it.id == todo.id);
+    _todos.removeWhere((it) => it.id == todo.id);
     upLoadCommand('Todo deleted');
   }
 
   void addTodo(Todo todo) {
-    _todos.value = _todos.value..add(todo);
+    _todos.add(todo);
     upLoadCommand('Todo added');
   }
 
-  Future _uploadItems() {
-    return repository
-        .saveTodos(_todos.value.map((it) => it.toEntity()).toList());
+  Future _uploadItems() async {
+    /// to simulate a longer transaction to show that then a spinner
+    /// is automatic displayed
+    /// await Future.delayed(Duration(milliseconds: 2000));
+    return await locator<RepositoryService>().saveTodos(_todos);
   }
 
   Todo todoById(String id) {
-    return _todos.value.firstWhere((it) => it.id == id, orElse: () => null);
+    return _todos.firstWhere((it) => it.id == id, orElse: () => null);
   }
 }

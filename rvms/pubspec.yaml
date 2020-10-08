@@ -9,28 +9,28 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  todos_repository_simple:
-    path: ../todos_repository_simple
   todos_app_core:
     path: ../todos_app_core
+  todos_repository_simple:
+    path: ../todos_repository_simple
+  flutter_command: any
+  functional_listener: any
   get_it: any
   get_it_mixin: any
-  functional_listener: any
-  flutter_command: any
-  
+  listenable_collections: ^0.0.5
+
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_driver:
     sdk: flutter
-  test:
-  mockito:
+  flutter_test:
+    sdk: flutter
   integration_tests:
     path: ../integration_tests
+  mockito: null
+  test: null
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
 
@@ -38,18 +38,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

@@ -5,9 +5,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:rvms_model_sample/display_todos/_manager/todo_manager_.dart';
 import 'package:rvms_model_sample/display_todos/_model/todo.dart';
+import 'package:rvms_model_sample/locator.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditScreen extends StatefulWidget {
@@ -34,7 +34,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
     final localizations = ArchSampleLocalizations.of(context);
     final textTheme = Theme.of(context).textTheme;
 
-    var task = GetIt.I<TodoManager>().todoById(widget.todoId);
+    var task = locator<TodoManager>().todoById(widget.todoId);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -90,7 +90,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
           if (form.validate()) {
             form.save();
 
-            final todoManager = GetIt.I<TodoManager>();
+            final todoManager = locator<TodoManager>();
             if (isEditing) {
               final todo = todoManager.todoById(widget.todoId);
               todoManager.updateTodo(todo.copy(task: _task, note: _note));

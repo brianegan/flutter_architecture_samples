@@ -4,10 +4,10 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:rvms_model_sample/display_todos/_manager/todo_manager_.dart';
 import 'package:rvms_model_sample/display_todos/_model/todo.dart';
 import 'package:rvms_model_sample/edit_todos/add_edit_screen.dart';
+import 'package:rvms_model_sample/locator.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final todoManager = GetIt.I<TodoManager>();
+    final todoManager = locator<TodoManager>();
     // fallback to empty item. When deleting it, it is null before the screen is gone
     var todo = todoManager.todoById(todoId) ?? Todo('');
     return Scaffold(
