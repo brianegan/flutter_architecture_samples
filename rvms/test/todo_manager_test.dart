@@ -169,7 +169,7 @@ main() {
 class MockRepositoryService extends RepositoryService {
   List<Todo> entities;
 
-  MockRepositoryService(List<Todo> todos) : this.entities = todos;
+  MockRepositoryService(List<Todo> todos) : entities = todos;
 
   @override
   Future<List<Todo>> loadTodos() {

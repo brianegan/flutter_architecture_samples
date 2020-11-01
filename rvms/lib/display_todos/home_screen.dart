@@ -95,7 +95,7 @@ class HomeScreenState extends State<HomeScreen> with GetItStateMixin {
     }
   }
 
-  _updateTab(AppTab tab) {
+  void _updateTab(AppTab tab) {
     setState(() {
       _activeTab = tab;
     });
@@ -118,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> with GetItStateMixin {
 
   OverlayEntry spinner;
 
-  showSpinner(BuildContext context, busy) {
+  void showSpinner(BuildContext context, busy) {
     if (busy && spinner == null) {
       spinner = OverlayEntry(
         builder: (context) => Center(

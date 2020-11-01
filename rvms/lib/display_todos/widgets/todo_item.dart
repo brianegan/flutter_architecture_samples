@@ -35,7 +35,7 @@ class TodoItem extends StatelessWidget {
         title: Text(
           todo.task,
           key: ArchSampleKeys.todoItemTask(todo.id),
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         subtitle: Text(
           todo.note,

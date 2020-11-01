@@ -12,6 +12,7 @@ class Todo {
   final String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
+      // ignore: unnecessary_this
       : this.id = id ?? Uuid().generateV4();
 
   @override

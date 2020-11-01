@@ -11,7 +11,7 @@ class RvmsLocalizations {
     return Localizations.of<RvmsLocalizations>(context, RvmsLocalizations);
   }
 
-  String get appTitle => "rvms example";
+  String get appTitle => 'rvms example';
 }
 
 class RvmsLocalizationsDelegate
@@ -25,5 +25,5 @@ class RvmsLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      locale.languageCode.toLowerCase().contains("en");
+      locale.languageCode.toLowerCase().contains('en');
 }

@@ -52,14 +52,6 @@ class TodoList extends StatelessWidget with GetItMixin {
     );
   }
 
-  Center get _buildLoading {
-    return Center(
-      child: CircularProgressIndicator(
-        key: ArchSampleKeys.todosLoading,
-      ),
-    );
-  }
-
   void _removeTodo(BuildContext context, Todo todo) {
     get<TodoManager>().removeTodo(todo);
 

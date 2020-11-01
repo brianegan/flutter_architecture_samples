@@ -14,21 +14,28 @@ import 'package:rvms_model_sample/display_todos/_services/repository_service_.da
 import '../../locator.dart';
 
 class TodoManagerImplementation implements TodoManager {
+  @override
   ValueListenable<List<Todo>> get allTodos => _todos;
   final _todos = ListNotifier<Todo>(data: []);
 
+  @override
   ValueListenable<List<Todo>> get filteredTodos => _filteredTodos;
   ValueNotifier<List<Todo>> _filteredTodos;
 
+  @override
   ValueListenable<String> get errors => _errors;
   ValueNotifier<String> _errors;
 
   @override
   VisibilityFilter get activeFilter => selectFilterCommand.value;
 
+  @override
   Command<VisibilityFilter, VisibilityFilter> selectFilterCommand;
+  @override
   Command<void, void> loadTodoCommand;
+  @override
   Command<void, void> clearCompletedCommand;
+  @override
   Command<String, String> upLoadCommand;
 
   TodoManagerImplementation({
@@ -84,10 +91,11 @@ class TodoManagerImplementation implements TodoManager {
     return _todos.addAll(await locator<RepositoryService>().loadTodos());
   }
 
+  @override
   void toggleAll() {
     var allComplete = _todos.every((todo) => todo.complete);
     _todos.startTransAction();
-    for (int i = 0; i < _todos.length; i++) {
+    for (var i = 0; i < _todos.length; i++) {
       _todos[i] = _todos[i].copy(complete: !allComplete);
     }
     _todos.endTransAction();
@@ -95,6 +103,7 @@ class TodoManagerImplementation implements TodoManager {
   }
 
   /// updates a [Todo] by replacing the item with the same id by the parameter [todo]
+  @override
   void updateTodo(Todo todo) {
     assert(todo != null);
     assert(todo.id != null);
@@ -104,11 +113,13 @@ class TodoManagerImplementation implements TodoManager {
     upLoadCommand('Update finished');
   }
 
+  @override
   void removeTodo(Todo todo) {
     _todos.removeWhere((it) => it.id == todo.id);
     upLoadCommand('Todo deleted');
   }
 
+  @override
   void addTodo(Todo todo) {
     _todos.add(todo);
     upLoadCommand('Todo added');
@@ -121,6 +132,7 @@ class TodoManagerImplementation implements TodoManager {
     return await locator<RepositoryService>().saveTodos(_todos);
   }
 
+  @override
   Todo todoById(String id) {
     return _todos.firstWhere((it) => it.id == id, orElse: () => null);
   }
