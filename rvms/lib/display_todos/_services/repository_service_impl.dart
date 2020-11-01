@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rvms_model_sample/display_todos/_model/todo.dart';
 import 'package:rvms_model_sample/display_todos/_services/repository_service_.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
-import 'package:todos_repository_simple/todos_repository_simple.dart';
+import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 /// A class that glues together our local file storage and web client. It has a
 /// clear responsibility: Load Todos and Persist todos.
@@ -39,17 +39,18 @@ class RepositoryServiceImplementation implements RepositoryService {
     try {
       loadedTodos = await fileStorage.loadTodos();
     } catch (e) {
-      loadedTodos = await webClient.fetchTodos();
+      loadedTodos = await webClient.loadTodos();
     }
     return loadedTodos.map(Todo.fromEntity).toList();
   }
 
   // Persists todos to local disk and the web
+  @override
   Future saveTodos(List<Todo> todos) {
     final todoEntities = todos.map((it) => it.toEntity()).toList();
     return Future.wait([
       fileStorage.saveTodos(todoEntities),
-      webClient.postTodos(todoEntities),
+      webClient.saveTodos(todoEntities),
     ]);
   }
 }
