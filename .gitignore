@@ -91,3 +91,10 @@ lcov.info
 !**/*/ios/**/default.pbxuser
 !**/*/ios/**/default.perspectivev3
 **/*/generated_plugin_registrant.dart
+built_redux/.flutter-plugins-dependencies
+firestore_redux/.flutter-plugins-dependencies
+frideos_library/.flutter-plugins-dependencies
+mvc/.flutter-plugins-dependencies
+mvu/.flutter-plugins-dependencies
+rvms/.flutter-plugins-dependencies
+scoped_model/.flutter-plugins-dependencies

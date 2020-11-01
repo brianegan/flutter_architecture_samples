@@ -1,0 +1,152 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "blocs",
+            "cwd": "blocs",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "bloc_flutter",
+            "cwd": "bloc_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "bloc_library",
+            "cwd": "bloc_library",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "built_redux",
+            "cwd": "built_redux",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firebase_flutter_repository",
+            "cwd": "firebase_flutter_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firebase_rtdb_flutter_repository",
+            "cwd": "firebase_rtdb_flutter_repository",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firestore_redux",
+            "cwd": "firestore_redux",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "frideos_library",
+            "cwd": "frideos_library",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "inherited_widget",
+            "cwd": "inherited_widget",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "integration_tests",
+            "cwd": "integration_tests",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mobx",
+            "cwd": "mobx",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mvc",
+            "cwd": "mvc",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mvi_base",
+            "cwd": "mvi_base",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mvi_flutter",
+            "cwd": "mvi_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "mvu",
+            "cwd": "mvu",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "redux",
+            "cwd": "redux",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "rvms",
+            "cwd": "rvms",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "scoped_model",
+            "cwd": "scoped_model",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "simple_blocs",
+            "cwd": "simple_blocs",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "simple_bloc_flutter",
+            "cwd": "simple_bloc_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "todos_app_core",
+            "cwd": "todos_app_core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "todos_repository_core",
+            "cwd": "todos_repository_core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "todos_repository_simple",
+            "cwd": "todos_repository_simple",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "vanilla",
+            "cwd": "vanilla",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
