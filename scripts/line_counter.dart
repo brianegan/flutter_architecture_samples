@@ -22,6 +22,7 @@ class Output {
 
 void main() {
   final samples = [
+    Sample('binder', ['binder']),
     Sample('change_notifier_provider', ['change_notifier_provider']),
     Sample('bloc', ['bloc_flutter', 'blocs']),
     Sample('bloc library', ['bloc_library']),

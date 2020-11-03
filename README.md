@@ -47,6 +47,7 @@ a simple UI.
 - [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
 - [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
 - [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
+- [Binder Example](binder) - Uses the [binder](https://pub.dartlang.org/packages/binder) library to manage app state.
 
 ### Supporting Code
 
@@ -136,6 +137,7 @@ projects:
 - [Kushagra Saxena](https://github.com/kush3107)
 - [Shakib Hossain](https://github.com/shakib609)
 - [Mellati Fatah](https://github.com/GIfatahTH)
+- [Romain Rastel](https://github.com/letsar)
 
 I'd like to thank all of the folks who have helped write new samples, improve
 the current implementations, and added documentation! You're amazing! :)

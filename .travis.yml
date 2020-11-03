@@ -341,6 +341,16 @@ jobs:
       env: states_rebuilder_ios
       before_install: *before_install_osx
       script: travis_retry ./scripts/ci.sh ./states_rebuilder
+      - <<: *integration-test
+      os: linux
+      env: binder_android
+      script: travis_retry ./scripts/ci.sh ./binder
+      - <<: *integration-test
+      os: osx
+      osx_image: xcode11.3
+      env: binder_ios
+      before_install: *before_install_osx
+      script: travis_retry ./scripts/ci.sh ./binder
 
   allow_failures:
 #    - env:

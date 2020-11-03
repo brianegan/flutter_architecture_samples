@@ -23,6 +23,7 @@ task:
     EMULATOR_API_LEVEL: 28
     ANDROID_ABI: "default;x86"
     matrix:
+      app_arch: binder
       app_arch: bloc_flutter
       app_arch: bloc_library
       app_arch: built_redux
@@ -66,6 +67,7 @@ task:
   skip: '!changesInclude(".cirrus.yml", "$app_arch/*", "$app_arch/**/*")'
   env:
     matrix:
+      app_arch: binder
       app_arch: bloc_flutter
       app_arch: bloc_library
       app_arch: built_redux
