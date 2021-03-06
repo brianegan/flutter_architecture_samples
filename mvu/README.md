@@ -34,7 +34,7 @@ The heart of the MVU application are three yellow boxes on the diagram. First, t
 
 ### Code structure conventions
 Every screen or component consists of `Model` and two main functions `update` and `view`. Optionally it may have `init` function, which creates initial state of a `Model`, and `subscription` function, which is subscribed to the events from the outside world and translates them to the `messages`.
-For every screen we have thise files:
+For every screen we have these files:
 * ##### `state.dart`
     `update`, `init` and `subscribe` functions.
 * ##### `types.dart` and `types.g.dart` (generated with `built_value`)
