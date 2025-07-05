@@ -5,12 +5,10 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  test:
   flutter:
     sdk: flutter
-
-dev_dependencies:
-  flutter_driver:
+  integration_test:
     sdk: flutter
   flutter_test:
     sdk: flutter
+  

@@ -2,35 +2,31 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../utils.dart';
 import 'test_element.dart';
 import 'todo_item_element.dart';
 
 class TodoListElement extends TestElement {
-  final _todoListFinder = find.byValueKey('__todoList__');
-  final _loadingFinder = find.byValueKey('__todosLoading__');
+  final _todoListFinder = find.byKey(ValueKey('__todoList__'));
+  final _loadingFinder = find.byKey(ValueKey('__todosLoading__'));
 
-  TodoListElement(FlutterDriver driver) : super(driver);
+  TodoListElement(WidgetTester tester) : super(tester);
 
-  Future<bool> get isLoading {
-    // We need to run this command "unsynchronized". This means it immediately
-    // checks if the loading widget is on screen, rather than waiting for any
-    // pending animations to complete.
-    //
-    // Since the CircularProgressIndicator runs a continuous animation, if we
-    // do not `runUnsynchronized`, this check will never work.
-    return driver.runUnsynchronized(() {
-      return widgetExists(driver, _loadingFinder);
-    });
+  Future<bool> get isLoading async {
+    await tester.pump();
+
+    return widgetExists(tester, _loadingFinder);
   }
 
-  Future<bool> get isReady => widgetExists(driver, _todoListFinder);
+  Future<bool> get isReady async {
+    await tester.pumpAndSettle();
+    return widgetExists(tester, _todoListFinder);
+  }
 
-  TodoItemElement todoItem(String id) => TodoItemElement(id, driver);
+  TodoItemElement todoItem(String id) => TodoItemElement(id, tester);
 
-  TodoItemElement todoItemAbsent(String id) => TodoItemElement(id, driver);
+  TodoItemElement todoItemAbsent(String id) => TodoItemElement(id, tester);
 }

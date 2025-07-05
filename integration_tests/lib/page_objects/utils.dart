@@ -2,18 +2,15 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 Future<bool> widgetExists(
-  FlutterDriver driver,
-  SerializableFinder finder, {
+  WidgetTester tester,
+  Finder finder, {
   Duration? timeout,
 }) async {
   try {
-    await driver.waitFor(finder, timeout: timeout);
-
+    expect(finder, findsOneWidget);
     return true;
   } catch (_) {
     return false;
@@ -21,13 +18,12 @@ Future<bool> widgetExists(
 }
 
 Future<bool> widgetAbsent(
-  FlutterDriver driver,
-  SerializableFinder finder, {
+  WidgetTester tester,
+  Finder finder, {
   Duration? timeout,
 }) async {
   try {
-    await driver.waitForAbsent(finder, timeout: timeout);
-
+    expect(finder, findsNothing);
     return true;
   } catch (_) {
     return false;

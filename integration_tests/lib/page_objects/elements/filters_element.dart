@@ -2,24 +2,30 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import 'test_element.dart';
 
 class FiltersElement extends TestElement {
-  final _allFilter = find.byValueKey('__allFilter__');
-  final _activeFilter = find.byValueKey('__activeFilter__');
-  final _completedFilter = find.byValueKey('__completedFilter__');
+  final _allFilter = find.byKey(ValueKey('__allFilter__'));
+  final _activeFilter = find.byKey(ValueKey('__activeFilter__'));
+  final _completedFilter = find.byKey(ValueKey('__completedFilter__'));
 
-  FiltersElement(FlutterDriver driver) : super(driver);
+  FiltersElement(WidgetTester tester) : super(tester);
 
-  Future<void> tapShowAll() async => await driver.tap(_allFilter);
+  Future<void> tapShowAll() async {
+    await tester.tap(_allFilter);
+    await tester.pumpAndSettle();
+  }
 
-  Future<void> tapShowActive() async => await driver.tap(_activeFilter);
+  Future<void> tapShowActive() async {
+    await tester.tap(_activeFilter);
+    await tester.pumpAndSettle();
+  }
 
   Future<void> tapShowCompleted() async {
-    return await driver.tap(_completedFilter);
+    await tester.tap(_completedFilter);
+    await tester.pumpAndSettle();
   }
 }

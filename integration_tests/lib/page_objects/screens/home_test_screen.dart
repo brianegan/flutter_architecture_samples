@@ -2,9 +2,8 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_tests/page_objects/page_objects.dart';
 
 import '../elements/extra_actions_element.dart';
@@ -15,66 +14,74 @@ import '../utils.dart';
 import 'test_screen.dart';
 
 class HomeTestScreen extends TestScreen {
-  final _filterButtonFinder = find.byValueKey('__filterButton__');
-  final _extraActionsButtonFinder = find.byValueKey('__extraActionsButton__');
-  final _todosTabFinder = find.byValueKey('__todoTab__');
-  final _statsTabFinder = find.byValueKey('__statsTab__');
-  final _snackbarFinder = find.byValueKey('__snackbar__');
-  final _addTodoButtonFinder = find.byValueKey('__addTodoFab__');
+  final _filterButtonFinder = find.byKey(ValueKey('__filterButton__'));
+  final _extraActionsButtonFinder =
+      find.byKey(ValueKey('__extraActionsButton__'));
+  final _todosTabFinder = find.byKey(ValueKey('__todoTab__'));
+  final _statsTabFinder = find.byKey(ValueKey('__statsTab__'));
+  final _snackbarFinder = find.byKey(ValueKey('__snackbar__'));
+  final _addTodoButtonFinder = find.byKey(ValueKey('__addTodoFab__'));
 
-  HomeTestScreen(FlutterDriver driver) : super(driver);
-
-  @override
-  Future<bool> isLoading({Duration? timeout}) async =>
-      TodoListElement(driver).isLoading;
+  HomeTestScreen(WidgetTester tester) : super(tester);
 
   @override
-  Future<bool> isReady({Duration? timeout}) => TodoListElement(driver).isReady;
+  Future<bool> isLoading() async => TodoListElement(tester).isLoading;
+
+  @override
+  Future<bool> isReady() => TodoListElement(tester).isReady;
 
   TodoListElement get todoList {
-    return TodoListElement(driver);
+    return TodoListElement(tester);
   }
 
   StatsElement get stats {
-    return StatsElement(driver);
+    return StatsElement(tester);
   }
 
-  TodoListElement tapTodosTab() {
-    driver.tap(_todosTabFinder);
+  Future<TodoListElement> tapTodosTab() async {
+    await tester.tap(_todosTabFinder);
+    await tester.pumpAndSettle();
 
-    return TodoListElement(driver);
+    return TodoListElement(tester);
   }
 
-  StatsElement tapStatsTab() {
-    driver.tap(_statsTabFinder);
+  Future<StatsElement> tapStatsTab() async {
+    await tester.tap(_statsTabFinder);
+    await tester.pumpAndSettle();
 
-    return StatsElement(driver);
+    return StatsElement(tester);
   }
 
-  FiltersElement tapFilterButton() {
-    driver.tap(_filterButtonFinder);
+  Future<FiltersElement> tapFilterButton() async {
+    await tester.tap(_filterButtonFinder);
+    await tester.pumpAndSettle();
 
-    return FiltersElement(driver);
+    return FiltersElement(tester);
   }
 
-  ExtraActionsElement tapExtraActionsButton() {
-    driver.tap(_extraActionsButtonFinder);
+  Future<ExtraActionsElement> tapExtraActionsButton() async {
+    await tester.tap(_extraActionsButtonFinder);
+    await tester.pumpAndSettle();
 
-    return ExtraActionsElement(driver);
+    return ExtraActionsElement(tester);
   }
 
-  Future<bool> get snackbarVisible {
-    return widgetExists(driver, _snackbarFinder);
+  Future<bool> get snackbarVisible async {
+    await tester.pumpAndSettle();
+    return widgetExists(tester, _snackbarFinder);
   }
 
-  AddTestScreen tapAddTodoButton() {
-    driver.tap(_addTodoButtonFinder);
+  Future<AddTestScreen> tapAddTodoButton() async {
+    await tester.tap(_addTodoButtonFinder);
+    await tester.pumpAndSettle();
 
-    return AddTestScreen(driver);
+    return AddTestScreen(tester);
   }
 
-  DetailsTestScreen tapTodo(String text) {
-    driver.tap(find.text(text));
-    return DetailsTestScreen(driver);
+  Future<DetailsTestScreen> tapTodo(String text) async {
+    await tester.tap(find.text(text));
+    await tester.pumpAndSettle();
+
+    return DetailsTestScreen(tester);
   }
 }

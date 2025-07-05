@@ -2,9 +2,8 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../screens/details_test_screen.dart';
 import '../utils.dart';
@@ -13,35 +12,35 @@ import 'test_element.dart';
 class TodoItemElement extends TestElement {
   final String id;
 
-  TodoItemElement(this.id, FlutterDriver driver) : super(driver);
+  TodoItemElement(this.id, WidgetTester tester) : super(tester);
 
-  SerializableFinder get _taskFinder =>
-      find.byValueKey('TodoItem__${id}__Task');
+  Finder get _taskFinder => find.byKey(ValueKey('TodoItem__${id}__Task'));
 
-  SerializableFinder get _checkboxFinder =>
-      find.byValueKey('TodoItem__${id}__Checkbox');
+  Finder get _checkboxFinder =>
+      find.byKey(ValueKey('TodoItem__${id}__Checkbox'));
 
-  SerializableFinder get _todoItemFinder => find.byValueKey('TodoItem__${id}');
+  Finder get _todoItemFinder => find.byKey(ValueKey('TodoItem__${id}'));
 
-  Future<bool> get isVisible => widgetExists(driver, _todoItemFinder);
+  Future<bool> get isVisible => widgetExists(tester, _todoItemFinder);
 
-  Future<bool> get isAbsent => widgetAbsent(driver, _todoItemFinder);
+  Future<bool> get isAbsent => widgetAbsent(tester, _todoItemFinder);
 
-  Future<String> get task async => await driver.getText(_taskFinder);
+  Future<String> get task async => tester.widget<Text>(_taskFinder).data!;
 
   Future<String> get note async =>
-      await driver.getText(find.byValueKey('TodoItem__${id}__Note'));
+      tester.widget<Text>(find.byKey(ValueKey('TodoItem__${id}__Note'))).data!;
 
   Future<TodoItemElement> tapCheckbox() async {
-    await driver.tap(_checkboxFinder);
-    await driver.waitUntilNoTransientCallbacks();
+    await tester.tap(_checkboxFinder);
+    await tester.pumpAndSettle();
 
     return this;
   }
 
-  DetailsTestScreen tap() {
-    driver.tap(_taskFinder);
+  Future<DetailsTestScreen> tap() async {
+    await tester.tap(_taskFinder);
+    await tester.pumpAndSettle();
 
-    return DetailsTestScreen(driver);
+    return DetailsTestScreen(tester);
   }
 }

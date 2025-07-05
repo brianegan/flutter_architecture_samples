@@ -22,7 +22,8 @@ class TodoList extends StatelessWidget {
     required this.addTodo,
     required this.removeTodo,
     required this.updateTodo,
-  }) : super(key: ArchSampleKeys.todoList);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

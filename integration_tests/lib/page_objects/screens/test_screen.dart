@@ -2,18 +2,16 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
-
-import 'package:flutter_driver/flutter_driver.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 abstract class TestScreen {
-  final FlutterDriver driver;
+  final WidgetTester tester;
 
-  TestScreen(this.driver);
+  TestScreen(this.tester);
 
-  Future<bool> isLoading({Duration? timeout}) async {
-    return !(await isReady(timeout: timeout));
+  Future<bool> isLoading() async {
+    return !(await isReady());
   }
 
-  Future<bool> isReady({Duration? timeout});
+  Future<bool> isReady();
 }
