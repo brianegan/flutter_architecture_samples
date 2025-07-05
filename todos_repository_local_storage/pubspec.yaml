@@ -16,4 +16,5 @@ dev_dependencies:
   test:
   flutter_test:
     sdk: flutter
-  mocktail:
+  mockito:
+  build_runner:

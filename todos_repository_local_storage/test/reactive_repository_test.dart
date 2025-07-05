@@ -4,13 +4,15 @@
 
 import 'dart:async';
 
-import 'package:mocktail/mocktail.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-class MocktailTodosRepository extends Mock implements TodosRepository {}
+import 'reactive_repository_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<TodosRepository>()])
 void main() {
   group('ReactiveTodosRepository', () {
     List<TodoEntity> createTodos([String task = 'Task']) {
@@ -24,13 +26,13 @@ void main() {
     test('should load todos from the base repo and send them to the client',
         () {
       final todos = createTodos();
-      final repository = MocktailTodosRepository();
+      final repository = MockTodosRepository();
       final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
 
-      when(() => repository.loadTodos())
+      when(repository.loadTodos())
           .thenAnswer((_) => Future.value(<TodoEntity>[]));
 
       expect(reactiveRepository.todos(), emits(todos));
@@ -38,55 +40,53 @@ void main() {
 
     test('should only load from the base repo once', () {
       final todos = createTodos();
-      final repository = MocktailTodosRepository();
+      final repository = MockTodosRepository();
       final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
 
-      when(() => repository.loadTodos()).thenAnswer((_) => Future.value(todos));
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(reactiveRepository.todos(), emits(todos));
       expect(reactiveRepository.todos(), emits(todos));
 
-      verify(() => repository.loadTodos()).called(1);
+      verify(repository.loadTodos()).called(1);
     });
 
     test('should add todos to the repository and emit the change', () async {
       final todos = createTodos();
-      final repository = MocktailTodosRepository();
+      final repository = MockTodosRepository();
       final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: [],
       );
 
-      when(() => repository.loadTodos())
+      when(repository.loadTodos())
           .thenAnswer((_) => Future.value(<TodoEntity>[]));
-      when(() => repository.saveTodos([todos.first]))
-          .thenAnswer((_) async => {});
 
       await reactiveRepository.addNewTodo(todos.first);
 
-      verify(() => repository.saveTodos([todos.first]));
+      verify(repository.saveTodos([todos.first]));
       expect(reactiveRepository.todos(), emits([todos.first]));
     });
 
     test('should update a todo in the repository and emit the change',
         () async {
       final todos = createTodos();
-      final repository = MocktailTodosRepository();
+      final repository = MockTodosRepository();
       final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
         seedValue: todos,
       );
       final update = createTodos('task');
 
-      when(() => repository.loadTodos()).thenAnswer((_) => Future.value(todos));
-      when(() => repository.saveTodos(any())).thenAnswer((_) => Future.value());
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
+      when(repository.saveTodos(any)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.updateTodo(update.first);
 
-      verify(() => repository.saveTodos(any()));
+      verify(repository.saveTodos(any));
       expect(
         reactiveRepository.todos(),
         emits([update[0], todos[1], todos[2]]),
@@ -94,7 +94,7 @@ void main() {
     });
 
     test('should remove todos from the repo and emit the change', () async {
-      final repository = MocktailTodosRepository();
+      final repository = MockTodosRepository();
       final todos = createTodos();
       final reactiveRepository = ReactiveLocalStorageRepository(
         repository: repository,
@@ -102,12 +102,12 @@ void main() {
       );
       final future = Future.value(todos);
 
-      when(() => repository.loadTodos()).thenAnswer((_) => future);
-      when(() => repository.saveTodos(any())).thenAnswer((_) => Future.value());
+      when(repository.loadTodos()).thenAnswer((_) => future);
+      when(repository.saveTodos(any)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.deleteTodo([todos.first.id, todos.last.id]);
 
-      verify(() => repository.saveTodos(any()));
+      verify(repository.saveTodos(any));
       expect(reactiveRepository.todos(), emits([todos[1]]));
     });
   });
