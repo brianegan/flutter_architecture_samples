@@ -2,30 +2,38 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-class MockKeyValueStore extends Mock implements SharedPreferences {}
+class MocktailKeyValueStore extends Mock implements SharedPreferences {}
 
 void main() {
   group('KeyValueStorage', () {
-    final store = MockKeyValueStore();
     final todos = [TodoEntity('Task', '1', 'Hallo', true)];
     final todosJson =
         '{"todos":[{"complete":true,"task":"Task","note":"Hallo","id":"1"}]}';
-    final storage = KeyValueStorage('T', store);
 
     test('Should persist TodoEntities to the store', () async {
+      final store = MocktailKeyValueStore();
+      final storage = KeyValueStorage('T', store);
+
+      when(() => store.setString('T', todosJson)).thenAnswer((_) async {
+        return true;
+      });
+
       await storage.saveTodos(todos);
 
-      verify(store.setString('T', todosJson));
+      verify(() => store.setString('T', todosJson));
     });
 
     test('Should load TodoEntities from disk', () async {
-      when(store.getString('T')).thenReturn(todosJson);
+      final store = MocktailKeyValueStore();
+      final storage = KeyValueStorage('T', store);
+
+      when(() => store.getString('T')).thenReturn(todosJson);
 
       expect(await storage.loadTodos(), todos);
     });
