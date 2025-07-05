@@ -11,9 +11,9 @@ abstract class TestScreen {
 
   TestScreen(this.driver);
 
-  Future<bool> isLoading({Duration timeout}) async {
+  Future<bool> isLoading({Duration? timeout}) async {
     return !(await isReady(timeout: timeout));
   }
 
-  Future<bool> isReady({Duration timeout});
+  Future<bool> isReady({Duration? timeout});
 }

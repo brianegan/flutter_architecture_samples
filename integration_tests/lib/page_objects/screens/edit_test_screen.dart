@@ -19,7 +19,7 @@ class EditTestScreen extends TestScreen {
   EditTestScreen(FlutterDriver driver) : super(driver);
 
   @override
-  Future<bool> isReady({Duration timeout}) =>
+  Future<bool> isReady({Duration? timeout}) =>
       widgetExists(driver, _editScreenFinder, timeout: timeout);
 
   Future<void> tapBackButton() async {

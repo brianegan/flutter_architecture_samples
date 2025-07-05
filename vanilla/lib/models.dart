@@ -26,7 +26,6 @@ class AppState {
           case VisibilityFilter.completed:
             return todo.complete;
           case VisibilityFilter.all:
-          default:
             return true;
         }
       }).toList();
@@ -76,7 +75,7 @@ class Todo {
   String note;
   String task;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
+  Todo(this.task, {this.complete = false, this.note = '', String? id})
       : id = id ?? Uuid().generateV4();
 
   @override
@@ -105,9 +104,9 @@ class Todo {
   static Todo fromEntity(TodoEntity entity) {
     return Todo(
       entity.task,
-      complete: entity.complete ?? false,
+      complete: entity.complete,
       note: entity.note,
-      id: entity.id ?? Uuid().generateV4(),
+      id: entity.id,
     );
   }
 }

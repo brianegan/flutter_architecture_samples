@@ -9,7 +9,7 @@ import 'package:flutter_driver/flutter_driver.dart';
 Future<bool> widgetExists(
   FlutterDriver driver,
   SerializableFinder finder, {
-  Duration timeout,
+  Duration? timeout,
 }) async {
   try {
     await driver.waitFor(finder, timeout: timeout);
@@ -23,7 +23,7 @@ Future<bool> widgetExists(
 Future<bool> widgetAbsent(
   FlutterDriver driver,
   SerializableFinder finder, {
-  Duration timeout,
+  Duration? timeout,
 }) async {
   try {
     await driver.waitForAbsent(finder, timeout: timeout);

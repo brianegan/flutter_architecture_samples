@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:vanilla/localization.dart';
@@ -22,14 +21,14 @@ class HomeScreen extends StatefulWidget {
   final Function clearCompleted;
 
   HomeScreen({
-    @required this.appState,
-    @required this.addTodo,
-    @required this.removeTodo,
-    @required this.updateTodo,
-    @required this.toggleAll,
-    @required this.clearCompleted,
-    Key key,
-  }) : super(key: ArchSampleKeys.homeScreen);
+    required this.appState,
+    required this.addTodo,
+    required this.removeTodo,
+    required this.updateTodo,
+    required this.toggleAll,
+    required this.clearCompleted,
+    super.key = ArchSampleKeys.homeScreen,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -111,11 +110,9 @@ class HomeScreenState extends State<HomeScreen> {
                   ? ArchSampleKeys.statsTab
                   : ArchSampleKeys.todoTab,
             ),
-            title: Text(
-              tab == AppTab.stats
-                  ? ArchSampleLocalizations.of(context).stats
-                  : ArchSampleLocalizations.of(context).todos,
-            ),
+            label: tab == AppTab.stats
+                ? ArchSampleLocalizations.of(context).stats
+                : ArchSampleLocalizations.of(context).todos,
           );
         }).toList(),
       ),

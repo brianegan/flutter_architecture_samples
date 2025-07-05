@@ -22,7 +22,7 @@ class DetailsTestScreen extends TestScreen {
   DetailsTestScreen(FlutterDriver driver) : super(driver);
 
   @override
-  Future<bool> isReady({Duration timeout}) =>
+  Future<bool> isReady({Duration? timeout}) =>
       widgetExists(driver, _detailsScreenFinder, timeout: timeout);
 
   Future<String> get task => driver.getText(_taskFinder);
@@ -45,7 +45,7 @@ class DetailsTestScreen extends TestScreen {
     await driver.tap(_deleteButtonFinder);
   }
 
-  Future<Null> tapBackButton() async {
+  Future<void> tapBackButton() async {
     return await driver.tap(_backButtonFinder);
   }
 }

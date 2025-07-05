@@ -25,11 +25,11 @@ class HomeTestScreen extends TestScreen {
   HomeTestScreen(FlutterDriver driver) : super(driver);
 
   @override
-  Future<bool> isLoading({Duration timeout}) async =>
+  Future<bool> isLoading({Duration? timeout}) async =>
       TodoListElement(driver).isLoading;
 
   @override
-  Future<bool> isReady({Duration timeout}) => TodoListElement(driver).isReady;
+  Future<bool> isReady({Duration? timeout}) => TodoListElement(driver).isReady;
 
   TodoListElement get todoList {
     return TodoListElement(driver);

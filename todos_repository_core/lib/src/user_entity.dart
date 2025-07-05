@@ -7,7 +7,11 @@ class UserEntity {
   final String displayName;
   final String photoUrl;
 
-  UserEntity({this.id, this.displayName, this.photoUrl});
+  UserEntity({
+    required this.id,
+    required this.displayName,
+    required this.photoUrl,
+  });
 
   @override
   bool operator ==(Object other) =>

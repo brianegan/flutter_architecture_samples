@@ -10,7 +10,7 @@ import 'dart:collection';
 /// values to be null. It signals that a value is not required and provides
 /// convenience methods for dealing with the absent case.
 class Optional<T> extends IterableBase<T> {
-  final T _value;
+  final T? _value;
 
   /// Constructs an empty Optional.
   const Optional.absent() : _value = null;
@@ -40,13 +40,13 @@ class Optional<T> extends IterableBase<T> {
     if (_value == null) {
       throw StateError('value called on absent Optional.');
     }
-    return _value;
+    return _value!;
   }
 
   /// Executes a function if the Optional value is present.
   void ifPresent(void Function(T value) ifPresent) {
     if (isPresent) {
-      ifPresent(_value);
+      ifPresent(_value!);
     }
   }
 
@@ -70,7 +70,7 @@ class Optional<T> extends IterableBase<T> {
   }
 
   /// Gets the Optional value, or [null] if there is none.
-  T get orNull => _value;
+  T? get orNull => _value;
 
   /// Transforms the Optional value.
   ///
@@ -80,12 +80,12 @@ class Optional<T> extends IterableBase<T> {
   Optional<S> transform<S>(S Function(T value) transformer) {
     return _value == null
         ? Optional.absent()
-        : Optional.of(transformer(_value));
+        : Optional.of(transformer(_value!));
   }
 
   @override
   Iterator<T> get iterator =>
-      isPresent ? <T>[_value].iterator : Iterable<T>.empty().iterator;
+      isPresent ? <T>[_value!].iterator : Iterable<T>.empty().iterator;
 
   /// Delegates to the underlying [value] hashCode.
   @override

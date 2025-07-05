@@ -12,16 +12,15 @@ class ExtraActionsButton extends StatelessWidget {
   final bool hasCompletedTodos;
 
   ExtraActionsButton({
-    this.onSelected,
+    required this.onSelected,
     this.allComplete = false,
     this.hasCompletedTodos = true,
-    Key key,
-  }) : super(key: key);
+    super.key = ArchSampleKeys.extraActionsButton,
+  });
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<ExtraAction>(
-      key: ArchSampleKeys.extraActionsButton,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => <PopupMenuItem<ExtraAction>>[
         PopupMenuItem<ExtraAction>(

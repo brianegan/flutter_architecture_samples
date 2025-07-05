@@ -38,7 +38,7 @@ class TodoEntity {
     return 'TodoEntity{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  static TodoEntity fromJson(Map<String, Object> json) {
+  static TodoEntity fromJson(Map<String, dynamic> json) {
     return TodoEntity(
       json['task'] as String,
       json['id'] as String,

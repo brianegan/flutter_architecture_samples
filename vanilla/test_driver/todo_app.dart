@@ -9,5 +9,5 @@ import 'package:vanilla/main.dart' as app;
 void main() {
   enableFlutterDriverExtension();
 
-  app.main();
+  app.main(storageKey: 'vanilla_test_${DateTime.now().toIso8601String()}');
 }

@@ -11,8 +11,8 @@ import 'page_objects/page_objects.dart';
 
 void main() {
   group('Todo App Test', () {
-    FlutterDriver driver;
-    HomeTestScreen homeScreen;
+    late FlutterDriver driver;
+    late HomeTestScreen homeScreen;
 
     setUpAll(() async {
       driver = await FlutterDriver.connect();
@@ -20,9 +20,7 @@ void main() {
     });
 
     tearDownAll(() async {
-      if (driver != null) {
-        await driver.close();
-      }
+      await driver.close();
     });
 
     test('should show a loading screen while the todos are fetched', () async {

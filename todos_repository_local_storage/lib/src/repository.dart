@@ -2,11 +2,10 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'dart:async';
 import 'dart:core';
 
-import 'package:meta/meta.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
+
 import 'web_client.dart';
 
 /// A class that glues together our local file storage and web client. It has a
@@ -16,7 +15,7 @@ class LocalStorageRepository implements TodosRepository {
   final TodosRepository webClient;
 
   const LocalStorageRepository({
-    @required this.localStorage,
+    required this.localStorage,
     this.webClient = const WebClient(),
   });
 

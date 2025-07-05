@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:vanilla/models.dart';
@@ -18,11 +17,11 @@ class TodoList extends StatelessWidget {
   final TodoUpdater updateTodo;
 
   TodoList({
-    @required this.filteredTodos,
-    @required this.loading,
-    @required this.addTodo,
-    @required this.removeTodo,
-    @required this.updateTodo,
+    required this.filteredTodos,
+    required this.loading,
+    required this.addTodo,
+    required this.removeTodo,
+    required this.updateTodo,
   }) : super(key: ArchSampleKeys.todoList);
 
   @override
@@ -70,7 +69,7 @@ class TodoList extends StatelessWidget {
   void _removeTodo(BuildContext context, Todo todo) {
     removeTodo(todo);
 
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: Duration(seconds: 2),

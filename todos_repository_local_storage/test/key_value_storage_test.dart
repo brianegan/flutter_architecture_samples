@@ -2,13 +2,13 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:key_value_store/key_value_store.dart';
 import 'package:mockito/mockito.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-class MockKeyValueStore extends Mock implements KeyValueStore {}
+class MockKeyValueStore extends Mock implements SharedPreferences {}
 
 void main() {
   group('KeyValueStorage', () {

@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 class VanillaLocalizations {
   static VanillaLocalizations of(BuildContext context) {
     return Localizations.of<VanillaLocalizations>(
-        context, VanillaLocalizations);
+      context,
+      VanillaLocalizations,
+    )!;
   }
 
   String get appTitle => 'Vanilla Example';

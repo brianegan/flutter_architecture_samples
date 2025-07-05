@@ -2,7 +2,6 @@
 // Use of this source code is governed by the MIT license that can be found
 // in the LICENSE file.
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:vanilla/models.dart';
@@ -16,10 +15,10 @@ class DetailScreen extends StatelessWidget {
   final TodoUpdater updateTodo;
 
   DetailScreen({
-    @required this.todo,
-    @required this.addTodo,
-    @required this.updateTodo,
-    @required this.onDelete,
+    required this.todo,
+    required this.addTodo,
+    required this.updateTodo,
+    required this.onDelete,
   }) : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -68,13 +67,13 @@ class DetailScreen extends StatelessWidget {
                         child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
                       Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.titleMedium,
                       )
                     ],
                   ),
