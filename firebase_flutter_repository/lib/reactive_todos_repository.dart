@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,9 +17,11 @@ class FirestoreReactiveTodosRepository implements ReactiveTodosRepository {
 
   @override
   Future<void> deleteTodo(List<String> idList) async {
-    await Future.wait<void>(idList.map((id) {
-      return firestore.collection(path).document(id).delete();
-    }));
+    await Future.wait<void>(
+      idList.map((id) {
+        return firestore.collection(path).document(id).delete();
+      }),
+    );
   }
 
   @override

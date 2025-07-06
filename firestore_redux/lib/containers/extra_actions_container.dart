@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/extra_actions_button.dart';
@@ -33,10 +29,7 @@ class _ViewModel {
   final Function(ExtraAction) onActionSelected;
   final bool allComplete;
 
-  _ViewModel({
-    @required this.onActionSelected,
-    @required this.allComplete,
-  });
+  _ViewModel({@required this.onActionSelected, @required this.allComplete});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

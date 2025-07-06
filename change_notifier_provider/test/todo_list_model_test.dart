@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:change_notifier_provider_sample/models.dart';
 import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:test/test.dart';
@@ -41,33 +37,37 @@ void main() {
       expect(model.filteredTodos, todos);
     });
 
-    test('should return active todos if the VisibilityFilter is active',
-        () async {
-      final todo1 = Todo('a');
-      final todo2 = Todo('b');
-      final todo3 = Todo('c', complete: true);
-      final model = TodoListModel(
-        filter: VisibilityFilter.active,
-        repository: MockRepository(),
-        todos: [todo1, todo2, todo3],
-      );
+    test(
+      'should return active todos if the VisibilityFilter is active',
+      () async {
+        final todo1 = Todo('a');
+        final todo2 = Todo('b');
+        final todo3 = Todo('c', complete: true);
+        final model = TodoListModel(
+          filter: VisibilityFilter.active,
+          repository: MockRepository(),
+          todos: [todo1, todo2, todo3],
+        );
 
-      expect(model.filteredTodos, [todo1, todo2]);
-    });
+        expect(model.filteredTodos, [todo1, todo2]);
+      },
+    );
 
-    test('should return completed todos if the VisibilityFilter is completed',
-        () async {
-      final todo1 = Todo('a');
-      final todo2 = Todo('b');
-      final todo3 = Todo('c', complete: true);
-      final model = TodoListModel(
-        filter: VisibilityFilter.completed,
-        repository: MockRepository(),
-        todos: [todo1, todo2, todo3],
-      );
+    test(
+      'should return completed todos if the VisibilityFilter is completed',
+      () async {
+        final todo1 = Todo('a');
+        final todo2 = Todo('b');
+        final todo3 = Todo('c', complete: true);
+        final model = TodoListModel(
+          filter: VisibilityFilter.completed,
+          repository: MockRepository(),
+          todos: [todo1, todo2, todo3],
+        );
 
-      expect(model.filteredTodos, [todo3]);
-    });
+        expect(model.filteredTodos, [todo3]);
+      },
+    );
 
     test('should clear the completed todos', () async {
       final repository = MockRepository();

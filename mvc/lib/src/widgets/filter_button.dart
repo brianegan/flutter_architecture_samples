@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
@@ -17,7 +13,7 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    var model = TodoListModel.of(context, rebuildOnChange: true);
+    //    var model = TodoListModel.of(context, rebuildOnChange: true);
     return AnimatedOpacity(
       opacity: isActive ? 1.0 : 0.0,
       duration: Duration(milliseconds: 150),
@@ -35,10 +31,9 @@ class FilterButton extends StatelessWidget {
   }
 
   List<PopupMenuItem<VisibilityFilter>> _items(BuildContext context) {
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final defaultStyle = Theme.of(context).textTheme.body1;
 
     return [

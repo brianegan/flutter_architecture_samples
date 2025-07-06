@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -29,17 +25,15 @@ void main() {
         return todosBloc;
       },
       act: (TodosBloc bloc) async => bloc.add(LoadTodos()),
-      expect: <TodosState>[
-        TodosLoading(),
-        TodosNotLoaded(),
-      ],
+      expect: <TodosState>[TodosLoading(), TodosNotLoaded()],
     );
 
     blocTest<TodosBloc, TodosEvent, TodosState>(
       'should add a todo to the list in response to an AddTodo Event',
       build: () => todosBloc,
-      act: (TodosBloc bloc) async =>
-          bloc..add(LoadTodos())..add(AddTodo(Todo('Hallo', id: '0'))),
+      act: (TodosBloc bloc) async => bloc
+        ..add(LoadTodos())
+        ..add(AddTodo(Todo('Hallo', id: '0'))),
       expect: <TodosState>[
         TodosLoading(),
         TodosLoaded([]),
@@ -55,7 +49,10 @@ void main() {
       },
       act: (TodosBloc bloc) async {
         final todo = Todo('Hallo', id: '0');
-        bloc..add(LoadTodos())..add(AddTodo(todo))..add(DeleteTodo(todo));
+        bloc
+          ..add(LoadTodos())
+          ..add(AddTodo(todo))
+          ..add(DeleteTodo(todo));
       },
       expect: <TodosState>[
         TodosLoading(),
@@ -157,10 +154,7 @@ void main() {
           Todo('Hallo', id: '0', complete: true),
           Todo('Tschüss', id: '1', complete: true),
         ]),
-        TodosLoaded([
-          Todo('Hallo', id: '0'),
-          Todo('Tschüss', id: '1'),
-        ]),
+        TodosLoaded([Todo('Hallo', id: '0'), Todo('Tschüss', id: '1')]),
       ],
     );
   });

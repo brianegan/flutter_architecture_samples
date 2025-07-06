@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_sample/stores/todo_store.dart';
@@ -39,11 +35,12 @@ class FilterButton extends StatelessWidget {
   }
 
   List<PopupMenuItem<VisibilityFilter>> _items(
-      BuildContext context, TodoStore store) {
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    BuildContext context,
+    TodoStore store,
+  ) {
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final defaultStyle = Theme.of(context).textTheme.body1;
 
     return [
@@ -52,8 +49,9 @@ class FilterButton extends StatelessWidget {
         value: VisibilityFilter.all,
         child: Text(
           ArchSampleLocalizations.of(context).showAll,
-          style:
-              store.filter == VisibilityFilter.all ? activeStyle : defaultStyle,
+          style: store.filter == VisibilityFilter.all
+              ? activeStyle
+              : defaultStyle,
         ),
       ),
       PopupMenuItem<VisibilityFilter>(

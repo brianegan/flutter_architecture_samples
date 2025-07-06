@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,9 +28,11 @@ class TabSelector extends StatelessWidget {
                     ? ArchSampleKeys.todoTab
                     : ArchSampleKeys.statsTab,
               ),
-              title: Text(tab == AppTab.stats
-                  ? ArchSampleLocalizations.of(context).stats
-                  : ArchSampleLocalizations.of(context).todos),
+              title: Text(
+                tab == AppTab.stats
+                    ? ArchSampleLocalizations.of(context).stats
+                    : ArchSampleLocalizations.of(context).todos,
+              ),
             );
           }).toList(),
         );
@@ -47,10 +45,7 @@ class _ViewModel {
   final AppTab activeTab;
   final Function(int) onTabSelected;
 
-  _ViewModel({
-    @required this.activeTab,
-    @required this.onTabSelected,
-  });
+  _ViewModel({@required this.activeTab, @required this.onTabSelected});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

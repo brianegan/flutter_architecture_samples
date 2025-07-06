@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -25,7 +21,7 @@ class HomeScreen extends StatefulWidget {
   final UserRepository repository;
 
   HomeScreen({@required this.repository})
-      : super(key: ArchSampleKeys.homeScreen);
+    : super(key: ArchSampleKeys.homeScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -73,14 +69,12 @@ class HomeScreenState extends State<HomeScreen> {
               ),
               body: userSnapshot.hasData
                   ? activeTabSnapshot.data == AppTab.todos
-                      ? TodoList()
-                      : StatsCounter(
-                          buildBloc: () =>
-                              StatsBloc(Injector.of(context).todosInteractor),
-                        )
-                  : LoadingSpinner(
-                      key: ArchSampleKeys.todosLoading,
-                    ),
+                        ? TodoList()
+                        : StatsCounter(
+                            buildBloc: () =>
+                                StatsBloc(Injector.of(context).todosInteractor),
+                          )
+                  : LoadingSpinner(key: ArchSampleKeys.todosLoading),
               floatingActionButton: FloatingActionButton(
                 key: ArchSampleKeys.addTodoFab,
                 onPressed: () {
@@ -141,10 +135,7 @@ class HomeScreenState extends State<HomeScreen> {
           todosBloc.allComplete,
           todosBloc.hasCompletedTodos,
           (allComplete, hasCompletedTodos) {
-            return ExtraActionsButtonViewModel(
-              allComplete,
-              hasCompletedTodos,
-            );
+            return ExtraActionsButtonViewModel(allComplete, hasCompletedTodos);
           },
         ),
         builder: (context, snapshot) {
@@ -160,7 +151,7 @@ class HomeScreenState extends State<HomeScreen> {
             },
           );
         },
-      )
+      ),
     ];
   }
 }

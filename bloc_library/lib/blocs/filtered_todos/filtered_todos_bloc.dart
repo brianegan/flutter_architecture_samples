@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -54,9 +50,7 @@ class FilteredTodosBloc extends Bloc<FilteredTodosEvent, FilteredTodosState> {
     }
   }
 
-  Stream<FilteredTodosState> _mapTodosUpdatedToState(
-    UpdateTodos event,
-  ) async* {
+  Stream<FilteredTodosState> _mapTodosUpdatedToState(UpdateTodos event) async* {
     final visibilityFilter = state is FilteredTodosLoaded
         ? (state as FilteredTodosLoaded).activeFilter
         : VisibilityFilter.all;

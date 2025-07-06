@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvc/src/screens/detail_screen.dart';
@@ -16,16 +12,12 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Con.isLoading ? _buildLoading : _buildList(),
-    );
+    return Container(child: Con.isLoading ? _buildLoading : _buildList());
   }
 
   Center get _buildLoading {
     return Center(
-      child: CircularProgressIndicator(
-        key: ArchSampleKeys.todosLoading,
-      ),
+      child: CircularProgressIndicator(key: ArchSampleKeys.todosLoading),
     );
   }
 
@@ -42,19 +34,19 @@ class TodoList extends StatelessWidget {
             _removeTodo(context, todo);
           },
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return DetailScreen(
-                    todoId: todo['id'],
-                  );
-                },
-              ),
-            ).then((todo) {
-              if (todo is Map && todo.isNotEmpty) {
-                _showUndoSnackbar(context, todo);
-              }
-            });
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return DetailScreen(todoId: todo['id']);
+                    },
+                  ),
+                )
+                .then((todo) {
+                  if (todo is Map && todo.isNotEmpty) {
+                    _showUndoSnackbar(context, todo);
+                  }
+                });
           },
           onCheckboxChanged: (complete) {
             _con.checked(todo);

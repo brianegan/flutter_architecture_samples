@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:built_redux_sample/containers/action_selector.dart';
 import 'package:built_redux_sample/containers/active_tab.dart';
 import 'package:built_redux_sample/containers/filter_selector.dart';
@@ -34,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
-              ExtraActionSelector()
+              ExtraActionSelector(),
             ],
           ),
           body: activeTab == AppTab.todos ? FilteredTodos() : Stats(),

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart'
     show ArchSampleKeys, ArchSampleLocalizations, ArchSampleRoutes;
@@ -45,7 +41,7 @@ class HomeView extends State<HomeScreen> {
         title: Text(_con.title),
         actions: [
           FilterButton(isActive: _activeTab == AppTab.todos),
-          ExtraActionsButton()
+          ExtraActionsButton(),
         ],
       ),
       body: _activeTab == AppTab.todos ? TodoList() : StatsCounter(),

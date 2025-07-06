@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
@@ -22,9 +18,7 @@ void main() {
         initialState: AppState.loading(),
         middleware: createStoreTodosMiddleware(repository),
       );
-      final todos = [
-        TodoEntity('Moin', '1', 'Note', false),
-      ];
+      final todos = [TodoEntity('Moin', '1', 'Note', false)];
 
       when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
 

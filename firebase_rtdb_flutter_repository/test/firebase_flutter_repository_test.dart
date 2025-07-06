@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,8 +14,9 @@ void main() {
       final auth = MockFirebaseAuth();
       final repository = FirebaseUserRepository(auth);
 
-      when(auth.signInAnonymously())
-          .thenAnswer((_) => Future.value(MockFirebaseUser()));
+      when(
+        auth.signInAnonymously(),
+      ).thenAnswer((_) => Future.value(MockFirebaseUser()));
 
       final entity = await repository.login();
 
@@ -37,8 +34,9 @@ void main() {
       final todo = TodoEntity('A', '1', '', true);
 
       when(firebaseDatabase.reference()).thenReturn(reference);
-      when(reference.child(FirebaseReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        reference.child(FirebaseReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.child(todo.id)).thenReturn(document);
 
       repository.addNewTodo(todo);
@@ -55,8 +53,9 @@ void main() {
       final todo = TodoEntity('A', '1', '', true);
 
       when(firebaseDatabase.reference()).thenReturn(reference);
-      when(reference.child(FirebaseReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        reference.child(FirebaseReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.child(todo.id)).thenReturn(document);
 
       repository.updateTodo(todo);
@@ -78,8 +77,9 @@ void main() {
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
       when(firebaseDatabase.reference()).thenReturn(reference);
-      when(reference.child(FirebaseReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        reference.child(FirebaseReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.onValue).thenAnswer((_) => eventIterator);
       when(event.snapshot).thenReturn(snapshot);
       when(snapshot.key).thenReturn(todo.id); // not used
@@ -99,8 +99,9 @@ void main() {
       final repository = FirebaseReactiveTodosRepository(firebaseDatabase);
 
       when(firebaseDatabase.reference()).thenReturn(reference);
-      when(reference.child(FirebaseReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        reference.child(FirebaseReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.child(todoA)).thenReturn(documentA);
       when(collection.child(todoB)).thenReturn(documentB);
       when(documentA.set(null)).thenAnswer((_) => Future.value());

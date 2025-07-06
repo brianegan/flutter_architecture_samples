@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -17,13 +13,8 @@ void main() {
       final todo = Todo('Hallo', note: 'Hello');
       final presenter = MockDetailPresenter(todo);
       final screen = MaterialApp(
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-        ],
-        home: DetailScreen(
-          todoId: todo.id,
-          initPresenter: (view) => presenter,
-        ),
+        localizationsDelegates: [ArchSampleLocalizationsDelegate()],
+        home: DetailScreen(todoId: todo.id, initPresenter: (view) => presenter),
       );
 
       await tester.pumpWidget(screen);
@@ -37,13 +28,8 @@ void main() {
       final todo = Todo('Hallo', note: 'Hello', complete: true);
       final presenter = MockDetailPresenter(todo);
       final screen = MaterialApp(
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-        ],
-        home: DetailScreen(
-          todoId: todo.id,
-          initPresenter: (view) => presenter,
-        ),
+        localizationsDelegates: [ArchSampleLocalizationsDelegate()],
+        home: DetailScreen(todoId: todo.id, initPresenter: (view) => presenter),
       );
 
       await tester.pumpWidget(screen);
@@ -59,13 +45,8 @@ void main() {
       final todo = Todo('Hallo', note: 'Hello', complete: false);
       final presenter = MockDetailPresenter(todo);
       final screen = MaterialApp(
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-        ],
-        home: DetailScreen(
-          todoId: todo.id,
-          initPresenter: (view) => presenter,
-        ),
+        localizationsDelegates: [ArchSampleLocalizationsDelegate()],
+        home: DetailScreen(todoId: todo.id, initPresenter: (view) => presenter),
       );
 
       await tester.pumpWidget(screen);
@@ -82,9 +63,7 @@ void main() {
       final presenter = MockDetailPresenter(todo);
       final key = GlobalKey<DetailScreenState>();
       final screen = MaterialApp(
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-        ],
+        localizationsDelegates: [ArchSampleLocalizationsDelegate()],
         home: DetailScreen(
           key: key,
           todoId: todo.id,
@@ -110,9 +89,7 @@ void main() {
       final presenter = MockDetailPresenter(todo);
       final key = GlobalKey<DetailScreenState>();
       final screen = MaterialApp(
-        localizationsDelegates: [
-          ArchSampleLocalizationsDelegate(),
-        ],
+        localizationsDelegates: [ArchSampleLocalizationsDelegate()],
         home: DetailScreen(
           key: key,
           todoId: todo.id,
@@ -140,10 +117,7 @@ void main() {
 
 class MockDetailPresenter extends MviPresenter<Todo> {
   MockDetailPresenter(Todo todo)
-      : super(
-          stream: Stream.fromIterable([todo]),
-          initialModel: todo,
-        );
+    : super(stream: Stream.fromIterable([todo]), initialModel: todo);
 }
 
 test.Matcher get isChecked => CheckedMatcher(true);
@@ -159,8 +133,9 @@ class CheckedMatcher extends test.Matcher {
     if (!wasCheckbox) {
       return description.replace('The item was not a checkbox');
     } else {
-      return description
-          .replace('Checkbox was ${!checked} rather than $checked');
+      return description.replace(
+        'Checkbox was ${!checked} rather than $checked',
+      );
     }
   }
 

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -12,9 +8,8 @@ import 'package:inherited_widget_sample/state_container.dart';
 class DetailScreen extends StatelessWidget {
   final Todo todo;
 
-  DetailScreen({
-    @required this.todo,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+  DetailScreen({@required this.todo})
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +27,7 @@ class DetailScreen extends StatelessWidget {
               container.removeTodo(todo);
               Navigator.pop(context, todo);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -57,10 +52,7 @@ class DetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
@@ -71,7 +63,7 @@ class DetailScreen extends StatelessWidget {
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
-                      )
+                      ),
                     ],
                   ),
                 ),

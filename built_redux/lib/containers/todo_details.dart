@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:built_redux_sample/actions/actions.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:built_redux_sample/presentation/details_screen.dart';
@@ -20,10 +16,12 @@ class TodoDetails extends StoreConnector<AppState, AppActions, Todo> {
       todo: todo,
       onDelete: () => actions.deleteTodoAction(todo.id),
       toggleCompleted: (isComplete) {
-        actions.updateTodoAction(UpdateTodoActionPayload(
-          id,
-          todo.rebuild((b) => b..complete = isComplete),
-        ));
+        actions.updateTodoAction(
+          UpdateTodoActionPayload(
+            id,
+            todo.rebuild((b) => b..complete = isComplete),
+          ),
+        );
       },
     );
   }

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:bloc_flutter_sample/dependency_injection.dart';
 import 'package:bloc_flutter_sample/localization.dart';
 import 'package:bloc_flutter_sample/screens/add_edit_screen.dart';

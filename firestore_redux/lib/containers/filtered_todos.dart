@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/todo_list.dart';
@@ -53,10 +49,9 @@ class _ViewModel {
       ),
       loading: store.state.isLoading,
       onCheckboxChanged: (todo, complete) {
-        store.dispatch(UpdateTodoAction(
-          todo.id,
-          todo.copyWith(complete: !todo.complete),
-        ));
+        store.dispatch(
+          UpdateTodoAction(todo.id, todo.copyWith(complete: !todo.complete)),
+        );
       },
       onRemove: (todo) {
         store.dispatch(DeleteTodoAction(todo.id));

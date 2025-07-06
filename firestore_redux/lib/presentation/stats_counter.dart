@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/containers/app_loading.dart';
 import 'package:fire_redux_sample/presentation/loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,18 +9,17 @@ class StatsCounter extends StatelessWidget {
   final int numActive;
   final int numCompleted;
 
-  StatsCounter({
-    @required this.numActive,
-    @required this.numCompleted,
-  });
+  StatsCounter({@required this.numActive, @required this.numCompleted});
 
   @override
   Widget build(BuildContext context) {
-    return AppLoading(builder: (context, loading) {
-      return loading
-          ? LoadingIndicator(key: Key('__statsLoading__'))
-          : _buildStats(context);
-    });
+    return AppLoading(
+      builder: (context, loading) {
+        return loading
+            ? LoadingIndicator(key: Key('__statsLoading__'))
+            : _buildStats(context);
+      },
+    );
   }
 
   Widget _buildStats(BuildContext context) {
@@ -61,7 +56,7 @@ class StatsCounter extends StatelessWidget {
               key: ArchSampleKeys.statsNumActive,
               style: Theme.of(context).textTheme.subhead,
             ),
-          )
+          ),
         ],
       ),
     );

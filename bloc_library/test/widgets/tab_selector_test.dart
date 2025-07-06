@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/localization.dart';
@@ -32,36 +28,38 @@ void main() {
       expect(find.byKey(ArchSampleKeys.statsTab), findsOneWidget);
     });
 
-    testWidgets('should call onTabSelected with correct index when tab tapped',
-        (WidgetTester tester) async {
-      AppTab selectedTab;
+    testWidgets(
+      'should call onTabSelected with correct index when tab tapped',
+      (WidgetTester tester) async {
+        AppTab selectedTab;
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: Container(),
-            bottomNavigationBar: TabSelector(
-              onTabSelected: (appTab) {
-                selectedTab = appTab;
-              },
-              activeTab: AppTab.todos,
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: Container(),
+              bottomNavigationBar: TabSelector(
+                onTabSelected: (appTab) {
+                  selectedTab = appTab;
+                },
+                activeTab: AppTab.todos,
+              ),
             ),
+            localizationsDelegates: [
+              ArchSampleLocalizationsDelegate(),
+              FlutterBlocLocalizationsDelegate(),
+            ],
           ),
-          localizationsDelegates: [
-            ArchSampleLocalizationsDelegate(),
-            FlutterBlocLocalizationsDelegate(),
-          ],
-        ),
-      );
-      await tester.pumpAndSettle();
-      final todoTabFinder = find.byKey(ArchSampleKeys.todoTab);
-      final statsTabFinder = find.byKey(ArchSampleKeys.statsTab);
-      expect(todoTabFinder, findsOneWidget);
-      expect(statsTabFinder, findsOneWidget);
-      await tester.tap(todoTabFinder);
-      expect(selectedTab, AppTab.todos);
-      await tester.tap(statsTabFinder);
-      expect(selectedTab, AppTab.stats);
-    });
+        );
+        await tester.pumpAndSettle();
+        final todoTabFinder = find.byKey(ArchSampleKeys.todoTab);
+        final statsTabFinder = find.byKey(ArchSampleKeys.statsTab);
+        expect(todoTabFinder, findsOneWidget);
+        expect(statsTabFinder, findsOneWidget);
+        await tester.tap(todoTabFinder);
+        expect(selectedTab, AppTab.todos);
+        await tester.tap(statsTabFinder);
+        expect(selectedTab, AppTab.stats);
+      },
+    );
   });
 }

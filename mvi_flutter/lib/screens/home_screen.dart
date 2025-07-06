@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvi_base/mvi_base.dart';
@@ -19,7 +15,7 @@ class HomeScreen extends StatefulWidget {
   final MviPresenter<TodosListModel> Function(TodosListView) initPresenter;
 
   HomeScreen({Key key, this.initPresenter})
-      : super(key: key ?? ArchSampleKeys.homeScreen);
+    : super(key: key ?? ArchSampleKeys.homeScreen);
 
   @override
   State<StatefulWidget> createState() {
@@ -84,18 +80,16 @@ class HomeScreenState extends State<HomeScreen> with TodosListView {
             ],
           ),
           body: modelSnapshot.data.loading
-              ? LoadingSpinner(
-                  key: ArchSampleKeys.todosLoading,
-                )
+              ? LoadingSpinner(key: ArchSampleKeys.todosLoading)
               : activeTab == AppTab.todos
-                  ? TodoList(
-                      loading: modelSnapshot.data.loading,
-                      addTodo: addTodo.add,
-                      updateTodo: updateTodo.add,
-                      deleteTodo: deleteTodo.add,
-                      todos: modelSnapshot.data?.visibleTodos ?? [],
-                    )
-                  : StatsCounter(),
+              ? TodoList(
+                  loading: modelSnapshot.data.loading,
+                  addTodo: addTodo.add,
+                  updateTodo: updateTodo.add,
+                  deleteTodo: deleteTodo.add,
+                  todos: modelSnapshot.data?.visibleTodos ?? [],
+                )
+              : StatsCounter(),
           floatingActionButton: FloatingActionButton(
             key: ArchSampleKeys.addTodoFab,
             onPressed: () {

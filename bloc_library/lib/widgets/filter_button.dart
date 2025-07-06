@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -16,30 +12,30 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultStyle = Theme.of(context).textTheme.body1;
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final filteredTodosBloc = BlocProvider.of<FilteredTodosBloc>(context);
     return BlocBuilder(
-        bloc: filteredTodosBloc,
-        builder: (BuildContext context, FilteredTodosState state) {
-          final button = _Button(
-            onSelected: (filter) {
-              filteredTodosBloc.add(UpdateFilter(filter));
-            },
-            activeFilter: state is FilteredTodosLoaded
-                ? state.activeFilter
-                : VisibilityFilter.all,
-            activeStyle: activeStyle,
-            defaultStyle: defaultStyle,
-          );
-          return AnimatedOpacity(
-            opacity: visible ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 150),
-            child: visible ? button : IgnorePointer(child: button),
-          );
-        });
+      bloc: filteredTodosBloc,
+      builder: (BuildContext context, FilteredTodosState state) {
+        final button = _Button(
+          onSelected: (filter) {
+            filteredTodosBloc.add(UpdateFilter(filter));
+          },
+          activeFilter: state is FilteredTodosLoaded
+              ? state.activeFilter
+              : VisibilityFilter.all,
+          activeStyle: activeStyle,
+          defaultStyle: defaultStyle,
+        );
+        return AnimatedOpacity(
+          opacity: visible ? 1.0 : 0.0,
+          duration: Duration(milliseconds: 150),
+          child: visible ? button : IgnorePointer(child: button),
+        );
+      },
+    );
   }
 }
 

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:meta/meta.dart';
@@ -16,10 +12,7 @@ mixin DetailView implements MviView {
 
   @override
   Future tearDown() {
-    return Future.wait([
-      deleteTodo.close(),
-      updateTodo.close(),
-    ]);
+    return Future.wait([deleteTodo.close(), updateTodo.close()]);
   }
 }
 
@@ -31,9 +24,9 @@ class DetailPresenter extends MviPresenter<Todo> {
     @required String id,
     @required DetailView view,
     @required TodosInteractor interactor,
-  })  : _view = view,
-        _interactor = interactor,
-        super(stream: interactor.todo(id));
+  }) : _view = view,
+       _interactor = interactor,
+       super(stream: interactor.todo(id));
 
   @override
   void setUp() {

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:meta/meta.dart';
 import 'package:simple_blocs/src/uuid.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
@@ -14,8 +10,8 @@ class Todo {
   final String task;
 
   Todo(this.task, {this.complete = false, String note = '', String id})
-      : this.note = note ?? '',
-        this.id = id ?? Uuid().generateV4();
+    : this.note = note ?? '',
+      this.id = id ?? Uuid().generateV4();
 
   Todo copyWith({bool complete, String id, String note, String task}) {
     return Todo(

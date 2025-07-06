@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
@@ -37,25 +33,28 @@ class TodoList extends StatelessWidget {
             _removeTodo(context, todo);
           },
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return DetailScreen(
-                    todoId: todo.id,
-                    initBloc: () =>
-                        TodoBloc(Injector.of(context).todosInteractor),
-                  );
-                },
-              ),
-            ).then((todo) {
-              if (todo is Todo) {
-                _showUndoSnackbar(context, todo);
-              }
-            });
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return DetailScreen(
+                        todoId: todo.id,
+                        initBloc: () =>
+                            TodoBloc(Injector.of(context).todosInteractor),
+                      );
+                    },
+                  ),
+                )
+                .then((todo) {
+                  if (todo is Todo) {
+                    _showUndoSnackbar(context, todo);
+                  }
+                });
           },
           onCheckboxChanged: (complete) {
-            TodosBlocProvider.of(context)
-                .updateTodo(todo.copyWith(complete: !todo.complete));
+            TodosBlocProvider.of(
+              context,
+            ).updateTodo(todo.copyWith(complete: !todo.complete));
           },
         );
       },

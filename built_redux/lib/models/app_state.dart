@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 library app_state;
 
 import 'package:built_collection/built_collection.dart';
@@ -27,13 +23,14 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   AppState._();
 
-  factory AppState([void Function(AppStateBuilder b) updates]) =>
-      _$AppState((b) => b
-        ..isLoading = false
-        ..todos = ListBuilder<Todo>([])
-        ..activeTab = AppTab.todos
-        ..activeFilter = VisibilityFilter.all
-        ..update(updates));
+  factory AppState([void Function(AppStateBuilder b) updates]) => _$AppState(
+    (b) => b
+      ..isLoading = false
+      ..todos = ListBuilder<Todo>([])
+      ..activeTab = AppTab.todos
+      ..activeFilter = VisibilityFilter.all
+      ..update(updates),
+  );
 
   factory AppState.loading() => AppState((b) => b..isLoading = true);
 
@@ -59,16 +56,16 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   @memoized
   List<Todo> get filteredTodosSelector => todos.where((todo) {
-        switch (activeFilter) {
-          case VisibilityFilter.active:
-            return !todo.complete;
-          case VisibilityFilter.completed:
-            return todo.complete;
-          case VisibilityFilter.all:
-          default:
-            return true;
-        }
-      }).toList();
+    switch (activeFilter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 
   Optional<Todo> todoSelector(String id) {
     try {

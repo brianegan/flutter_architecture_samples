@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
@@ -21,16 +17,16 @@ class AppState {
   bool get allComplete => todos.every((todo) => todo.complete);
 
   List<Todo> get filteredTodos => todos.where((todo) {
-        switch (activeFilter) {
-          case VisibilityFilter.active:
-            return !todo.complete;
-          case VisibilityFilter.completed:
-            return todo.complete;
-          case VisibilityFilter.all:
-          default:
-            return true;
-        }
-      }).toList();
+    switch (activeFilter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 
   bool get hasCompletedTodos => todos.any((todo) => todo.complete);
 
@@ -78,7 +74,7 @@ class Todo {
   String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String id})
-      : id = id ?? Uuid().generateV4();
+    : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>

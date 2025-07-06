@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -27,11 +23,13 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppLoading(builder: (context, loading) {
-      return loading
-          ? LoadingIndicator(key: ArchSampleKeys.todosLoading)
-          : _buildListView();
-    });
+    return AppLoading(
+      builder: (context, loading) {
+        return loading
+            ? LoadingIndicator(key: ArchSampleKeys.todosLoading)
+            : _buildListView();
+      },
+    );
   }
 
   ListView _buildListView() {
@@ -58,7 +56,8 @@ class TodoList extends StatelessWidget {
   void _removeTodo(BuildContext context, Todo todo) {
     onRemove(todo);
 
-    Scaffold.of(context).showSnackBar(SnackBar(
+    Scaffold.of(context).showSnackBar(
+      SnackBar(
         duration: Duration(seconds: 2),
         content: Text(
           ArchSampleLocalizations.of(context).todoDeleted(todo.task),
@@ -68,31 +67,34 @@ class TodoList extends StatelessWidget {
         action: SnackBarAction(
           label: ArchSampleLocalizations.of(context).undo,
           onPressed: () => onUndoRemove(todo),
-        )));
+        ),
+      ),
+    );
   }
 
   void _onTodoTap(BuildContext context, Todo todo) {
     Navigator.of(context)
-        .push(MaterialPageRoute(
-      builder: (_) => TodoDetails(id: todo.id),
-    ))
+        .push(MaterialPageRoute(builder: (_) => TodoDetails(id: todo.id)))
         .then((removedTodo) {
-      if (removedTodo != null) {
-        Scaffold.of(context).showSnackBar(SnackBar(
-            key: ArchSampleKeys.snackbar,
-            duration: Duration(seconds: 2),
-            content: Text(
-              ArchSampleLocalizations.of(context).todoDeleted(todo.task),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            action: SnackBarAction(
-              label: ArchSampleLocalizations.of(context).undo,
-              onPressed: () {
-                onUndoRemove(todo);
-              },
-            )));
-      }
-    });
+          if (removedTodo != null) {
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                key: ArchSampleKeys.snackbar,
+                duration: Duration(seconds: 2),
+                content: Text(
+                  ArchSampleLocalizations.of(context).todoDeleted(todo.task),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                action: SnackBarAction(
+                  label: ArchSampleLocalizations.of(context).undo,
+                  onPressed: () {
+                    onUndoRemove(todo);
+                  },
+                ),
+              ),
+            );
+          }
+        });
   }
 }

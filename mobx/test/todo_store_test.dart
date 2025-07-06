@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:mobx/mobx.dart';
 import 'package:mobx_sample/models/todo.dart';
 import 'package:mobx_sample/stores/todo_store.dart';
@@ -26,9 +22,7 @@ void main() {
       );
       final noPendingStore = TodoStore(
         MockRepository(),
-        todos: ObservableList.of([
-          Todo(task: 'a', complete: true),
-        ]),
+        todos: ObservableList.of([Todo(task: 'a', complete: true)]),
       );
 
       expect(hasPendingStore.hasPendingTodos, isTrue);
@@ -45,9 +39,7 @@ void main() {
       );
       final noCompletedStore = TodoStore(
         MockRepository(),
-        todos: ObservableList.of([
-          Todo(task: 'a'),
-        ]),
+        todos: ObservableList.of([Todo(task: 'a')]),
       );
 
       expect(hasCompletedStore.hasCompletedTodos, isTrue);

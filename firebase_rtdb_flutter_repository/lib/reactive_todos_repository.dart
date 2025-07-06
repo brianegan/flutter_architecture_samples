@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
@@ -21,9 +17,11 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
 
   @override
   Future<void> deleteTodo(List<String> idList) async {
-    await Future.wait<void>(idList.map((id) {
-      return firebase.reference().child(path).child(id).set(null);
-    }));
+    await Future.wait<void>(
+      idList.map((id) {
+        return firebase.reference().child(path).child(id).set(null);
+      }),
+    );
   }
 
   @override
@@ -33,13 +31,14 @@ class FirebaseReactiveTodosRepository implements ReactiveTodosRepository {
       final Map<dynamic, dynamic> value = event.snapshot.value;
       final todoMap = value.map((key, doc) {
         return MapEntry(
+          key,
+          TodoEntity(
+            doc['task'],
             key,
-            TodoEntity(
-              doc['task'],
-              key,
-              doc['note'] ?? '',
-              doc['complete'] ?? false,
-            ));
+            doc['note'] ?? '',
+            doc['complete'] ?? false,
+          ),
+        );
       });
       return todoMap.values.toList();
     });

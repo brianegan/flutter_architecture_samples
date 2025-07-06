@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'dart:collection';
 
@@ -36,8 +32,8 @@ class TodoListModel extends ChangeNotifier {
     @required this.repository,
     VisibilityFilter filter,
     List<Todo> todos,
-  })  : _todos = todos ?? [],
-        _filter = filter ?? VisibilityFilter.all;
+  }) : _todos = todos ?? [],
+       _filter = filter ?? VisibilityFilter.all;
 
   /// Loads remote data
   ///
@@ -46,14 +42,17 @@ class TodoListModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    return repository.loadTodos().then((loadedTodos) {
-      _todos.addAll(loadedTodos.map(Todo.fromEntity));
-      _isLoading = false;
-      notifyListeners();
-    }).catchError((err) {
-      _isLoading = false;
-      notifyListeners();
-    });
+    return repository
+        .loadTodos()
+        .then((loadedTodos) {
+          _todos.addAll(loadedTodos.map(Todo.fromEntity));
+          _isLoading = false;
+          notifyListeners();
+        })
+        .catchError((err) {
+          _isLoading = false;
+          notifyListeners();
+        });
   }
 
   List<Todo> get filteredTodos {

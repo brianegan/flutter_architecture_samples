@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:meta/meta.dart';
@@ -25,10 +21,8 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
   final BehaviorSubject<ViewModel> _subject;
   final List<StreamSubscription<dynamic>> subscriptions = [];
 
-  MviPresenter({
-    @required Stream<ViewModel> stream,
-    ViewModel initialModel,
-  }) : _subject = _createSubject<ViewModel>(stream, initialModel);
+  MviPresenter({@required Stream<ViewModel> stream, ViewModel initialModel})
+    : _subject = _createSubject<ViewModel>(stream, initialModel);
 
   // Get the current state. Useful for initial renders or re-renders when we
   // have already fetched the data
@@ -38,7 +32,8 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
 
   @mustCallSuper
   Future tearDown() => Future.wait(
-      [_subject.close()]..addAll(subscriptions.map((s) => s.cancel())));
+    [_subject.close()]..addAll(subscriptions.map((s) => s.cancel())),
+  );
 
   static _createSubject<ViewState>(
     Stream<ViewState> model,
@@ -78,11 +73,10 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
     Function onError,
     void Function() onDone,
     bool cancelOnError,
-  }) =>
-      _subject.stream.listen(
-        onData,
-        onError: onError,
-        onDone: onDone,
-        cancelOnError: cancelOnError,
-      );
+  }) => _subject.stream.listen(
+    onData,
+    onError: onError,
+    onDone: onDone,
+    cancelOnError: cancelOnError,
+  );
 }

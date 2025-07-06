@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:inherited_widget_sample/models.dart';
@@ -23,9 +19,7 @@ class TodoList extends StatelessWidget {
 
   Center get _buildLoading {
     return Center(
-      child: CircularProgressIndicator(
-        key: ArchSampleKeys.todosLoading,
-      ),
+      child: CircularProgressIndicator(key: ArchSampleKeys.todosLoading),
     );
   }
 
@@ -44,19 +38,19 @@ class TodoList extends StatelessWidget {
             _removeTodo(context, todo);
           },
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return DetailScreen(
-                    todo: todo,
-                  );
-                },
-              ),
-            ).then((todo) {
-              if (todo is Todo) {
-                _showUndoSnackbar(context, todo);
-              }
-            });
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return DetailScreen(todo: todo);
+                    },
+                  ),
+                )
+                .then((todo) {
+                  if (todo is Todo) {
+                    _showUndoSnackbar(context, todo);
+                  }
+                });
           },
           onCheckboxChanged: (complete) {
             container.updateTodo(todo, complete: !todo.complete);

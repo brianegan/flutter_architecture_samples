@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,11 +27,10 @@ void main() {
       filteredTodosBloc = MockFilteredTodosBloc();
     });
 
-    testWidgets('should show loading indicator when state is TodosLoading',
-        (WidgetTester tester) async {
-      when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoading(),
-      );
+    testWidgets('should show loading indicator when state is TodosLoading', (
+      WidgetTester tester,
+    ) async {
+      when(filteredTodosBloc.state).thenAnswer((_) => FilteredTodosLoading());
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -43,9 +38,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -57,11 +50,10 @@ void main() {
       expect(find.byKey(ArchSampleKeys.todosLoading), findsOneWidget);
     });
 
-    testWidgets('should show empty container when state is null',
-        (WidgetTester tester) async {
-      when(filteredTodosBloc.state).thenAnswer(
-        (_) => null,
-      );
+    testWidgets('should show empty container when state is null', (
+      WidgetTester tester,
+    ) async {
+      when(filteredTodosBloc.state).thenAnswer((_) => null);
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -69,9 +61,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -80,45 +70,48 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.byKey(BlocLibraryKeys.filteredTodosEmptyContainer),
-          findsOneWidget);
+      expect(
+        find.byKey(BlocLibraryKeys.filteredTodosEmptyContainer),
+        findsOneWidget,
+      );
     });
 
     testWidgets(
-        'should show empty list when state is TodosLoaded with no todos',
-        (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
-      when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoaded([], VisibilityFilter.all),
-      );
-      await tester.pumpWidget(
-        MultiBlocProvider(
-          providers: [
-            BlocProvider<TodosBloc>.value(value: todosBloc),
-            BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
-          ],
-          child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
+      'should show empty list when state is TodosLoaded with no todos',
+      (WidgetTester tester) async {
+        when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
+        when(
+          filteredTodosBloc.state,
+        ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.all));
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<TodosBloc>.value(value: todosBloc),
+              BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
             ],
+            child: MaterialApp(
+              home: Scaffold(body: FilteredTodos()),
+              localizationsDelegates: [
+                ArchSampleLocalizationsDelegate(),
+                FlutterBlocLocalizationsDelegate(),
+              ],
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      final todoListFinder = find.byKey(ArchSampleKeys.todoList);
-      expect(todoListFinder, findsOneWidget);
-      expect(
+        );
+        await tester.pumpAndSettle();
+        final todoListFinder = find.byKey(ArchSampleKeys.todoList);
+        expect(todoListFinder, findsOneWidget);
+        expect(
           (todoListFinder.evaluate().first.widget as ListView)
               .semanticChildCount,
-          0);
-    });
+          0,
+        );
+      },
+    );
 
-    testWidgets('should show todos when state is TodosLoaded with todos',
-        (WidgetTester tester) async {
+    testWidgets('should show todos when state is TodosLoaded with todos', (
+      WidgetTester tester,
+    ) async {
       when(todosBloc.state).thenAnswer((_) => TodosLoaded([Todo('wash car')]));
       when(filteredTodosBloc.state).thenAnswer(
         (_) => FilteredTodosLoaded([Todo('wash car')], VisibilityFilter.all),
@@ -130,9 +123,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -144,21 +135,25 @@ void main() {
       final todoListFinder = find.byKey(ArchSampleKeys.todoList);
       expect(todoListFinder, findsOneWidget);
       expect(
-          (todoListFinder.evaluate().first.widget as ListView)
-              .semanticChildCount,
-          1);
+        (todoListFinder.evaluate().first.widget as ListView).semanticChildCount,
+        1,
+      );
     });
 
-    testWidgets('should add OnCheckboxChanged when checkbox tapped',
-        (WidgetTester tester) async {
-      when(todosBloc.state)
-          .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
+    testWidgets('should add OnCheckboxChanged when checkbox tapped', (
+      WidgetTester tester,
+    ) async {
+      when(
+        todosBloc.state,
+      ).thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoaded(
-            [Todo('wash car', id: '0')], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([
+          Todo('wash car', id: '0'),
+        ], VisibilityFilter.all),
       );
-      when(todosBloc.add(UpdateTodo(Todo('wash car', id: '0', complete: true))))
-          .thenReturn(null);
+      when(
+        todosBloc.add(UpdateTodo(Todo('wash car', id: '0', complete: true))),
+      ).thenReturn(null);
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -166,9 +161,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -183,16 +176,13 @@ void main() {
       expect(checkboxFinder, findsOneWidget);
       await tester.tap(checkboxFinder);
       verify(
-        todosBloc.add(
-          UpdateTodo(
-            Todo('wash car', id: '0', complete: true),
-          ),
-        ),
+        todosBloc.add(UpdateTodo(Todo('wash car', id: '0', complete: true))),
       ).called(1);
     });
 
-    testWidgets('should add DeleteTodo when dismissed',
-        (WidgetTester tester) async {
+    testWidgets('should add DeleteTodo when dismissed', (
+      WidgetTester tester,
+    ) async {
       when(filteredTodosBloc.state).thenReturn(
         FilteredTodosLoaded([Todo('wash car', id: '0')], VisibilityFilter.all),
       );
@@ -203,9 +193,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -218,17 +206,12 @@ void main() {
       expect(todoFinder, findsOneWidget);
       (tester.widget(find.byKey(ArchSampleKeys.todoItem('0'))) as Dismissible)
           .onDismissed(null);
-      verify(
-        todosBloc.add(
-          DeleteTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
+      verify(todosBloc.add(DeleteTodo(Todo('wash car', id: '0')))).called(1);
     });
 
-    testWidgets('should add AddTodo when dismissed and Undo Tapped',
-        (WidgetTester tester) async {
+    testWidgets('should add AddTodo when dismissed and Undo Tapped', (
+      WidgetTester tester,
+    ) async {
       when(filteredTodosBloc.state).thenReturn(
         FilteredTodosLoaded([Todo('wash car', id: '0')], VisibilityFilter.all),
       );
@@ -239,9 +222,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -255,31 +236,22 @@ void main() {
       (tester.widget(find.byKey(ArchSampleKeys.todoItem('0'))) as Dismissible)
           .onDismissed(null);
       await tester.pumpAndSettle();
-      verify(
-        todosBloc.add(
-          DeleteTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
+      verify(todosBloc.add(DeleteTodo(Todo('wash car', id: '0')))).called(1);
       expect(find.text('Undo'), findsOneWidget);
       await tester.tap(find.text('Undo'));
-      verify(
-        todosBloc.add(
-          AddTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
+      verify(todosBloc.add(AddTodo(Todo('wash car', id: '0')))).called(1);
     });
 
-    testWidgets('should Navigate to DetailsScreen when todo tapped',
-        (WidgetTester tester) async {
-      when(todosBloc.state)
-          .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
+    testWidgets('should Navigate to DetailsScreen when todo tapped', (
+      WidgetTester tester,
+    ) async {
+      when(
+        todosBloc.state,
+      ).thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoaded(
-            [Todo('wash car', id: '0')], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([
+          Todo('wash car', id: '0'),
+        ], VisibilityFilter.all),
       );
       await tester.pumpWidget(
         MultiBlocProvider(
@@ -288,9 +260,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -306,16 +276,20 @@ void main() {
       expect(find.byKey(ArchSampleKeys.todoDetailsScreen), findsOneWidget);
     });
 
-    testWidgets('should add DeleteTodo when todo deleted from DetailsScreen',
-        (WidgetTester tester) async {
-      when(todosBloc.state)
-          .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
+    testWidgets('should add DeleteTodo when todo deleted from DetailsScreen', (
+      WidgetTester tester,
+    ) async {
+      when(
+        todosBloc.state,
+      ).thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
       when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoaded(
-            [Todo('wash car', id: '0')], VisibilityFilter.all),
+        (_) => FilteredTodosLoaded([
+          Todo('wash car', id: '0'),
+        ], VisibilityFilter.all),
       );
-      when(todosBloc.add(DeleteTodo(Todo('wash car', id: '0'))))
-          .thenReturn(null);
+      when(
+        todosBloc.add(DeleteTodo(Todo('wash car', id: '0'))),
+      ).thenReturn(null);
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -323,9 +297,7 @@ void main() {
             BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
+            home: Scaffold(body: FilteredTodos()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -341,67 +313,53 @@ void main() {
       expect(find.byKey(ArchSampleKeys.todoDetailsScreen), findsOneWidget);
       await tester.tap(find.byKey(ArchSampleKeys.deleteTodoButton));
       await tester.pumpAndSettle();
-      verify(
-        todosBloc.add(
-          DeleteTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
+      verify(todosBloc.add(DeleteTodo(Todo('wash car', id: '0')))).called(1);
     });
 
     testWidgets(
-        'should add AddTodo when todo deleted from DetailsScreen and Undo Tapped',
-        (WidgetTester tester) async {
-      when(todosBloc.state)
-          .thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
-      when(filteredTodosBloc.state).thenAnswer(
-        (_) => FilteredTodosLoaded(
-            [Todo('wash car', id: '0')], VisibilityFilter.all),
-      );
-      when(todosBloc.add(DeleteTodo(Todo('wash car', id: '0'))))
-          .thenReturn(null);
-      when(todosBloc.add(AddTodo(Todo('wash car', id: '0')))).thenReturn(null);
-      await tester.pumpWidget(
-        MultiBlocProvider(
-          providers: [
-            BlocProvider<TodosBloc>.value(value: todosBloc),
-            BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
-          ],
-          child: MaterialApp(
-            home: Scaffold(
-              body: FilteredTodos(),
-            ),
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
+      'should add AddTodo when todo deleted from DetailsScreen and Undo Tapped',
+      (WidgetTester tester) async {
+        when(
+          todosBloc.state,
+        ).thenAnswer((_) => TodosLoaded([Todo('wash car', id: '0')]));
+        when(filteredTodosBloc.state).thenAnswer(
+          (_) => FilteredTodosLoaded([
+            Todo('wash car', id: '0'),
+          ], VisibilityFilter.all),
+        );
+        when(
+          todosBloc.add(DeleteTodo(Todo('wash car', id: '0'))),
+        ).thenReturn(null);
+        when(
+          todosBloc.add(AddTodo(Todo('wash car', id: '0'))),
+        ).thenReturn(null);
+        await tester.pumpWidget(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<TodosBloc>.value(value: todosBloc),
+              BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
             ],
+            child: MaterialApp(
+              home: Scaffold(body: FilteredTodos()),
+              localizationsDelegates: [
+                ArchSampleLocalizationsDelegate(),
+                FlutterBlocLocalizationsDelegate(),
+              ],
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      final todoFinder = find.byKey(ArchSampleKeys.todoItem('0'));
-      expect(todoFinder, findsOneWidget);
-      await tester.tap(todoFinder);
-      await tester.pumpAndSettle();
-      expect(find.byKey(ArchSampleKeys.todoDetailsScreen), findsOneWidget);
-      await tester.tap(find.byKey(ArchSampleKeys.deleteTodoButton));
-      await tester.pumpAndSettle();
-      verify(
-        todosBloc.add(
-          DeleteTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
-      await tester.tap(find.text('Undo'));
-      verify(
-        todosBloc.add(
-          AddTodo(
-            Todo('wash car', id: '0'),
-          ),
-        ),
-      ).called(1);
-    });
+        );
+        await tester.pumpAndSettle();
+        final todoFinder = find.byKey(ArchSampleKeys.todoItem('0'));
+        expect(todoFinder, findsOneWidget);
+        await tester.tap(todoFinder);
+        await tester.pumpAndSettle();
+        expect(find.byKey(ArchSampleKeys.todoDetailsScreen), findsOneWidget);
+        await tester.tap(find.byKey(ArchSampleKeys.deleteTodoButton));
+        await tester.pumpAndSettle();
+        verify(todosBloc.add(DeleteTodo(Todo('wash car', id: '0')))).called(1);
+        await tester.tap(find.text('Undo'));
+        verify(todosBloc.add(AddTodo(Todo('wash car', id: '0')))).called(1);
+      },
+    );
   });
 }

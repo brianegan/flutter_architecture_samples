@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/presentation/filter_button.dart';
@@ -35,10 +31,7 @@ class _ViewModel {
   final Function(VisibilityFilter) onFilterSelected;
   final VisibilityFilter activeFilter;
 
-  _ViewModel({
-    @required this.onFilterSelected,
-    @required this.activeFilter,
-  });
+  _ViewModel({@required this.onFilterSelected, @required this.activeFilter});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

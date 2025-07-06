@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +12,7 @@ import 'home/home_screen.dart';
 class ProviderApp extends StatelessWidget {
   final TodosRepository repository;
 
-  ProviderApp({
-    @required this.repository,
-  });
+  ProviderApp({@required this.repository});
 
   @override
   Widget build(BuildContext context) {

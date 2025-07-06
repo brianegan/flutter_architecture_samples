@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:blocs/blocs.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +7,7 @@ class TodosBlocProvider extends StatefulWidget {
   final TodosListBloc bloc;
 
   TodosBlocProvider({Key key, @required this.child, @required this.bloc})
-      : super(key: key);
+    : super(key: key);
 
   @override
   _TodosBlocProviderState createState() => _TodosBlocProviderState();
@@ -39,11 +35,8 @@ class _TodosBlocProviderState extends State<TodosBlocProvider> {
 class _TodosBlocProvider extends InheritedWidget {
   final TodosListBloc bloc;
 
-  _TodosBlocProvider({
-    Key key,
-    @required this.bloc,
-    @required Widget child,
-  }) : super(key: key, child: child);
+  _TodosBlocProvider({Key key, @required this.bloc, @required Widget child})
+    : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(_TodosBlocProvider old) => bloc != old.bloc;

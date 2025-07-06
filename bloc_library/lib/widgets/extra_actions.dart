@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -21,9 +17,9 @@ class ExtraActions extends StatelessWidget {
       bloc: todosBloc,
       builder: (BuildContext context, TodosState state) {
         if (state is TodosLoaded) {
-          final allComplete = (todosBloc.state as TodosLoaded)
-              .todos
-              .every((todo) => todo.complete);
+          final allComplete = (todosBloc.state as TodosLoaded).todos.every(
+            (todo) => todo.complete,
+          );
           return PopupMenuButton<ExtraAction>(
             key: BlocLibraryKeys.extraActionsPopupMenuButton,
             onSelected: (action) {
@@ -49,9 +45,7 @@ class ExtraActions extends StatelessWidget {
               PopupMenuItem<ExtraAction>(
                 key: ArchSampleKeys.clearCompleted,
                 value: ExtraAction.clearCompleted,
-                child: Text(
-                  ArchSampleLocalizations.of(context).clearCompleted,
-                ),
+                child: Text(ArchSampleLocalizations.of(context).clearCompleted),
               ),
             ],
           );

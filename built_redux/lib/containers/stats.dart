@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 library stats;
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -28,9 +24,11 @@ class Stats extends StoreConnector<AppState, AppActions, StatsProps> {
 
   @override
   StatsProps connect(AppState state) {
-    return StatsProps((b) => b
-      ..numCompleted = state.numCompletedSelector
-      ..numActive = state.numActiveSelector);
+    return StatsProps(
+      (b) => b
+        ..numCompleted = state.numCompletedSelector
+        ..numActive = state.numActiveSelector,
+    );
   }
 
   @override

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
 import 'package:states_rebuilder_sample/service/todos_service.dart';
@@ -19,9 +15,7 @@ class TodoList extends StatelessWidget {
     return todosServiceRM.whenConnectionState(
       onIdle: () => Container(),
       onWaiting: () => Center(
-        child: CircularProgressIndicator(
-          key: ArchSampleKeys.todosLoading,
-        ),
+        child: CircularProgressIndicator(key: ArchSampleKeys.todosLoading),
       ),
       onData: (todosService) {
         return ListView.builder(

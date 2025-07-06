@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/localization.dart';
@@ -16,11 +12,8 @@ class SimpleBlocApp extends StatelessWidget {
   final TodosInteractor todosInteractor;
   final UserRepository userRepository;
 
-  const SimpleBlocApp({
-    Key key,
-    this.todosInteractor,
-    this.userRepository,
-  }) : super(key: key);
+  const SimpleBlocApp({Key key, this.todosInteractor, this.userRepository})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {

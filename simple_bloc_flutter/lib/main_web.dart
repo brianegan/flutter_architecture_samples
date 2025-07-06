@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'dart:html';
 
@@ -15,19 +11,21 @@ import 'package:todos_repository_local_storage/todos_repository_local_storage.da
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(SimpleBlocApp(
-    todosInteractor: TodosInteractor(
-      ReactiveLocalStorageRepository(
-        repository: LocalStorageRepository(
-          localStorage: KeyValueStorage(
-            'simple_bloc',
-            WebKeyValueStore(window.localStorage),
+  runApp(
+    SimpleBlocApp(
+      todosInteractor: TodosInteractor(
+        ReactiveLocalStorageRepository(
+          repository: LocalStorageRepository(
+            localStorage: KeyValueStorage(
+              'simple_bloc',
+              WebKeyValueStore(window.localStorage),
+            ),
           ),
         ),
       ),
+      userRepository: AnonymousUserRepository(),
     ),
-    userRepository: AnonymousUserRepository(),
-  ));
+  );
 }
 
 class AnonymousUserRepository implements UserRepository {

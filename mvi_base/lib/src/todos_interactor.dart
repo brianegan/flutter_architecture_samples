@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mvi_base/mvi_base.dart';
@@ -13,18 +9,17 @@ class TodosInteractor {
   TodosInteractor(this.repository);
 
   Stream<List<Todo>> get todos {
-    return repository
-        .todos()
-        .map((entities) => entities.map(Todo.fromEntity).toList());
+    return repository.todos().map(
+      (entities) => entities.map(Todo.fromEntity).toList(),
+    );
   }
 
   Stream<Todo> todo(String id) {
-    return todos.map((todos) {
-      return todos.firstWhere(
-        (todo) => todo.id == id,
-        orElse: () => null,
-      );
-    }).where((todo) => todo != null);
+    return todos
+        .map((todos) {
+          return todos.firstWhere((todo) => todo.id == id, orElse: () => null);
+        })
+        .where((todo) => todo != null);
   }
 
   Stream<bool> get allComplete => todos.map(_allComplete);
@@ -44,7 +39,8 @@ class TodosInteractor {
     final updates = await todos.map(_todosToUpdate).first;
 
     return Future.wait(
-        updates.map((update) => repository.updateTodo(update.toEntity())));
+      updates.map((update) => repository.updateTodo(update.toEntity())),
+    );
   }
 
   static bool _hasCompletedTodos(List<Todo> todos) {

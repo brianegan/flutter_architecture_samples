@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async' show Future;
 import 'package:flutter/material.dart';
 
@@ -15,10 +11,8 @@ import 'package:mvc/src/Controller.dart' show Con;
 class AddEditScreen extends StatefulWidget {
   final String todoId;
 
-  AddEditScreen({
-    Key key,
-    this.todoId,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({Key key, this.todoId})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
@@ -39,9 +33,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing
+              ? ArchSampleLocalizations.of(context).editTodo
+              : ArchSampleLocalizations.of(context).addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -59,7 +55,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
+                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                ),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
@@ -74,14 +71,15 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing
             ? ArchSampleLocalizations.of(context).saveChanges
             : ArchSampleLocalizations.of(context).addTodo,

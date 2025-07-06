@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/models/models.dart';
@@ -12,15 +8,14 @@ class FilterButton extends StatelessWidget {
   final bool visible;
 
   FilterButton({this.onSelected, this.activeFilter, this.visible, Key key})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final defaultStyle = Theme.of(context).textTheme.body1;
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final button = _Button(
       onSelected: onSelected,
       activeFilter: activeFilter,

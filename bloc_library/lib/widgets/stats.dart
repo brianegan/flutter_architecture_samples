@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -56,7 +52,7 @@ class Stats extends StatelessWidget {
                     key: ArchSampleKeys.statsNumActive,
                     style: Theme.of(context).textTheme.subhead,
                   ),
-                )
+                ),
               ],
             ),
           );

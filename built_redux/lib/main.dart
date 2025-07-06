@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 library built_redux_sample;
 
 import 'package:built_redux/built_redux.dart';
@@ -25,9 +21,7 @@ class BuiltReduxApp extends StatefulWidget {
     reducerBuilder.build(),
     AppState.loading(),
     AppActions(),
-    middleware: [
-      createStoreTodosMiddleware(),
-    ],
+    middleware: [createStoreTodosMiddleware()],
   );
 
   @override

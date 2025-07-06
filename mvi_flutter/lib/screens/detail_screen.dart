@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -14,11 +10,8 @@ class DetailScreen extends StatefulWidget {
   final String todoId;
   final MviPresenter<Todo> Function(DetailView) initPresenter;
 
-  DetailScreen({
-    Key key,
-    @required this.todoId,
-    this.initPresenter,
-  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  DetailScreen({Key key, @required this.todoId, this.initPresenter})
+    : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
   DetailScreenState createState() {
@@ -72,7 +65,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                   deleteTodo.add(todo.id);
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -88,8 +81,9 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                         value: todo.complete,
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
-                          updateTodo
-                              .add(todo.copyWith(complete: !todo.complete));
+                          updateTodo.add(
+                            todo.copyWith(complete: !todo.complete),
+                          );
                         },
                       ),
                     ),
@@ -98,10 +92,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
+                            padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
@@ -112,7 +103,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
                             style: Theme.of(context).textTheme.subhead,
-                          )
+                          ),
                         ],
                       ),
                     ),

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:blocs/blocs.dart';
@@ -13,12 +9,8 @@ class AddEditScreen extends StatefulWidget {
   final Function(Todo) addTodo;
   final Function(Todo) updateTodo;
 
-  AddEditScreen({
-    Key key,
-    this.todo,
-    this.addTodo,
-    this.updateTodo,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({Key key, this.todo, this.addTodo, this.updateTodo})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
@@ -72,14 +64,15 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing
             ? ArchSampleLocalizations.of(context).saveChanges
             : ArchSampleLocalizations.of(context).addTodo,
@@ -92,10 +85,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             if (isEditing) {
               widget.updateTodo(widget.todo.copyWith(task: _task, note: _note));
             } else {
-              widget.addTodo(Todo(
-                _task,
-                note: _note,
-              ));
+              widget.addTodo(Todo(_task, note: _note));
             }
 
             Navigator.pop(context);

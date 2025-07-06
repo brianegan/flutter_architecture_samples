@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/blocs/tab/tab_bloc.dart';
 import 'package:bloc_library/models/app_tab.dart';
@@ -48,23 +44,13 @@ void main() {
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
-            BlocProvider<TodosBloc>.value(
-              value: todosBloc,
-            ),
-            BlocProvider<FilteredTodosBloc>.value(
-              value: filteredTodosBloc,
-            ),
-            BlocProvider<TabBloc>.value(
-              value: tabBloc,
-            ),
-            BlocProvider<StatsBloc>.value(
-              value: statsBloc,
-            ),
+            BlocProvider<TodosBloc>.value(value: todosBloc),
+            BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
+            BlocProvider<TabBloc>.value(value: tabBloc),
+            BlocProvider<StatsBloc>.value(value: statsBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: HomeScreen(),
-            ),
+            home: Scaffold(body: HomeScreen()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),
@@ -77,30 +63,21 @@ void main() {
       expect(find.text('Bloc Library Example'), findsOneWidget);
     });
 
-    testWidgets('Navigates to /addTodo when Floating Action Button is tapped',
-        (WidgetTester tester) async {
+    testWidgets('Navigates to /addTodo when Floating Action Button is tapped', (
+      WidgetTester tester,
+    ) async {
       when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
       when(tabBloc.state).thenAnswer((_) => AppTab.todos);
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
-            BlocProvider<TodosBloc>.value(
-              value: todosBloc,
-            ),
-            BlocProvider<FilteredTodosBloc>.value(
-              value: filteredTodosBloc,
-            ),
-            BlocProvider<TabBloc>.value(
-              value: tabBloc,
-            ),
-            BlocProvider<StatsBloc>.value(
-              value: statsBloc,
-            ),
+            BlocProvider<TodosBloc>.value(value: todosBloc),
+            BlocProvider<FilteredTodosBloc>.value(value: filteredTodosBloc),
+            BlocProvider<TabBloc>.value(value: tabBloc),
+            BlocProvider<StatsBloc>.value(value: statsBloc),
           ],
           child: MaterialApp(
-            home: Scaffold(
-              body: HomeScreen(),
-            ),
+            home: Scaffold(body: HomeScreen()),
             localizationsDelegates: [
               ArchSampleLocalizationsDelegate(),
               FlutterBlocLocalizationsDelegate(),

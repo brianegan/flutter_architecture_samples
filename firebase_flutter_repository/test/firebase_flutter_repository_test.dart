@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,8 +14,9 @@ void main() {
       final auth = MockFirebaseAuth();
       final repository = FirebaseUserRepository(auth);
 
-      when(auth.signInAnonymously())
-          .thenAnswer((_) => Future.value(MockAuthResult()));
+      when(
+        auth.signInAnonymously(),
+      ).thenAnswer((_) => Future.value(MockAuthResult()));
 
       final entity = await repository.login();
 
@@ -35,8 +32,9 @@ void main() {
       final repository = FirestoreReactiveTodosRepository(firestore);
       final todo = TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirestoreReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        firestore.collection(FirestoreReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
       repository.addNewTodo(todo);
@@ -51,8 +49,9 @@ void main() {
       final repository = FirestoreReactiveTodosRepository(firestore);
       final todo = TodoEntity('A', '1', '', true);
 
-      when(firestore.collection(FirestoreReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        firestore.collection(FirestoreReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.document(todo.id)).thenReturn(document);
 
       repository.updateTodo(todo);
@@ -69,8 +68,9 @@ void main() {
       final document = MockDocumentSnapshot(todo.toJson());
       final repository = FirestoreReactiveTodosRepository(firestore);
 
-      when(firestore.collection(FirestoreReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        firestore.collection(FirestoreReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.snapshots()).thenAnswer((_) => snapshots);
       when(snapshot.documents).thenReturn([document]);
       when(document.documentID).thenReturn(todo.id);
@@ -87,8 +87,9 @@ void main() {
       final documentB = MockDocumentReference();
       final repository = FirestoreReactiveTodosRepository(firestore);
 
-      when(firestore.collection(FirestoreReactiveTodosRepository.path))
-          .thenReturn(collection);
+      when(
+        firestore.collection(FirestoreReactiveTodosRepository.path),
+      ).thenReturn(collection);
       when(collection.document(todoA)).thenReturn(documentA);
       when(collection.document(todoB)).thenReturn(documentB);
       when(documentA.delete()).thenAnswer((_) => Future.value());

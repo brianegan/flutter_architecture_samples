@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
@@ -31,7 +27,7 @@ class TodoListModel extends Model {
   bool get isLoading => _isLoading;
 
   TodoListModel({@required this.repository, VisibilityFilter activeFilter})
-      : _activeFilter = activeFilter ?? VisibilityFilter.all;
+    : _activeFilter = activeFilter ?? VisibilityFilter.all;
 
   /// Wraps [ScopedModel.of] for this [Model]. See [ScopedModel.of] for more
   static TodoListModel of(BuildContext context) =>
@@ -51,28 +47,31 @@ class TodoListModel extends Model {
     _isLoading = true;
     notifyListeners();
 
-    return repository.loadTodos().then((loadedTodos) {
-      _todos = loadedTodos.map(Todo.fromEntity).toList();
-      _isLoading = false;
-      notifyListeners();
-    }).catchError((err) {
-      _isLoading = false;
-      _todos = [];
-      notifyListeners();
-    });
+    return repository
+        .loadTodos()
+        .then((loadedTodos) {
+          _todos = loadedTodos.map(Todo.fromEntity).toList();
+          _isLoading = false;
+          notifyListeners();
+        })
+        .catchError((err) {
+          _isLoading = false;
+          _todos = [];
+          notifyListeners();
+        });
   }
 
   List<Todo> get filteredTodos => _todos.where((todo) {
-        switch (activeFilter) {
-          case VisibilityFilter.active:
-            return !todo.complete;
-          case VisibilityFilter.completed:
-            return todo.complete;
-          case VisibilityFilter.all:
-          default:
-            return true;
-        }
-      }).toList();
+    switch (activeFilter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 
   void clearCompleted() {
     _todos.removeWhere((todo) => todo.complete);

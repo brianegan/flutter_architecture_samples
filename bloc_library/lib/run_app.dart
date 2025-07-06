@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:bloc/bloc.dart';
 import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/localization.dart';
@@ -44,9 +40,7 @@ class TodosApp extends StatelessWidget {
         ArchSampleRoutes.home: (context) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider<TabBloc>(
-                create: (context) => TabBloc(),
-              ),
+              BlocProvider<TabBloc>(create: (context) => TabBloc()),
               BlocProvider<FilteredTodosBloc>(
                 create: (context) => FilteredTodosBloc(todosBloc: todosBloc),
               ),

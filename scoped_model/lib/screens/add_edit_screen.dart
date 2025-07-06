@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -13,10 +9,8 @@ import 'package:scoped_model_sample/todo_list_model.dart';
 class AddEditScreen extends StatefulWidget {
   final String todoId;
 
-  AddEditScreen({
-    Key key,
-    this.todoId,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({Key key, this.todoId})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
 }
@@ -36,9 +30,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          isEditing ? localizations.editTodo : localizations.addTodo,
-        ),
+        title: Text(isEditing ? localizations.editTodo : localizations.addTodo),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -77,7 +69,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                       hintText: localizations.notesHint,
                     ),
                     onSaved: (value) => _note = value,
-                  )
+                  ),
                 ],
               );
             },
@@ -85,8 +77,9 @@ class _AddEditScreenState extends State<AddEditScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {

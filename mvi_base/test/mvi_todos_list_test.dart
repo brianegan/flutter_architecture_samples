@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
@@ -53,10 +49,12 @@ void main() {
         final todos = [Todo('Hi')];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -66,10 +64,9 @@ void main() {
 
         expect(
           presenter,
-          emitsThrough(ModelWith(
-            activeFilter: VisibilityFilter.all,
-            visibleTodos: todos,
-          )),
+          emitsThrough(
+            ModelWith(activeFilter: VisibilityFilter.all, visibleTodos: todos),
+          ),
         );
       });
 
@@ -82,10 +79,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -94,10 +93,7 @@ void main() {
         );
         view.updateFilter.add(VisibilityFilter.completed);
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(visibleTodos: [todos.last])),
-        );
+        expect(presenter, emitsThrough(ModelWith(visibleTodos: [todos.last])));
       });
 
       test('should display active todos', () {
@@ -109,10 +105,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -121,10 +119,7 @@ void main() {
         );
         view.updateFilter.add(VisibilityFilter.active);
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(visibleTodos: [todos.first])),
-        );
+        expect(presenter, emitsThrough(ModelWith(visibleTodos: [todos.first])));
       });
 
       test('allComplete should stream state of interactor', () {
@@ -136,10 +131,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -147,10 +144,7 @@ void main() {
           userInteractor: MockUserInteractor(),
         );
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(allComplete: false)),
-        );
+        expect(presenter, emitsThrough(ModelWith(allComplete: false)));
       });
 
       test('hasCompletedTodos should reflect the interactor', () {
@@ -162,10 +156,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -173,10 +169,7 @@ void main() {
           userInteractor: MockUserInteractor(),
         );
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(hasCompletedTodos: true)),
-        );
+        expect(presenter, emitsThrough(ModelWith(hasCompletedTodos: true)));
       });
 
       test('should add todos to the interactor', () async {
@@ -188,10 +181,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -213,10 +208,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -238,10 +235,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,
@@ -263,10 +262,12 @@ void main() {
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
         final presenter = TodosListPresenter(
           view: view,

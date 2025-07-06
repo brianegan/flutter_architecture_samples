@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:meta/meta.dart';
@@ -93,12 +89,12 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
     @required TodosListView view,
     @required TodosInteractor todosInteractor,
     @required UserInteractor userInteractor,
-  })  : _view = view,
-        _interactor = todosInteractor,
-        super(
-          initialModel: TodosListModel.initial(),
-          stream: _buildStream(view, todosInteractor, userInteractor),
-        );
+  }) : _view = view,
+       _interactor = todosInteractor,
+       super(
+         initialModel: TodosListModel.initial(),
+         stream: _buildStream(view, todosInteractor, userInteractor),
+       );
 
   @override
   void setUp() {

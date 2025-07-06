@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
@@ -95,8 +91,9 @@ void main() {
       final todo = Todo("AddMe");
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
-      when(repository.addNewTodo(todo.toEntity()))
-          .thenAnswer((_) => Future.value());
+      when(
+        repository.addNewTodo(todo.toEntity()),
+      ).thenAnswer((_) => Future.value());
 
       interactor.addNewTodo(todo);
 
@@ -144,8 +141,9 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -166,10 +164,12 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
-      when(repository.updateTodo(e2Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e2Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -191,10 +191,12 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
-      when(repository.updateTodo(e2Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e2Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 

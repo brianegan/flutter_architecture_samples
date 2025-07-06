@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:freezed_provider_value_notifier/models.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
 import 'package:test/test.dart';
@@ -42,33 +38,37 @@ void main() {
       expect(model.filteredTodos, todos);
     });
 
-    test('should return active todos if the VisibilityFilter is active',
-        () async {
-      final todo1 = Todo('a');
-      final todo2 = Todo('b');
-      final todo3 = Todo('c', complete: true);
-      final model = TodoList(
-        [todo1, todo2, todo3],
-        loading: false,
-        filter: VisibilityFilter.active,
-      );
+    test(
+      'should return active todos if the VisibilityFilter is active',
+      () async {
+        final todo1 = Todo('a');
+        final todo2 = Todo('b');
+        final todo3 = Todo('c', complete: true);
+        final model = TodoList(
+          [todo1, todo2, todo3],
+          loading: false,
+          filter: VisibilityFilter.active,
+        );
 
-      expect(model.filteredTodos, [todo1, todo2]);
-    });
+        expect(model.filteredTodos, [todo1, todo2]);
+      },
+    );
 
-    test('should return completed todos if the VisibilityFilter is completed',
-        () async {
-      final todo1 = Todo('a');
-      final todo2 = Todo('b');
-      final todo3 = Todo('c', complete: true);
-      final model = TodoList(
-        [todo1, todo2, todo3],
-        filter: VisibilityFilter.completed,
-        loading: false,
-      );
+    test(
+      'should return completed todos if the VisibilityFilter is completed',
+      () async {
+        final todo1 = Todo('a');
+        final todo2 = Todo('b');
+        final todo3 = Todo('c', complete: true);
+        final model = TodoList(
+          [todo1, todo2, todo3],
+          filter: VisibilityFilter.completed,
+          loading: false,
+        );
 
-      expect(model.filteredTodos, [todo3]);
-    });
+        expect(model.filteredTodos, [todo3]);
+      },
+    );
   });
   group('TodoListController', () {
     test('should load todos from the repository', () async {
@@ -83,7 +83,6 @@ void main() {
 
       expect(model.value.todos, todos);
       expect(model.value.loading, isFalse);
-
     });
     test('should clear the completed todos', () async {
       final repository = MockRepository();
@@ -97,10 +96,7 @@ void main() {
 
       model.clearCompleted();
 
-      expect(
-        model.value.todos,
-        [todo1, todo2],
-      );
+      expect(model.value.todos, [todo1, todo2]);
       expect(repository.saveCount, 1);
     });
 
@@ -129,10 +125,7 @@ void main() {
 
       model.addTodo(todo);
 
-      expect(
-        model.value.todos,
-        [todo],
-      );
+      expect(model.value.todos, [todo]);
 
       expect(repository.saveCount, 1);
     });
@@ -140,15 +133,14 @@ void main() {
     test('should remove a todo', () async {
       final repository = MockRepository();
       final todo = Todo('A');
-      final model =
-          TodoListController(todosRepository: repository, todos: [todo]);
+      final model = TodoListController(
+        todosRepository: repository,
+        todos: [todo],
+      );
 
       model.removeTodoWithId(todo.id);
 
-      expect(
-        model.value.todos,
-        [],
-      );
+      expect(model.value.todos, []);
       expect(repository.saveCount, 1);
     });
 
@@ -165,10 +157,7 @@ void main() {
 
       model.updateTodo(update);
 
-      expect(
-        model.value.todos,
-        [todo1, update, todo3],
-      );
+      expect(model.value.todos, [todo1, update, todo3]);
       expect(repository.saveCount, 1);
     });
   });

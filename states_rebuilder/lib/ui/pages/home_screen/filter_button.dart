@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:states_rebuilder/states_rebuilder.dart';
@@ -16,14 +12,14 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //context is used to register FilterButton as observer in todosServiceRM
-    final todosServiceRM =
-        Injector.getAsReactive<TodosService>(context: context);
+    final todosServiceRM = Injector.getAsReactive<TodosService>(
+      context: context,
+    );
 
     final defaultStyle = Theme.of(context).textTheme.body1;
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final button = _Button(
       onSelected: (filter) {
         todosServiceRM.setState((s) => s.activeFilter = filter);

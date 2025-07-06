@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
@@ -36,40 +32,28 @@ void main() {
         return StatsBloc(todosBloc: todosBloc);
       },
       act: (StatsBloc bloc) async => bloc.add(UpdateStats([])),
-      expect: <StatsState>[
-        StatsLoading(),
-        StatsLoaded(0, 0),
-      ],
+      expect: <StatsState>[StatsLoading(), StatsLoaded(0, 0)],
     );
 
     blocTest<StatsBloc, StatsEvent, StatsState>(
       'should update the stats properly when Todos are empty',
       build: () => statsBloc,
       act: (StatsBloc bloc) async => bloc.add(UpdateStats([])),
-      expect: <StatsState>[
-        StatsLoading(),
-        StatsLoaded(0, 0),
-      ],
+      expect: <StatsState>[StatsLoading(), StatsLoaded(0, 0)],
     );
 
     blocTest<StatsBloc, StatsEvent, StatsState>(
       'should update the stats properly when Todos contains one active todo',
       build: () => statsBloc,
       act: (StatsBloc bloc) async => bloc.add(UpdateStats([todo1])),
-      expect: <StatsState>[
-        StatsLoading(),
-        StatsLoaded(1, 0),
-      ],
+      expect: <StatsState>[StatsLoading(), StatsLoaded(1, 0)],
     );
 
     blocTest<StatsBloc, StatsEvent, StatsState>(
       'should update the stats properly when Todos contains one active todo and one completed todo',
       build: () => statsBloc,
       act: (StatsBloc bloc) async => bloc.add(UpdateStats([todo1, todo2])),
-      expect: <StatsState>[
-        StatsLoading(),
-        StatsLoaded(1, 1),
-      ],
+      expect: <StatsState>[StatsLoading(), StatsLoaded(1, 1)],
     );
   });
 }

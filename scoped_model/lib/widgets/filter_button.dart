@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -34,11 +30,12 @@ class FilterButton extends StatelessWidget {
   }
 
   List<PopupMenuItem<VisibilityFilter>> _items(
-      BuildContext context, TodoListModel model) {
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
+    BuildContext context,
+    TodoListModel model,
+  ) {
+    final activeStyle = Theme.of(
+      context,
+    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
     final defaultStyle = Theme.of(context).textTheme.body1;
 
     return [

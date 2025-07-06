@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
@@ -11,9 +7,10 @@ import 'package:mvc/src/models.dart';
 
 class TodoListModel {
   TodoListModel({TodosRepository repo, VisibilityFilter activeFilter})
-      : _activeFilter = activeFilter ?? VisibilityFilter.all {
+    : _activeFilter = activeFilter ?? VisibilityFilter.all {
     /// The rest of the app need not know of its existence.
-    repository = repo ??
+    repository =
+        repo ??
         LocalStorageRepository(
           localStorage: const FileStorage(
             'mvc_app',
@@ -36,26 +33,29 @@ class TodoListModel {
   /// Loads remote data
   Future loadTodos() {
     _isLoading = true;
-    return repository.loadTodos().then((loadedTodos) {
-      _todos = loadedTodos.map(Todo.fromEntity).toList();
-      _isLoading = false;
-    }).catchError((err) {
-      _isLoading = false;
-      _todos = [];
-    });
+    return repository
+        .loadTodos()
+        .then((loadedTodos) {
+          _todos = loadedTodos.map(Todo.fromEntity).toList();
+          _isLoading = false;
+        })
+        .catchError((err) {
+          _isLoading = false;
+          _todos = [];
+        });
   }
 
   List<Todo> get filteredTodos => _todos.where((todo) {
-        switch (activeFilter) {
-          case VisibilityFilter.active:
-            return !todo.complete;
-          case VisibilityFilter.completed:
-            return todo.complete;
-          case VisibilityFilter.all:
-          default:
-            return true;
-        }
-      }).toList();
+    switch (activeFilter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 
   void clearCompleted() {
     _todos.removeWhere((todo) => todo.complete);
@@ -102,15 +102,19 @@ enum VisibilityFilter { all, active, completed }
 class To {
   /// Convert from a Map object
   static Todo todo(Map data) {
-    return Todo(data['task'],
-        complete: data['complete'], note: data['note'], id: data['id']);
+    return Todo(
+      data['task'],
+      complete: data['complete'],
+      note: data['note'],
+      id: data['id'],
+    );
   }
 
   /// Used to 'interface' with the View in the MVC design pattern.
   static Map map(Todo obj) => {
-        'task': obj == null ? '' : obj.task,
-        'note': obj == null ? '' : obj.note,
-        'complete': obj == null ? false : obj.complete,
-        'id': obj == null ? null : obj.id,
-      };
+    'task': obj == null ? '' : obj.task,
+    'note': obj == null ? '' : obj.note,
+    'complete': obj == null ? false : obj.complete,
+    'id': obj == null ? null : obj.id,
+  };
 }

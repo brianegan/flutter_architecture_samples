@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/reducers/app_state_reducer.dart';
@@ -15,11 +11,7 @@ void main() {
       final todo1 = Todo('a');
       final todo2 = Todo('b');
       final todo3 = Todo('c', complete: true);
-      final todos = [
-        todo1,
-        todo2,
-        todo3,
-      ];
+      final todos = [todo1, todo2, todo3];
       final store = Store<AppState>(
         appReducer,
         initialState: AppState.loading(),

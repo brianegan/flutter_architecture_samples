@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:built_redux_sample/containers/edit_todo.dart';
 import 'package:built_redux_sample/models/models.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +32,7 @@ class DetailsScreen extends StatelessWidget {
               onDelete();
               Navigator.pop(context, todo);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -59,10 +55,7 @@ class DetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
@@ -73,7 +66,7 @@ class DetailsScreen extends StatelessWidget {
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -90,9 +83,7 @@ class DetailsScreen extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return EditTodo(
-                  todo: todo,
-                );
+                return EditTodo(todo: todo);
               },
             ),
           );

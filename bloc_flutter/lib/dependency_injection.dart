@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 // A poor man's DI. This should be replaced by a proper solution once they
 // are more stable.
 library dependency_injector;

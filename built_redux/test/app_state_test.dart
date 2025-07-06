@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:built_redux_sample/models/models.dart';
 import 'package:test/test.dart';
 
@@ -58,35 +54,31 @@ void main() {
           ..task = 'c'
           ..complete = true,
       );
-      final todos = [
-        todo1,
-        todo2,
-        todo3,
-      ];
-      final state = AppState.fromTodos(todos)
-          .rebuild((b) => b.activeFilter = VisibilityFilter.active);
+      final todos = [todo1, todo2, todo3];
+      final state = AppState.fromTodos(
+        todos,
+      ).rebuild((b) => b.activeFilter = VisibilityFilter.active);
 
       expect(state.filteredTodosSelector, [todo1, todo2]);
     });
 
-    test('should return completed todos if the VisibilityFilter is completed',
-        () {
-      final todo1 = Todo('a');
-      final todo2 = Todo('b');
-      final todo3 = Todo.builder(
-        (b) => b
-          ..task = 'c'
-          ..complete = true,
-      );
-      final todos = [
-        todo1,
-        todo2,
-        todo3,
-      ];
-      final state = AppState.fromTodos(todos)
-          .rebuild((b) => b.activeFilter = VisibilityFilter.completed);
+    test(
+      'should return completed todos if the VisibilityFilter is completed',
+      () {
+        final todo1 = Todo('a');
+        final todo2 = Todo('b');
+        final todo3 = Todo.builder(
+          (b) => b
+            ..task = 'c'
+            ..complete = true,
+        );
+        final todos = [todo1, todo2, todo3];
+        final state = AppState.fromTodos(
+          todos,
+        ).rebuild((b) => b.activeFilter = VisibilityFilter.completed);
 
-      expect(state.filteredTodosSelector, [todo3]);
-    });
+        expect(state.filteredTodosSelector, [todo3]);
+      },
+    );
   });
 }

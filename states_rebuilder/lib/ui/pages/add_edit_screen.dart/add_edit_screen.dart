@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -14,10 +10,8 @@ import 'package:todos_app_core/todos_app_core.dart';
 class AddEditPage extends StatefulWidget {
   final Todo todo;
 
-  AddEditPage({
-    Key key,
-    this.todo,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditPage({Key key, this.todo})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   _AddEditPageState createState() => _AddEditPageState();
@@ -34,9 +28,11 @@ class _AddEditPageState extends State<AddEditPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing
+              ? ArchSampleLocalizations.of(context).editTodo
+              : ArchSampleLocalizations.of(context).addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -54,7 +50,8 @@ class _AddEditPageState extends State<AddEditPage> {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
+                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                ),
                 validator: (val) => val.trim().isEmpty
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
@@ -69,14 +66,15 @@ class _AddEditPageState extends State<AddEditPage> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing
             ? ArchSampleLocalizations.of(context).saveChanges
             : ArchSampleLocalizations.of(context).addTodo,
@@ -92,12 +90,7 @@ class _AddEditPageState extends State<AddEditPage> {
                 ..note = _note;
               todosService.updateTodo(widget.todo);
             } else {
-              todosService.addTodo(
-                Todo(
-                  _task,
-                  note: _note,
-                ),
-              );
+              todosService.addTodo(Todo(_task, note: _note));
             }
 
             Navigator.pop(context);

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
@@ -17,8 +13,9 @@ void main() {
       final repository = MockUserRepository();
       final interactor = UserInteractor(repository);
 
-      when(repository.login())
-          .thenAnswer((_) => Future.value(UserEntity(displayName: 'Frida')));
+      when(
+        repository.login(),
+      ).thenAnswer((_) => Future.value(UserEntity(displayName: 'Frida')));
 
       expect(await interactor.login(), User('Frida'));
     });

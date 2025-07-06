@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/models/models.dart';
 import 'package:fire_redux_sample/selectors/selectors.dart';
@@ -13,9 +9,7 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
   UserRepository userRepository,
 ) {
   return [
-    TypedMiddleware<AppState, InitAppAction>(
-      _firestoreSignIn(userRepository),
-    ),
+    TypedMiddleware<AppState, InitAppAction>(_firestoreSignIn(userRepository)),
     TypedMiddleware<AppState, ConnectToDataSourceAction>(
       _firestoreConnect(todosRepository),
     ),
@@ -37,13 +31,8 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
   ];
 }
 
-void Function(
-  Store<AppState> store,
-  InitAppAction action,
-  NextDispatcher next,
-) _firestoreSignIn(
-  UserRepository repository,
-) {
+void Function(Store<AppState> store, InitAppAction action, NextDispatcher next)
+_firestoreSignIn(UserRepository repository) {
   return (store, action, next) {
     next(action);
 
@@ -57,9 +46,8 @@ void Function(
   Store<AppState> store,
   ConnectToDataSourceAction action,
   NextDispatcher next,
-) _firestoreConnect(
-  ReactiveTodosRepository repository,
-) {
+)
+_firestoreConnect(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
 
@@ -69,13 +57,8 @@ void Function(
   };
 }
 
-void Function(
-  Store<AppState> store,
-  AddTodoAction action,
-  NextDispatcher next,
-) _firestoreSaveNewTodo(
-  ReactiveTodosRepository repository,
-) {
+void Function(Store<AppState> store, AddTodoAction action, NextDispatcher next)
+_firestoreSaveNewTodo(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
     repository.addNewTodo(action.todo.toEntity());
@@ -86,9 +69,8 @@ void Function(
   Store<AppState> store,
   DeleteTodoAction action,
   NextDispatcher next,
-) _firestoreDeleteTodo(
-  ReactiveTodosRepository repository,
-) {
+)
+_firestoreDeleteTodo(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
     repository.deleteTodo([action.id]);
@@ -99,9 +81,8 @@ void Function(
   Store<AppState> store,
   UpdateTodoAction action,
   NextDispatcher next,
-) _firestoreUpdateTodo(
-  ReactiveTodosRepository repository,
-) {
+)
+_firestoreUpdateTodo(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
     repository.updateTodo(action.updatedTodo.toEntity());
@@ -112,9 +93,8 @@ void Function(
   Store<AppState> store,
   ToggleAllAction action,
   NextDispatcher next,
-) _firestoreToggleAll(
-  ReactiveTodosRepository repository,
-) {
+)
+_firestoreToggleAll(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
     var todos = todosSelector(store.state);
@@ -137,16 +117,15 @@ void Function(
   Store<AppState> store,
   ClearCompletedAction action,
   NextDispatcher next,
-) _firestoreClearCompleted(
-  ReactiveTodosRepository repository,
-) {
+)
+_firestoreClearCompleted(ReactiveTodosRepository repository) {
   return (store, action, next) {
     next(action);
 
     repository.deleteTodo(
-      completeTodosSelector(todosSelector(store.state))
-          .map((todo) => todo.id)
-          .toList(),
+      completeTodosSelector(
+        todosSelector(store.state),
+      ).map((todo) => todo.id).toList(),
     );
   };
 }

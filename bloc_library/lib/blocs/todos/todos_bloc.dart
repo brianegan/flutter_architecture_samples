@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -38,9 +34,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
   Stream<TodosState> _mapLoadTodosToState() async* {
     try {
       final todos = await todosRepository.loadTodos();
-      yield TodosLoaded(
-        todos.map(Todo.fromEntity).toList(),
-      );
+      yield TodosLoaded(todos.map(Todo.fromEntity).toList());
     } catch (_) {
       yield TodosNotLoaded();
     }
@@ -67,8 +61,7 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Stream<TodosState> _mapDeleteTodoToState(DeleteTodo event) async* {
     if (state is TodosLoaded) {
-      final updatedTodos = (state as TodosLoaded)
-          .todos
+      final updatedTodos = (state as TodosLoaded).todos
           .where((todo) => todo.id != event.todo.id)
           .toList();
       yield TodosLoaded(updatedTodos);
@@ -78,10 +71,10 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Stream<TodosState> _mapToggleAllToState() async* {
     if (state is TodosLoaded) {
-      final allComplete =
-          (state as TodosLoaded).todos.every((todo) => todo.complete);
-      final updatedTodos = (state as TodosLoaded)
-          .todos
+      final allComplete = (state as TodosLoaded).todos.every(
+        (todo) => todo.complete,
+      );
+      final updatedTodos = (state as TodosLoaded).todos
           .map((todo) => todo.copyWith(complete: !allComplete))
           .toList();
       yield TodosLoaded(updatedTodos);
@@ -91,8 +84,9 @@ class TodosBloc extends Bloc<TodosEvent, TodosState> {
 
   Stream<TodosState> _mapClearCompletedToState() async* {
     if (state is TodosLoaded) {
-      final updatedTodos =
-          (state as TodosLoaded).todos.where((todo) => !todo.complete).toList();
+      final updatedTodos = (state as TodosLoaded).todos
+          .where((todo) => !todo.complete)
+          .toList();
       yield TodosLoaded(updatedTodos);
       await _saveTodos(updatedTodos);
     }

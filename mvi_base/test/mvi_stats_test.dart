@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
@@ -24,10 +20,7 @@ void main() {
 
       final presenter = StatsPresenter(interactor);
 
-      expect(
-        presenter,
-        emitsThrough(StatsModel(1, 2)),
-      );
+      expect(presenter, emitsThrough(StatsModel(1, 2)));
     });
   });
 }

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/dependency_injection.dart';
@@ -15,7 +11,7 @@ class MviApp extends StatelessWidget {
   final UserInteractor userInteractor;
 
   const MviApp({Key key, this.todosRepository, this.userInteractor})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {

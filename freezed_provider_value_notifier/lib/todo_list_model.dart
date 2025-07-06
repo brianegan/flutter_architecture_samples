@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
@@ -37,16 +33,16 @@ abstract class TodoList with _$TodoList {
 
   @late
   List<Todo> get filteredTodos => todos.where((todo) {
-        switch (filter) {
-          case VisibilityFilter.active:
-            return !todo.complete;
-          case VisibilityFilter.completed:
-            return todo.complete;
-          case VisibilityFilter.all:
-          default:
-            return true;
-        }
-      }).toList();
+    switch (filter) {
+      case VisibilityFilter.active:
+        return !todo.complete;
+      case VisibilityFilter.completed:
+        return todo.complete;
+      case VisibilityFilter.all:
+      default:
+        return true;
+    }
+  }).toList();
 }
 
 extension TodoById on TodoList {
@@ -59,8 +55,8 @@ class TodoListController extends ValueNotifier<TodoList> {
     VisibilityFilter filter = VisibilityFilter.all,
     @required this.todosRepository,
     List<Todo> todos = const [],
-  })  : assert(todosRepository != null),
-        super(TodoList(todos, filter: filter, loading: false)) {
+  }) : assert(todosRepository != null),
+       super(TodoList(todos, filter: filter, loading: false)) {
     _loadTodos();
   }
 
@@ -74,8 +70,9 @@ class TodoListController extends ValueNotifier<TodoList> {
   @protected
   set value(TodoList state) {
     if (!const DeepCollectionEquality().equals(state.todos, value.todos)) {
-      todosRepository
-          .saveTodos(state.todos.map((it) => it.toEntity()).toList());
+      todosRepository.saveTodos(
+        state.todos.map((it) => it.toEntity()).toList(),
+      );
     }
     super.value = state;
   }
@@ -86,7 +83,9 @@ class TodoListController extends ValueNotifier<TodoList> {
     try {
       final todos = await todosRepository.loadTodos();
       value = (value.copyWith(
-          todos: todos.map(Todo.fromEntity).toList(), loading: false));
+        todos: todos.map(Todo.fromEntity).toList(),
+        loading: false,
+      ));
     } catch (_) {
       value = (value.copyWith(loading: false));
     }
@@ -97,23 +96,30 @@ class TodoListController extends ValueNotifier<TodoList> {
   }
 
   void updateTodo(Todo updatedTodo) {
-    value = value.copyWith(todos: [
-      for (final todo in value.todos)
-        if (todo.id == updatedTodo.id) updatedTodo else todo,
-    ]);
+    value = value.copyWith(
+      todos: [
+        for (final todo in value.todos)
+          if (todo.id == updatedTodo.id) updatedTodo else todo,
+      ],
+    );
   }
 
   void removeTodoWithId(String id) {
-    value = value.copyWith(todos: [
-      for (final todo in value.todos) if (todo.id != id) todo,
-    ]);
+    value = value.copyWith(
+      todos: [
+        for (final todo in value.todos)
+          if (todo.id != id) todo,
+      ],
+    );
   }
 
   void toggleAll() {
     final allComplete = value.todos.every((todo) => todo.complete);
-    value = value.copyWith(todos: [
-      for (final todo in value.todos) todo.copy(complete: !allComplete),
-    ]);
+    value = value.copyWith(
+      todos: [
+        for (final todo in value.todos) todo.copy(complete: !allComplete),
+      ],
+    );
   }
 
   void clearCompleted() {

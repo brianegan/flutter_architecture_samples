@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +10,7 @@ class DetailsScreen extends StatelessWidget {
   final String id;
 
   DetailsScreen({Key key, @required this.id})
-      : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+    : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +18,10 @@ class DetailsScreen extends StatelessWidget {
     return BlocBuilder(
       bloc: todosBloc,
       builder: (BuildContext context, TodosState state) {
-        final todo = (state as TodosLoaded)
-            .todos
-            .firstWhere((todo) => todo.id == id, orElse: () => null);
+        final todo = (state as TodosLoaded).todos.firstWhere(
+          (todo) => todo.id == id,
+          orElse: () => null,
+        );
         final localizations = ArchSampleLocalizations.of(context);
         return Scaffold(
           appBar: AppBar(
@@ -38,7 +35,7 @@ class DetailsScreen extends StatelessWidget {
                   todosBloc.add(DeleteTodo(todo));
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: todo == null
@@ -53,15 +50,16 @@ class DetailsScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(right: 8.0),
                             child: Checkbox(
-                                key: BlocLibraryKeys.detailsScreenCheckBox,
-                                value: todo.complete,
-                                onChanged: (_) {
-                                  todosBloc.add(
-                                    UpdateTodo(
-                                      todo.copyWith(complete: !todo.complete),
-                                    ),
-                                  );
-                                }),
+                              key: BlocLibraryKeys.detailsScreenCheckBox,
+                              value: todo.complete,
+                              onChanged: (_) {
+                                todosBloc.add(
+                                  UpdateTodo(
+                                    todo.copyWith(complete: !todo.complete),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                           Expanded(
                             child: Column(
@@ -78,8 +76,9 @@ class DetailsScreen extends StatelessWidget {
                                     child: Text(
                                       todo.task,
                                       key: ArchSampleKeys.detailsTodoItemTask,
-                                      style:
-                                          Theme.of(context).textTheme.headline,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headline,
                                     ),
                                   ),
                                 ),

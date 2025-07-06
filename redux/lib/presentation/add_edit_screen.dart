@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -14,9 +10,12 @@ class AddEditScreen extends StatefulWidget {
   final OnSaveCallback onSave;
   final Todo todo;
 
-  AddEditScreen(
-      {Key key, @required this.onSave, @required this.isEditing, this.todo})
-      : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({
+    Key key,
+    @required this.onSave,
+    @required this.isEditing,
+    this.todo,
+  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
 }
@@ -36,9 +35,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          isEditing ? localizations.editTodo : localizations.addTodo,
-        ),
+        title: Text(isEditing ? localizations.editTodo : localizations.addTodo),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -66,18 +63,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: textTheme.subhead,
-                decoration: InputDecoration(
-                  hintText: localizations.notesHint,
-                ),
+                decoration: InputDecoration(hintText: localizations.notesHint),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {

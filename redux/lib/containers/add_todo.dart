@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -18,10 +14,7 @@ class AddTodo extends StatelessWidget {
     return StoreConnector<AppState, OnSaveCallback>(
       converter: (Store<AppState> store) {
         return (task, note) {
-          store.dispatch(AddTodoAction(Todo(
-            task,
-            note: note,
-          )));
+          store.dispatch(AddTodoAction(Todo(task, note: note)));
         };
       },
       builder: (BuildContext context, OnSaveCallback onSave) {

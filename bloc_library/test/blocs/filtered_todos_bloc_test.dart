@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -21,9 +17,9 @@ void main() {
       'adds TodosUpdated when TodosBloc.state emits TodosLoaded',
       build: () {
         final todosBloc = MockTodosBloc();
-        when(todosBloc.state).thenReturn(
-          TodosLoaded([Todo('Wash Dishes', id: '0')]),
-        );
+        when(
+          todosBloc.state,
+        ).thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
         whenListen(
           todosBloc,
           Stream<TodosState>.fromIterable([
@@ -33,10 +29,9 @@ void main() {
         return FilteredTodosBloc(todosBloc: todosBloc);
       },
       expect: [
-        FilteredTodosLoaded(
-          [Todo('Wash Dishes', id: '0')],
-          VisibilityFilter.all,
-        ),
+        FilteredTodosLoaded([
+          Todo('Wash Dishes', id: '0'),
+        ], VisibilityFilter.all),
       ],
     );
 
@@ -44,21 +39,20 @@ void main() {
       'should update the VisibilityFilter when filter is active',
       build: () {
         final todosBloc = MockTodosBloc();
-        when(todosBloc.state)
-            .thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
+        when(
+          todosBloc.state,
+        ).thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
         return FilteredTodosBloc(todosBloc: todosBloc);
       },
       act: (FilteredTodosBloc bloc) async =>
           bloc.add(UpdateFilter(VisibilityFilter.active)),
       expect: <FilteredTodosState>[
-        FilteredTodosLoaded(
-          [Todo('Wash Dishes', id: '0')],
-          VisibilityFilter.all,
-        ),
-        FilteredTodosLoaded(
-          [Todo('Wash Dishes', id: '0')],
-          VisibilityFilter.active,
-        ),
+        FilteredTodosLoaded([
+          Todo('Wash Dishes', id: '0'),
+        ], VisibilityFilter.all),
+        FilteredTodosLoaded([
+          Todo('Wash Dishes', id: '0'),
+        ], VisibilityFilter.active),
       ],
     );
 
@@ -66,17 +60,17 @@ void main() {
       'should update the VisibilityFilter when filter is completed',
       build: () {
         final todosBloc = MockTodosBloc();
-        when(todosBloc.state)
-            .thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
+        when(
+          todosBloc.state,
+        ).thenReturn(TodosLoaded([Todo('Wash Dishes', id: '0')]));
         return FilteredTodosBloc(todosBloc: todosBloc);
       },
       act: (FilteredTodosBloc bloc) async =>
           bloc.add(UpdateFilter(VisibilityFilter.completed)),
       expect: <FilteredTodosState>[
-        FilteredTodosLoaded(
-          [Todo('Wash Dishes', id: '0')],
-          VisibilityFilter.all,
-        ),
+        FilteredTodosLoaded([
+          Todo('Wash Dishes', id: '0'),
+        ], VisibilityFilter.all),
         FilteredTodosLoaded([], VisibilityFilter.completed),
       ],
     );

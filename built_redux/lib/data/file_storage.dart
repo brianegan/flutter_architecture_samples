@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -14,10 +10,7 @@ class FileStorage {
   final String tag;
   final Future<Directory> Function() getDirectory;
 
-  const FileStorage(
-    this.tag,
-    this.getDirectory,
-  );
+  const FileStorage(this.tag, this.getDirectory);
 
   /// LoadTodos
   Future<List<Todo>> loadTodos() async {

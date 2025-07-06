@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:mockito/mockito.dart';
@@ -20,8 +16,9 @@ void main() {
         final interactor = MockTodosInteractor();
         final todo = Todo('Hallo');
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -37,8 +34,9 @@ void main() {
         final todo = Todo('Hallo');
         final view = MockView();
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -56,8 +54,9 @@ void main() {
         final todo = Todo('Hallo');
         final view = MockView();
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,

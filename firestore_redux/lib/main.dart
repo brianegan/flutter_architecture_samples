@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_redux_sample/actions/actions.dart';
 import 'package:fire_redux_sample/containers/add_todo.dart';
@@ -32,16 +28,16 @@ class ReduxApp extends StatelessWidget {
     Key key,
     ReactiveTodosRepository todosRepository,
     UserRepository userRepository,
-  })  : store = Store<AppState>(
-          appReducer,
-          initialState: AppState.loading(),
-          middleware: createStoreTodosMiddleware(
-            todosRepository ??
-                FirestoreReactiveTodosRepository(Firestore.instance),
-            userRepository ?? FirebaseUserRepository(FirebaseAuth.instance),
-          ),
-        ),
-        super(key: key) {
+  }) : store = Store<AppState>(
+         appReducer,
+         initialState: AppState.loading(),
+         middleware: createStoreTodosMiddleware(
+           todosRepository ??
+               FirestoreReactiveTodosRepository(Firestore.instance),
+           userRepository ?? FirebaseUserRepository(FirebaseAuth.instance),
+         ),
+       ),
+       super(key: key) {
     store.dispatch(InitAppAction());
   }
 

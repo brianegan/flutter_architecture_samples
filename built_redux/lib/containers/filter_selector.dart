@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 library filter_selector;
 
 import 'package:built_redux_sample/actions/actions.dart';
@@ -24,19 +20,21 @@ abstract class FilterSelectorViewModel
 
   VisibilityFilter get activeFilter;
 
-  factory FilterSelectorViewModel(
-          [void Function(FilterSelectorViewModelBuilder b) updates]) =
-      _$FilterSelectorViewModel;
+  factory FilterSelectorViewModel([
+    void Function(FilterSelectorViewModelBuilder b) updates,
+  ]) = _$FilterSelectorViewModel;
 
   factory FilterSelectorViewModel.from(
     AppActions actions,
     VisibilityFilter activeFilter,
   ) {
-    return FilterSelectorViewModel((b) => b
-      ..onFilterSelected = (filter) {
-        actions.updateFilterAction(filter);
-      }
-      ..activeFilter = activeFilter);
+    return FilterSelectorViewModel(
+      (b) => b
+        ..onFilterSelected = (filter) {
+          actions.updateFilterAction(filter);
+        }
+        ..activeFilter = activeFilter,
+    );
   }
 }
 
@@ -57,10 +55,7 @@ class FilterSelector
   ) {
     return builder(
       context,
-      FilterSelectorViewModel.from(
-        actions,
-        activeFilter,
-      ),
+      FilterSelectorViewModel.from(actions, activeFilter),
     );
   }
 }

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,10 +8,8 @@ import 'package:inherited_widget_sample/state_container.dart';
 class AddEditScreen extends StatefulWidget {
   final Todo todo;
 
-  AddEditScreen({
-    Key key,
-    this.todo,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({Key key, this.todo})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
 }
@@ -34,9 +28,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          isEditing ? localizations.editTodo : localizations.addTodo,
-        ),
+        title: Text(isEditing ? localizations.editTodo : localizations.addTodo),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -68,18 +60,17 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
                 style: textTheme.subhead,
-                decoration: InputDecoration(
-                  hintText: localizations.notesHint,
-                ),
+                decoration: InputDecoration(hintText: localizations.notesHint),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        key:
-            isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
         tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
         child: Icon(isEditing ? Icons.check : Icons.add),
         onPressed: () {
@@ -89,10 +80,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
             if (isEditing) {
               container.updateTodo(widget.todo, task: _task, note: _note);
             } else {
-              container.addTodo(Todo(
-                _task,
-                note: _note,
-              ));
+              container.addTodo(Todo(_task, note: _note));
             }
 
             Navigator.pop(context);

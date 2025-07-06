@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/foundation.dart' show required;
 import 'package:flutter/material.dart';
 
@@ -17,9 +13,8 @@ class DetailScreen extends StatelessWidget {
 
   final Con con = Con.con;
 
-  DetailScreen({
-    @required this.todoId,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+  DetailScreen({@required this.todoId})
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +31,7 @@ class DetailScreen extends StatelessWidget {
               con.remove(todo);
               Navigator.pop(context, todo);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -61,10 +56,7 @@ class DetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Text(
                           todo['task'],
                           key: ArchSampleKeys.detailsTodoItemTask,
@@ -75,7 +67,7 @@ class DetailScreen extends StatelessWidget {
                         todo['note'],
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.subhead,
-                      )
+                      ),
                     ],
                   ),
                 ),

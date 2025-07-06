@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +8,7 @@ class StatsCounter extends StatefulWidget {
   final StatsBloc Function() buildBloc;
 
   StatsCounter({Key key, @required this.buildBloc})
-      : super(key: key ?? ArchSampleKeys.statsCounter);
+    : super(key: key ?? ArchSampleKeys.statsCounter);
 
   @override
   StatsCounterState createState() {
@@ -72,7 +68,7 @@ class StatsCounterState extends State<StatsCounter> {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

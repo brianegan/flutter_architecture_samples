@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
@@ -37,15 +33,14 @@ Middleware<AppState> _createSaveTodos(TodosRepository repository) {
 
 Middleware<AppState> _createLoadTodos(TodosRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
-    repository.loadTodos().then(
-      (todos) {
-        store.dispatch(
-          TodosLoadedAction(
-            todos.map(Todo.fromEntity).toList(),
-          ),
-        );
-      },
-    ).catchError((_) => store.dispatch(TodosNotLoadedAction()));
+    repository
+        .loadTodos()
+        .then((todos) {
+          store.dispatch(
+            TodosLoadedAction(todos.map(Todo.fromEntity).toList()),
+          );
+        })
+        .catchError((_) => store.dispatch(TodosNotLoadedAction()));
 
     next(action);
   };

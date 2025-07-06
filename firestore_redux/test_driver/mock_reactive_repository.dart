@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:todos_repository_core/todos_repository_core.dart';
@@ -9,9 +5,7 @@ import 'package:todos_repository_local_storage/todos_repository_local_storage.da
 
 class MockUserRepository implements UserRepository {
   @override
-  Future<UserEntity> login([
-    delayAuth = const Duration(milliseconds: 200),
-  ]) {
+  Future<UserEntity> login([delayAuth = const Duration(milliseconds: 200)]) {
     return Future<UserEntity>.delayed(delayAuth);
   }
 }
