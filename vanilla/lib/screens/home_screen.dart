@@ -69,7 +69,7 @@ class HomeScreenState extends State<HomeScreen> {
                 widget.clearCompleted();
               }
             },
-          )
+          ),
         ],
       ),
       body: activeTab == AppTab.todos

@@ -6,7 +6,7 @@ class StatsCounter extends StatelessWidget {
   final int numCompleted;
 
   const StatsCounter({required this.numActive, required this.numCompleted})
-      : super(key: ArchSampleKeys.statsCounter);
+    : super(key: ArchSampleKeys.statsCounter);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class StatsCounter extends StatelessWidget {
               key: ArchSampleKeys.statsNumActive,
               style: Theme.of(context).textTheme.titleMedium,
             ),
-          )
+          ),
         ],
       ),
     );

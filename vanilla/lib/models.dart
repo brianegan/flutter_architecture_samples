@@ -5,10 +5,7 @@ class AppState {
   bool isLoading;
   List<Todo> todos;
 
-  AppState({
-    this.isLoading = false,
-    this.todos = const [],
-  });
+  AppState({this.isLoading = false, this.todos = const []});
 
   factory AppState.loading() => AppState(isLoading: true);
 
@@ -74,7 +71,7 @@ class Todo {
   String task;
 
   Todo(this.task, {this.complete = false, this.note = '', String? id})
-      : id = id ?? Uuid().generateV4();
+    : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>

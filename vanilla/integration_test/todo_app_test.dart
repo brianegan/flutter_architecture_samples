@@ -4,14 +4,16 @@ import 'package:todos_repository_local_storage/todos_repository_local_storage.da
 import 'package:vanilla/app.dart';
 
 void main() {
-  integration_tests.run(appBuilder: () async {
-    return VanillaApp(
-      repository: LocalStorageRepository(
-        localStorage: KeyValueStorage(
-          'vanilla_test_${DateTime.now().toIso8601String()}',
-          await SharedPreferences.getInstance(),
+  integration_tests.run(
+    appBuilder: () async {
+      return VanillaApp(
+        repository: LocalStorageRepository(
+          localStorage: KeyValueStorage(
+            'vanilla_test_${DateTime.now().toIso8601String()}',
+            await SharedPreferences.getInstance(),
+          ),
         ),
-      ),
-    );
-  });
+      );
+    },
+  );
 }

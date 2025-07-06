@@ -32,7 +32,7 @@ class DetailScreen extends StatelessWidget {
               onDelete();
               Navigator.pop(context, todo);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -57,10 +57,7 @@ class DetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
@@ -71,7 +68,7 @@ class DetailScreen extends StatelessWidget {
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
                         style: Theme.of(context).textTheme.titleMedium,
-                      )
+                      ),
                     ],
                   ),
                 ),

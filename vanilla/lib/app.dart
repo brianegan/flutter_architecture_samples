@@ -25,17 +25,20 @@ class VanillaAppState extends State<VanillaApp> {
   void initState() {
     super.initState();
 
-    widget.repository.loadTodos().then((loadedTodos) {
-      setState(() {
-        appState = AppState(
-          todos: loadedTodos.map(Todo.fromEntity).toList(),
-        );
-      });
-    }).catchError((err) {
-      setState(() {
-        appState.isLoading = false;
-      });
-    });
+    widget.repository
+        .loadTodos()
+        .then((loadedTodos) {
+          setState(() {
+            appState = AppState(
+              todos: loadedTodos.map(Todo.fromEntity).toList(),
+            );
+          });
+        })
+        .catchError((err) {
+          setState(() {
+            appState.isLoading = false;
+          });
+        });
   }
 
   @override

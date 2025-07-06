@@ -29,9 +29,11 @@ class _AddEditScreenState extends State<AddEditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing
+              ? ArchSampleLocalizations.of(context).editTodo
+              : ArchSampleLocalizations.of(context).addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -46,7 +48,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 autofocus: isEditing ? false : true,
                 style: Theme.of(context).textTheme.titleLarge,
                 decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
+                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                ),
                 validator: (val) => val?.trim().isEmpty ?? true
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
@@ -61,40 +64,38 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: isEditing
-              ? ArchSampleKeys.saveTodoFab
-              : ArchSampleKeys.saveNewTodo,
-          tooltip: isEditing
-              ? ArchSampleLocalizations.of(context).saveChanges
-              : ArchSampleLocalizations.of(context).addTodo,
-          child: Icon(Icons.check),
-          onPressed: () {
-            final form = _formKey.currentState!;
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
+        tooltip: isEditing
+            ? ArchSampleLocalizations.of(context).saveChanges
+            : ArchSampleLocalizations.of(context).addTodo,
+        child: Icon(Icons.check),
+        onPressed: () {
+          final form = _formKey.currentState!;
 
-            if (form.validate()) {
-              form.save();
+          if (form.validate()) {
+            form.save();
 
-              final task = _task!;
-              final note = _note!;
+            final task = _task!;
+            final note = _note!;
 
-              if (isEditing) {
-                widget.updateTodo(widget.todo!, task: task, note: note);
-              } else {
-                widget.addTodo(Todo(
-                  task,
-                  note: note,
-                ));
-              }
-
-              Navigator.pop(context);
+            if (isEditing) {
+              widget.updateTodo(widget.todo!, task: task, note: note);
+            } else {
+              widget.addTodo(Todo(task, note: note));
             }
-          }),
+
+            Navigator.pop(context);
+          }
+        },
+      ),
     );
   }
 

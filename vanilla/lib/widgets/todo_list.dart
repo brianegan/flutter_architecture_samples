@@ -27,8 +27,9 @@ class TodoList extends StatelessWidget {
       child: loading
           ? Center(
               child: CircularProgressIndicator(
-              key: ArchSampleKeys.todosLoading,
-            ))
+                key: ArchSampleKeys.todosLoading,
+              ),
+            )
           : ListView.builder(
               key: ArchSampleKeys.todoList,
               itemCount: filteredTodos.length,
