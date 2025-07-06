@@ -93,3 +93,6 @@ lcov.info
 **/*/generated_plugin_registrant.dart
 
 .vscode/
+
+# FVM Version Cache
+.fvm/
