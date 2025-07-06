@@ -15,21 +15,19 @@ samples to make them smaller, unless doing so improves the application overall.
   
 | *Sample* | *LOC (no comments)* |
 |--------|-------------------|
-| scoped_model | 778 |
-| mobx | 815 |
-| change_notifier_provider | 830 |
-| inherited_widget | 832 |
-| mvc | 842 |
-| vanilla | 842 |
+| scoped_model | 774 |
+| inherited_widget | 821 |
+| mobx | 826 |
+| change_notifier_provider | 832 |
+| vanilla | 834 |
 | frideos_library | 878 |
-| simple blocs | 1076 |
-| built_redux | 1172 |
-| mvu | 1191 |
-| bloc | 1194 |
-| bloc library | 1214 |
-| mvi | 1244 |
-| redux | 1362 |
-| firestore_redux | 1429 |
+| simple blocs | 1055 |
+| bloc | 1160 |
+| bloc library | 1211 |
+| mvi | 1214 |
+| built_redux | 1219 |
+| redux | 1354 |
+| firestore_redux | 1395 |
 
-Note: This file was generated on 2020-01-10 14:59:25.151846Z using `scripts/line_counter.dart`.  
+Note: This file was generated on 2025-07-06 15:50:59.345520Z using `scripts/line_counter.dart`.  
 

@@ -5,7 +5,7 @@ class Sample {
   final List<Directory> directories;
 
   Sample(this.name, List<String> paths)
-      : directories = paths.map((path) => Directory('$path/lib')).toList();
+    : directories = paths.map((path) => Directory('$path/lib')).toList();
 }
 
 class Output {
@@ -30,21 +30,19 @@ void main() {
     Sample('frideos_library', ['frideos_library']),
     Sample('inherited_widget', ['inherited_widget']),
     Sample('mobx', ['mobx']),
-    Sample('mvc', ['mvc']),
     Sample('mvi', ['mvi_flutter', 'mvi_base']),
-    Sample('mvu', ['mvu']),
     Sample('redux', ['redux']),
     Sample('scoped_model', ['scoped_model']),
     Sample('simple blocs', ['simple_bloc_flutter', 'simple_blocs']),
     Sample('vanilla', ['vanilla']),
   ];
-  final outputs = samples.map<Output>((sample) {
-    return Output(
-      sample.name,
-      _countLines(sample.directories),
-    );
-  }).toList(growable: false)
-    ..sort((a, b) => a.lineCount - b.lineCount);
+  final outputs =
+      samples
+          .map<Output>((sample) {
+            return Output(sample.name, _countLines(sample.directories));
+          })
+          .toList(growable: false)
+        ..sort((a, b) => a.lineCount - b.lineCount);
 
   final strings = outputs
       .map<String>((output) => '| ${output.name} | ${output.lineCount} |')
@@ -93,13 +91,15 @@ List<File> _findDartFiles(List<Directory> directories) {
         .listSync(recursive: true)
         .whereType<File>()
         .map((file) => file.path)
-        .where((path) =>
-            path.endsWith('.dart') &&
-            !path.endsWith('.g.dart') &&
-            !path.contains('todos_repository') &&
-            !path.contains('file_storage') &&
-            !path.contains('web_client') &&
-            !path.contains('main_'))
+        .where(
+          (path) =>
+              path.endsWith('.dart') &&
+              !path.endsWith('.g.dart') &&
+              !path.contains('todos_repository') &&
+              !path.contains('file_storage') &&
+              !path.contains('web_client') &&
+              !path.contains('main_'),
+        )
         .toSet();
 
     return {...files, ...currentDirectoryDartFiles};
