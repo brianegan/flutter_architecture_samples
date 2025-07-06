@@ -22,10 +22,6 @@ void main() {
       final prefs = MockSharedPreferences();
       final storage = KeyValueStorage('T', prefs);
 
-      when(prefs.setString('T', todosJson)).thenAnswer((_) async {
-        return true;
-      });
-
       await storage.saveTodos(todos);
 
       verify(prefs.setString('T', todosJson));

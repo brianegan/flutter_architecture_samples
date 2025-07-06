@@ -77,9 +77,6 @@ void main() {
       final todos = createTodos();
 
       when(fileStorage.loadTodos()).thenThrow(Exception('Oh no.'));
-      when(fileStorage.saveTodos(todos)).thenAnswer(
-        (_) => Future.value(File('test')),
-      );
       when(webClient.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await repository.loadTodos(), todos);
