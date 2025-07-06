@@ -78,7 +78,9 @@ int _countLines(List<Directory> directories) {
   return dartFiles.fold(0, (count, file) {
     final nonCommentsLineCount = file
         .readAsLinesSync()
-        .where((line) => !line.startsWith('//') && line.trim().isNotEmpty)
+        .where(
+          (line) => !line.trimLeft().startsWith('//') && line.trim().isNotEmpty,
+        )
         .length;
 
     return count + nonCommentsLineCount;
