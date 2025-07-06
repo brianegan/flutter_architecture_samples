@@ -6,13 +6,13 @@ frameworks.
 
 This is an imperfect line count comparison -- some of the samples contain a bit
 more functionality / are structured a bit differently than others -- and should
-be taken with a grain of salt. All generated files, blank lines and comment 
+be taken with a grain of salt. All generated files, blank lines and comment
 lines are removed for this comparison.
 
-For authors of frameworks or samples (hey, I'm one of those!): Please do not 
+For authors of frameworks or samples (hey, I'm one of those!): Please do not
 take this comparison personally, nor should folks play "Code Golf" with the
-samples to make them smaller, unless doing so improves the application overall.  
-  
+samples to make them smaller, unless doing so improves the application overall.
+
 | *Sample* | *LOC (no comments)* |
 |--------|-------------------|
 | scoped_model | 767 |
@@ -29,5 +29,4 @@ samples to make them smaller, unless doing so improves the application overall.
 | redux | 1354 |
 | firestore_redux | 1395 |
 
-Note: This file was generated on 2025-07-06 16:02:37.807817Z using `scripts/line_counter.dart`.  
-
+Note: This file was generated on Sun Jul  6 16:04:54 UTC 2025 using `scripts/line_counter.sh`.
