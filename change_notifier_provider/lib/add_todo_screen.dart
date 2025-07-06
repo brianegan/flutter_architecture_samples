@@ -30,9 +30,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(localizations.addTodo),
-      ),
+      appBar: AppBar(title: Text(localizations.addTodo)),
       body: Form(
         key: _formKey,
         autovalidate: false,
@@ -57,10 +55,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               TextFormField(
                 key: ArchSampleKeys.noteField,
                 controller: _notesEditingController,
-                style: textTheme.subhead,
+                style: textTheme.titleMedium,
                 decoration: InputDecoration(hintText: localizations.notesHint),
                 maxLines: 10,
-              )
+              ),
             ],
           ),
         ),
@@ -70,10 +68,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         tooltip: localizations.addTodo,
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            Provider.of<TodoListModel>(context, listen: false).addTodo(Todo(
-              _titleEditingController.text,
-              note: _notesEditingController.text,
-            ));
+            Provider.of<TodoListModel>(context, listen: false).addTodo(
+              Todo(
+                _titleEditingController.text,
+                note: _notesEditingController.text,
+              ),
+            );
             Navigator.pop(context);
           }
         },

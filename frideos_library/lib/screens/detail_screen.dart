@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:todos_app_core/todos_app_core.dart';
-
 import 'package:frideos/frideos.dart';
-
 import 'package:frideos_library/app_state.dart';
 import 'package:frideos_library/models/models.dart';
 import 'package:frideos_library/screens/add_edit_screen.dart';
 import 'package:frideos_library/widgets/loading.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatelessWidget {
   DetailScreen() : super(key: ArchSampleKeys.todoDetailsScreen);
@@ -34,7 +31,7 @@ class DetailScreen extends StatelessWidget {
                   bloc.deleteTodo(todo);
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -57,21 +54,18 @@ class DetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
+                            padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
-                          )
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                     ),

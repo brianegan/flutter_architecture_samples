@@ -10,7 +10,7 @@ class DetailsScreen extends StatelessWidget {
   final void Function() onRemove;
 
   const DetailsScreen({@required this.todo, @required this.onRemove})
-      : super(key: ArchSampleKeys.todoDetailsScreen);
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DetailsScreen extends StatelessWidget {
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
             icon: const Icon(Icons.delete),
             onPressed: onRemove,
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -63,15 +63,12 @@ class DetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Observer(
                           builder: (context) => Text(
                             todo.task,
                             key: ArchSampleKeys.detailsTodoItemTask,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),
                       ),
@@ -79,9 +76,9 @@ class DetailsScreen extends StatelessWidget {
                         builder: (_) => Text(
                           todo.note,
                           key: ArchSampleKeys.detailsTodoItemNote,
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

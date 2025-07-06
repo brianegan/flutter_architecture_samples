@@ -7,10 +7,8 @@ class EditTodoScreen extends StatefulWidget {
   final void Function(String task, String note) onEdit;
   final String id;
 
-  const EditTodoScreen({
-    @required this.id,
-    @required this.onEdit,
-  }) : super(key: ArchSampleKeys.editTodoScreen);
+  const EditTodoScreen({@required this.id, @required this.onEdit})
+    : super(key: ArchSampleKeys.editTodoScreen);
 
   @override
   _EditTodoScreenState createState() => _EditTodoScreenState();
@@ -49,7 +47,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               TextFormField(
                 controller: _taskController,
                 key: ArchSampleKeys.taskField,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headlineSmall,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
@@ -66,7 +64,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 maxLines: 10,
-              )
+              ),
             ],
           ),
         ),

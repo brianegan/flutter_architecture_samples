@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/containers/edit_todo.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Todo todo;
@@ -61,14 +61,14 @@ class DetailsScreen extends StatelessWidget {
                           child: Text(
                             todo.task,
                             key: ArchSampleKeys.detailsTodoItemTask,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),
                       ),
                       Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
@@ -83,7 +83,7 @@ class DetailsScreen extends StatelessWidget {
         tooltip: localizations.editTodo,
         child: Icon(Icons.edit),
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context).push<void>(
             MaterialPageRoute(
               builder: (context) {
                 return EditTodo(todo: todo);

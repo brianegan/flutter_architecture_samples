@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:simple_bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/loading.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
@@ -84,13 +84,13 @@ class DetailScreenState extends State<DetailScreen> {
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                         ],
                       ),

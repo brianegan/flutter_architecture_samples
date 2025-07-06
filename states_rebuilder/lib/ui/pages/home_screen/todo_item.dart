@@ -24,7 +24,7 @@ class TodoItem extends StatelessWidget {
       },
       child: ListTile(
         onTap: () {
-          Navigator.of(context).push(
+          Navigator.of(context).push<void>(
             MaterialPageRoute(
               builder: (_) {
                 return DetailScreen(todo);
@@ -43,14 +43,14 @@ class TodoItem extends StatelessWidget {
         title: Text(
           todo.task,
           key: ArchSampleKeys.todoItemTask(todo.id),
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         subtitle: Text(
           todo.note,
           key: ArchSampleKeys.todoItemNote(todo.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

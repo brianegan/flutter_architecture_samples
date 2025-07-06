@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:inherited_widget_sample/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActionsButton extends StatelessWidget {
-  final PopupMenuItemSelected<ExtraAction> onSelected;
+  final PopupMenuItemSelected<ExtraAction>? onSelected;
   final bool allComplete;
   final bool hasCompletedTodos;
 
-  ExtraActionsButton({
+  const ExtraActionsButton({
+    super.key,
     this.onSelected,
     this.allComplete = false,
     this.hasCompletedTodos = true,
-    Key key,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

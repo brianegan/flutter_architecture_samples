@@ -67,13 +67,13 @@ class DetailScreen extends StatelessWidget {
                         child: Text(
                           todo.task,
                           key: ArchSampleKeys.detailsTodoItemTask,
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headlineSmall,
                         ),
                       ),
                       Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
@@ -88,7 +88,7 @@ class DetailScreen extends StatelessWidget {
         child: Icon(Icons.edit),
         key: ArchSampleKeys.editTodoFab,
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context).push<void>(
             MaterialPageRoute(
               builder: (context) {
                 return AddEditPage(

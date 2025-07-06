@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatefulWidget {
   final StatsBloc Function() buildBloc;
@@ -35,7 +35,7 @@ class StatsCounterState extends State<StatsCounter> {
             padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).completedTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -45,7 +45,7 @@ class StatsCounterState extends State<StatsCounter> {
               builder: (context, snapshot) => Text(
                 '${snapshot.data ?? 0}',
                 key: ArchSampleKeys.statsNumCompleted,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
@@ -53,7 +53,7 @@ class StatsCounterState extends State<StatsCounter> {
             padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).activeTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -64,7 +64,7 @@ class StatsCounterState extends State<StatsCounter> {
                 return Text(
                   '${snapshot.data ?? 0}',
                   key: ArchSampleKeys.statsNumActive,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.titleMedium,
                 );
               },
             ),

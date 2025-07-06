@@ -16,10 +16,10 @@ class FilterButton extends StatelessWidget {
       context: context,
     );
 
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
     final activeStyle = Theme.of(
       context,
-    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
+    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
     final button = _Button(
       onSelected: (filter) {
         todosServiceRM.setState((s) => s.activeFilter = filter);

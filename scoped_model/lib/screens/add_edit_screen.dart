@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditScreen extends StatefulWidget {
   final String todoId;
@@ -64,7 +64,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     initialValue: task?.note ?? '',
                     key: ArchSampleKeys.noteField,
                     maxLines: 10,
-                    style: textTheme.subhead,
+                    style: textTheme.titleMedium,
                     decoration: InputDecoration(
                       hintText: localizations.notesHint,
                     ),

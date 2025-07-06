@@ -1,6 +1,6 @@
+import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class FilterButton extends StatelessWidget {
@@ -37,8 +37,8 @@ class FilterButton extends StatelessWidget {
   ) {
     final activeStyle = Theme.of(
       context,
-    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
 
     return [
       PopupMenuItem<VisibilityFilter>(

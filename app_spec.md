@@ -1,6 +1,6 @@
 # Application Specification
 
-We have created this short spec to help you create awesome and consistent todo apps. Make sure to not only read it but to understand it as well.
+We have created this short spec to help you create consistent todo apps. Consistency is key to form an "apples to apples" comparison between different approaches.
 
 ## Reference Application
 
@@ -17,8 +17,9 @@ All examples must include a README describing the general implementation, any fr
 - Format your code with `dartfmt`
 - Use the `.analysis_options.yaml` from the vanilla implementation and ensure there are no analysis errors
 - Use the Theme and Widgets provided by the base package for the visual look, unless it makes sense to demonstrate an alternative practice.
-- Your app should work on both Android and iOS 
+- Your app should work on all platforms
 - Your app should contain tests
+- Your app must pass the integration tests
 
 ## User Interface
 

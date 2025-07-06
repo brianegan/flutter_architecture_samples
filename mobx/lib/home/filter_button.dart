@@ -40,8 +40,8 @@ class FilterButton extends StatelessWidget {
   ) {
     final activeStyle = Theme.of(
       context,
-    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
 
     return [
       PopupMenuItem<VisibilityFilter>(

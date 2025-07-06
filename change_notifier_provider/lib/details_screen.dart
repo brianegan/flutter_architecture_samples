@@ -1,6 +1,6 @@
+import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import 'edit_todo_screen.dart';
@@ -12,7 +12,7 @@ class DetailsScreen extends StatelessWidget {
   final VoidCallback onRemove;
 
   const DetailsScreen({@required this.id, @required this.onRemove})
-      : super(key: ArchSampleKeys.todoDetailsScreen);
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
             icon: const Icon(Icons.delete),
             onPressed: onRemove,
-          )
+          ),
         ],
       ),
       body: Selector<TodoListModel, Todo>(
@@ -45,8 +45,10 @@ class DetailsScreen extends StatelessWidget {
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         value: todo.complete,
                         onChanged: (complete) {
-                          Provider.of<TodoListModel>(context, listen: false)
-                              .updateTodo(todo.copy(complete: !todo.complete));
+                          Provider.of<TodoListModel>(
+                            context,
+                            listen: false,
+                          ).updateTodo(todo.copy(complete: !todo.complete));
                         },
                       ),
                     ),
@@ -62,14 +64,14 @@ class DetailsScreen extends StatelessWidget {
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
-                          )
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -89,8 +91,10 @@ class DetailsScreen extends StatelessWidget {
               builder: (context) => EditTodoScreen(
                 id: id,
                 onEdit: (task, note) {
-                  final model =
-                      Provider.of<TodoListModel>(context, listen: false);
+                  final model = Provider.of<TodoListModel>(
+                    context,
+                    listen: false,
+                  );
                   final todo = model.todoById(id);
 
                   model.updateTodo(todo.copy(task: task, note: note));

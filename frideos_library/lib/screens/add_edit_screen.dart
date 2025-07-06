@@ -1,13 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import 'package:todos_app_core/todos_app_core.dart';
-
 import 'package:frideos/frideos.dart';
-
 import 'package:frideos_library/app_state.dart';
 import 'package:frideos_library/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditScreen extends StatefulWidget {
   // Set to false by default to show the 'add todo'.
@@ -15,10 +12,8 @@ class AddEditScreen extends StatefulWidget {
   // to 'true', so that the fab will be used to edit an existing todo.
   final bool isEditing;
 
-  AddEditScreen({
-    Key key,
-    this.isEditing = false,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  AddEditScreen({Key key, this.isEditing = false})
+    : super(key: key ?? ArchSampleKeys.addTodoScreen);
 
   @override
   _AddEditScreenState createState() => _AddEditScreenState();
@@ -59,7 +54,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   initialValue: isEditing ? snapshot.data.task : '',
                   key: ArchSampleKeys.taskField,
                   autofocus: isEditing ? false : true,
-                  style: Theme.of(context).textTheme.headline,
+                  style: Theme.of(context).textTheme.headlineSmall,
                   decoration: InputDecoration(
                     hintText: ArchSampleLocalizations.of(context).newTodoHint,
                   ),
@@ -72,12 +67,12 @@ class _AddEditScreenState extends State<AddEditScreen> {
                   initialValue: isEditing ? snapshot.data.note : '',
                   key: ArchSampleKeys.noteField,
                   maxLines: 10,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.titleMedium,
                   decoration: InputDecoration(
                     hintText: ArchSampleLocalizations.of(context).notesHint,
                   ),
                   onSaved: (value) => _note = value,
-                )
+                ),
               ],
             ),
           ),

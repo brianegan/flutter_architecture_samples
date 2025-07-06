@@ -6,7 +6,7 @@ class AddTodoScreen extends StatefulWidget {
   final void Function(Todo) onAdd;
 
   const AddTodoScreen({@required this.onAdd})
-      : super(key: ArchSampleKeys.addTodoScreen);
+    : super(key: ArchSampleKeys.addTodoScreen);
 
   @override
   _AddTodoScreenState createState() => _AddTodoScreenState();
@@ -30,9 +30,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(localizations.addTodo),
-      ),
+      appBar: AppBar(title: Text(localizations.addTodo)),
       body: Form(
         key: _formKey,
         autovalidate: false,
@@ -57,10 +55,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               TextFormField(
                 key: ArchSampleKeys.noteField,
                 controller: _notesEditingController,
-                style: textTheme.subhead,
+                style: textTheme.titleMedium,
                 decoration: InputDecoration(hintText: localizations.notesHint),
                 maxLines: 10,
-              )
+              ),
             ],
           ),
         ),
@@ -70,10 +68,12 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         tooltip: localizations.addTodo,
         onPressed: () {
           if (_formKey.currentState.validate()) {
-            widget.onAdd(Todo(
-              task: _titleEditingController.text,
-              note: _notesEditingController.text,
-            ));
+            widget.onAdd(
+              Todo(
+                task: _titleEditingController.text,
+                note: _notesEditingController.text,
+              ),
+            );
           }
         },
         child: const Icon(Icons.add),

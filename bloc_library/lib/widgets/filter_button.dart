@@ -1,8 +1,8 @@
+import 'package:bloc_library/blocs/filtered_todos/filtered_todos.dart';
+import 'package:bloc_library/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/blocs/filtered_todos/filtered_todos.dart';
-import 'package:bloc_library/models/models.dart';
 
 class FilterButton extends StatelessWidget {
   final bool visible;
@@ -11,10 +11,10 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
     final activeStyle = Theme.of(
       context,
-    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
+    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
     final filteredTodosBloc = BlocProvider.of<FilteredTodosBloc>(context);
     return BlocBuilder(
       bloc: filteredTodosBloc,

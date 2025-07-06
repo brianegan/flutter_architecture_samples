@@ -7,7 +7,7 @@ class InheritedWidgetLocalizations {
     return Localizations.of<InheritedWidgetLocalizations>(
       context,
       InheritedWidgetLocalizations,
-    );
+    )!;
   }
 
   String get appTitle => 'InheritedWidget Example';

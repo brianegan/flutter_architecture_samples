@@ -1,8 +1,8 @@
+import 'package:bloc_library/models/models.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/models/models.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
@@ -37,7 +37,7 @@ class TodoItem extends StatelessWidget {
             child: Text(
               todo.task,
               key: ArchSampleKeys.todoItemTask(todo.id),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ),
@@ -47,7 +47,7 @@ class TodoItem extends StatelessWidget {
                 key: ArchSampleKeys.todoItemNote(todo.id),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               )
             : null,
       ),

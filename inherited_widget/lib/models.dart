@@ -16,17 +16,15 @@ class AppState {
 
   bool get allComplete => todos.every((todo) => todo.complete);
 
-  List<Todo> get filteredTodos => todos.where((todo) {
-    switch (activeFilter) {
-      case VisibilityFilter.active:
-        return !todo.complete;
-      case VisibilityFilter.completed:
-        return todo.complete;
-      case VisibilityFilter.all:
-      default:
-        return true;
-    }
-  }).toList();
+  List<Todo> get filteredTodos => todos
+      .where((todo) {
+        return switch (activeFilter) {
+          VisibilityFilter.active => !todo.complete,
+          VisibilityFilter.completed => todo.complete,
+          VisibilityFilter.all => true,
+        };
+      })
+      .toList(growable: false);
 
   bool get hasCompletedTodos => todos.any((todo) => todo.complete);
 
@@ -54,7 +52,9 @@ class AppState {
   void toggleAll() {
     final allCurrentlyComplete = allComplete;
 
-    todos.forEach((todo) => todo.complete = !allCurrentlyComplete);
+    for (var todo in todos) {
+      todo.complete = !allCurrentlyComplete;
+    }
   }
 
   @override
@@ -73,7 +73,7 @@ class Todo {
   String note;
   String task;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
+  Todo(this.task, {this.complete = false, this.note = '', String? id})
     : id = id ?? Uuid().generateV4();
 
   @override
@@ -102,9 +102,9 @@ class Todo {
   static Todo fromEntity(TodoEntity entity) {
     return Todo(
       entity.task,
-      complete: entity.complete ?? false,
+      complete: entity.complete,
       note: entity.note,
-      id: entity.id ?? Uuid().generateV4(),
+      id: entity.id,
     );
   }
 }

@@ -1,10 +1,10 @@
+import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:bloc_library/blocs/todos/todos.dart';
+import 'package:bloc_library/screens/screens.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/blocs/todos/todos.dart';
-import 'package:bloc_library/screens/screens.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
@@ -85,7 +85,9 @@ class DetailsScreen extends StatelessWidget {
                                 Text(
                                   todo.note,
                                   key: ArchSampleKeys.detailsTodoItemNote,
-                                  style: Theme.of(context).textTheme.subhead,
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.titleMedium,
                                 ),
                               ],
                             ),

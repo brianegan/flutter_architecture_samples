@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
@@ -31,14 +31,14 @@ class TodoItem extends StatelessWidget {
         title: Text(
           todo.task,
           key: ArchSampleKeys.todoItemTask(todo.id),
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         subtitle: Text(
           todo.note,
           key: ArchSampleKeys.todoItemNote(todo.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

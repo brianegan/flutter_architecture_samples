@@ -12,10 +12,10 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
     final activeStyle = Theme.of(
       context,
-    ).textTheme.body1.copyWith(color: Theme.of(context).accentColor);
+    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
 
     return AnimatedOpacity(
       opacity: visible ? 1.0 : 0.0,

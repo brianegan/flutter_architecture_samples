@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvi_base/mvi_base.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class AddEditScreen extends StatefulWidget {
   final Todo todo;
@@ -46,7 +46,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 initialValue: widget.todo != null ? widget.todo.task : '',
                 key: ArchSampleKeys.taskField,
                 autofocus: isEditing ? false : true,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headlineSmall,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
@@ -59,7 +59,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 initialValue: widget.todo != null ? widget.todo.note : '',
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),

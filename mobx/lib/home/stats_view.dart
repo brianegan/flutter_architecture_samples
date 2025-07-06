@@ -20,7 +20,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).completedTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -29,7 +29,7 @@ class StatsView extends StatelessWidget {
               builder: (context) => Text(
                 '${store.numCompleted}',
                 key: ArchSampleKeys.statsNumCompleted,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
@@ -37,7 +37,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).activeTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -46,10 +46,10 @@ class StatsView extends StatelessWidget {
               builder: (context) => Text(
                 '${store.numPending}',
                 key: ArchSampleKeys.statsNumActive,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

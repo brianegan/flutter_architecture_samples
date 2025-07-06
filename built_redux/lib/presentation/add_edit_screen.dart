@@ -62,7 +62,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 initialValue: isEditing ? widget.todo.note : '',
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
-                style: textTheme.subhead,
+                style: textTheme.titleMedium,
                 decoration: InputDecoration(hintText: localizations.notesHint),
                 onSaved: (value) => _note = value,
               ),

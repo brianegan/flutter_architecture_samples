@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/dependency_injection.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatefulWidget {
   final MviPresenter<StatsModel> Function() initPresenter;
@@ -51,7 +51,7 @@ class StatsCounterState extends State<StatsCounter> {
                 padding: EdgeInsets.only(bottom: 8.0),
                 child: Text(
                   ArchSampleLocalizations.of(context).completedTodos,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Padding(
@@ -59,14 +59,14 @@ class StatsCounterState extends State<StatsCounter> {
                 child: Text(
                   '${snapshot.data?.numComplete ?? 0}',
                   key: ArchSampleKeys.statsNumCompleted,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
                 child: Text(
                   ArchSampleLocalizations.of(context).activeTodos,
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
               Padding(
@@ -74,7 +74,7 @@ class StatsCounterState extends State<StatsCounter> {
                 child: Text(
                   '${snapshot.data?.numActive ?? 0}',
                   key: ArchSampleKeys.statsNumActive,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ],
