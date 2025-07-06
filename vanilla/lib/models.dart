@@ -56,7 +56,9 @@ class AppState {
   void toggleAll() {
     final allCompleted = allComplete;
 
-    todos.forEach((todo) => todo.complete = !allCompleted);
+    for (final todo in todos) {
+      todo.complete = !allCompleted;
+    }
   }
 
   @override

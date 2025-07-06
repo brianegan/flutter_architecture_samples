@@ -14,12 +14,13 @@ class DetailScreen extends StatelessWidget {
   final TodoAdder addTodo;
   final TodoUpdater updateTodo;
 
-  DetailScreen({
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
     required this.todo,
     required this.addTodo,
     required this.updateTodo,
     required this.onDelete,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +86,9 @@ class DetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: ArchSampleLocalizations.of(context).editTodo,
-        child: Icon(Icons.edit),
         key: ArchSampleKeys.editTodoFab,
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context).push<void>(
             MaterialPageRoute(
               builder: (context) {
                 return AddEditScreen(
@@ -101,6 +101,7 @@ class DetailScreen extends StatelessWidget {
             ),
           );
         },
+        child: Icon(Icons.edit),
       ),
     );
   }

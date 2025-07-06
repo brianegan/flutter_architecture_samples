@@ -9,7 +9,7 @@ class StatsCounter extends StatelessWidget {
   final int numActive;
   final int numCompleted;
 
-  StatsCounter({required this.numActive, required this.numCompleted})
+  const StatsCounter({required this.numActive, required this.numCompleted})
       : super(key: ArchSampleKeys.statsCounter);
 
   @override

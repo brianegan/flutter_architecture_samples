@@ -12,7 +12,8 @@ class TodoItem extends StatelessWidget {
   final ValueChanged<bool?> onCheckboxChanged;
   final Todo todo;
 
-  TodoItem({
+  const TodoItem({
+    super.key,
     required this.onDismissed,
     required this.onTap,
     required this.onCheckboxChanged,

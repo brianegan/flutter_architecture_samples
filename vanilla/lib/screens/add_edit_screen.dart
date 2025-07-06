@@ -12,15 +12,15 @@ class AddEditScreen extends StatefulWidget {
   final TodoAdder addTodo;
   final TodoUpdater updateTodo;
 
-  AddEditScreen({
-    Key? key,
+  const AddEditScreen({
+    super.key = ArchSampleKeys.addTodoScreen,
     required this.addTodo,
     required this.updateTodo,
     this.todo,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  });
 
   @override
-  _AddEditScreenState createState() => _AddEditScreenState();
+  State<AddEditScreen> createState() => _AddEditScreenState();
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {

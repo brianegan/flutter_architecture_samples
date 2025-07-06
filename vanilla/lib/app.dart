@@ -14,7 +14,7 @@ import 'package:vanilla/screens/home_screen.dart';
 class VanillaApp extends StatefulWidget {
   final TodosRepository repository;
 
-  const VanillaApp({required this.repository});
+  const VanillaApp({super.key, required this.repository});
 
   @override
   State<StatefulWidget> createState() {

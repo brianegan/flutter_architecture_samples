@@ -16,7 +16,7 @@ class TodoList extends StatelessWidget {
   final TodoRemover removeTodo;
   final TodoUpdater updateTodo;
 
-  TodoList({
+  const TodoList({
     required this.filteredTodos,
     required this.loading,
     required this.addTodo,
@@ -45,7 +45,7 @@ class TodoList extends StatelessWidget {
                     _removeTodo(context, todo);
                   },
                   onTap: () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).push<void>(
                       MaterialPageRoute(
                         builder: (_) {
                           return DetailScreen(

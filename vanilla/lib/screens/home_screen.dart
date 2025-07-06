@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
   final Function toggleAll;
   final Function clearCompleted;
 
-  HomeScreen({
+  const HomeScreen({
     required this.appState,
     required this.addTodo,
     required this.removeTodo,
@@ -93,8 +93,8 @@ class HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
         },
-        child: Icon(Icons.add),
         tooltip: ArchSampleLocalizations.of(context).addTodo,
+        child: Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
         key: ArchSampleKeys.tabs,

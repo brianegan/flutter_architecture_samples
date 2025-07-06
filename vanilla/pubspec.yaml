@@ -22,6 +22,8 @@ dependencies:
     sdk: flutter
   todos_app_core:
     path: ../todos_app_core
+  todos_repository_core:
+    path: ../todos_repository_core
   todos_repository_local_storage:
     path: ../todos_repository_local_storage
   shared_preferences:
