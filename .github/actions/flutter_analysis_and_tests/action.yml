@@ -32,8 +32,14 @@ runs:
 
     - name: Run unit tests
       shell: bash
-      run: flutter test
+      run: flutter test --coverage
       working-directory: ${{ inputs.working-directory }}
+
+    - name: Upload coverage artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-lcov-$(basename "${{ inputs.working-directory }}").info
+        path: ${{ inputs.working-directory }}/coverage/lcov.info
 
     - name: Run linux integration tests
       if: ${{ inputs.run-integration-tests != 'false' }}
