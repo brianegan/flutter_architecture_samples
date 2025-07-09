@@ -42,60 +42,12 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./inherited_widget
-  read_coverage:
-    name: Read Combined Coverage Files
+  combine_and_upload_coverage:
+    name: Combine and Upload Code Coverage
     runs-on: ubuntu-latest
     needs: [todos_repository_local_storage, vanilla, inherited_widget]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - name: Download coverage artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: .
-      - name: Combine coverage files
-        run: |
-          combineCoverage() {
-            local artifact_dir=$1
-            local repo_dir=$2
-            # Extract the package directory path from the artifact name
-            # coverage-lcov-vanilla -> ./vanilla
-            local package_name=$(basename "$artifact_dir")
-            local package_dir="./${package_name#coverage-lcov-}"
-            escapedPath="$(echo $package_dir | sed 's/\//\\\//g')"
-            
-            if [[ -d "$artifact_dir" ]]; then
-              # Find the lcov.info file in the artifact directory
-              for lcov_file in "$artifact_dir"/*.info; do
-                if [[ -f "$lcov_file" ]]; then
-                  echo "Combining coverage from $package_dir"
-                  # combine line coverage info from package tests to a common file
-                  sed "s/^SF:lib/SF:$escapedPath\/lib/g" "$lcov_file" >> "$repo_dir/lcov.info"
-                  break
-                fi
-              done
-            fi
-          }
-
-          # Initialize the combined coverage file
-          touch lcov.info
-
-          # Combine coverage from all downloaded artifacts
-          for artifact_dir in coverage-lcov-*/; do
-            if [[ -d "$artifact_dir" ]]; then
-              combineCoverage "$artifact_dir" "."
-            fi
-          done
-
-          echo "Combined coverage file created:"
-          ls -la lcov.info
-          echo "First few lines of combined coverage:"
-          head -10 lcov.info
-
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
-        with:
-          files: ./lcov.info
-          disable_search: true
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
