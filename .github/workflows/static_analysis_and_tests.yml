@@ -58,14 +58,17 @@ jobs:
           combineCoverage() {
             local artifact_dir=$1
             local repo_dir=$2
+            # Extract the package directory path from the artifact name
+            # coverage-lcov-vanilla -> ./vanilla
             local package_name=$(basename "$artifact_dir")
-            escapedPath="$(echo $package_name | sed 's/\//\\\//g')"
+            local package_dir="./${package_name#coverage-lcov-}"
+            escapedPath="$(echo $package_dir | sed 's/\//\\\//g')"
             
             if [[ -d "$artifact_dir" ]]; then
               # Find the lcov.info file in the artifact directory
               for lcov_file in "$artifact_dir"/*.info; do
                 if [[ -f "$lcov_file" ]]; then
-                  echo "Combining coverage from $package_name"
+                  echo "Combining coverage from $package_dir"
                   # combine line coverage info from package tests to a common file
                   sed "s/^SF:lib/SF:$escapedPath\/lib/g" "$lcov_file" >> "$repo_dir/lcov.info"
                   break
@@ -85,6 +88,9 @@ jobs:
           done
 
           echo "Combined coverage file created:"
+          ls -la lcov.info
+          echo "First few lines of combined coverage:"
+          head -10 lcov.info
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
