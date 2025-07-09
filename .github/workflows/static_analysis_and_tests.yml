@@ -47,6 +47,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [todos_repository_local_storage, vanilla, inherited_widget]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: .
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         env:
