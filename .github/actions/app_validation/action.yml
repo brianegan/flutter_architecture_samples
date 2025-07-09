@@ -1,81 +1,33 @@
-name: 'App Validation'
-description: 'Runs lint, format, and test on an app'
+name: "App Validation"
+description: "Runs lint, format, and test on an app"
 runs:
   using: "composite"
   steps:
-      - name: Set up flutter
-        uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+    - name: Set up flutter
+      uses: kuhnroyal/flutter-fvm-config-action/setup@v3
 
-      - name: Install linux integration test dependencies
-        shell: bash
-        run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
+    - name: Install linux integration test dependencies
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
 
-      - name: Get dependencies
-        shell: bash
-        run: flutter pub get
+    - name: Get dependencies
+      shell: bash
+      run: flutter pub get
 
-      - name: Check dart formatting
-        shell: bash
-        run: dart format -o none --set-exit-if-changed .
-      
-      - name: Check dart analysis
-        shell: bash
-        run: dart analyze --fatal-infos --fatal-warnings .
-      
-      - name: Run unit tests
-        shell: bash
-        run: flutter test
-      
-      - name: Run linux integration tests
-        shell: bash
-        run: |
-          export DISPLAY=:99 # Set display for Xvfb
-          xvfb-run -a flutter test integration_test/app_test.dart -d linux
+    - name: Check dart formatting
+      shell: bash
+      run: dart format -o none --set-exit-if-changed .
 
+    - name: Check dart analysis
+      shell: bash
+      run: dart analyze --fatal-infos --fatal-warnings .
 
+    - name: Run unit tests
+      shell: bash
+      run: flutter test
 
-
-
-
-
-
-
-
-
-
-
-
-------------
-name: "Run Linux Integration Tests"
-
-on:
-  workflow_call:
-    inputs:
-      working-directory:
-        description: "Working directory for the app validations"
-        required: true
-        type: string
-
-jobs:
-  linux_integration_tests:
-    name: Run Linux Integration Tests
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ inputs.working-directory }}
-
-    steps:
-
-
-      - name: Install Dependencies
-        run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: "stable"
-
-      - name: Get Dependencies
-        run: flutter pub get
-
-      
+    - name: Run linux integration tests
+      shell: bash
+      run: |
+        export DISPLAY=:99 # Set display for Xvfb
+        xvfb-run -a flutter test integration_test/app_test.dart -d linux
