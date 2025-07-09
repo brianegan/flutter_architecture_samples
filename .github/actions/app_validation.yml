@@ -1,0 +1,78 @@
+name: 'App Validation'
+description: 'Runs lint, format, and test on an app'
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up flutter
+        uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+
+      - name: Install linux integration test dependencies
+        run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Check dart formatting
+        run: dart format -o none --set-exit-if-changed .
+      
+      - name: Check dart analysis
+        run: dart analyze --fatal-infos --fatal-warnings .
+      
+      - name: Run unit tests
+        run: flutter test
+      
+      - name: Run linux integration tests
+        run: |
+          export DISPLAY=:99 # Set display for Xvfb
+          xvfb-run -a flutter test integration_test/app_test.dart -d linux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------
+name: "Run Linux Integration Tests"
+
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Working directory for the app validations"
+        required: true
+        type: string
+
+jobs:
+  linux_integration_tests:
+    name: Run Linux Integration Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    steps:
+
+
+      - name: Install Dependencies
+        run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+
+      - name: Get Dependencies
+        run: flutter pub get
+
+      
