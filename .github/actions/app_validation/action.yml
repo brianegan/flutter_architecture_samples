@@ -9,7 +9,6 @@ runs:
   steps:
     - name: Set up flutter
       uses: kuhnroyal/flutter-fvm-config-action/setup@v3
-      working-directory: ${{ inputs.working-directory }}
 
     - name: Install linux integration test dependencies
       shell: bash
