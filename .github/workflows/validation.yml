@@ -18,4 +18,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/app_validation.yml
+      - uses: ./.github/actions/app_validation
