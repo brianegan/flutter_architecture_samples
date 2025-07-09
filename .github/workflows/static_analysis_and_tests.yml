@@ -54,10 +54,22 @@ jobs:
         with:
           path: .
       - name: List coverage files
-        run: ls -l coverage-lcov-*.info || echo "No coverage files found"
+        run: |
+          echo "Looking for coverage files in downloaded artifacts..."
+          find . -name "*.info" -type f | head -20
+          echo "---"
+          ls -la coverage-lcov-*/ || echo "No coverage directories found"
       - name: Show coverage files content
         run: |
-          for f in coverage-lcov-*.info; do
-            echo "\n==== $f ===="
-            cat "$f"
+          for dir in coverage-lcov-*/; do
+            if [ -d "$dir" ]; then
+              echo "==== Contents of $dir ===="
+              ls -la "$dir"
+              for f in "$dir"*.info; do
+                if [ -f "$f" ]; then
+                  echo "==== $f ===="
+                  cat "$f"
+                fi
+              done
+            fi
           done || echo "No coverage files to show"
