@@ -1,30 +1,19 @@
-name: "App Validation"
+name: "Validate"
 description: "Runs lint, format, and test on an app"
 inputs:
   working-directory:
     description: "Directory to run validation in"
     required: true
+  run-integration-tests:
+    description: "Run integration tests"
+    required: false
+    default: "true"
+
 runs:
   using: "composite"
   steps:
     - name: Set up flutter
       uses: kuhnroyal/flutter-fvm-config-action/setup@v3
-
-    - name: Install linux integration test dependencies
-      shell: bash
-      run: |
-        sudo apt-get update
-        sudo apt-get install \
-          clang \
-          cmake \
-          git \
-          ninja-build \
-          pkg-config \
-          libgtk-3-dev \
-          liblzma-dev \
-          libstdc++-12-dev \
-          libglu1-mesa \
-          xvfb
 
     - name: Get dependencies
       shell: bash
@@ -47,8 +36,21 @@ runs:
       working-directory: ${{ inputs.working-directory }}
 
     - name: Run linux integration tests
+      if: ${{ inputs.run-integration-tests != 'false' }}
       shell: bash
       run: |
+        sudo apt-get update
+        sudo apt-get install \
+          clang \
+          cmake \
+          git \
+          ninja-build \
+          pkg-config \
+          libgtk-3-dev \
+          liblzma-dev \
+          libstdc++-12-dev \
+          libglu1-mesa \
+          xvfb
         export DISPLAY=:99 # Set display for Xvfb
         xvfb-run -a flutter test integration_test/app_test.dart -d linux
       working-directory: ${{ inputs.working-directory }}

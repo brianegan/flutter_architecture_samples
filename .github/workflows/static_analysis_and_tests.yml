@@ -1,0 +1,44 @@
+name: Static Analysis & Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - refresh
+
+jobs:
+  todos_repository_local_storage:
+    name: Todos Repository Local Storage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./todos_repository_local_storage
+          run-integration-tests: false
+  vanilla:
+    name: Vanilla
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./vanilla
+  inherited_widget:
+    name: Inherited Widget
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./inherited_widget
