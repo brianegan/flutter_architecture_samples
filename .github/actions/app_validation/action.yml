@@ -1,33 +1,44 @@
 name: "App Validation"
 description: "Runs lint, format, and test on an app"
+inputs:
+  working-directory:
+    description: "Directory to run validation in"
+    required: true
 runs:
   using: "composite"
   steps:
     - name: Set up flutter
       uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Install linux integration test dependencies
       shell: bash
       run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Get dependencies
       shell: bash
       run: flutter pub get
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Check dart formatting
       shell: bash
       run: dart format -o none --set-exit-if-changed .
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Check dart analysis
       shell: bash
       run: dart analyze --fatal-infos --fatal-warnings .
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Run unit tests
       shell: bash
       run: flutter test
+      working-directory: ${{ inputs.working-directory }}
 
     - name: Run linux integration tests
       shell: bash
       run: |
         export DISPLAY=:99 # Set display for Xvfb
         xvfb-run -a flutter test integration_test/app_test.dart -d linux
+      working-directory: ${{ inputs.working-directory }}
