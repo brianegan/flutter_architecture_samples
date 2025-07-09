@@ -3,9 +3,6 @@ description: 'Runs lint, format, and test on an app'
 runs:
   using: "composite"
   steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Set up flutter
         uses: kuhnroyal/flutter-fvm-config-action/setup@v3
 
