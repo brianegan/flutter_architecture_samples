@@ -22,7 +22,7 @@ runs:
           pkg-config \
           libgtk-3-dev \
           liblzma-dev \
-          libstdc++-12-dev
+          libstdc++-12-dev \
           libglu1-mesa \
           xvfb
 
