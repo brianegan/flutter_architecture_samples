@@ -30,15 +30,18 @@ runs:
       run: dart analyze --fatal-infos --fatal-warnings .
       working-directory: ${{ inputs.working-directory }}
 
-    - name: Run unit tests
+    - name: Run unit tests and prepare coverage
       shell: bash
-      run: flutter test --coverage
+      run: |
+        flutter test --coverage
+        # Extract directory name for artifact naming
+        echo "DIR_NAME=$(basename "${{ inputs.working-directory }}")" >> $GITHUB_ENV
       working-directory: ${{ inputs.working-directory }}
 
     - name: Upload coverage artifact
       uses: actions/upload-artifact@v4
       with:
-        name: coverage-lcov-$(basename "${{ inputs.working-directory }}").info
+        name: coverage-lcov-${{ env.DIR_NAME }}
         path: ${{ inputs.working-directory }}/coverage/lcov.info
 
     - name: Run linux integration tests
