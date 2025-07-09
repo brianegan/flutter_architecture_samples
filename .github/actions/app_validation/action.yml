@@ -7,21 +7,27 @@ runs:
         uses: kuhnroyal/flutter-fvm-config-action/setup@v3
 
       - name: Install linux integration test dependencies
+        shell: bash
         run: sudo apt-get update && sudo apt-get install -y libglu1-mesa xvfb
 
       - name: Get dependencies
+        shell: bash
         run: flutter pub get
 
       - name: Check dart formatting
+        shell: bash
         run: dart format -o none --set-exit-if-changed .
       
       - name: Check dart analysis
+        shell: bash
         run: dart analyze --fatal-infos --fatal-warnings .
       
       - name: Run unit tests
+        shell: bash
         run: flutter test
       
       - name: Run linux integration tests
+        shell: bash
         run: |
           export DISPLAY=:99 # Set display for Xvfb
           xvfb-run -a flutter test integration_test/app_test.dart -d linux
