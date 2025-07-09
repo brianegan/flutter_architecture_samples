@@ -15,6 +15,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/app_validation
+      - name: Run app validation
+        uses: ./.github/actions/app_validation
         with:
           working-directory: ./vanilla
