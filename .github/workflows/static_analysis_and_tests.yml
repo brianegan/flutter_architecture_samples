@@ -53,23 +53,43 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: .
-      - name: List coverage files
+      - name: Combine coverage files
         run: |
-          echo "Looking for coverage files in downloaded artifacts..."
-          find . -name "*.info" -type f | head -20
-          echo "---"
-          ls -la coverage-lcov-*/ || echo "No coverage directories found"
-      - name: Show coverage files content
-        run: |
-          for dir in coverage-lcov-*/; do
-            if [ -d "$dir" ]; then
-              echo "==== Contents of $dir ===="
-              ls -la "$dir"
-              for f in "$dir"*.info; do
-                if [ -f "$f" ]; then
-                  echo "==== $f ===="
-                  cat "$f"
+          combineCoverage() {
+            local artifact_dir=$1
+            local repo_dir=$2
+            local package_name=$(basename "$artifact_dir")
+            escapedPath="$(echo $package_name | sed 's/\//\\\//g')"
+            
+            if [[ -d "$artifact_dir" ]]; then
+              # Find the lcov.info file in the artifact directory
+              for lcov_file in "$artifact_dir"/*.info; do
+                if [[ -f "$lcov_file" ]]; then
+                  echo "Combining coverage from $package_name"
+                  # combine line coverage info from package tests to a common file
+                  sed "s/^SF:lib/SF:$escapedPath\/lib/g" "$lcov_file" >> "$repo_dir/lcov.info"
+                  break
                 fi
               done
             fi
-          done || echo "No coverage files to show"
+          }
+
+          # Initialize the combined coverage file
+          touch lcov.info
+
+          # Combine coverage from all downloaded artifacts
+          for artifact_dir in coverage-lcov-*/; do
+            if [[ -d "$artifact_dir" ]]; then
+              combineCoverage "$artifact_dir" "."
+            fi
+          done
+
+          echo "Combined coverage file created:"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./lcov.info
+          disable_search: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
