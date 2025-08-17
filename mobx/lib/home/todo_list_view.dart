@@ -10,7 +10,7 @@ import '../details_screen.dart';
 class TodoListView extends StatelessWidget {
   final void Function(BuildContext context, Todo todo) onRemove;
 
-  TodoListView({Key key, @required this.onRemove}) : super(key: key);
+  const TodoListView({super.key, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class TodoListView extends StatelessWidget {
                   builder: (_) => Checkbox(
                     key: ArchSampleKeys.todoItemCheckbox(todo.id),
                     value: todo.complete,
-                    onChanged: (done) => todo.complete = done,
+                    onChanged: (done) => todo.complete = done ?? false,
                   ),
                 ),
                 title: Observer(

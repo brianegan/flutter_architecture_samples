@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mobx/mobx.dart';
@@ -8,7 +7,6 @@ import 'package:mobx_sample/models/todo.dart';
 import 'package:mobx_sample/stores/todo_store.dart';
 import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:todos_repository_core/todos_repository_core.dart';
 
 import 'mock_repository.dart';
 
@@ -84,30 +82,18 @@ void main() {
 }
 
 class _TestWidget extends StatelessWidget {
-  final Widget child;
-  final TodosRepository repository;
-  final List<Todo> todos;
-
-  const _TestWidget({
-    Key key,
-    this.child,
-    this.repository,
-    this.todos,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Provider<TodoStore>(
-      create: (_) => TodoStore(
-        repository ?? MockRepository(),
-        todos: ObservableList.of(todos ?? defaultTodos()),
-      )..init(),
+      create: (_) =>
+          TodoStore(MockRepository(), todos: ObservableList.of(defaultTodos()))
+            ..init(),
       child: MaterialApp(
         localizationsDelegates: [
           MobxLocalizationsDelegate(),
           ArchSampleLocalizationsDelegate(),
         ],
-        home: child ?? const HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
@@ -124,10 +110,11 @@ List<Todo> defaultTodos() {
 Matcher isChecked(bool isChecked) {
   return matchesSemantics(
     isChecked: isChecked,
+    hasTapAction: true,
+    hasFocusAction: true,
     hasCheckedState: true,
+    isFocusable: true,
     hasEnabledState: true,
     isEnabled: true,
-    isFocusable: true,
-    hasTapAction: true,
   );
 }

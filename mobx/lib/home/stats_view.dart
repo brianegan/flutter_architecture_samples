@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_sample/stores/todo_store.dart';
@@ -6,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsView extends StatelessWidget {
-  const StatsView();
+  const StatsView({super.key});
 
   @override
   Widget build(BuildContext context) {

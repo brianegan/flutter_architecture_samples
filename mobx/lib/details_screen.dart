@@ -9,7 +9,7 @@ class DetailsScreen extends StatelessWidget {
   final Todo todo;
   final void Function() onRemove;
 
-  const DetailsScreen({@required this.todo, @required this.onRemove})
+  const DetailsScreen({required this.todo, required this.onRemove})
     : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -54,7 +54,7 @@ class DetailsScreen extends StatelessWidget {
                     builder: (_) => Checkbox(
                       key: ArchSampleKeys.detailsTodoItemCheckbox,
                       value: todo.complete,
-                      onChanged: (done) => todo.complete = done,
+                      onChanged: (done) => todo.complete = done ?? false,
                     ),
                   ),
                 ),

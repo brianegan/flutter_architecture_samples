@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+import 'package:todos_app_core/todos_app_core.dart';
+
+import 'todo.dart';
+
+class AddTodoScreen extends StatefulWidget {
+  const AddTodoScreen({
+    super.key = ArchSampleKeys.addTodoScreen,
+    required this.onAdd,
+  });
+
+  final void Function(Todo) onAdd;
+
+  @override
+  AddTodoScreenState createState() => AddTodoScreenState();
+}
+
+class AddTodoScreenState extends State<AddTodoScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _titleEditingController = TextEditingController();
+  final _notesEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleEditingController.dispose();
+    _notesEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = ArchSampleLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
+
+    return Scaffold(
+      appBar: AppBar(title: Text(localizations.addTodo)),
+      body: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                key: ArchSampleKeys.taskField,
+                controller: _titleEditingController,
+                decoration: InputDecoration(
+                  hintText: localizations.newTodoHint,
+                ),
+                style: textTheme.titleLarge,
+                autofocus: true,
+                validator: (val) {
+                  return val == null || val.trim().isEmpty
+                      ? localizations.emptyTodoError
+                      : null;
+                },
+              ),
+              TextFormField(
+                key: ArchSampleKeys.noteField,
+                controller: _notesEditingController,
+                style: textTheme.titleMedium,
+                decoration: InputDecoration(hintText: localizations.notesHint),
+                maxLines: 10,
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        key: ArchSampleKeys.saveNewTodo,
+        tooltip: localizations.addTodo,
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            widget.onAdd(
+              Todo(
+                _titleEditingController.text,
+                note: _notesEditingController.text,
+              ),
+            );
+          }
+        },
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}

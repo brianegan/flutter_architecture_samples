@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MobxLocalizations {
   static MobxLocalizations of(BuildContext context) {
-    return Localizations.of<MobxLocalizations>(context, MobxLocalizations);
+    return Localizations.of<MobxLocalizations>(context, MobxLocalizations)!;
   }
 
   String get appTitle => 'Todos with MobX';

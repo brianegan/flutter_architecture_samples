@@ -6,57 +6,60 @@ part of 'todo.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$Todo on _Todo, Store {
-  final _$taskAtom = Atom(name: '_Todo.task');
+mixin _$Todo on TodoBase, Store {
+  late final _$taskAtom = Atom(name: 'TodoBase.task', context: context);
 
   @override
   String get task {
-    _$taskAtom.context.enforceReadPolicy(_$taskAtom);
-    _$taskAtom.reportObserved();
+    _$taskAtom.reportRead();
     return super.task;
   }
 
   @override
   set task(String value) {
-    _$taskAtom.context.conditionallyRunInAction(() {
+    _$taskAtom.reportWrite(value, super.task, () {
       super.task = value;
-      _$taskAtom.reportChanged();
-    }, _$taskAtom, name: '${_$taskAtom.name}_set');
+    });
   }
 
-  final _$noteAtom = Atom(name: '_Todo.note');
+  late final _$noteAtom = Atom(name: 'TodoBase.note', context: context);
 
   @override
   String get note {
-    _$noteAtom.context.enforceReadPolicy(_$noteAtom);
-    _$noteAtom.reportObserved();
+    _$noteAtom.reportRead();
     return super.note;
   }
 
   @override
   set note(String value) {
-    _$noteAtom.context.conditionallyRunInAction(() {
+    _$noteAtom.reportWrite(value, super.note, () {
       super.note = value;
-      _$noteAtom.reportChanged();
-    }, _$noteAtom, name: '${_$noteAtom.name}_set');
+    });
   }
 
-  final _$completeAtom = Atom(name: '_Todo.complete');
+  late final _$completeAtom = Atom(name: 'TodoBase.complete', context: context);
 
   @override
   bool get complete {
-    _$completeAtom.context.enforceReadPolicy(_$completeAtom);
-    _$completeAtom.reportObserved();
+    _$completeAtom.reportRead();
     return super.complete;
   }
 
   @override
   set complete(bool value) {
-    _$completeAtom.context.conditionallyRunInAction(() {
+    _$completeAtom.reportWrite(value, super.complete, () {
       super.complete = value;
-      _$completeAtom.reportChanged();
-    }, _$completeAtom, name: '${_$completeAtom.name}_set');
+    });
+  }
+
+  @override
+  String toString() {
+    return '''
+task: ${task},
+note: ${note},
+complete: ${complete}
+    ''';
   }
 }

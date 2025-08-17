@@ -10,28 +10,28 @@ part 'todo_store.g.dart';
 ///
 /// The TodoStore interacts with a TodosRepository to load and persist todos. It
 /// persists changes every time the list of todos is edited.
-class TodoStore = _TodoStore with _$TodoStore;
+class TodoStore = TodoStoreBase with _$TodoStore;
 
-abstract class _TodoStore with Store {
-  _TodoStore(
+abstract class TodoStoreBase with Store {
+  TodoStoreBase(
     this.repository, {
-    ObservableList<Todo> todos,
-    this.filter = VisibilityFilter.all,
-    this.todosCodec = const TodoCodec(),
-    this.saveDelay = 500,
+    ObservableList<Todo>? todos,
+    this.filter = VisibilityFilter.all, // ignore: unused_element_parameter
+    this.todosCodec = const TodoCodec(), // ignore: unused_element_parameter
+    this.saveDelay = 500, // ignore: unused_element_parameter
   }) : todos = todos ?? ObservableList<Todo>();
 
   final TodoCodec todosCodec;
   final TodosRepository repository;
-  final int saveDelay;
+  final int? saveDelay;
   final ObservableList<Todo> todos;
-  ReactionDisposer _disposeSaveReaction;
+  late ReactionDisposer _disposeSaveReaction;
 
   @observable
   VisibilityFilter filter;
 
   @observable
-  ObservableFuture<void> loader;
+  late ObservableFuture<void> loader;
 
   @computed
   List<Todo> get pendingTodos =>
@@ -61,7 +61,6 @@ abstract class _TodoStore with Store {
       case VisibilityFilter.completed:
         return completedTodos;
       case VisibilityFilter.all:
-      default:
         return todos;
     }
   }

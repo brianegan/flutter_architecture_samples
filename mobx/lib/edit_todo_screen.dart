@@ -6,14 +6,14 @@ class EditTodoScreen extends StatefulWidget {
   final void Function() onEdit;
   final Todo todo;
 
-  const EditTodoScreen({@required this.todo, @required this.onEdit})
+  const EditTodoScreen({required this.todo, required this.onEdit})
     : super(key: ArchSampleKeys.editTodoScreen);
 
   @override
-  _EditTodoScreenState createState() => _EditTodoScreenState();
+  EditTodoScreenState createState() => EditTodoScreenState();
 }
 
-class _EditTodoScreenState extends State<EditTodoScreen> {
+class EditTodoScreenState extends State<EditTodoScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -34,20 +34,20 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
                 validator: (val) {
-                  return val.trim().isEmpty
+                  return val == null || val.trim().isEmpty
                       ? ArchSampleLocalizations.of(context).emptyTodoError
                       : null;
                 },
-                onSaved: (value) => widget.todo.task = value,
+                onSaved: (value) => widget.todo.task = value ?? '',
               ),
               TextFormField(
                 key: ArchSampleKeys.noteField,
-                initialValue: widget.todo.note ?? '',
+                initialValue: widget.todo.note,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 maxLines: 10,
-                onSaved: (value) => widget.todo.note = value,
+                onSaved: (value) => widget.todo.note = value ?? '',
               ),
             ],
           ),
@@ -57,8 +57,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         key: ArchSampleKeys.saveTodoFab,
         tooltip: ArchSampleLocalizations.of(context).saveChanges,
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
             widget.onEdit();
           }
         },
