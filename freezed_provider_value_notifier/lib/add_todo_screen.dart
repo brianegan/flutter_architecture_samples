@@ -44,7 +44,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 decoration: InputDecoration(
                   hintText: localizations.newTodoHint,
                 ),
-                style: textTheme.headline,
+                style: textTheme.titleLarge,
                 autofocus: true,
                 validator: (val) {
                   return val.trim().isEmpty

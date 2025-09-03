@@ -48,7 +48,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                 initialValue: isEditing ? widget.todo.task : '',
                 key: ArchSampleKeys.taskField,
                 autofocus: !isEditing,
-                style: textTheme.headline,
+                style: textTheme.titleLarge,
                 decoration: InputDecoration(
                   hintText: localizations.newTodoHint,
                 ),

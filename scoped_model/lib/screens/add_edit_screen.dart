@@ -49,7 +49,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     initialValue: task?.task ?? '',
                     key: ArchSampleKeys.taskField,
                     autofocus: !isEditing,
-                    style: textTheme.headline,
+                    style: textTheme.titleLarge,
                     decoration: InputDecoration(
                       hintText: localizations.newTodoHint,
                     ),
