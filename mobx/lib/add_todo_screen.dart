@@ -5,8 +5,10 @@ import 'package:todos_app_core/todos_app_core.dart';
 class AddTodoScreen extends StatefulWidget {
   final void Function(Todo) onAdd;
 
-  const AddTodoScreen({required this.onAdd})
-    : super(key: ArchSampleKeys.addTodoScreen);
+  const AddTodoScreen({
+    super.key = ArchSampleKeys.addTodoScreen,
+    required this.onAdd,
+  });
 
   @override
   AddTodoScreenState createState() => AddTodoScreenState();
