@@ -19,7 +19,7 @@ samples to make them smaller, unless doing so improves the application overall.
 | signals | 782 |
 | mobx | 799 |
 | inherited_widget | 815 |
-| change_notifier_provider | 832 |
+| change_notifier_provider | 821 |
 | vanilla | 835 |
 | simple blocs | 1043 |
 | bloc | 1124 |
@@ -29,4 +29,4 @@ samples to make them smaller, unless doing so improves the application overall.
 | redux | 1354 |
 | firestore_redux | 1395 |
 
-Note: This file was generated on Wed Sep  3 12:40:20 UTC 2025 using `scripts/line_counter.sh`.
+Note: This file was generated on Wed Sep  3 14:52:54 UTC 2025 using `scripts/line_counter.sh`.
