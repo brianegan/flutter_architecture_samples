@@ -29,7 +29,7 @@ class ExtraActionsButton extends StatelessWidget {
             key: ArchSampleKeys.toggleAll,
             value: ExtraAction.toggleAllComplete,
             child: Text(
-              controller.hasPendingTodos.value
+              controller.hasActiveTodos.value
                   ? ArchSampleLocalizations.of(context).markAllComplete
                   : ArchSampleLocalizations.of(context).markAllIncomplete,
             ),

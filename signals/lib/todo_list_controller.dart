@@ -7,24 +7,23 @@ enum VisibilityFilter { all, active, completed }
 
 class TodoListController {
   TodoListController({
-    required TodosRepository todosRepository,
+    required TodosRepository repository,
     VisibilityFilter? filter,
-    List<Todo>? todos,
     TodoCodec? codec,
-  }) : _todosRepository = todosRepository,
+  }) : _todosRepository = repository,
        _todoCodec = codec ?? const TodoCodec(),
-       todos = ListSignal(todos ?? []),
-       filter = Signal(VisibilityFilter.all);
+       todos = ListSignal([]),
+       filter = Signal(filter ?? VisibilityFilter.all);
 
   final TodosRepository _todosRepository;
   final TodoCodec _todoCodec;
   final ListSignal<Todo> todos;
   final Signal<VisibilityFilter> filter;
 
-  late final EffectCleanup _effectCleanup;
+  late final EffectCleanup _persistenceEffectCleanup;
   late final Future<void> initializingFuture;
 
-  ReadonlySignal<List<Todo>> get pendingTodos => Computed(
+  ReadonlySignal<List<Todo>> get activeTodos => Computed(
     () => todos.where((t) => !t.complete.value).toList(growable: false),
   );
 
@@ -32,21 +31,17 @@ class TodoListController {
     () => todos.where((t) => t.complete.value).toList(growable: false),
   );
 
-  ReadonlySignal<bool> get hasCompletedTodos =>
-      Computed(() => completedTodos.value.isNotEmpty);
+  ReadonlySignal<bool> get hasActiveTodos =>
+      Computed(() => activeTodos.value.isNotEmpty);
 
-  ReadonlySignal<bool> get hasPendingTodos =>
-      Computed(() => pendingTodos.value.isNotEmpty);
-
-  ReadonlySignal<int> get numPending =>
-      Computed(() => pendingTodos.value.length);
+  ReadonlySignal<int> get numActive => Computed(() => activeTodos.value.length);
 
   ReadonlySignal<int> get numCompleted =>
       Computed(() => completedTodos.value.length);
 
   ReadonlySignal<List<Todo>> get visibleTodos => Computed(
     () => switch (filter.value) {
-      VisibilityFilter.active => pendingTodos.value,
+      VisibilityFilter.active => activeTodos.value,
       VisibilityFilter.completed => completedTodos.value,
       VisibilityFilter.all => todos,
     },
@@ -55,9 +50,11 @@ class TodoListController {
   void toggleAll() {
     final allComplete = todos.every((todo) => todo.complete.value);
 
-    for (final todo in todos) {
-      todo.complete.value = !allComplete;
-    }
+    batch(() {
+      for (final todo in todos) {
+        todo.complete.value = !allComplete;
+      }
+    });
   }
 
   void clearCompleted() => todos.removeWhere((todo) => todo.complete.value);
@@ -80,11 +77,11 @@ class TodoListController {
     // to the repository more often than necessary. In production, save
     // operations are debounced by 500ms. In tests, they are not debounced to
     // speed up test execution.
-    _effectCleanup = effect(() async {
-      final toSave = todos.map(_todoCodec.encode).toList(growable: false);
+    _persistenceEffectCleanup = effect(() async {
+      final toSave = todos.value.map(_todoCodec.encode).toList(growable: false);
       await _todosRepository.saveTodos(toSave);
     });
   }
 
-  void dispose() => _effectCleanup();
+  void dispose() => _persistenceEffectCleanup();
 }

@@ -43,7 +43,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 24.0),
             child: Watch(
               (context) => Text(
-                '${controller.numPending}',
+                '${controller.numActive}',
                 key: ArchSampleKeys.statsNumActive,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
