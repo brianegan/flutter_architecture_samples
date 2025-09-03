@@ -31,7 +31,7 @@ class TodoListView extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (_) {
                         return DetailsScreen(
                           todo: todo,
