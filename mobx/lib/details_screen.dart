@@ -31,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (context) => EditTodoScreen(
                 todo: todo,
                 onEdit: () => Navigator.pop(context),

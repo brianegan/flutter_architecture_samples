@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
@@ -21,10 +23,8 @@ class TodosInteractor {
 
   Stream<Todo> todo(String id) {
     return todos
-        .map((todos) {
-          return todos.firstWhere((todo) => todo.id == id, orElse: () => null);
-        })
-        .where((todo) => todo != null);
+        .map<Todo?>((todos) => todos.firstWhereOrNull((todo) => todo.id == id))
+        .whereNotNull();
   }
 
   Stream<bool> get allComplete => todos.map(_allComplete);
