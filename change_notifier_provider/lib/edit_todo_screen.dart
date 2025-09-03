@@ -7,17 +7,17 @@ class EditTodoScreen extends StatefulWidget {
   final void Function(String task, String note) onEdit;
   final String id;
 
-  const EditTodoScreen({@required this.id, @required this.onEdit})
+  const EditTodoScreen({required this.id, required this.onEdit})
     : super(key: ArchSampleKeys.editTodoScreen);
 
   @override
-  _EditTodoScreenState createState() => _EditTodoScreenState();
+  EditTodoScreenState createState() => EditTodoScreenState();
 }
 
-class _EditTodoScreenState extends State<EditTodoScreen> {
+class EditTodoScreenState extends State<EditTodoScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _taskController;
-  TextEditingController _noteController;
+  late final TextEditingController _taskController;
+  late final TextEditingController _noteController;
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
                 validator: (val) {
-                  return val.trim().isEmpty
+                  return val != null && val.trim().isEmpty
                       ? ArchSampleLocalizations.of(context).emptyTodoError
                       : null;
                 },
@@ -76,8 +76,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         key: ArchSampleKeys.saveTodoFab,
         tooltip: ArchSampleLocalizations.of(context).saveChanges,
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
             widget.onEdit(_taskController.text, _noteController.text);
           }
         },

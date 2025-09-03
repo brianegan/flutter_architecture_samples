@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class FilterButton extends StatelessWidget {
-  final bool isActive;
+  const FilterButton({super.key, required this.isActive});
 
-  const FilterButton({this.isActive, Key key}) : super(key: key);
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class FilterButton extends StatelessWidget {
     BuildContext context,
     TodoListModel store,
   ) {
-    final activeStyle = Theme.of(
-      context,
-    ).textTheme.bodyMedium.copyWith(color: Theme.of(context).accentColor);
+    final activeStyle = Theme.of(context).textTheme.bodyMedium?.copyWith(
+      color: Theme.of(context).colorScheme.secondary,
+    );
     final defaultStyle = Theme.of(context).textTheme.bodyMedium;
 
     return [

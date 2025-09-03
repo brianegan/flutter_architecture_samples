@@ -121,7 +121,7 @@ void main() {
 
       model.removeTodo(todo);
 
-      expect(model.todos, []);
+      expect(model.todos, <Todo>[]);
       expect(repository.saveCount, 1);
     });
 
@@ -148,7 +148,7 @@ void main() {
       final model = TodoListModel(repository: repository);
 
       expect(model.isLoading, isFalse);
-      expect(model.todos, []);
+      expect(model.todos, <Todo>[]);
 
       final loading = model.loadTodos();
 

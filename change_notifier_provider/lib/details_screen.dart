@@ -5,13 +5,12 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 import 'edit_todo_screen.dart';
 import 'models.dart';
-import 'todo_list_model.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
   final VoidCallback onRemove;
 
-  const DetailsScreen({@required this.id, @required this.onRemove})
+  const DetailsScreen({required this.id, required this.onRemove})
     : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -28,7 +27,7 @@ class DetailsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Selector<TodoListModel, Todo>(
+      body: Selector<TodoListModel, Todo?>(
         selector: (context, model) => model.todoById(id),
         shouldRebuild: (prev, next) => next != null,
         builder: (context, todo, _) {
@@ -43,12 +42,12 @@ class DetailsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Checkbox(
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
-                        value: todo.complete,
+                        value: todo?.complete,
                         onChanged: (complete) {
                           Provider.of<TodoListModel>(
                             context,
                             listen: false,
-                          ).updateTodo(todo.copy(complete: !todo.complete));
+                          ).updateTodo(todo!.copy(complete: !todo.complete));
                         },
                       ),
                     ),
@@ -62,7 +61,7 @@ class DetailsScreen extends StatelessWidget {
                               bottom: 16.0,
                             ),
                             child: Text(
-                              todo.task,
+                              todo!.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
@@ -87,7 +86,7 @@ class DetailsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (context) => EditTodoScreen(
                 id: id,
                 onEdit: (task, note) {
@@ -97,7 +96,7 @@ class DetailsScreen extends StatelessWidget {
                   );
                   final todo = model.todoById(id);
 
-                  model.updateTodo(todo.copy(task: task, note: note));
+                  model.updateTodo(todo!.copy(task: task, note: note));
 
                   return Navigator.pop(context);
                 },

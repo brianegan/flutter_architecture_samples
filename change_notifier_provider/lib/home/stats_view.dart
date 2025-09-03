@@ -1,11 +1,10 @@
 import 'package:change_notifier_provider_sample/todo_list_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsView extends StatelessWidget {
-  const StatsView();
+  const StatsView({super.key});
 
   @override
   Widget build(BuildContext context) {

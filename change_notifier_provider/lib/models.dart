@@ -11,12 +11,11 @@ class Todo {
   final String note;
   final String task;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
+  Todo(this.task, {this.complete = false, this.note = '', String? id})
     : id = id ?? Uuid().generateV4();
 
   @override
-  int get hashCode =>
-      complete.hashCode ^ task.hashCode ^ note.hashCode ^ id.hashCode;
+  int get hashCode => Object.hash(complete, task, note, id);
 
   @override
   bool operator ==(Object other) =>
@@ -40,13 +39,13 @@ class Todo {
   static Todo fromEntity(TodoEntity entity) {
     return Todo(
       entity.task,
-      complete: entity.complete ?? false,
+      complete: entity.complete,
       note: entity.note,
       id: entity.id,
     );
   }
 
-  Todo copy({String task, bool complete, String note, String id}) {
+  Todo copy({String? task, bool? complete, String? note, String? id}) {
     return Todo(
       task ?? this.task,
       complete: complete ?? this.complete,

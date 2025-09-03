@@ -14,7 +14,7 @@ class MockRepository extends TodosRepository {
   Future<List<TodoEntity>> loadTodos() async => entities;
 
   @override
-  Future saveTodos(List<TodoEntity> todos) async {
+  Future<void> saveTodos(List<TodoEntity> todos) async {
     saveCount++;
     entities = todos;
   }
