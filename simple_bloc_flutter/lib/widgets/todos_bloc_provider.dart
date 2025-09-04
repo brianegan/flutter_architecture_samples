@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 
@@ -6,20 +5,19 @@ class TodosBlocProvider extends StatefulWidget {
   final Widget child;
   final TodosListBloc bloc;
 
-  TodosBlocProvider({Key key, @required this.child, @required this.bloc})
-    : super(key: key);
+  const TodosBlocProvider({required this.child, required this.bloc, super.key});
 
   @override
-  _TodosBlocProviderState createState() => _TodosBlocProviderState();
+  TodosBlocProviderState createState() => TodosBlocProviderState();
 
   static TodosListBloc of(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<_TodosBlocProvider>()
+        .dependOnInheritedWidgetOfExactType<_TodosBlocProvider>()!
         .bloc;
   }
 }
 
-class _TodosBlocProviderState extends State<TodosBlocProvider> {
+class TodosBlocProviderState extends State<TodosBlocProvider> {
   @override
   Widget build(BuildContext context) {
     return _TodosBlocProvider(bloc: widget.bloc, child: widget.child);
@@ -35,8 +33,7 @@ class _TodosBlocProviderState extends State<TodosBlocProvider> {
 class _TodosBlocProvider extends InheritedWidget {
   final TodosListBloc bloc;
 
-  _TodosBlocProvider({Key key, @required this.bloc, @required Widget child})
-    : super(key: key, child: child);
+  const _TodosBlocProvider({required super.child, required this.bloc});
 
   @override
   bool updateShouldNotify(_TodosBlocProvider old) => bloc != old.bloc;

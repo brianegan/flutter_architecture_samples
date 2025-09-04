@@ -12,8 +12,11 @@ class SimpleBlocApp extends StatelessWidget {
   final TodosInteractor todosInteractor;
   final UserRepository userRepository;
 
-  const SimpleBlocApp({Key key, this.todosInteractor, this.userRepository})
-    : super(key: key);
+  const SimpleBlocApp({
+    super.key,
+    required this.todosInteractor,
+    required this.userRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +34,7 @@ class SimpleBlocApp extends StatelessWidget {
           ],
           routes: {
             ArchSampleRoutes.home: (context) {
-              return HomeScreen(
-                repository: Injector.of(context).userRepository,
-              );
+              return HomeScreen();
             },
             ArchSampleRoutes.addTodo: (context) {
               return AddEditScreen(

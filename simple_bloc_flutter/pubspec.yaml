@@ -12,30 +12,30 @@ description: A new Flutter project.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
+publish_to: "none"
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ^3.9.0
 
 dependencies:
   flutter:
     sdk: flutter
-  todos_repository_local_storage:
-    path: ../todos_repository_local_storage
-  firebase_flutter_repository:
-    path: ../firebase_flutter_repository
   todos_app_core:
     path: ../todos_app_core
+  todos_repository_core:
+    path: ../todos_repository_core
+  todos_repository_local_storage:
+    path: ../todos_repository_local_storage
   simple_blocs:
     path: ../simple_blocs
-  rxdart: ^0.23.1
-  key_value_store_flutter:
-  key_value_store_web:
+  rxdart: ^0.28.0
   shared_preferences:
 
 dev_dependencies:
+  flutter_lints:
   flutter_test:
     sdk: flutter
-  flutter_driver:
+  integration_test:
     sdk: flutter
   test:
   mockito:
@@ -47,7 +47,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

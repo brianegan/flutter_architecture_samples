@@ -7,21 +7,24 @@ class FilterButton extends StatelessWidget {
   final VisibilityFilter activeFilter;
   final bool isActive;
 
-  FilterButton({this.onSelected, this.activeFilter, this.isActive, Key key})
-    : super(key: key);
+  const FilterButton({
+    required this.onSelected,
+    required this.activeFilter,
+    required this.isActive,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final defaultStyle = theme.textTheme.bodyMedium;
-    final activeStyle = theme.textTheme.bodyMedium.copyWith(
-      color: theme.accentColor,
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
+    final activeStyle = defaultStyle?.copyWith(
+      color: Theme.of(context).colorScheme.secondary,
     );
     final button = _Button(
       onSelected: onSelected,
       activeFilter: activeFilter,
-      activeStyle: activeStyle,
-      defaultStyle: defaultStyle,
+      activeStyle: activeStyle!,
+      defaultStyle: defaultStyle!,
     );
 
     return AnimatedOpacity(
@@ -34,12 +37,11 @@ class FilterButton extends StatelessWidget {
 
 class _Button extends StatelessWidget {
   const _Button({
-    Key key,
-    @required this.onSelected,
-    @required this.activeFilter,
-    @required this.activeStyle,
-    @required this.defaultStyle,
-  }) : super(key: key);
+    required this.onSelected,
+    required this.activeFilter,
+    required this.activeStyle,
+    required this.defaultStyle,
+  });
 
   final PopupMenuItemSelected<VisibilityFilter> onSelected;
   final VisibilityFilter activeFilter;

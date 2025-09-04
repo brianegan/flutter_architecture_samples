@@ -1,5 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/loading.dart';
 import 'package:simple_blocs/simple_blocs.dart';
@@ -7,9 +7,8 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final TodoBloc Function() initBloc;
 
-  DetailScreen({@required this.todoId, @required this.initBloc})
+  const DetailScreen({required this.todoId})
     : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -19,12 +18,12 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> {
-  TodoBloc todoBloc;
+  late TodoBloc todoBloc;
 
   @override
-  void initState() {
-    super.initState();
-    todoBloc = widget.initBloc();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    todoBloc = TodoBloc(Injector.of(context).todosInteractor);
   }
 
   @override
@@ -35,11 +34,11 @@ class DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Todo>(
-      stream: todoBloc.todo(widget.todoId).where((todo) => todo != null),
+      stream: todoBloc.todo(widget.todoId),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LoadingSpinner();
 
-        final todo = snapshot.data;
+        final todo = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -102,11 +101,10 @@ class DetailScreenState extends State<DetailScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
@@ -117,6 +115,7 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               );
             },
+            child: const Icon(Icons.edit),
           ),
         );
       },

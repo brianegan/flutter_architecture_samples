@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
-import 'package:meta/meta.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/localization.dart';
@@ -13,15 +11,13 @@ import 'package:simple_bloc_flutter_sample/widgets/stats_counter.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todo_list.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 enum AppTab { todos, stats }
 
 class HomeScreen extends StatefulWidget {
-  final UserRepository repository;
-
-  HomeScreen({@required this.repository})
-    : super(key: ArchSampleKeys.homeScreen);
+  const HomeScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -30,14 +26,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  UserBloc usersBloc;
-  StreamController<AppTab> tabController;
+  late UserBloc usersBloc;
+  late StreamController<AppTab> tabController;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-    usersBloc = UserBloc(widget.repository);
+    usersBloc = UserBloc(Injector.of(context).userRepository);
     tabController = StreamController<AppTab>();
   }
 
@@ -80,12 +76,12 @@ class HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
                 },
-                child: Icon(Icons.add),
                 tooltip: ArchSampleLocalizations.of(context).addTodo,
+                child: const Icon(Icons.add),
               ),
               bottomNavigationBar: BottomNavigationBar(
                 key: ArchSampleKeys.tabs,
-                currentIndex: AppTab.values.indexOf(activeTabSnapshot.data),
+                currentIndex: AppTab.values.indexOf(activeTabSnapshot.data!),
                 onTap: (index) {
                   tabController.add(AppTab.values[index]);
                 },
@@ -97,11 +93,9 @@ class HomeScreenState extends State<HomeScreen> {
                           ? ArchSampleKeys.statsTab
                           : ArchSampleKeys.todoTab,
                     ),
-                    title: Text(
-                      tab == AppTab.stats
-                          ? ArchSampleLocalizations.of(context).stats
-                          : ArchSampleLocalizations.of(context).todos,
-                    ),
+                    label: tab == AppTab.stats
+                        ? ArchSampleLocalizations.of(context).stats
+                        : ArchSampleLocalizations.of(context).todos,
                   );
                 }).toList(),
               ),
