@@ -33,7 +33,9 @@ runs:
     - name: Run unit tests and prepare coverage
       shell: bash
       run: |
-        dart test --coverage
+        dart pub global activate coverage
+        dart run test --coverage=coverage
+        dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
         # Extract directory name for artifact naming
         echo "DIR_NAME=$(basename "${{ inputs.working-directory }}")" >> $GITHUB_ENV
       working-directory: ${{ inputs.working-directory }}

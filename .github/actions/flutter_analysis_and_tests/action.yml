@@ -32,6 +32,7 @@ runs:
 
     - name: Run unit tests and prepare coverage
       shell: bash
+      if: '[ -d "${{ inputs.working-directory }}/test" ]'
       run: |
         flutter test --coverage
         # Extract directory name for artifact naming
