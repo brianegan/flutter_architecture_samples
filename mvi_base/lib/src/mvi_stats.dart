@@ -1,14 +1,15 @@
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_base/src/mvi_core.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StatsPresenter extends MviPresenter<StatsModel> {
   StatsPresenter(TodoListInteractor interactor)
     : super(
+        initialModel: StatsModelLoading(),
         stream: Rx.combineLatest2(
           interactor.todos.map(_numActive),
           interactor.todos.map(_numComplete),
-          (numActive, numComplete) => StatsModel(numActive, numComplete),
+          (numActive, numComplete) =>
+              StatsModelLoaded(numActive: numActive, numComplete: numComplete),
         ),
       );
 
@@ -21,16 +22,20 @@ class StatsPresenter extends MviPresenter<StatsModel> {
   }
 }
 
-class StatsModel {
+sealed class StatsModel {}
+
+class StatsModelLoading implements StatsModel {}
+
+class StatsModelLoaded implements StatsModel {
   final int numActive;
   final int numComplete;
 
-  StatsModel(this.numActive, this.numComplete);
+  StatsModelLoaded({required this.numActive, required this.numComplete});
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StatsModel &&
+      other is StatsModelLoaded &&
           runtimeType == other.runtimeType &&
           numActive == other.numActive &&
           numComplete == other.numComplete;
@@ -40,6 +45,6 @@ class StatsModel {
 
   @override
   String toString() {
-    return 'StatsModel{numActive: $numActive, numComplete: $numComplete}';
+    return 'StatsModelLoaded{numActive: $numActive, numComplete: $numComplete}';
   }
 }

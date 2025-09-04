@@ -1,13 +1,13 @@
 import 'dart:async';
 
-import 'package:collection/equality.dart';
+import 'package:collection/collection.dart';
 import 'package:mvi_base/src/models/models.dart';
 import 'package:mvi_base/src/mvi_core.dart';
 import 'package:mvi_base/src/todo_list_interactor.dart';
 import 'package:mvi_base/src/user_interactor.dart';
 import 'package:rxdart/rxdart.dart';
 
-class TodosListModel {
+class TodoListModel {
   final VisibilityFilter activeFilter;
   final bool allComplete;
   final bool hasCompletedTodos;
@@ -15,7 +15,7 @@ class TodosListModel {
   final bool loading;
   final User user;
 
-  TodosListModel({
+  TodoListModel({
     required this.activeFilter,
     required this.allComplete,
     required this.hasCompletedTodos,
@@ -24,7 +24,7 @@ class TodosListModel {
     required this.user,
   });
 
-  factory TodosListModel.initial() => TodosListModel(
+  factory TodoListModel.initial() => TodoListModel(
     loading: true,
     activeFilter: VisibilityFilter.all,
     allComplete: false,
@@ -41,7 +41,7 @@ class TodosListModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TodosListModel &&
+      other is TodoListModel &&
           runtimeType == other.runtimeType &&
           activeFilter == other.activeFilter &&
           allComplete == other.allComplete &&
@@ -60,7 +60,7 @@ class TodosListModel {
       user.hashCode;
 }
 
-class TodosListView implements MviView {
+mixin class TodoListView implements MviView {
   final addTodo = StreamController<Todo>.broadcast(sync: true);
 
   final deleteTodo = StreamController<String>.broadcast(sync: true);
@@ -88,18 +88,18 @@ class TodosListView implements MviView {
   }
 }
 
-class TodosListPresenter extends MviPresenter<TodosListModel> {
-  final TodosListView _view;
+class TodoListPresenter extends MviPresenter<TodoListModel> {
+  final TodoListView _view;
   final TodoListInteractor _interactor;
 
-  TodosListPresenter({
-    required TodosListView view,
+  TodoListPresenter({
+    required TodoListView view,
     required TodoListInteractor todosInteractor,
     required UserInteractor userInteractor,
   }) : _view = view,
        _interactor = todosInteractor,
        super(
-         initialModel: TodosListModel.initial(),
+         initialModel: TodoListModel.initial(),
          stream: _buildStream(view, todosInteractor, userInteractor),
        );
 
@@ -114,8 +114,8 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
     ]);
   }
 
-  static Stream<TodosListModel> _buildStream(
-    TodosListView view,
+  static Stream<TodoListModel> _buildStream(
+    TodoListView view,
     TodoListInteractor interactor,
     UserInteractor repository,
   ) {
@@ -132,7 +132,7 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
           _filterTodos,
         ),
         (activeFilter, allComplete, hasCompletedTodos, visibleTodos) {
-          return TodosListModel(
+          return TodoListModel(
             user: user,
             activeFilter: activeFilter,
             allComplete: allComplete,

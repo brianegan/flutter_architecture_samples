@@ -22,7 +22,10 @@ void main() {
 
       final presenter = StatsPresenter(interactor);
 
-      expect(presenter, emitsThrough(StatsModel(1, 2)));
+      expect(
+        presenter,
+        emitsThrough(StatsModelLoaded(numActive: 1, numComplete: 2)),
+      );
     });
   });
 }

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
+import 'package:flutter_test/flutter_test.dart' as test;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/screens/detail_screen.dart';
-import 'package:test/test.dart' as test;
+import 'package:todos_app_core/todos_app_core.dart';
 
 void main() {
   test.group('DetailScreen', () {
@@ -81,7 +81,7 @@ void main() {
 
       // Expect that the deleteTodoStream emits the current id. The Presenter
       // is responsible for listening to this stream and doing work with it!
-      expect(key.currentState.deleteTodo.stream, test.emits(todo.id));
+      expect(key.currentState!.deleteTodo.stream, test.emits(todo.id));
     });
 
     testWidgets('should update a todo', (tester) async {
@@ -108,7 +108,7 @@ void main() {
       // Expect that the deleteTodoStream emits the current id. The Presenter
       // is responsible for listening to this stream and doing work with it!
       expect(
-        key.currentState.updateTodo.stream,
+        key.currentState!.updateTodo.stream,
         test.emits(todo.copyWith(complete: true)),
       );
     });
@@ -140,7 +140,7 @@ class CheckedMatcher extends test.Matcher {
   }
 
   @override
-  bool matches(item, Map matchState) {
+  bool matches(item, Map<dynamic, dynamic> matchState) {
     if (item is Checkbox) {
       return item.value == checked;
     } else {

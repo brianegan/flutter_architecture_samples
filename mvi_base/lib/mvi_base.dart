@@ -1,5 +1,3 @@
-library blocs;
-
 export 'src/models/models.dart';
 export 'src/mvi_core.dart';
 export 'src/mvi_stats.dart';

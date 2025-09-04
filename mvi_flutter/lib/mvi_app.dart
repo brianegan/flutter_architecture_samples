@@ -7,16 +7,19 @@ import 'package:mvi_flutter_sample/screens/home_screen.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class MviApp extends StatelessWidget {
-  final TodosInteractor todosRepository;
+  final TodoListInteractor todoListInteractor;
   final UserInteractor userInteractor;
 
-  const MviApp({Key key, this.todosRepository, this.userInteractor})
-    : super(key: key);
+  const MviApp({
+    super.key,
+    required this.todoListInteractor,
+    required this.userInteractor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Injector(
-      todosInteractor: todosRepository,
+      todosInteractor: todoListInteractor,
       userInteractor: userInteractor,
       child: MaterialApp(
         onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,

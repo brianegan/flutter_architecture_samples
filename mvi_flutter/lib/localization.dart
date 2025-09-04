@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class BlocLocalizations {
   static BlocLocalizations of(BuildContext context) {
-    return Localizations.of<BlocLocalizations>(context, BlocLocalizations);
+    return Localizations.of<BlocLocalizations>(context, BlocLocalizations)!;
   }
 
   String get appTitle => 'MVI Example';

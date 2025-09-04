@@ -49,7 +49,7 @@ class Todo {
       entity.task,
       complete: entity.complete,
       note: entity.note,
-      id: entity.id ?? Uuid().generateV4(),
+      id: entity.id,
     );
   }
 }

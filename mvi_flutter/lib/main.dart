@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:mvi_base/mvi_base.dart';
+import 'package:mvi_flutter_sample/anonymous_user_repository.dart';
 import 'package:mvi_flutter_sample/mvi_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
 Future<void> main() async {
@@ -13,12 +12,12 @@ Future<void> main() async {
 
   runApp(
     MviApp(
-      todosRepository: TodosInteractor(
+      todoListInteractor: TodoListInteractor(
         ReactiveLocalStorageRepository(
           repository: LocalStorageRepository(
             localStorage: KeyValueStorage(
-              'mvi_flutter',
-              FlutterKeyValueStore(await SharedPreferences.getInstance()),
+              'mvi_flutter_sample',
+              await SharedPreferences.getInstance(),
             ),
           ),
         ),
@@ -26,11 +25,4 @@ Future<void> main() async {
       userInteractor: UserInteractor(AnonymousUserRepository()),
     ),
   );
-}
-
-class AnonymousUserRepository implements UserRepository {
-  @override
-  Future<UserEntity> login() {
-    return Future.value(UserEntity(id: 'anonymous'));
-  }
 }

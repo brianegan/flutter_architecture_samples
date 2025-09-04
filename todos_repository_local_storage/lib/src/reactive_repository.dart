@@ -51,7 +51,7 @@ class ReactiveLocalStorageRepository implements ReactiveTodosRepository {
 
     _repository.loadTodos().then((entities) {
       _subject.add(List<TodoEntity>.unmodifiable([
-        ..._subject.value,
+        if (_subject.hasValue) ..._subject.value,
         ...entities,
       ]));
     });

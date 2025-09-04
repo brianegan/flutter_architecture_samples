@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/dependency_injection.dart';
@@ -8,10 +7,13 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final MviPresenter<Todo> Function(DetailView) initPresenter;
+  final MviPresenter<Todo> Function(DetailView)? initPresenter;
 
-  DetailScreen({Key key, @required this.todoId, this.initPresenter})
-    : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todoId,
+    this.initPresenter,
+  });
 
   @override
   DetailScreenState createState() {
@@ -20,12 +22,12 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> with DetailView {
-  MviPresenter<Todo> presenter;
+  late final MviPresenter<Todo> presenter;
 
   @override
   void didChangeDependencies() {
     presenter = widget.initPresenter != null
-        ? widget.initPresenter(this)
+        ? widget.initPresenter!(this)
         : DetailPresenter(
             id: widget.todoId,
             view: this,
@@ -47,11 +49,11 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Todo>(
-      stream: presenter.where((todo) => todo != null),
+      stream: presenter,
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LoadingSpinner();
 
-        final todo = snapshot.data;
+        final todo = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -114,11 +116,10 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
@@ -129,6 +130,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                 ),
               );
             },
+            child: Icon(Icons.edit),
           ),
         );
       },
