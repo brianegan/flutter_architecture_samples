@@ -96,3 +96,4 @@ lcov.info
 
 # FVM Version Cache
 .fvm/
+.cursor/
