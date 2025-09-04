@@ -10,7 +10,7 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 class ScopedModelApp extends StatelessWidget {
   final TodosRepository repository;
 
-  ScopedModelApp({required this.repository});
+  const ScopedModelApp({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
@@ -6,7 +5,7 @@ import 'package:scoped_model_sample/todo_list_model.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatelessWidget {
-  StatsCounter() : super(key: ArchSampleKeys.statsCounter);
+  const StatsCounter({super.key = ArchSampleKeys.statsCounter});
 
   bool isActive(Todo todo) => !todo.complete;
 

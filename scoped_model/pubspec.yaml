@@ -21,6 +21,7 @@ dependencies:
   collection:
   flutter:
     sdk: flutter
+  path_provider:
   scoped_model:
   shared_preferences:
   todos_app_core:
