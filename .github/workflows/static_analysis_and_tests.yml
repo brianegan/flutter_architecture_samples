@@ -8,8 +8,118 @@ on:
       - refresh
 
 jobs:
+  change_notifier_provider:
+    name: change_notifier_provider
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./change_notifier_provider
+  inherited_widget:
+    name: inherited_widget
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./inherited_widget
+  mobx:
+    name: mobx
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./mobx
+  mvi_base:
+    name: mvi_base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./mvi_base
+  mvi_flutter:
+    name: mvi_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./mvi_flutter
+  redux:
+    name: redux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./redux
+  scoped_model:
+    name: scoped_model
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./scoped_model
+  signals:
+    name: signals
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./signals
+  simple_bloc_flutter:
+    name: simple_bloc_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./simple_bloc_flutter
+  simple_blocs:
+    name: simple_blocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./simple_blocs
   todos_repository_local_storage:
-    name: Todos Repository Local Storage
+    name: todos_repository_local_storage
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,7 +131,7 @@ jobs:
           working-directory: ./todos_repository_local_storage
           run-integration-tests: false
   vanilla:
-    name: Vanilla
+    name: vanilla
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -31,21 +141,22 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./vanilla
-  inherited_widget:
-    name: Inherited Widget
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
-        with:
-          working-directory: ./inherited_widget
   read_coverage:
     name: Read Combined Coverage Files
     runs-on: ubuntu-latest
-    needs: [todos_repository_local_storage, vanilla, inherited_widget]
+    needs:
+      - change_notifier_provider
+      - inherited_widget
+      - mobx
+      - mvi_base
+      - mvi_flutter
+      - redux
+      - scoped_model
+      - signals
+      - simple_bloc_flutter
+      - simple_blocs
+      - todos_repository_local_storage
+      - vanilla
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
