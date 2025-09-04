@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
@@ -9,7 +8,7 @@ import 'package:redux_sample/presentation/filter_button.dart';
 class FilterSelector extends StatelessWidget {
   final bool visible;
 
-  FilterSelector({Key key, @required this.visible}) : super(key: key);
+  const FilterSelector({super.key, required this.visible});
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +27,10 @@ class FilterSelector extends StatelessWidget {
 }
 
 class _ViewModel {
-  final Function(VisibilityFilter) onFilterSelected;
+  final void Function(VisibilityFilter) onFilterSelected;
   final VisibilityFilter activeFilter;
 
-  _ViewModel({@required this.onFilterSelected, @required this.activeFilter});
+  _ViewModel({required this.onFilterSelected, required this.activeFilter});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

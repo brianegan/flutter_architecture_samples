@@ -5,7 +5,7 @@ import 'package:redux_sample/reducers/todos_reducer.dart';
 import 'package:redux_sample/reducers/visibility_reducer.dart';
 
 // We create the State reducer by combining many smaller reducers into one!
-AppState appReducer(AppState state, action) {
+AppState appReducer(AppState state, dynamic action) {
   return AppState(
     isLoading: loadingReducer(state.isLoading, action),
     todos: todosReducer(state.todos, action),

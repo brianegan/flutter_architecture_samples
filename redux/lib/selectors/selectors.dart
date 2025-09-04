@@ -1,5 +1,5 @@
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 List<Todo> todosSelector(AppState state) => state.todos;
 
@@ -29,7 +29,6 @@ List<Todo> filteredTodosSelector(
       case VisibilityFilter.completed:
         return todo.complete;
       case VisibilityFilter.all:
-      default:
         return true;
     }
   }).toList();

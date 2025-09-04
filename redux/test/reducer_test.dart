@@ -30,7 +30,7 @@ void main() {
 
       store.dispatch(DeleteTodoAction(todo.id));
 
-      expect(todosSelector(store.state), []);
+      expect(todosSelector(store.state), <Todo>[]);
     });
 
     test('should update a todo in response to an UpdateTodoAction', () {

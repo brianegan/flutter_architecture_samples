@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
@@ -7,8 +8,9 @@ import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-class MockTodosRepository extends Mock implements TodosRepository {}
+import 'middleware_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<TodosRepository>()])
 void main() {
   group('Save State Middleware', () {
     test('should load the todos in response to a LoadTodosAction', () {

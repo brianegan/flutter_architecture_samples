@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_sample/containers/app_loading.dart';
 import 'package:redux_sample/presentation/loading_indicator.dart';
@@ -9,7 +7,11 @@ class StatsCounter extends StatelessWidget {
   final int numActive;
   final int numCompleted;
 
-  StatsCounter({@required this.numActive, @required this.numCompleted});
+  const StatsCounter({
+    super.key,
+    required this.numActive,
+    required this.numCompleted,
+  });
 
   @override
   Widget build(BuildContext context) {

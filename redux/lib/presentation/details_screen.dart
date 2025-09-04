@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_sample/containers/edit_todo.dart';
 import 'package:redux_sample/models/models.dart';
@@ -6,15 +5,15 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Todo todo;
-  final Function onDelete;
-  final Function(bool) toggleCompleted;
+  final void Function() onDelete;
+  final void Function(bool?) toggleCompleted;
 
-  DetailsScreen({
-    Key key,
-    @required this.todo,
-    @required this.onDelete,
-    @required this.toggleCompleted,
-  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todo,
+    required this.onDelete,
+    required this.toggleCompleted,
+  });
 
   @override
   Widget build(BuildContext context) {

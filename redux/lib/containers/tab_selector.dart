@@ -1,14 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TabSelector extends StatelessWidget {
-  TabSelector({Key key}) : super(key: key);
+  const TabSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +26,9 @@ class TabSelector extends StatelessWidget {
                     ? ArchSampleKeys.todoTab
                     : ArchSampleKeys.statsTab,
               ),
-              title: Text(
-                tab == AppTab.stats
-                    ? ArchSampleLocalizations.of(context).stats
-                    : ArchSampleLocalizations.of(context).todos,
-              ),
+              label: tab == AppTab.stats
+                  ? ArchSampleLocalizations.of(context).stats
+                  : ArchSampleLocalizations.of(context).todos,
             );
           }).toList(),
         );
@@ -43,9 +39,9 @@ class TabSelector extends StatelessWidget {
 
 class _ViewModel {
   final AppTab activeTab;
-  final Function(int) onTabSelected;
+  final void Function(int) onTabSelected;
 
-  _ViewModel({@required this.activeTab, @required this.onTabSelected});
+  _ViewModel({required this.activeTab, required this.onTabSelected});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

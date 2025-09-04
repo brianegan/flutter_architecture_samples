@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ReduxLocalizations {
   static ReduxLocalizations of(BuildContext context) {
-    return Localizations.of<ReduxLocalizations>(context, ReduxLocalizations);
+    return Localizations.of<ReduxLocalizations>(context, ReduxLocalizations)!;
   }
 
   String get appTitle => 'Redux Example';

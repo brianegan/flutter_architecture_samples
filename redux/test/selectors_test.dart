@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:quiver/core.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 void main() {
   group('Selectors', () {
@@ -64,7 +64,7 @@ void main() {
       final todo3 = Todo('c', complete: true);
       final todos = [todo1, todo2, todo3];
 
-      expect(todoSelector(todos, '2'), Optional.absent());
+      expect(todoSelector(todos, '2'), Optional<Todo>.absent());
     });
   });
 }

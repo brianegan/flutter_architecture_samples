@@ -8,7 +8,7 @@ class AppState {
   final AppTab activeTab;
   final VisibilityFilter activeFilter;
 
-  AppState({
+  const AppState({
     this.isLoading = false,
     this.todos = const [],
     this.activeTab = AppTab.todos,
@@ -18,10 +18,10 @@ class AppState {
   factory AppState.loading() => AppState(isLoading: true);
 
   AppState copyWith({
-    bool isLoading,
-    List<Todo> todos,
-    AppTab activeTab,
-    VisibilityFilter activeFilter,
+    bool? isLoading,
+    List<Todo>? todos,
+    AppTab? activeTab,
+    VisibilityFilter? activeFilter,
   }) {
     return AppState(
       isLoading: isLoading ?? this.isLoading,

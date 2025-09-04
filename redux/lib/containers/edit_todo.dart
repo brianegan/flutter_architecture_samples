@@ -9,7 +9,7 @@ import 'package:redux_sample/presentation/add_edit_screen.dart';
 class EditTodo extends StatelessWidget {
   final Todo todo;
 
-  EditTodo({this.todo, Key key}) : super(key: key);
+  const EditTodo({super.key, required this.todo});
 
   @override
   Widget build(BuildContext context) {

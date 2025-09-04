@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/models/models.dart';
@@ -7,7 +6,7 @@ import 'package:redux_sample/models/models.dart';
 class ActiveTab extends StatelessWidget {
   final ViewModelBuilder<AppTab> builder;
 
-  ActiveTab({Key key, @required this.builder}) : super(key: key);
+  const ActiveTab({super.key, required this.builder});
 
   @override
   Widget build(BuildContext context) {

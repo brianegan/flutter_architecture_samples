@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -7,7 +6,7 @@ import 'package:redux_sample/presentation/stats_counter.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 
 class Stats extends StatelessWidget {
-  Stats({Key key}) : super(key: key);
+  const Stats({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class _ViewModel {
   final int numCompleted;
   final int numActive;
 
-  _ViewModel({@required this.numCompleted, @required this.numActive});
+  _ViewModel({required this.numCompleted, required this.numActive});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(

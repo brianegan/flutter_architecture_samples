@@ -11,7 +11,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 class ReduxApp extends StatelessWidget {
   final Store<AppState> store;
 
-  const ReduxApp({Key key, this.store}) : super(key: key);
+  const ReduxApp({super.key, required this.store});
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +32,7 @@ class ReduxApp extends StatelessWidget {
               },
             );
           },
-          ArchSampleRoutes.addTodo: (context) {
-            return AddTodo();
-          },
+          ArchSampleRoutes.addTodo: (context) => AddTodo(),
         },
       ),
     );

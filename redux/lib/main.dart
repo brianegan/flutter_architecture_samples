@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_sample/app.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
@@ -21,7 +20,7 @@ Future<void> main() async {
           LocalStorageRepository(
             localStorage: KeyValueStorage(
               'redux',
-              FlutterKeyValueStore(await SharedPreferences.getInstance()),
+              await SharedPreferences.getInstance(),
             ),
           ),
         ),

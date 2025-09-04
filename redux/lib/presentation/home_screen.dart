@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/containers/active_tab.dart';
 import 'package:redux_sample/containers/extra_actions_container.dart';
 import 'package:redux_sample/containers/filter_selector.dart';
@@ -8,11 +7,15 @@ import 'package:redux_sample/containers/stats.dart';
 import 'package:redux_sample/containers/tab_selector.dart';
 import 'package:redux_sample/localization.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class HomeScreen extends StatefulWidget {
   final void Function() onInit;
 
-  HomeScreen({@required this.onInit}) : super(key: ArchSampleKeys.homeScreen);
+  const HomeScreen({
+    super.key = ArchSampleKeys.homeScreen,
+    required this.onInit,
+  });
 
   @override
   HomeScreenState createState() => HomeScreenState();
@@ -43,8 +46,8 @@ class HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
             },
-            child: Icon(Icons.add),
             tooltip: ArchSampleLocalizations.of(context).addTodo,
+            child: Icon(Icons.add),
           ),
           bottomNavigationBar: TabSelector(),
         );

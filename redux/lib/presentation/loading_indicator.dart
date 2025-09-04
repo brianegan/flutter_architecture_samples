@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class LoadingIndicator extends StatelessWidget {
-  LoadingIndicator({Key key}) : super(key: key);
+  const LoadingIndicator({super.key = ArchSampleKeys.todosLoading});
 
   @override
   Widget build(BuildContext context) {
