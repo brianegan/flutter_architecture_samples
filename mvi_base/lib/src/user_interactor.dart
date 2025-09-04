@@ -8,5 +8,6 @@ class UserInteractor {
 
   UserInteractor(UserRepository repository) : _repository = repository;
 
-  Future<User> login() async => User((await _repository.login()).displayName);
+  Future<User> login() async =>
+      User(displayName: (await _repository.login()).displayName);
 }

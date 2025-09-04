@@ -1,17 +1,13 @@
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_base/src/models/models.dart';
 import 'package:test/test.dart';
 
-class MockTodosListInteractor extends Mock implements TodosInteractor {}
+import 'mvi_todos_list_test.mocks.dart';
 
-class MockUserInteractor implements UserInteractor {
-  @override
-  Future<User> login() => Future.sync(() => User('Erica'));
-}
-
+@GenerateNiceMocks([MockSpec<TodoListInteractor>(), MockSpec<UserInteractor>()])
 void main() {
   group('MviTodosList', () {
     group('View', () {
@@ -31,7 +27,7 @@ void main() {
 
     group('Presenter', () {
       test('should have an initial state', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
 
         final presenter = TodosListPresenter(
@@ -44,7 +40,7 @@ void main() {
       });
 
       test('should show all todos by default', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [Todo('Hi')];
 
@@ -71,7 +67,7 @@ void main() {
       });
 
       test('should display completed todos', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -97,7 +93,7 @@ void main() {
       });
 
       test('should display active todos', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -123,7 +119,7 @@ void main() {
       });
 
       test('allComplete should stream state of interactor', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -148,7 +144,7 @@ void main() {
       });
 
       test('hasCompletedTodos should reflect the interactor', () {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -173,7 +169,7 @@ void main() {
       });
 
       test('should add todos to the interactor', () async {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -200,7 +196,7 @@ void main() {
       });
 
       test('should send deletions to the interactor', () async {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -227,7 +223,7 @@ void main() {
       });
 
       test('should remove completed todos from the interactor', () async {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -254,7 +250,7 @@ void main() {
       });
 
       test('should toggle complete', () async {
-        final interactor = MockTodosListInteractor();
+        final interactor = MockTodoListInteractor();
         final view = TodosListView();
         final todos = [
           Todo('Hallo', complete: false),
@@ -284,11 +280,11 @@ void main() {
 }
 
 class ModelWith extends Matcher {
-  final VisibilityFilter activeFilter;
-  final bool allComplete;
-  final bool hasCompletedTodos;
-  final List<Todo> visibleTodos;
-  final bool loading;
+  final VisibilityFilter? activeFilter;
+  final bool? allComplete;
+  final bool? hasCompletedTodos;
+  final List<Todo>? visibleTodos;
+  final bool? loading;
   String errors = '';
 
   ModelWith({
@@ -305,11 +301,11 @@ class ModelWith extends Matcher {
   }
 
   @override
-  bool matches(dynamic item, Map matchState) {
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) {
     if (item is TodosListModel) {
       bool match = true;
       if (visibleTodos != null) {
-        match = _listsEqual(visibleTodos, item.visibleTodos);
+        match = _listsEqual(visibleTodos!, item.visibleTodos);
         errors += ' visibleTodos';
       }
 
@@ -340,7 +336,7 @@ class ModelWith extends Matcher {
   }
 
   static bool _listsEqual(List<Todo> first, List<Todo> second) {
-    if (first.length != second?.length) return false;
+    if (first.length != second.length) return false;
 
     for (int i = 0; i < first.length; i++) {
       if (first[i] != second[i]) {

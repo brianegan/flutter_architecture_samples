@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
+import 'package:collection/equality.dart';
 import 'package:mvi_base/src/models/models.dart';
-import 'package:mvi_base/src/models/user.dart';
 import 'package:mvi_base/src/mvi_core.dart';
-import 'package:mvi_base/src/todos_interactor.dart';
+import 'package:mvi_base/src/todo_list_interactor.dart';
 import 'package:mvi_base/src/user_interactor.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -17,15 +16,22 @@ class TodosListModel {
   final User user;
 
   TodosListModel({
-    this.activeFilter,
-    this.allComplete,
-    this.hasCompletedTodos,
-    this.visibleTodos,
-    this.loading,
-    this.user,
+    required this.activeFilter,
+    required this.allComplete,
+    required this.hasCompletedTodos,
+    required this.visibleTodos,
+    required this.loading,
+    required this.user,
   });
 
-  factory TodosListModel.initial() => TodosListModel(loading: true);
+  factory TodosListModel.initial() => TodosListModel(
+    loading: true,
+    activeFilter: VisibilityFilter.all,
+    allComplete: false,
+    hasCompletedTodos: false,
+    visibleTodos: [],
+    user: User(displayName: ''),
+  );
 
   @override
   String toString() {
@@ -40,7 +46,7 @@ class TodosListModel {
           activeFilter == other.activeFilter &&
           allComplete == other.allComplete &&
           hasCompletedTodos == other.hasCompletedTodos &&
-          visibleTodos == other.visibleTodos &&
+          const ListEquality<Todo>().equals(visibleTodos, other.visibleTodos) &&
           loading == other.loading &&
           user == other.user;
 
@@ -69,7 +75,8 @@ class TodosListView implements MviView {
     VisibilityFilter.all,
   );
 
-  Future<List<dynamic>> tearDown() {
+  @override
+  Future<void> tearDown() {
     return Future.wait([
       addTodo.close(),
       deleteTodo.close(),
@@ -83,12 +90,12 @@ class TodosListView implements MviView {
 
 class TodosListPresenter extends MviPresenter<TodosListModel> {
   final TodosListView _view;
-  final TodosInteractor _interactor;
+  final TodoListInteractor _interactor;
 
   TodosListPresenter({
-    @required TodosListView view,
-    @required TodosInteractor todosInteractor,
-    @required UserInteractor userInteractor,
+    required TodosListView view,
+    required TodoListInteractor todosInteractor,
+    required UserInteractor userInteractor,
   }) : _view = view,
        _interactor = todosInteractor,
        super(
@@ -109,7 +116,7 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
 
   static Stream<TodosListModel> _buildStream(
     TodosListView view,
-    TodosInteractor interactor,
+    TodoListInteractor interactor,
     UserInteractor repository,
   ) {
     return Rx.defer(() async* {
@@ -145,7 +152,6 @@ class TodosListPresenter extends MviPresenter<TodosListModel> {
       case VisibilityFilter.completed:
         return todos.where((todo) => todo.complete).toList();
       case VisibilityFilter.all:
-      default:
         return todos;
     }
   }

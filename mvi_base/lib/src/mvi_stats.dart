@@ -3,7 +3,7 @@ import 'package:mvi_base/src/mvi_core.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StatsPresenter extends MviPresenter<StatsModel> {
-  StatsPresenter(TodosInteractor interactor)
+  StatsPresenter(TodoListInteractor interactor)
     : super(
         stream: Rx.combineLatest2(
           interactor.todos.map(_numActive),

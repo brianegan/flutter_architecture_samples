@@ -5,11 +5,13 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 class User {
   final String displayName;
 
-  User(this.displayName);
+  User({required this.displayName});
 
-  UserEntity toEntity() => UserEntity(displayName: displayName);
+  UserEntity toEntity() =>
+      UserEntity(displayName: displayName, id: '', photoUrl: '');
 
-  static User fromEntity(UserEntity entity) => User(entity.displayName);
+  static User fromEntity(UserEntity entity) =>
+      User(displayName: entity.displayName);
 
   @override
   String toString() {

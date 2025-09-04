@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:mvi_base/mvi_base.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-class TodosInteractor {
+class TodoListInteractor {
   final ReactiveTodosRepository repository;
 
-  TodosInteractor(this.repository);
+  TodoListInteractor(this.repository);
 
   Stream<List<Todo>> get todos {
     return repository.todos().map(
@@ -16,10 +18,8 @@ class TodosInteractor {
 
   Stream<Todo> todo(String id) {
     return todos
-        .map((todos) {
-          return todos.firstWhere((todo) => todo.id == id, orElse: () => null);
-        })
-        .where((todo) => todo != null);
+        .map((todos) => todos.firstWhereOrNull((todo) => todo.id == id))
+        .whereNotNull();
   }
 
   Stream<bool> get allComplete => todos.map(_allComplete);
