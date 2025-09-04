@@ -14,6 +14,7 @@ dependencies:
     path: ../todos_repository_core
 
 dev_dependencies:
+  build_runner: ^2.4.13
   lints: ^6.0.0
   test: ^1.25.6
   mockito: ^5.5.0

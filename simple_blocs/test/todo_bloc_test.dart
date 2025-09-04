@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:test/test.dart';
 
-class MockTodosInteractor extends Mock implements TodosInteractor {}
+import 'todo_bloc_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<TodosInteractor>()])
 void main() {
   group('TodoBloc', () {
     test('should get the todo from the interactor', () {

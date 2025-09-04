@@ -1,14 +1,15 @@
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:simple_blocs/simple_blocs.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-class MockReactiveTodosRepository extends Mock
-    implements ReactiveTodosRepository {}
+import 'todos_interactor_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<ReactiveTodosRepository>()])
 void main() {
   group('TodosListInteractor', () {
     test('should convert repo entities into Todos', () {
