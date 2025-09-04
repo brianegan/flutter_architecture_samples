@@ -1,5 +1,3 @@
-library blocs;
-
 export 'src/models/models.dart';
 export 'src/stats_bloc.dart';
 export 'src/todo_bloc.dart';

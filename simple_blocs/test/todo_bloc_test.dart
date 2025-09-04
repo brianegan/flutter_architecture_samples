@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:mockito/mockito.dart';
 import 'package:simple_blocs/simple_blocs.dart';
-import 'package:simple_blocs/src/models/models.dart';
 import 'package:test/test.dart';
 
 class MockTodosInteractor extends Mock implements TodosInteractor {}

@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   collection: ^1.15.0
+  meta: ^1.15.0
   rxdart: ^0.28.0
   todos_repository_core:
     path: ../todos_repository_core
