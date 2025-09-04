@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -6,14 +5,15 @@ import 'package:todos_app_core/todos_app_core.dart';
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
   final GestureTapCallback onTap;
-  final ValueChanged<bool> onCheckboxChanged;
+  final ValueChanged<bool?> onCheckboxChanged;
   final Todo todo;
 
-  TodoItem({
-    @required this.onDismissed,
-    @required this.onTap,
-    @required this.onCheckboxChanged,
-    @required this.todo,
+  const TodoItem({
+    super.key,
+    required this.onDismissed,
+    required this.onTap,
+    required this.onCheckboxChanged,
+    required this.todo,
   });
 
   @override

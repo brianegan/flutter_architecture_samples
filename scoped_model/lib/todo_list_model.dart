@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
@@ -26,7 +26,7 @@ class TodoListModel extends Model {
 
   bool get isLoading => _isLoading;
 
-  TodoListModel({@required this.repository, VisibilityFilter activeFilter})
+  TodoListModel({required this.repository, VisibilityFilter? activeFilter})
     : _activeFilter = activeFilter ?? VisibilityFilter.all;
 
   /// Wraps [ScopedModel.of] for this [Model]. See [ScopedModel.of] for more
@@ -43,7 +43,7 @@ class TodoListModel extends Model {
   /// Loads remote data
   ///
   /// Call this initially and when the user manually refreshes
-  Future loadTodos() {
+  Future<void> loadTodos() {
     _isLoading = true;
     notifyListeners();
 
@@ -68,7 +68,6 @@ class TodoListModel extends Model {
       case VisibilityFilter.completed:
         return todo.complete;
       case VisibilityFilter.all:
-      default:
         return true;
     }
   }).toList();
@@ -87,8 +86,6 @@ class TodoListModel extends Model {
 
   /// updates a [Todo] by replacing the item with the same id by the parameter [todo]
   void updateTodo(Todo todo) {
-    assert(todo != null);
-    assert(todo.id != null);
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
@@ -112,8 +109,8 @@ class TodoListModel extends Model {
     repository.saveTodos(_todos.map((it) => it.toEntity()).toList());
   }
 
-  Todo todoById(String id) {
-    return _todos.firstWhere((it) => it.id == id, orElse: () => null);
+  Todo? todoById(String id) {
+    return _todos.firstWhereOrNull((it) => it.id == id);
   }
 }
 

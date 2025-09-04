@@ -7,7 +7,7 @@ class ScopedModelLocalizations {
     return Localizations.of<ScopedModelLocalizations>(
       context,
       ScopedModelLocalizations,
-    );
+    )!;
   }
 
   String get appTitle => 'scoped_model example';

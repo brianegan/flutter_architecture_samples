@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
@@ -9,8 +8,10 @@ import 'package:todos_app_core/todos_app_core.dart';
 class DetailScreen extends StatelessWidget {
   final String todoId;
 
-  DetailScreen({@required this.todoId})
-    : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todoId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +78,10 @@ class DetailScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todoId: todoId,
@@ -91,6 +91,7 @@ class DetailScreen extends StatelessWidget {
                 ),
               );
             },
+            child: Icon(Icons.edit),
           ),
         );
       },

@@ -135,7 +135,7 @@ class MockRepository extends TodosRepository {
   }
 
   @override
-  Future saveTodos(List<TodoEntity> todos) {
+  Future<void> saveTodos(List<TodoEntity> todos) {
     return Future.sync(() => entities = todos);
   }
 }

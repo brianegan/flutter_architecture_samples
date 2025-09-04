@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActionsButton extends StatelessWidget {
-  ExtraActionsButton({Key key}) : super(key: key);
+  const ExtraActionsButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<TodoListModel>(
-      builder: (BuildContext context, Widget child, TodoListModel model) {
+      builder: (BuildContext context, Widget? child, TodoListModel model) {
         return PopupMenuButton<ExtraAction>(
           key: ArchSampleKeys.extraActionsButton,
           onSelected: (action) {

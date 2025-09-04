@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/screens/detail_screen.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
 import 'package:scoped_model_sample/widgets/todo_item.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoList extends StatelessWidget {
-  TodoList({Key key}) : super(key: key);
+  const TodoList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +43,14 @@ class TodoList extends StatelessWidget {
           onTap: () {
             Navigator.of(context)
                 .push(
-                  MaterialPageRoute(
+                  MaterialPageRoute<Todo?>(
                     builder: (_) {
                       return DetailScreen(todoId: todo.id);
                     },
                   ),
                 )
                 .then((todo) {
-                  if (todo is Todo) {
+                  if (todo is Todo && context.mounted) {
                     _showUndoSnackbar(context, todo);
                   }
                 });
@@ -71,7 +71,7 @@ class TodoList extends StatelessWidget {
   }
 
   void _showUndoSnackbar(BuildContext context, Todo todo) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: Duration(seconds: 2),
