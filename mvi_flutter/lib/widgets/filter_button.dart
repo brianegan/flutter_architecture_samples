@@ -7,7 +7,7 @@ class FilterButton extends StatelessWidget {
   final VisibilityFilter activeFilter;
   final bool isActive;
 
-  FilterButton({
+  const FilterButton({
     super.key,
     required this.onSelected,
     required this.activeFilter,

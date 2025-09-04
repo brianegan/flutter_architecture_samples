@@ -6,7 +6,7 @@ class ExtraActionsButton extends StatelessWidget {
   final bool allComplete;
   final bool hasCompletedTodos;
 
-  ExtraActionsButton({
+  const ExtraActionsButton({
     super.key,
     required this.onSelected,
     this.allComplete = false,
