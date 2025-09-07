@@ -39,6 +39,7 @@ dev_dependencies:
     sdk: flutter
   test:
   mockito:
+  build_runner:
   integration_tests:
     path: ../integration_tests
 

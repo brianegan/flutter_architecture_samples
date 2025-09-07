@@ -56,7 +56,7 @@ class HomeScreenState extends State<HomeScreen> {
           builder: (context, activeTabSnapshot) {
             return Scaffold(
               appBar: AppBar(
-                title: Text(BlocLocalizations.of(context).appTitle),
+                title: Text(SimpleBlocLocalizations.of(context).appTitle),
                 actions: _buildActions(
                   todosBloc,
                   activeTabSnapshot,

@@ -26,11 +26,12 @@ class SimpleBlocApp extends StatelessWidget {
       child: TodosBlocProvider(
         bloc: TodosListBloc(todosInteractor),
         child: MaterialApp(
-          onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
+          onGenerateTitle: (context) =>
+              SimpleBlocLocalizations.of(context).appTitle,
           theme: ArchSampleTheme.theme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
-            InheritedWidgetLocalizationsDelegate(),
+            SimpleBlocLocalizationsDelegate(),
           ],
           routes: {
             ArchSampleRoutes.home: (context) {

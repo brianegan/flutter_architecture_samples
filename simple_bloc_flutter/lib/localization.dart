@@ -2,22 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class BlocLocalizations {
-  static BlocLocalizations of(BuildContext context) {
-    return Localizations.of<BlocLocalizations>(context, BlocLocalizations)!;
+class SimpleBlocLocalizations {
+  static SimpleBlocLocalizations of(BuildContext context) {
+    return Localizations.of<SimpleBlocLocalizations>(
+      context,
+      SimpleBlocLocalizations,
+    )!;
   }
 
   String get appTitle => 'Simple Bloc Example';
 }
 
-class InheritedWidgetLocalizationsDelegate
-    extends LocalizationsDelegate<BlocLocalizations> {
+class SimpleBlocLocalizationsDelegate
+    extends LocalizationsDelegate<SimpleBlocLocalizations> {
   @override
-  Future<BlocLocalizations> load(Locale locale) =>
-      Future(() => BlocLocalizations());
+  Future<SimpleBlocLocalizations> load(Locale locale) =>
+      Future(() => SimpleBlocLocalizations());
 
   @override
-  bool shouldReload(InheritedWidgetLocalizationsDelegate old) => false;
+  bool shouldReload(SimpleBlocLocalizationsDelegate old) => false;
 
   @override
   bool isSupported(Locale locale) =>
