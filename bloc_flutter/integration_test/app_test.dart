@@ -13,7 +13,7 @@ void main() {
           ReactiveLocalStorageRepository(
             repository: LocalStorageRepository(
               localStorage: KeyValueStorage(
-                'simple_bloc_test_${DateTime.now().toIso8601String()}',
+                'bloc_flutter_test_${DateTime.now().toIso8601String()}',
                 await SharedPreferences.getInstance(),
               ),
             ),
