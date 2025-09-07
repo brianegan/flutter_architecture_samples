@@ -12,7 +12,7 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     : super(
         todosBloc.state is TodosLoaded
             ? _mapTodosToStats((todosBloc.state as TodosLoaded).todos)
-            : StatsLoaded(0, 0),
+            : StatsLoading(),
       ) {
     todosSubscription = todosBloc.stream.listen((state) {
       if (state is TodosLoaded) {
