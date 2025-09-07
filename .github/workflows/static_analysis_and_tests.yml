@@ -185,11 +185,15 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./vanilla
-  read_coverage:
-    name: Read Combined Coverage Files
+  combine_and_upload_coverage:
+    name: Combine and Upload Coverage
     runs-on: ubuntu-latest
     needs:
+      - bloc_flutter
+      - bloc_library
+      - blocs
       - change_notifier_provider
+      - freezed_provider_value_notifier
       - inherited_widget
       - mobx
       - mvi_base
