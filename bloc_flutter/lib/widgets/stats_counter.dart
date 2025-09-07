@@ -1,14 +1,14 @@
 import 'package:blocs/blocs.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsCounter extends StatefulWidget {
   final StatsBloc Function() buildBloc;
 
-  StatsCounter({Key key, @required this.buildBloc})
-    : super(key: key ?? ArchSampleKeys.statsCounter);
+  const StatsCounter({
+    super.key = ArchSampleKeys.statsCounter,
+    required this.buildBloc,
+  });
 
   @override
   StatsCounterState createState() {
@@ -17,7 +17,7 @@ class StatsCounter extends StatefulWidget {
 }
 
 class StatsCounterState extends State<StatsCounter> {
-  StatsBloc bloc;
+  late StatsBloc bloc;
 
   @override
   void initState() {

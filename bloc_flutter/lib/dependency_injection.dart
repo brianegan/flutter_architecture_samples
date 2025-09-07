@@ -1,25 +1,20 @@
-// A poor man's DI. This should be replaced by a proper solution once they
-// are more stable.
-library dependency_injector;
-
 import 'package:blocs/blocs.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 class Injector extends InheritedWidget {
   final TodosInteractor todosInteractor;
   final UserRepository userRepository;
 
-  Injector({
-    Key key,
-    @required this.todosInteractor,
-    @required this.userRepository,
-    @required Widget child,
-  }) : super(key: key, child: child);
+  const Injector({
+    super.key,
+    required this.todosInteractor,
+    required this.userRepository,
+    required super.child,
+  });
 
   static Injector of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<Injector>();
+      context.dependOnInheritedWidgetOfExactType<Injector>()!;
 
   @override
   bool updateShouldNotify(Injector oldWidget) =>

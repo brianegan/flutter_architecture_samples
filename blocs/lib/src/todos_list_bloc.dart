@@ -109,7 +109,6 @@ class TodosListBloc {
         case VisibilityFilter.completed:
           return todo.complete;
         case VisibilityFilter.all:
-        default:
           return true;
       }
     }).toList();

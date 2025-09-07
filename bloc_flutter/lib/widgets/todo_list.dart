@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoList extends StatelessWidget {
-  TodoList({Key key}) : super(key: key);
+  const TodoList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Todo>>(
       stream: TodosBlocProvider.of(context).visibleTodos,
       builder: (context, snapshot) => snapshot.hasData
-          ? _buildList(snapshot.data)
+          ? _buildList(snapshot.data!)
           : LoadingSpinner(key: ArchSampleKeys.todosLoading),
     );
   }
@@ -35,7 +35,7 @@ class TodoList extends StatelessWidget {
           onTap: () {
             Navigator.of(context)
                 .push(
-                  MaterialPageRoute(
+                  MaterialPageRoute<Todo?>(
                     builder: (_) {
                       return DetailScreen(
                         todoId: todo.id,
@@ -46,7 +46,7 @@ class TodoList extends StatelessWidget {
                   ),
                 )
                 .then((todo) {
-                  if (todo is Todo) {
+                  if (todo is Todo && context.mounted) {
                     _showUndoSnackbar(context, todo);
                   }
                 });
@@ -85,6 +85,6 @@ class TodoList extends StatelessWidget {
       ),
     );
 
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

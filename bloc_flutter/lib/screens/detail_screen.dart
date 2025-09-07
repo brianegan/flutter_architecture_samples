@@ -1,7 +1,6 @@
 import 'package:bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:bloc_flutter_sample/widgets/loading.dart';
 import 'package:blocs/blocs.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
@@ -9,8 +8,11 @@ class DetailScreen extends StatefulWidget {
   final String todoId;
   final TodoBloc Function() initBloc;
 
-  DetailScreen({@required this.todoId, @required this.initBloc})
-    : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todoId,
+    required this.initBloc,
+  });
 
   @override
   DetailScreenState createState() {
@@ -19,7 +21,7 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> {
-  TodoBloc todoBloc;
+  late TodoBloc todoBloc;
 
   @override
   void initState() {
@@ -36,11 +38,11 @@ class DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Todo>(
-      stream: todoBloc.todo(widget.todoId).where((todo) => todo != null),
+      stream: todoBloc.todo(widget.todoId),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LoadingSpinner();
 
-        final todo = snapshot.data;
+        final todo = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -103,11 +105,10 @@ class DetailScreenState extends State<DetailScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
@@ -118,6 +119,7 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               );
             },
+            child: Icon(Icons.edit),
           ),
         );
       },
