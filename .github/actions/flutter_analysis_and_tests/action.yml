@@ -8,7 +8,16 @@ inputs:
     description: "Run integration tests"
     required: false
     default: "true"
-
+  deploy-to-netlify:
+    description: "Deploy to Netlify"
+    required: true
+    default: "false"
+  netlify-auth-token:
+    description: "Netlify auth token"
+    required: true
+  netlify-site-id:
+    description: "Netlify site id"
+    required: true
 runs:
   using: "composite"
   steps:
@@ -64,3 +73,21 @@ runs:
         export DISPLAY=:99 # Set display for Xvfb
         xvfb-run -a flutter test integration_test/app_test.dart -d linux
       working-directory: ${{ inputs.working-directory }}
+
+    - name: Build web app
+      if: ${{ inputs.deploy-to-netlify != 'false' }}
+      shell: bash
+      run: |
+        flutter build web --wasm
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Deploy to Netlify
+      if: ${{ inputs.deploy-to-netlify != 'false' }}
+      uses: nwtgck/actions-netlify@v3.0
+      with:
+        publish-dir: ${{ inputs.working-directory }}/build/web
+        production-deploy: true
+        deploy-message: "Deploy from GitHub Actions"
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ inputs.netlify-auth-token }}
+        NETLIFY_SITE_ID: ${{ inputs.netlify-site-id }}

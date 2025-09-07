@@ -19,6 +19,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./bloc_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.BLOC_FLUTTER_NETLIFY_SITE_ID }}
   bloc_library:
     name: bloc_library
     runs-on: ubuntu-latest
@@ -30,6 +33,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./bloc_library
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.BLOC_LIBRARY_NETLIFY_SITE_ID }}
   blocs:
     name: blocs
     runs-on: ubuntu-latest
@@ -52,6 +58,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./change_notifier_provider
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.CHANGE_NOTIFIER_PROVIDER_NETLIFY_SITE_ID }}
   freezed_provider_value_notifier:
     name: freezed_provider_value_notifier
     runs-on: ubuntu-latest
@@ -63,6 +72,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./freezed_provider_value_notifier
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.FREEZED_PROVIDER_VALUE_NOTIFIER_NETLIFY_SITE_ID }}
   inherited_widget:
     name: inherited_widget
     runs-on: ubuntu-latest
@@ -74,6 +86,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./inherited_widget
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.INHERITED_WIDGET_NETLIFY_SITE_ID }}
   mobx:
     name: mobx
     runs-on: ubuntu-latest
@@ -85,6 +100,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./mobx
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.MOBX_NETLIFY_SITE_ID }}
   mvi_base:
     name: mvi_base
     runs-on: ubuntu-latest
@@ -107,6 +125,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./mvi_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.MVI_NETLIFY_SITE_ID }}
   redux:
     name: redux
     runs-on: ubuntu-latest
@@ -118,6 +139,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./redux
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.REDUX_NETLIFY_SITE_ID }}
   scoped_model:
     name: scoped_model
     runs-on: ubuntu-latest
@@ -129,6 +153,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./scoped_model
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SCOPED_MODEL_NETLIFY_SITE_IT }}
   signals:
     name: signals
     runs-on: ubuntu-latest
@@ -140,6 +167,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./signals
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SIGNALS_NETLIFY_SITE_ID }}
   simple_bloc_flutter:
     name: simple_bloc_flutter
     runs-on: ubuntu-latest
@@ -151,6 +181,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./simple_bloc_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SIMPLE_BLOC_NETLIFY_SITE_ID }}
   simple_blocs:
     name: simple_blocs
     runs-on: ubuntu-latest
@@ -185,6 +218,9 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./vanilla
+          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.VANILLA_NETLIFY_SITE_ID }}
   combine_and_upload_coverage:
     name: Combine and Upload Coverage
     runs-on: ubuntu-latest
