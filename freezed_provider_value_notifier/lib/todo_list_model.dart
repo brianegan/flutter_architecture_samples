@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:freezed_provider_value_notifier/models.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
@@ -13,25 +12,24 @@ enum VisibilityFilter { all, active, completed }
 abstract class TodoList with _$TodoList {
   factory TodoList(
     List<Todo> todos, {
-    @required VisibilityFilter filter,
-    @required bool loading,
+    required VisibilityFilter filter,
+    required bool loading,
   }) = TodoListState;
+}
 
-  @late
+extension TodoById on TodoList {
+  Todo? todoById(String id) => todos.firstWhereOrNull((it) => it.id == id);
+
   int get numCompleted =>
       todos.where((Todo todo) => todo.complete).toList().length;
 
-  @late
   bool get hasCompleted => numCompleted > 0;
 
-  @late
   int get numActive =>
       todos.where((Todo todo) => !todo.complete).toList().length;
 
-  @late
   bool get hasActiveTodos => numActive > 0;
 
-  @late
   List<Todo> get filteredTodos => todos.where((todo) {
     switch (filter) {
       case VisibilityFilter.active:
@@ -39,24 +37,17 @@ abstract class TodoList with _$TodoList {
       case VisibilityFilter.completed:
         return todo.complete;
       case VisibilityFilter.all:
-      default:
         return true;
     }
   }).toList();
 }
 
-extension TodoById on TodoList {
-  Todo todoById(String id) =>
-      todos.firstWhere((it) => it.id == id, orElse: () => null);
-}
-
 class TodoListController extends ValueNotifier<TodoList> {
   TodoListController({
     VisibilityFilter filter = VisibilityFilter.all,
-    @required this.todosRepository,
+    required this.todosRepository,
     List<Todo> todos = const [],
-  }) : assert(todosRepository != null),
-       super(TodoList(todos, filter: filter, loading: false)) {
+  }) : super(TodoList(todos, filter: filter, loading: false)) {
     _loadTodos();
   }
 

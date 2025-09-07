@@ -77,7 +77,7 @@ void main() {
       final model = TodoListController(todosRepository: repository);
 
       expect(model.value.loading, isTrue);
-      expect(model.value.todos, []);
+      expect(model.value.todos, <Todo>[]);
 
       await Future.doWhile(() => Future.value(model.value.loading));
 
@@ -140,7 +140,7 @@ void main() {
 
       model.removeTodoWithId(todo.id);
 
-      expect(model.value.todos, []);
+      expect(model.value.todos, <Todo>[]);
       expect(repository.saveCount, 1);
     });
 

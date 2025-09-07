@@ -7,7 +7,7 @@ class ProviderLocalizations {
     return Localizations.of<ProviderLocalizations>(
       context,
       ProviderLocalizations,
-    );
+    )!;
   }
 
   String get appTitle => 'Provider Example';

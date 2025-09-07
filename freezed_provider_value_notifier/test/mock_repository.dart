@@ -8,13 +8,13 @@ class MockRepository extends TodosRepository {
   int saveCount = 0;
 
   MockRepository([List<Todo> todos = const []])
-      : entities = todos.map((it) => it.toEntity()).toList();
+    : entities = todos.map((it) => it.toEntity()).toList();
 
   @override
   Future<List<TodoEntity>> loadTodos() async => entities;
 
   @override
-  Future saveTodos(List<TodoEntity> todos) async {
+  Future<void> saveTodos(List<TodoEntity> todos) async {
     saveCount++;
     entities = todos;
   }

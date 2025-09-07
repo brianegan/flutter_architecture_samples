@@ -5,7 +5,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 import '../todo_list_model.dart';
 
 class ExtraActionsButton extends StatelessWidget {
-  const ExtraActionsButton({Key key}) : super(key: key);
+  const ExtraActionsButton({super.key});
 
   @override
   Widget build(BuildContext context) {

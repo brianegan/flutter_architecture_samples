@@ -5,13 +5,12 @@ import 'package:todos_app_core/todos_app_core.dart';
 
 import 'edit_todo_screen.dart';
 import 'models.dart';
-import 'todo_list_model.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String id;
   final VoidCallback onRemove;
 
-  const DetailsScreen({@required this.id, @required this.onRemove})
+  const DetailsScreen({required this.id, required this.onRemove})
     : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
@@ -28,10 +27,12 @@ class DetailsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Selector<TodoList, Todo>(
+      body: Selector<TodoList, Todo?>(
         selector: (context, model) => model.todoById(id),
         shouldRebuild: (prev, next) => next != null,
-        builder: (context, todo, _) {
+        builder: (context, t, _) {
+          final todo = t!;
+
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView(
@@ -86,20 +87,22 @@ class DetailsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => EditTodoScreen(
-                id: id,
-                onEdit: (task, note) {
-                  context.read<TodoListController>().updateTodo(
-                    context
-                        .read<TodoList>()
-                        .todoById(id)
-                        ?.copy(task: task, note: note),
-                  );
+            MaterialPageRoute<void>(
+              builder: (context) {
+                return EditTodoScreen(
+                  id: id,
+                  onEdit: (task, note) {
+                    context.read<TodoListController>().updateTodo(
+                      context
+                          .read<TodoList>()
+                          .todoById(id)!
+                          .copy(task: task, note: note),
+                    );
 
-                  return Navigator.pop(context);
-                },
-              ),
+                    return Navigator.pop(context);
+                  },
+                );
+              },
             ),
           );
         },

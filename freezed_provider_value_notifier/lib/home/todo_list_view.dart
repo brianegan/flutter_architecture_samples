@@ -9,7 +9,7 @@ import '../models.dart';
 class TodoListView extends StatelessWidget {
   final void Function(BuildContext context, Todo todo) onRemove;
 
-  TodoListView({Key key, @required this.onRemove}) : super(key: key);
+  const TodoListView({super.key, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,10 @@ class TodoListView extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (_) {
                         return DetailsScreen(
-                          id: todo?.id,
+                          id: todo.id,
                           onRemove: () {
                             Navigator.pop(context);
                             onRemove(context, todo);

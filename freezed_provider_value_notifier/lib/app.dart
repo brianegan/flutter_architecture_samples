@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:freezed_provider_value_notifier/value_notifier_provider.dart';
-import 'package:meta/meta.dart';
 import 'package:freezed_provider_value_notifier/add_todo_screen.dart';
 import 'package:freezed_provider_value_notifier/localization.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
+import 'package:freezed_provider_value_notifier/value_notifier_provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
@@ -12,7 +11,7 @@ import 'home/home_screen.dart';
 class ProviderApp extends StatelessWidget {
   final TodosRepository repository;
 
-  ProviderApp({@required this.repository});
+  const ProviderApp({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {

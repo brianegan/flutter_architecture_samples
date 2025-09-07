@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart' hide Action;
-import 'package:provider/provider.dart';
 import 'package:freezed_provider_value_notifier/home/stats_view.dart';
 import 'package:freezed_provider_value_notifier/home/todo_list_view.dart';
 import 'package:freezed_provider_value_notifier/localization.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
+import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import '../models.dart';
@@ -11,13 +11,13 @@ import 'extra_actions_button.dart';
 import 'filter_button.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen();
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   // Because the state of the tabs is only a concern to the HomeScreen Widget,
   // it is stored as local state rather than in the TodoListModel.
   final _tab = ValueNotifier(_HomeScreenTab.todos);
@@ -36,9 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: <Widget>[
           ValueListenableBuilder<_HomeScreenTab>(
             valueListenable: _tab,
-            builder: (_, tab, __) => FilterButton(
-              isActive: tab == _HomeScreenTab.todos,
-            ),
+            builder: (_, tab, _) =>
+                FilterButton(isActive: tab == _HomeScreenTab.todos),
           ),
           const ExtraActionsButton(),
         ],
@@ -67,12 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 case _HomeScreenTab.stats:
                   return const StatsView();
                 case _HomeScreenTab.todos:
-                default:
                   return TodoListView(
                     onRemove: (context, todo) {
-                      context
-                          .read<TodoListController>()
-                          .removeTodoWithId(todo.id);
+                      context.read<TodoListController>().removeTodoWithId(
+                        todo.id,
+                      );
                       _showUndoSnackbar(context, todo);
                     },
                   );
@@ -91,11 +89,11 @@ class _HomeScreenState extends State<HomeScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.list, key: ArchSampleKeys.todoTab),
-                title: Text(ArchSampleLocalizations.of(context).todos),
+                label: ArchSampleLocalizations.of(context).todos,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.show_chart, key: ArchSampleKeys.statsTab),
-                title: Text(ArchSampleLocalizations.of(context).stats),
+                label: ArchSampleLocalizations.of(context).stats,
               ),
             ],
           );
@@ -105,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showUndoSnackbar(BuildContext context, Todo todo) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: const Duration(seconds: 2),
