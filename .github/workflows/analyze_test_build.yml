@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - main
-      - refresh
 
 jobs:
   bloc_flutter:
@@ -19,7 +18,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./bloc_flutter
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.BLOC_FLUTTER_NETLIFY_SITE_ID }}
   bloc_library:
@@ -33,7 +32,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./bloc_library
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.BLOC_LIBRARY_NETLIFY_SITE_ID }}
   blocs:
@@ -58,7 +57,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./change_notifier_provider
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.CHANGE_NOTIFIER_PROVIDER_NETLIFY_SITE_ID }}
   freezed_provider_value_notifier:
@@ -72,7 +71,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./freezed_provider_value_notifier
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.FREEZED_PROVIDER_VALUE_NOTIFIER_NETLIFY_SITE_ID }}
   inherited_widget:
@@ -86,7 +85,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./inherited_widget
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.INHERITED_WIDGET_NETLIFY_SITE_ID }}
   mobx:
@@ -100,7 +99,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./mobx
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.MOBX_NETLIFY_SITE_ID }}
   mvi_base:
@@ -125,7 +124,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./mvi_flutter
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.MVI_NETLIFY_SITE_ID }}
   redux:
@@ -139,7 +138,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./redux
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.REDUX_NETLIFY_SITE_ID }}
   scoped_model:
@@ -153,7 +152,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./scoped_model
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.SCOPED_MODEL_NETLIFY_SITE_IT }}
   signals:
@@ -167,7 +166,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./signals
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.SIGNALS_NETLIFY_SITE_ID }}
   simple_bloc_flutter:
@@ -181,7 +180,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./simple_bloc_flutter
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.SIMPLE_BLOC_NETLIFY_SITE_ID }}
   simple_blocs:
@@ -218,7 +217,7 @@ jobs:
         uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./vanilla
-          deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.VANILLA_NETLIFY_SITE_ID }}
   combine_and_upload_coverage:
