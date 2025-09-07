@@ -1,4 +1,4 @@
-name: Static Analysis & Tests
+name: Static Analysis, Run Tests and Build Web Apps
 
 on:
   pull_request:
@@ -15,8 +15,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./bloc_flutter
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -29,8 +29,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./bloc_library
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -43,7 +43,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
+      - name: Static Analysis, Run Tests, and Build web app
         uses: ./.github/actions/dart_analysis_and_tests
         with:
           working-directory: ./blocs
@@ -54,8 +54,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./change_notifier_provider
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -68,8 +68,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./freezed_provider_value_notifier
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -82,8 +82,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./inherited_widget
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -96,8 +96,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./mobx
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -110,7 +110,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
+      - name: Static Analysis, Run Tests, and Build web app
         uses: ./.github/actions/dart_analysis_and_tests
         with:
           working-directory: ./mvi_base
@@ -121,8 +121,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./mvi_flutter
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -135,8 +135,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./redux
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -149,8 +149,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./scoped_model
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -163,8 +163,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./signals
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -177,8 +177,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./simple_bloc_flutter
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
@@ -191,7 +191,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
+      - name: Static Analysis, Run Tests, and Build web app
         uses: ./.github/actions/dart_analysis_and_tests
         with:
           working-directory: ./simple_blocs
@@ -202,8 +202,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./todos_repository_local_storage
           run-integration-tests: false
@@ -214,8 +214,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Static Analysis & Tests
-        uses: ./.github/actions/flutter_analysis_and_tests
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
         with:
           working-directory: ./vanilla
           deploy-to-netlify: ${{ github.ref_name == 'refresh' }}
