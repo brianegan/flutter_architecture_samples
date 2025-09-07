@@ -23,8 +23,8 @@ class FilterButton extends StatelessWidget {
     final button = _Button(
       onSelected: onSelected,
       activeFilter: activeFilter,
-      activeStyle: activeStyle!,
-      defaultStyle: defaultStyle!,
+      activeStyle: activeStyle,
+      defaultStyle: defaultStyle,
     );
 
     return AnimatedOpacity(

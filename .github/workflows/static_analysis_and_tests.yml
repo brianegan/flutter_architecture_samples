@@ -8,6 +8,28 @@ on:
       - refresh
 
 jobs:
+  bloc_flutter:
+    name: bloc_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./bloc_flutter
+  blocs:
+    name: blocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./blocs
   change_notifier_provider:
     name: change_notifier_provider
     runs-on: ubuntu-latest
@@ -19,6 +41,17 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./change_notifier_provider
+  freezed_provider_value_notifier:
+    name: freezed_provider_value_notifier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./freezed_provider_value_notifier
   inherited_widget:
     name: inherited_widget
     runs-on: ubuntu-latest
