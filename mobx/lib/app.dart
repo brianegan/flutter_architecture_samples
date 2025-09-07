@@ -26,6 +26,7 @@ class MobxApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: ArchSampleRoutes.home,
         theme: ArchSampleTheme.theme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           MobxLocalizationsDelegate(),
           ArchSampleLocalizationsDelegate(),

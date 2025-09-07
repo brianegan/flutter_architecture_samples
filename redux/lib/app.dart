@@ -20,6 +20,7 @@ class ReduxApp extends StatelessWidget {
       child: MaterialApp(
         onGenerateTitle: (context) => ReduxLocalizations.of(context).appTitle,
         theme: ArchSampleTheme.theme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           ReduxLocalizationsDelegate(),

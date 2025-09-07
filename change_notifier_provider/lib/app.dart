@@ -19,6 +19,7 @@ class ProviderApp extends StatelessWidget {
       create: (_) => TodoListModel(repository: repository)..loadTodos(),
       child: MaterialApp(
         theme: ArchSampleTheme.theme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           ProviderLocalizationsDelegate(),

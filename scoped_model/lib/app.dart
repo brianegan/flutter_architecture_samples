@@ -18,6 +18,7 @@ class ScopedModelApp extends StatelessWidget {
       onGenerateTitle: (context) =>
           ScopedModelLocalizations.of(context).appTitle,
       theme: ArchSampleTheme.theme,
+      darkTheme: ArchSampleTheme.darkTheme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),
         ScopedModelLocalizationsDelegate(),

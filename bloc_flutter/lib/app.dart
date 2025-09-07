@@ -28,6 +28,7 @@ class BlocApp extends StatelessWidget {
         child: MaterialApp(
           onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
           theme: ArchSampleTheme.theme,
+          darkTheme: ArchSampleTheme.darkTheme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
             BlocLocalizationsDelegate(),

@@ -21,6 +21,7 @@ class SignalsApp extends StatelessWidget {
       dispose: (_, controller) => controller.dispose(),
       child: MaterialApp(
         theme: ArchSampleTheme.theme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           SignalsLocalizationsDelegate(),

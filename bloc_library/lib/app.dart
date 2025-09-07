@@ -22,6 +22,7 @@ class TodosApp extends StatelessWidget {
         onGenerateTitle: (context) =>
             FlutterBlocLocalizations.of(context).appTitle,
         theme: ArchSampleTheme.theme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),
           FlutterBlocLocalizationsDelegate(),
