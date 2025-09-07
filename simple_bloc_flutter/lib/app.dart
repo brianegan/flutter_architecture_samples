@@ -28,7 +28,7 @@ class SimpleBlocApp extends StatelessWidget {
         child: MaterialApp(
           onGenerateTitle: (context) =>
               SimpleBlocLocalizations.of(context).appTitle,
-          theme: ArchSampleTheme.theme,
+          theme: ArchSampleTheme.lightTheme,
           darkTheme: ArchSampleTheme.darkTheme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),

@@ -10,7 +10,7 @@ class InheritedWidgetApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ArchSampleTheme.theme,
+      theme: ArchSampleTheme.lightTheme,
       darkTheme: ArchSampleTheme.darkTheme,
       onGenerateTitle: (context) =>
           InheritedWidgetLocalizations.of(context).appTitle,

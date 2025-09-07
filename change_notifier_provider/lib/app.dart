@@ -18,7 +18,7 @@ class ProviderApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => TodoListModel(repository: repository)..loadTodos(),
       child: MaterialApp(
-        theme: ArchSampleTheme.theme,
+        theme: ArchSampleTheme.lightTheme,
         darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),

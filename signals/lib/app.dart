@@ -20,7 +20,7 @@ class SignalsApp extends StatelessWidget {
       create: (_) => TodoListController(repository: repository)..init(),
       dispose: (_, controller) => controller.dispose(),
       child: MaterialApp(
-        theme: ArchSampleTheme.theme,
+        theme: ArchSampleTheme.lightTheme,
         darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),

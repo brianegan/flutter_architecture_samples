@@ -18,7 +18,7 @@ class ProviderApp extends StatelessWidget {
     return ValueNotifierProvider<TodoListController, TodoList>(
       create: (_) => TodoListController(todosRepository: repository),
       child: MaterialApp(
-        theme: ArchSampleTheme.theme,
+        theme: ArchSampleTheme.lightTheme,
         darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           ArchSampleLocalizationsDelegate(),

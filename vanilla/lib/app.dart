@@ -45,7 +45,7 @@ class VanillaAppState extends State<VanillaApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (context) => VanillaLocalizations.of(context).appTitle,
-      theme: ArchSampleTheme.theme,
+      theme: ArchSampleTheme.lightTheme,
       darkTheme: ArchSampleTheme.darkTheme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),

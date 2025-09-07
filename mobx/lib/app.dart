@@ -25,7 +25,7 @@ class MobxApp extends StatelessWidget {
       dispose: (_, store) => store.dispose(), // Clean up after we're done
       child: MaterialApp(
         initialRoute: ArchSampleRoutes.home,
-        theme: ArchSampleTheme.theme,
+        theme: ArchSampleTheme.lightTheme,
         darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           MobxLocalizationsDelegate(),
