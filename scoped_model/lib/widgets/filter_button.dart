@@ -1,16 +1,12 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class FilterButton extends StatelessWidget {
   final bool isActive;
 
-  FilterButton({this.isActive, Key key}) : super(key: key);
+  const FilterButton({required this.isActive, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +14,7 @@ class FilterButton extends StatelessWidget {
       opacity: isActive ? 1.0 : 0.0,
       duration: Duration(milliseconds: 150),
       child: ScopedModelDescendant<TodoListModel>(
-        builder: (BuildContext context, Widget child, TodoListModel model) {
+        builder: (BuildContext context, Widget? child, TodoListModel model) {
           return PopupMenuButton<VisibilityFilter>(
             key: ArchSampleKeys.filterButton,
             tooltip: ArchSampleLocalizations.of(context).filterTodos,
@@ -34,12 +30,13 @@ class FilterButton extends StatelessWidget {
   }
 
   List<PopupMenuItem<VisibilityFilter>> _items(
-      BuildContext context, TodoListModel model) {
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
-    final defaultStyle = Theme.of(context).textTheme.body1;
+    BuildContext context,
+    TodoListModel model,
+  ) {
+    final defaultStyle = Theme.of(context).textTheme.bodyMedium;
+    final activeStyle = defaultStyle?.copyWith(
+      color: Theme.of(context).colorScheme.secondary,
+    );
 
     return [
       PopupMenuItem<VisibilityFilter>(

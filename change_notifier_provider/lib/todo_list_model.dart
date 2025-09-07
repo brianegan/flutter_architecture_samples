@@ -1,13 +1,8 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
-import 'dart:collection';
 
-import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:change_notifier_provider_sample/models.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/widgets.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 enum VisibilityFilter { all, active, completed }
@@ -33,27 +28,30 @@ class TodoListModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   TodoListModel({
-    @required this.repository,
-    VisibilityFilter filter,
-    List<Todo> todos,
-  })  : _todos = todos ?? [],
-        _filter = filter ?? VisibilityFilter.all;
+    required this.repository,
+    VisibilityFilter? filter,
+    List<Todo>? todos,
+  }) : _todos = todos ?? [],
+       _filter = filter ?? VisibilityFilter.all;
 
   /// Loads remote data
   ///
   /// Call this initially and when the user manually refreshes
-  Future loadTodos() {
+  Future<void> loadTodos() {
     _isLoading = true;
     notifyListeners();
 
-    return repository.loadTodos().then((loadedTodos) {
-      _todos.addAll(loadedTodos.map(Todo.fromEntity));
-      _isLoading = false;
-      notifyListeners();
-    }).catchError((err) {
-      _isLoading = false;
-      notifyListeners();
-    });
+    return repository
+        .loadTodos()
+        .then((loadedTodos) {
+          _todos.addAll(loadedTodos.map(Todo.fromEntity));
+          _isLoading = false;
+          notifyListeners();
+        })
+        .catchError((err) {
+          _isLoading = false;
+          notifyListeners();
+        });
   }
 
   List<Todo> get filteredTodos {
@@ -64,7 +62,6 @@ class TodoListModel extends ChangeNotifier {
         case VisibilityFilter.completed:
           return todo.complete;
         case VisibilityFilter.all:
-        default:
           return true;
       }
     }).toList();
@@ -85,8 +82,6 @@ class TodoListModel extends ChangeNotifier {
 
   /// updates a [Todo] by replacing the item with the same id by the parameter [todo]
   void updateTodo(Todo todo) {
-    assert(todo != null);
-    assert(todo.id != null);
     var oldTodo = _todos.firstWhere((it) => it.id == todo.id);
     var replaceIndex = _todos.indexOf(oldTodo);
     _todos.replaceRange(replaceIndex, replaceIndex + 1, [todo]);
@@ -110,9 +105,7 @@ class TodoListModel extends ChangeNotifier {
     repository.saveTodos(_todos.map((it) => it.toEntity()).toList());
   }
 
-  Todo todoById(String id) {
-    return _todos.firstWhere((it) => it.id == id, orElse: () => null);
-  }
+  Todo? todoById(String id) => _todos.firstWhereOrNull((it) => it.id == id);
 
   int get numCompleted =>
       todos.where((Todo todo) => todo.complete).toList().length;

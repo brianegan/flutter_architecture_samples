@@ -2,13 +2,17 @@ name: mvi_base
 description: The MI parts of an MVI app.
 
 environment:
-  sdk: '>=2.0.0-dev.28.0 <3.0.0'
+  sdk: ^3.9.0
 
 dependencies:
+  collection:
+  meta:
+  rxdart:
   todos_repository_core:
     path: ../todos_repository_core
-  rxdart: ^0.23.1
 
 dev_dependencies:
+  lints:
   test:
   mockito:
+  build_runner:

@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:blocs/src/models/models.dart';
@@ -113,7 +109,6 @@ class TodosListBloc {
         case VisibilityFilter.completed:
           return todo.complete;
         case VisibilityFilter.all:
-        default:
           return true;
       }
     }).toList();
@@ -129,6 +124,8 @@ class TodosListBloc {
     clearCompleted.close();
     toggleAll.close();
     updateTodo.close();
-    _subscriptions.forEach((subscription) => subscription.cancel());
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
   }
 }

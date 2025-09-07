@@ -1,14 +1,10 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 class MobxLocalizations {
   static MobxLocalizations of(BuildContext context) {
-    return Localizations.of<MobxLocalizations>(context, MobxLocalizations);
+    return Localizations.of<MobxLocalizations>(context, MobxLocalizations)!;
   }
 
   String get appTitle => 'Todos with MobX';

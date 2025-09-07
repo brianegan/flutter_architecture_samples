@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
@@ -9,10 +5,7 @@ class AppState {
   bool isLoading;
   List<Todo> todos;
 
-  AppState({
-    this.isLoading = false,
-    this.todos = const [],
-  });
+  AppState({this.isLoading = false, this.todos = const []});
 
   factory AppState.loading() => AppState(isLoading: true);
 
@@ -26,7 +19,6 @@ class AppState {
           case VisibilityFilter.completed:
             return todo.complete;
           case VisibilityFilter.all:
-          default:
             return true;
         }
       }).toList();
@@ -57,7 +49,9 @@ class AppState {
   void toggleAll() {
     final allCompleted = allComplete;
 
-    todos.forEach((todo) => todo.complete = !allCompleted);
+    for (final todo in todos) {
+      todo.complete = !allCompleted;
+    }
   }
 
   @override
@@ -76,8 +70,8 @@ class Todo {
   String note;
   String task;
 
-  Todo(this.task, {this.complete = false, this.note = '', String id})
-      : id = id ?? Uuid().generateV4();
+  Todo(this.task, {this.complete = false, this.note = '', String? id})
+    : id = id ?? Uuid().generateV4();
 
   @override
   int get hashCode =>
@@ -105,9 +99,9 @@ class Todo {
   static Todo fromEntity(TodoEntity entity) {
     return Todo(
       entity.task,
-      complete: entity.complete ?? false,
+      complete: entity.complete,
       note: entity.note,
-      id: entity.id ?? Uuid().generateV4(),
+      id: entity.id,
     );
   }
 }

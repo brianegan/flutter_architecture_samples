@@ -2,12 +2,10 @@ import 'package:change_notifier_provider_sample/home/home_screen.dart';
 import 'package:change_notifier_provider_sample/localization.dart';
 import 'package:change_notifier_provider_sample/models.dart';
 import 'package:change_notifier_provider_sample/todo_list_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:todos_repository_core/todos_repository_core.dart';
 
 import 'mock_repository.dart';
 
@@ -83,22 +81,13 @@ void main() {
 }
 
 class _TestWidget extends StatelessWidget {
-  final Widget child;
-  final TodosRepository repository;
-  final List<Todo> todos;
-
-  const _TestWidget({
-    Key key,
-    this.child,
-    this.repository,
-    this.todos,
-  }) : super(key: key);
+  const _TestWidget();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TodoListModel>(
       create: (_) {
-        final repo = MockRepository(todos ?? _defaultTodos);
+        final repo = MockRepository(_defaultTodos);
         return TodoListModel(repository: repo)..loadTodos();
       },
       child: MaterialApp(
@@ -106,7 +95,7 @@ class _TestWidget extends StatelessWidget {
           ProviderLocalizationsDelegate(),
           ArchSampleLocalizationsDelegate(),
         ],
-        home: child ?? const HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
@@ -123,10 +112,11 @@ class _TestWidget extends StatelessWidget {
 Matcher isChecked(bool isChecked) {
   return matchesSemantics(
     isChecked: isChecked,
+    hasTapAction: true,
+    hasFocusAction: true,
     hasCheckedState: true,
+    isFocusable: true,
     hasEnabledState: true,
     isEnabled: true,
-    isFocusable: true,
-    hasTapAction: true,
   );
 }

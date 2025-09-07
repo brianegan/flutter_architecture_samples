@@ -12,7 +12,7 @@ import 'home/home_screen.dart';
 class MobxApp extends StatelessWidget {
   final TodosRepository repository;
 
-  const MobxApp({Key key, @required this.repository}) : super(key: key);
+  const MobxApp({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,8 @@ class MobxApp extends StatelessWidget {
       dispose: (_, store) => store.dispose(), // Clean up after we're done
       child: MaterialApp(
         initialRoute: ArchSampleRoutes.home,
-        theme: ArchSampleTheme.theme,
+        theme: ArchSampleTheme.lightTheme,
+        darkTheme: ArchSampleTheme.darkTheme,
         localizationsDelegates: [
           MobxLocalizationsDelegate(),
           ArchSampleLocalizationsDelegate(),
@@ -39,7 +40,7 @@ class MobxApp extends StatelessWidget {
                 Navigator.pop(context);
               },
             );
-          }
+          },
         },
       ),
     );

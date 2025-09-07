@@ -1,25 +1,20 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
-import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/screens/detail_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/loading.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todo_item.dart';
 import 'package:simple_bloc_flutter_sample/widgets/todos_bloc_provider.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoList extends StatelessWidget {
-  TodoList({Key key}) : super(key: key);
+  const TodoList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Todo>>(
       stream: TodosBlocProvider.of(context).visibleTodos,
       builder: (context, snapshot) => snapshot.hasData
-          ? _buildList(snapshot.data)
+          ? _buildList(snapshot.data!)
           : LoadingSpinner(key: ArchSampleKeys.todosLoading),
     );
   }
@@ -37,25 +32,24 @@ class TodoList extends StatelessWidget {
             _removeTodo(context, todo);
           },
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return DetailScreen(
-                    todoId: todo.id,
-                    initBloc: () =>
-                        TodoBloc(Injector.of(context).todosInteractor),
-                  );
-                },
-              ),
-            ).then((todo) {
-              if (todo is Todo) {
-                _showUndoSnackbar(context, todo);
-              }
-            });
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute<Todo>(
+                    builder: (context) => DetailScreen(todoId: todo.id),
+                  ),
+                )
+                .then((todo) {
+                  if (todo is Todo) {
+                    if (context.mounted) {
+                      _showUndoSnackbar(context, todo);
+                    }
+                  }
+                });
           },
           onCheckboxChanged: (complete) {
-            TodosBlocProvider.of(context)
-                .updateTodo(todo.copyWith(complete: !todo.complete));
+            TodosBlocProvider.of(
+              context,
+            ).updateTodo(todo.copyWith(complete: !todo.complete));
           },
         );
       },
@@ -86,6 +80,6 @@ class TodoList extends StatelessWidget {
       ),
     );
 
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

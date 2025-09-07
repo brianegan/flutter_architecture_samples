@@ -1,0 +1,295 @@
+name: Static Analysis, Run Tests and Build Web Apps
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  bloc_flutter:
+    name: bloc_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./bloc_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.BLOC_FLUTTER_NETLIFY_SITE_ID }}
+  bloc_library:
+    name: bloc_library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./bloc_library
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.BLOC_LIBRARY_NETLIFY_SITE_ID }}
+  blocs:
+    name: blocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./blocs
+  change_notifier_provider:
+    name: change_notifier_provider
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./change_notifier_provider
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.CHANGE_NOTIFIER_PROVIDER_NETLIFY_SITE_ID }}
+  freezed_provider_value_notifier:
+    name: freezed_provider_value_notifier
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./freezed_provider_value_notifier
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.FREEZED_PROVIDER_VALUE_NOTIFIER_NETLIFY_SITE_ID }}
+  inherited_widget:
+    name: inherited_widget
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./inherited_widget
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.INHERITED_WIDGET_NETLIFY_SITE_ID }}
+  mobx:
+    name: mobx
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./mobx
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.MOBX_NETLIFY_SITE_ID }}
+  mvi_base:
+    name: mvi_base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./mvi_base
+  mvi_flutter:
+    name: mvi_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./mvi_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.MVI_NETLIFY_SITE_ID }}
+  redux:
+    name: redux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./redux
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.REDUX_NETLIFY_SITE_ID }}
+  scoped_model:
+    name: scoped_model
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./scoped_model
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SCOPED_MODEL_NETLIFY_SITE_IT }}
+  signals:
+    name: signals
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./signals
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SIGNALS_NETLIFY_SITE_ID }}
+  simple_bloc_flutter:
+    name: simple_bloc_flutter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./simple_bloc_flutter
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.SIMPLE_BLOC_NETLIFY_SITE_ID }}
+  simple_blocs:
+    name: simple_blocs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/dart_analysis_and_tests
+        with:
+          working-directory: ./simple_blocs
+  todos_repository_local_storage:
+    name: todos_repository_local_storage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./todos_repository_local_storage
+          run-integration-tests: false
+  vanilla:
+    name: vanilla
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis, Run Tests, and Build web app
+        uses: ./.github/actions/flutter_analysis_test_build
+        with:
+          working-directory: ./vanilla
+          deploy-to-netlify: ${{ github.ref_name == 'main' }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.VANILLA_NETLIFY_SITE_ID }}
+  combine_and_upload_coverage:
+    name: Combine and Upload Coverage
+    runs-on: ubuntu-latest
+    needs:
+      - bloc_flutter
+      - bloc_library
+      - blocs
+      - change_notifier_provider
+      - freezed_provider_value_notifier
+      - inherited_widget
+      - mobx
+      - mvi_base
+      - mvi_flutter
+      - redux
+      - scoped_model
+      - signals
+      - simple_bloc_flutter
+      - simple_blocs
+      - todos_repository_local_storage
+      - vanilla
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download coverage artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: .
+      - name: Combine coverage files
+        run: |
+          combineCoverage() {
+            local artifact_dir=$1
+            local repo_dir=$2
+            # Extract the package directory path from the artifact name
+            # coverage-lcov-vanilla -> ./vanilla
+            local package_name=$(basename "$artifact_dir")
+            local package_dir="./${package_name#coverage-lcov-}"
+            escapedPath="$(echo $package_dir | sed 's/\//\\\//g')"
+            
+            if [[ -d "$artifact_dir" ]]; then
+              # Find the lcov.info file in the artifact directory
+              for lcov_file in "$artifact_dir"/*.info; do
+                if [[ -f "$lcov_file" ]]; then
+                  echo "Combining coverage from $package_dir"
+                  # combine line coverage info from package tests to a common file
+                  sed "s/^SF:lib/SF:$escapedPath\/lib/g" "$lcov_file" >> "$repo_dir/lcov.info"
+                  break
+                fi
+              done
+            fi
+          }
+
+          # Initialize the combined coverage file
+          touch lcov.info
+
+          # Combine coverage from all downloaded artifacts
+          for artifact_dir in coverage-lcov-*/; do
+            if [[ -d "$artifact_dir" ]]; then
+              combineCoverage "$artifact_dir" "."
+            fi
+          done
+
+          echo "Combined coverage file created:"
+          ls -la lcov.info
+          echo "First few lines of combined coverage:"
+          head -10 lcov.info
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./lcov.info
+          disable_search: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

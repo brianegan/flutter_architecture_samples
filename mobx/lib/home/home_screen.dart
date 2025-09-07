@@ -13,20 +13,20 @@ import 'extra_actions_button.dart';
 import 'filter_button.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen();
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   // Because the state of the tabs is only a concern to the HomeScreen Widget,
   // it is stored as local state rather than in the TodoStore.
   //
   // In this case, there's no need for a fully generated Store class. Just
   // create a mobx Observable locally as part of the state class and use the
   // Observer Widget to listen for changes as with any Observable.
-  final _tab = Observable(_HomeScreenTab.todos);
+  final _tab = Observable(HomeScreenTab.todos);
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(MobxLocalizations.of(context).appTitle),
         actions: <Widget>[
           Observer(
-            builder: (_) => FilterButton(
-              isActive: _tab.value == _HomeScreenTab.todos,
-            ),
+            builder: (_) =>
+                FilterButton(isActive: _tab.value == HomeScreenTab.todos),
           ),
           const ExtraActionsButton(),
         ],
@@ -61,10 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           switch (_tab.value) {
-            case _HomeScreenTab.stats:
+            case HomeScreenTab.stats:
               return const StatsView();
-            case _HomeScreenTab.todos:
-            default:
+            case HomeScreenTab.todos:
               return TodoListView(
                 onRemove: (context, todo) {
                   store.todos.remove(todo);
@@ -78,16 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) {
           return BottomNavigationBar(
             key: ArchSampleKeys.tabs,
-            currentIndex: _HomeScreenTab.values.indexOf(_tab.value),
+            currentIndex: HomeScreenTab.values.indexOf(_tab.value),
             onTap: (int index) {
-              runInAction(() => _tab.value = _HomeScreenTab.values[index]);
+              runInAction(() => _tab.value = HomeScreenTab.values[index]);
             },
             items: [
-              for (final tab in _HomeScreenTab.values)
+              for (final tab in HomeScreenTab.values)
                 BottomNavigationBarItem(
                   icon: Icon(tab.icon, key: tab.key),
-                  title: Text(tab.title),
-                )
+                  label: tab.title,
+                ),
             ],
           );
         },
@@ -96,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _displayRemovalNotification(BuildContext context, Todo todo) {
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: const Duration(seconds: 2),
@@ -117,19 +115,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-enum _HomeScreenTab { todos, stats }
+enum HomeScreenTab { todos, stats }
 
-extension TabExtensions on _HomeScreenTab {
+extension TabExtensions on HomeScreenTab {
   IconData get icon {
-    return (this == _HomeScreenTab.todos) ? Icons.list : Icons.show_chart;
+    return (this == HomeScreenTab.todos) ? Icons.list : Icons.show_chart;
   }
 
   String get title {
-    return this == _HomeScreenTab.todos ? 'Todos' : 'Stats';
+    return this == HomeScreenTab.todos ? 'Todos' : 'Stats';
   }
 
   Key get key {
-    return this == _HomeScreenTab.stats
+    return this == HomeScreenTab.stats
         ? ArchSampleKeys.statsTab
         : ArchSampleKeys.todoTab;
   }

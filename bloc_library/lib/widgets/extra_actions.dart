@@ -1,18 +1,12 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todos_app_core/todos_app_core.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActions extends StatelessWidget {
-  ExtraActions({Key key}) : super(key: ArchSampleKeys.extraActionsButton);
+  const ExtraActions({super.key = ArchSampleKeys.extraActionsButton});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +15,9 @@ class ExtraActions extends StatelessWidget {
       bloc: todosBloc,
       builder: (BuildContext context, TodosState state) {
         if (state is TodosLoaded) {
-          final allComplete = (todosBloc.state as TodosLoaded)
-              .todos
-              .every((todo) => todo.complete);
+          final allComplete = (todosBloc.state as TodosLoaded).todos.every(
+            (todo) => todo.complete,
+          );
           return PopupMenuButton<ExtraAction>(
             key: BlocLibraryKeys.extraActionsPopupMenuButton,
             onSelected: (action) {
@@ -49,9 +43,7 @@ class ExtraActions extends StatelessWidget {
               PopupMenuItem<ExtraAction>(
                 key: ArchSampleKeys.clearCompleted,
                 value: ExtraAction.clearCompleted,
-                child: Text(
-                  ArchSampleLocalizations.of(context).clearCompleted,
-                ),
+                child: Text(ArchSampleLocalizations.of(context).clearCompleted),
               ),
             ],
           );

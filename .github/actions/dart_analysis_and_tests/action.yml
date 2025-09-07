@@ -1,0 +1,43 @@
+name: "Validate"
+description: "Runs lint, format, and test on an app"
+inputs:
+  working-directory:
+    description: "Directory to run validation in"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up flutter
+      uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+
+    - name: Get dependencies
+      shell: bash
+      run: dart pub get
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Check dart formatting
+      shell: bash
+      run: dart format -o none --set-exit-if-changed .
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Check dart analysis
+      shell: bash
+      run: dart analyze --fatal-infos --fatal-warnings .
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Run unit tests and prepare coverage
+      shell: bash
+      run: |
+        dart pub global activate coverage
+        dart run test --coverage=coverage
+        dart pub global run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json --report-on=lib
+        # Extract directory name for artifact naming
+        echo "DIR_NAME=$(basename "${{ inputs.working-directory }}")" >> $GITHUB_ENV
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Upload coverage artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-lcov-${{ env.DIR_NAME }}
+        path: ${{ inputs.working-directory }}/coverage/lcov.info

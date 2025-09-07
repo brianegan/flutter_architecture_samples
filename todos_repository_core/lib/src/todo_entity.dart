@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 class TodoEntity {
   final bool complete;
   final String id;
@@ -38,7 +34,7 @@ class TodoEntity {
     return 'TodoEntity{complete: $complete, task: $task, note: $note, id: $id}';
   }
 
-  static TodoEntity fromJson(Map<String, Object> json) {
+  static TodoEntity fromJson(Map<String, dynamic> json) {
     return TodoEntity(
       json['task'] as String,
       json['id'] as String,

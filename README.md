@@ -1,8 +1,7 @@
 # flutter_architecture_samples
 
-[![Build Status](https://travis-ci.org/brianegan/flutter_architecture_samples.svg?branch=master)](https://travis-ci.org/brianegan/flutter_architecture_samples)
-[![Build Status](https://api.cirrus-ci.com/github/brianegan/flutter_architecture_samples.svg)](https://cirrus-ci.com/github/brianegan/flutter_architecture_samples)
-[![codecov](https://codecov.io/gh/brianegan/flutter_architecture_samples/branch/master/graph/badge.svg)](https://codecov.io/gh/brianegan/flutter_architecture_samples)
+[![Build Status](https://github.com/brianegan/flutter_architecture_samples/actions/workflows/analyze_test_build.yml/badge.svg?branch=main)](https://github.com/brianegan/flutter_architecture_samples/actions/workflows/analyze_test_build.ymll)
+[![codecov](https://codecov.io/gh/brianegan/flutter_architecture_samples/branch/main/graph/badge.svg)](https://codecov.io/gh/brianegan/flutter_architecture_samples)
 
 <img align="right" src="assets/todo-list.png" alt="List of Todos Screen">
 
@@ -18,35 +17,30 @@ The Flutter Architecture Samples project demonstrates strategies to help solve
 or avoid these common problems. This project implements the same app using
 different architectural concepts and tools.
 
-You can use the samples in this project as a learning reference, or as a
-starting point for creating your own apps. The focus of this project is on
-demonstrating how to structure your code, design your architecture, and the
-eventual impact of adopting these patterns on testing and maintaining your app.
-You can use the techniques demonstrated here in many different ways to build
-apps. Your own particular priorities will impact how you implement the concepts
-in these projects, so you should not consider these samples to be canonical
-examples. To ensure the focus is kept on the aims described above, the app uses
-a simple UI.
+You can use the samples in this project as a learning reference, as a roughly
+apples-to-apples comparison of different approaches, or as a starting point for
+creating your own apps. The focus of this project is on demonstrating how to
+structure your code, design your architecture, and the eventual impact of
+adopting these patterns on testing and maintaining your app. You can use the
+techniques demonstrated here in many different ways to build apps. Your own
+particular priorities will impact how you implement the concepts in these
+projects, so you should not consider these samples to be canonical examples. To
+ensure the focus is kept on the aims described above, the app uses a simple UI.
 
 ### Current Samples
 
-- [Vanilla Lifting State Up Example](vanilla) ([Web Demo](https://fas_vanilla.codemagic.app)) - Uses the tools Flutter provides out of the box to manage app state.
-- [InheritedWidget Example](inherited_widget) ([Web Demo](https://fas_inherited_widget.codemagic.app)) - Uses an InheritedWidget to pass app state down the widget hierarchy.
-- [Change Notifier + Provider Example](change_notifier_provider) ([Web Demo](https://fas_change_notifier_provider.codemagic.app)) - Uses the [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) class from Flutter with [provider](https://pub.dev/packages/provider) package now recommended by the Flutter team.
-- [BLoC Example](bloc_flutter) ([Web Demo](https://fas_bloc_flutter.codemagic.app)) - An implementation of the BLoC pattern, which uses Sinks for Inputs and Streams for Outputs
-- [Bloc Library Example](bloc_library) ([Web Demo](https://fas_bloc_library.codemagic.app)) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
-- [MobX Example](mobx) ([Web Demo](https://fas_mobx.codemagic.app)) - Uses the [MobX](https://pub.dev/packages/mobx) library to manage app state and update widgets using `Observables`, `Actions` and `Reactions`.
-- [Redux Example](redux) ([Web Demo](https://fas_redux.codemagic.app)) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
-- ["Simple" BLoC Example](simple_bloc_flutter) ([Web Demo](https://fas_simple_bloc.codemagic.app)) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to standard BLoC.
-- [MVI Example](mvi_flutter) ([Web Demo](https://fas_mvi.codemagic.app)) - Uses the concepts from Cycle.JS and applies them to Flutter.
-- [states_rebuilder Example](states_rebuilder) ([Web Demo](https://fas_states_rebuilder.codemagic.app)) - Uses the [states_rebuilder](https://pub.dev/packages/states_rebuilder) library to manage app state and update Widgets.
-- [built_redux Example](built_redux) - Uses the [built_redux](https://pub.dartlang.org/packages/built_redux) library to enforce immutability and manage app state
-- [scoped_model Example](scoped_model) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
-- [Firestore Redux Example](firestore_redux) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets and
-  adds [Cloud_Firestore](https://firebase.google.com/docs/firestore/) as the Todos database.
-- [MVU Example](mvu) - Uses the [dartea](https://pub.dartlang.org/packages/dartea) library to manage app state and update Widgets.
-- [MVC Example](mvc) - Uses the [MVC](https://pub.dartlang.org/packages/mvc_pattern) library to implement the traditional MVC design pattern.
-- [Frideos Example](frideos_library) - Uses the [Frideos](https://pub.dartlang.org/packages/frideos) library to manage app state and update widgets using streams.
+- [Vanilla Lifting State Up Example](vanilla) ([Web Demo](https://fas-vanilla.netlify.app)) - Uses the tools Flutter provides out of the box to manage app state.
+- [InheritedWidget Example](inherited_widget) ([Web Demo](https://fas-inherited-widget.netlify.app)) - Uses an InheritedWidget to pass app state down the widget hierarchy.
+- [Change Notifier + Provider Example](change_notifier_provider) ([Web Demo](https://fas-change-notifier-provider.netlify.app)) - Uses the [ChangeNotifier](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html) class from Flutter with [provider](https://pub.dev/packages/provider) package now recommended by the Flutter team.
+- [Freezed + Provider + Value Notifier](freezed_provider_value_notifier) ([Web Demo](https://fas-freezed-provider-value-notifier.netlify.app)) - Uses the [ValueNotifier](https://api.flutter.dev/flutter/foundation/ValueNotifier-class.html) class from Flutter with [provider](https://pub.dev/packages/provider) package.
+- [BLoC Example](bloc_flutter) ([Web Demo](https://fas-bloc-flutter.netlify.app/)) - An implementation of the original [BLoC pattern](https://www.youtube.com/watch?v=PLHln7wHgPE&list=PLOU2XLYxmsIIJr3vjxggY7yGcGO7i9BK5&index=13) described by Paolo Soares at DartConf 2018, which uses Sinks for Inputs and Streams for Outputs
+- [Bloc Library Example](bloc_library) ([Web Demo](https://fas-bloc-library.netlify.app)) - Uses the [bloc](https://pub.dartlang.org/packages/bloc) and [flutter_bloc](https://pub.dartlang.org/packages/flutter_bloc) libraries to manage app state and update Widgets.
+- [MobX Example](mobx) ([Web Demo](https://fas-mobx.netlify.app)) - Uses the [MobX](https://pub.dev/packages/mobx) library to manage app state and update widgets using `Observables`, `Actions` and `Reactions`.
+- [Redux Example](redux) ([Web Demo](https://fas-redux.netlify.app)) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
+- ["Simple" BLoC Example](simple_bloc_flutter) ([Web Demo](https://fas-simple-bloc.netlify.app/)) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to original BLoC pattern if code sharing with AngularDart apps isn't an important use case for your app.
+- [Signals Example](signals) ([Web Demo](https://fas-signals.netlify.app)) - Uses the [Signals](https://pub.dev/packages/signals) package by [Rody Davis](https://pub.dev/publishers/rodydavis.com/packages).
+- [MVI Example](mvi_flutter) ([Web Demo](https://fas-mvi.netlify.app)) - Uses the concepts from [Cycle.JS](https://cycle.js.org/) and applies them to Flutter.
+- [scoped_model Example](scoped_model) ([Web Demo](https://fas-scoped-model.netlify.app)) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
 
 ### Supporting Code
 
@@ -60,37 +54,19 @@ window.localStorage for web projects.
 - [todos_repository_local_storage](todos_repository_local_storage) - Implements
 the todos repository using the file system, window.localStorage, and
 SharedPreferences as the data source.
-- [firebase_flutter_repository](firebase_flutter_repository) - Implements 
-the todos repository using firestore as the data source.
-- [firebase_rtdb_flutter_repository](firebase_rtdb_flutter_repository) -
-Implements the todos repository using firebase real-time database as the data
-source.
 
 ### Running the samples
-
-#### iOS / Android
 
 ```
 cd <sample_directory>
 flutter run 
 ```
 
-#### Web
-
-Make sure you're on Flutter version "Flutter 1.12.13+hotfix.6 • channel beta" or
-newer. Not all samples support web at this time, so please check the sample
-directory for a `lib/main_web.dart` file.
-
-```
-cd <sample_directory>
-flutter run -d chrome -t lib/main_web.dart
-```
-
 ### Why a todo app?
 
-The app in this project aims to be simple enough that you can understand it
-quickly, but complex enough to showcase difficult design decisions and testing
-scenarios. For more information, see the [app's specification](app_spec.md).
+The app in this project aims to be as simple as possible while still showcasing
+different design decisions and testing scenarios. For more information, see the
+[app's specification](app_spec.md).
 
 ### Be excellent to each other
 

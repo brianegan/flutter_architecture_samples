@@ -1,20 +1,17 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_base/src/mvi_core.dart';
 import 'package:rxdart/rxdart.dart';
 
 class StatsPresenter extends MviPresenter<StatsModel> {
-  StatsPresenter(TodosInteractor interactor)
-      : super(
-          stream: Rx.combineLatest2(
-            interactor.todos.map(_numActive),
-            interactor.todos.map(_numComplete),
-            (numActive, numComplete) => StatsModel(numActive, numComplete),
-          ),
-        );
+  StatsPresenter(TodoListInteractor interactor)
+    : super(
+        initialModel: StatsModelLoading(),
+        stream: Rx.combineLatest2(
+          interactor.todos.map(_numActive),
+          interactor.todos.map(_numComplete),
+          (numActive, numComplete) =>
+              StatsModelLoaded(numActive: numActive, numComplete: numComplete),
+        ),
+      );
 
   static int _numActive(List<Todo> todos) {
     return todos.fold(0, (sum, todo) => !todo.complete ? ++sum : sum);
@@ -25,16 +22,20 @@ class StatsPresenter extends MviPresenter<StatsModel> {
   }
 }
 
-class StatsModel {
+sealed class StatsModel {}
+
+class StatsModelLoading implements StatsModel {}
+
+class StatsModelLoaded implements StatsModel {
   final int numActive;
   final int numComplete;
 
-  StatsModel(this.numActive, this.numComplete);
+  StatsModelLoaded({required this.numActive, required this.numComplete});
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StatsModel &&
+      other is StatsModelLoaded &&
           runtimeType == other.runtimeType &&
           numActive == other.numActive &&
           numComplete == other.numComplete;
@@ -44,6 +45,6 @@ class StatsModel {
 
   @override
   String toString() {
-    return 'StatsModel{numActive: $numActive, numComplete: $numComplete}';
+    return 'StatsModelLoaded{numActive: $numActive, numComplete: $numComplete}';
   }
 }

@@ -1,8 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:vanilla/models.dart';
@@ -17,13 +12,14 @@ class TodoList extends StatelessWidget {
   final TodoRemover removeTodo;
   final TodoUpdater updateTodo;
 
-  TodoList({
-    @required this.filteredTodos,
-    @required this.loading,
-    @required this.addTodo,
-    @required this.removeTodo,
-    @required this.updateTodo,
-  }) : super(key: ArchSampleKeys.todoList);
+  const TodoList({
+    required this.filteredTodos,
+    required this.loading,
+    required this.addTodo,
+    required this.removeTodo,
+    required this.updateTodo,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +27,9 @@ class TodoList extends StatelessWidget {
       child: loading
           ? Center(
               child: CircularProgressIndicator(
-              key: ArchSampleKeys.todosLoading,
-            ))
+                key: ArchSampleKeys.todosLoading,
+              ),
+            )
           : ListView.builder(
               key: ArchSampleKeys.todoList,
               itemCount: filteredTodos.length,
@@ -45,7 +42,7 @@ class TodoList extends StatelessWidget {
                     _removeTodo(context, todo);
                   },
                   onTap: () {
-                    Navigator.of(context).push(
+                    Navigator.of(context).push<void>(
                       MaterialPageRoute(
                         builder: (_) {
                           return DetailScreen(
@@ -70,7 +67,7 @@ class TodoList extends StatelessWidget {
   void _removeTodo(BuildContext context, Todo todo) {
     removeTodo(todo);
 
-    Scaffold.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         key: ArchSampleKeys.snackbar,
         duration: Duration(seconds: 2),

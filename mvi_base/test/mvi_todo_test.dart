@@ -1,31 +1,29 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_base/src/models/models.dart';
 import 'package:test/test.dart';
 
-class MockTodosInteractor extends Mock implements TodosInteractor {}
+import 'mvi_todo_test.mocks.dart';
 
-class MockView extends Object with DetailView {}
+class MockDetailView extends Mock with DetailView {}
 
+@GenerateNiceMocks([MockSpec<TodoListInteractor>()])
 void main() {
   group('MviTodo', () {
     group('Presenter', () {
       test('should load a todo', () {
-        final interactor = MockTodosInteractor();
+        final interactor = MockTodoListInteractor();
         final todo = Todo('Hallo');
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
-          view: MockView(),
+          view: MockDetailView(),
           interactor: interactor,
         );
 
@@ -33,12 +31,15 @@ void main() {
       });
 
       test('should send deletions to the interactor', () async {
-        final interactor = MockTodosInteractor();
+        final interactor = MockTodoListInteractor();
         final todo = Todo('Hallo');
-        final view = MockView();
+        final view = MockDetailView();
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
+
+        when(interactor.deleteTodo(todo.id)).thenAnswer((_) => Future.value());
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -52,12 +53,13 @@ void main() {
       });
 
       test('should send updates to the interactor', () async {
-        final interactor = MockTodosInteractor();
+        final interactor = MockTodoListInteractor();
         final todo = Todo('Hallo');
-        final view = MockView();
+        final view = MockDetailView();
 
-        when(interactor.todo(todo.id))
-            .thenAnswer((_) => Stream.fromIterable([todo]));
+        when(
+          interactor.todo(todo.id),
+        ).thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -73,7 +75,7 @@ void main() {
 
     group('View', () {
       test('should clean up after itself', () async {
-        final view = MockView();
+        final view = MockDetailView();
 
         view.tearDown();
 

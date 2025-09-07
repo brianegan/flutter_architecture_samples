@@ -1,17 +1,15 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_library/blocs/blocs.dart';
-import 'package:bloc_library/widgets/widgets.dart';
+import 'package:bloc_library/blocs/tab/tab.dart';
 import 'package:bloc_library/localization.dart';
 import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/blocs/tab/tab.dart';
+import 'package:bloc_library/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final tabBloc = BlocProvider.of<TabBloc>(context);
@@ -31,8 +29,8 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
             },
-            child: Icon(Icons.add),
             tooltip: ArchSampleLocalizations.of(context).addTodo,
+            child: Icon(Icons.add),
           ),
           bottomNavigationBar: TabSelector(
             activeTab: activeTab,

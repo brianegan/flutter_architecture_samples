@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
@@ -15,13 +11,13 @@ List<Middleware<AppState>> createStoreTodosMiddleware(
   final loadTodos = _createLoadTodos(repository);
 
   return [
-    TypedMiddleware<AppState, LoadTodosAction>(loadTodos),
-    TypedMiddleware<AppState, AddTodoAction>(saveTodos),
-    TypedMiddleware<AppState, ClearCompletedAction>(saveTodos),
-    TypedMiddleware<AppState, ToggleAllAction>(saveTodos),
-    TypedMiddleware<AppState, UpdateTodoAction>(saveTodos),
-    TypedMiddleware<AppState, TodosLoadedAction>(saveTodos),
-    TypedMiddleware<AppState, DeleteTodoAction>(saveTodos),
+    TypedMiddleware<AppState, LoadTodosAction>(loadTodos).call,
+    TypedMiddleware<AppState, AddTodoAction>(saveTodos).call,
+    TypedMiddleware<AppState, ClearCompletedAction>(saveTodos).call,
+    TypedMiddleware<AppState, ToggleAllAction>(saveTodos).call,
+    TypedMiddleware<AppState, UpdateTodoAction>(saveTodos).call,
+    TypedMiddleware<AppState, TodosLoadedAction>(saveTodos).call,
+    TypedMiddleware<AppState, DeleteTodoAction>(saveTodos).call,
   ];
 }
 
@@ -37,15 +33,16 @@ Middleware<AppState> _createSaveTodos(TodosRepository repository) {
 
 Middleware<AppState> _createLoadTodos(TodosRepository repository) {
   return (Store<AppState> store, action, NextDispatcher next) {
-    repository.loadTodos().then(
-      (todos) {
-        store.dispatch(
-          TodosLoadedAction(
-            todos.map(Todo.fromEntity).toList(),
-          ),
-        );
-      },
-    ).catchError((_) => store.dispatch(TodosNotLoadedAction()));
+    repository
+        .loadTodos()
+        .then((todos) {
+          store.dispatch(
+            TodosLoadedAction(todos.map(Todo.fromEntity).toList()),
+          );
+        })
+        .catchError((_) {
+          store.dispatch(TodosNotLoadedAction());
+        });
 
     next(action);
   };

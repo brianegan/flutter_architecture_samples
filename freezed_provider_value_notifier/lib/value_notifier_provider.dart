@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -8,13 +7,12 @@ import 'package:provider/single_child_widget.dart';
 
 class ValueNotifierProvider<Controller extends ValueNotifier<Value>, Value>
     extends SingleChildStatelessWidget {
-  ValueNotifierProvider({@required this.create, Widget child})
-      : super(child: child);
+  const ValueNotifierProvider({super.key, required this.create, super.child});
 
   final Create<Controller> create;
 
   @override
-  Widget buildWithChild(BuildContext context, Widget child) {
+  Widget buildWithChild(BuildContext context, Widget? child) {
     return InheritedProvider(
       create: create,
       dispose: (context, Controller controller) => controller.dispose(),
@@ -22,7 +20,7 @@ class ValueNotifierProvider<Controller extends ValueNotifier<Value>, Value>
         create: (context) => context.read<Controller>(),
         startListening: (context, setState, controller, _) {
           setState(controller.value);
-          final listener = () => setState(controller.value);
+          void listener() => setState(controller.value);
           controller.addListener(listener);
           return () => controller.removeListener(listener);
         },

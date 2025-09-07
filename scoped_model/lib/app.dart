@@ -1,9 +1,4 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/localization.dart';
 import 'package:scoped_model_sample/screens/add_edit_screen.dart';
@@ -15,16 +10,15 @@ import 'package:todos_repository_core/todos_repository_core.dart';
 class ScopedModelApp extends StatelessWidget {
   final TodosRepository repository;
 
-  ScopedModelApp({
-    @required this.repository,
-  });
+  const ScopedModelApp({super.key, required this.repository});
 
   @override
   Widget build(BuildContext context) {
     var app = MaterialApp(
       onGenerateTitle: (context) =>
           ScopedModelLocalizations.of(context).appTitle,
-      theme: ArchSampleTheme.theme,
+      theme: ArchSampleTheme.lightTheme,
+      darkTheme: ArchSampleTheme.darkTheme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),
         ScopedModelLocalizationsDelegate(),
@@ -36,9 +30,7 @@ class ScopedModelApp extends StatelessWidget {
     );
 
     return ScopedModel<TodoListModel>(
-      model: TodoListModel(
-        repository: repository,
-      ),
+      model: TodoListModel(repository: repository),
       child: app,
     );
   }

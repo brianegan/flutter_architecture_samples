@@ -1,26 +1,22 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:inherited_widget_sample/models.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
 class StateContainer extends StatefulWidget {
-  final AppState state;
-  final TodosRepository repository;
+  final AppState? state;
+  final TodosRepository? repository;
   final Widget child;
 
-  StateContainer({
-    @required this.child,
+  const StateContainer({
+    super.key,
+    required this.child,
     this.repository,
     this.state,
   });
 
   static StateContainerState of(BuildContext context) {
     return context
-        .dependOnInheritedWidgetOfExactType<_InheritedStateContainer>()
+        .dependOnInheritedWidgetOfExactType<_InheritedStateContainer>()!
         .data;
   }
 
@@ -31,27 +27,28 @@ class StateContainer extends StatefulWidget {
 }
 
 class StateContainerState extends State<StateContainer> {
-  AppState state;
+  late AppState state;
 
   @override
   void initState() {
     if (widget.state != null) {
-      state = widget.state;
+      state = widget.state!;
     } else {
       state = AppState.loading();
     }
 
-    widget.repository.loadTodos().then((loadedTodos) {
-      setState(() {
-        state = AppState(
-          todos: loadedTodos.map(Todo.fromEntity).toList(),
-        );
-      });
-    }).catchError((err) {
-      setState(() {
-        state.isLoading = false;
-      });
-    });
+    widget.repository
+        ?.loadTodos()
+        .then((loadedTodos) {
+          setState(() {
+            state = AppState(todos: loadedTodos.map(Todo.fromEntity).toList());
+          });
+        })
+        .catchError((err) {
+          setState(() {
+            state.isLoading = false;
+          });
+        });
 
     super.initState();
   }
@@ -88,10 +85,10 @@ class StateContainerState extends State<StateContainer> {
 
   void updateTodo(
     Todo todo, {
-    bool complete,
-    String id,
-    String note,
-    String task,
+    bool? complete,
+    String? id,
+    String? note,
+    String? task,
   }) {
     setState(() {
       todo.complete = complete ?? todo.complete;
@@ -105,27 +102,21 @@ class StateContainerState extends State<StateContainer> {
   void setState(VoidCallback fn) {
     super.setState(fn);
 
-    widget.repository
-        .saveTodos(state.todos.map((todo) => todo.toEntity()).toList());
+    widget.repository?.saveTodos(
+      state.todos.map((todo) => todo.toEntity()).toList(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return _InheritedStateContainer(
-      data: this,
-      child: widget.child,
-    );
+    return _InheritedStateContainer(data: this, child: widget.child);
   }
 }
 
 class _InheritedStateContainer extends InheritedWidget {
   final StateContainerState data;
 
-  _InheritedStateContainer({
-    Key key,
-    @required this.data,
-    @required Widget child,
-  }) : super(key: key, child: child);
+  const _InheritedStateContainer({required this.data, required super.child});
 
   // Note: we could get fancy here and compare whether the old AppState is
   // different than the current AppState. However, since we know this is the
@@ -135,10 +126,11 @@ class _InheritedStateContainer extends InheritedWidget {
   bool updateShouldNotify(_InheritedStateContainer old) => true;
 }
 
-typedef TodoUpdater = void Function(
-  Todo todo, {
-  bool complete,
-  String id,
-  String note,
-  String task,
-});
+typedef TodoUpdater =
+    void Function(
+      Todo todo, {
+      bool complete,
+      String id,
+      String note,
+      String task,
+    });

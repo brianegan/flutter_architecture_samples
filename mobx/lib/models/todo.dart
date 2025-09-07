@@ -5,14 +5,14 @@ part 'todo.g.dart';
 
 /// A reactive class that holds information about a task that needs to be
 /// completed
-class Todo = _Todo with _$Todo;
+class Todo = TodoBase with _$Todo;
 
-abstract class _Todo with Store {
-  _Todo({
-    String id,
-    this.task = '',
-    this.note = '',
-    this.complete = false,
+abstract class TodoBase with Store {
+  TodoBase({
+    String? id,
+    this.task = '', // ignore: unused_element_parameter
+    this.note = '', // ignore: unused_element_parameter
+    this.complete = false, // ignore: unused_element_parameter
   }) : id = id ?? Uuid().generateV4();
 
   final String id;
@@ -34,7 +34,7 @@ abstract class _Todo with Store {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is _Todo &&
+      other is TodoBase &&
           runtimeType == other.runtimeType &&
           id == other.id &&
           task == other.task &&

@@ -1,22 +1,16 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:bloc_library/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/models/models.dart';
 
 class TabSelector extends StatelessWidget {
   final AppTab activeTab;
-  final Function(AppTab) onTabSelected;
+  final void Function(AppTab) onTabSelected;
 
-  TabSelector({
-    Key key,
-    @required this.activeTab,
-    @required this.onTabSelected,
-  }) : super(key: key);
+  const TabSelector({
+    super.key,
+    required this.activeTab,
+    required this.onTabSelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +26,9 @@ class TabSelector extends StatelessWidget {
                 ? ArchSampleKeys.todoTab
                 : ArchSampleKeys.statsTab,
           ),
-          title: Text(tab == AppTab.stats
+          label: tab == AppTab.stats
               ? ArchSampleLocalizations.of(context).stats
-              : ArchSampleLocalizations.of(context).todos),
+              : ArchSampleLocalizations.of(context).todos,
         );
       }).toList(),
     );

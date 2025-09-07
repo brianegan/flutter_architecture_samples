@@ -9,10 +9,10 @@ class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen() : super(key: ArchSampleKeys.addTodoScreen);
 
   @override
-  _AddTodoScreenState createState() => _AddTodoScreenState();
+  AddTodoScreenState createState() => AddTodoScreenState();
 }
 
-class _AddTodoScreenState extends State<AddTodoScreen> {
+class AddTodoScreenState extends State<AddTodoScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleEditingController = TextEditingController();
   final _notesEditingController = TextEditingController();
@@ -30,12 +30,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(localizations.addTodo),
-      ),
+      appBar: AppBar(title: Text(localizations.addTodo)),
       body: Form(
         key: _formKey,
-        autovalidate: false,
+        autovalidateMode: AutovalidateMode.always,
+        canPop: true,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -46,10 +45,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 decoration: InputDecoration(
                   hintText: localizations.newTodoHint,
                 ),
-                style: textTheme.headline,
+                style: textTheme.titleLarge,
                 autofocus: true,
                 validator: (val) {
-                  return val.trim().isEmpty
+                  return val != null && val.trim().isEmpty
                       ? localizations.emptyTodoError
                       : null;
                 },
@@ -57,10 +56,10 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               TextFormField(
                 key: ArchSampleKeys.noteField,
                 controller: _notesEditingController,
-                style: textTheme.subhead,
+                style: textTheme.titleMedium,
                 decoration: InputDecoration(hintText: localizations.notesHint),
                 maxLines: 10,
-              )
+              ),
             ],
           ),
         ),
@@ -69,11 +68,13 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         key: ArchSampleKeys.saveNewTodo,
         tooltip: localizations.addTodo,
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            context.read<TodoListController>().addTodo(Todo(
-                  _titleEditingController.text,
-                  note: _notesEditingController.text,
-                ));
+          if (_formKey.currentState!.validate()) {
+            context.read<TodoListController>().addTodo(
+              Todo(
+                _titleEditingController.text,
+                note: _notesEditingController.text,
+              ),
+            );
             Navigator.pop(context);
           }
         },

@@ -1,24 +1,19 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/dependency_injection.dart';
 import 'package:mvi_flutter_sample/screens/add_edit_screen.dart';
 import 'package:mvi_flutter_sample/widgets/loading.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final MviPresenter<Todo> Function(DetailView) initPresenter;
+  final MviPresenter<Todo> Function(DetailView)? initPresenter;
 
-  DetailScreen({
-    Key key,
-    @required this.todoId,
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todoId,
     this.initPresenter,
-  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  });
 
   @override
   DetailScreenState createState() {
@@ -27,12 +22,12 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> with DetailView {
-  MviPresenter<Todo> presenter;
+  late final MviPresenter<Todo> presenter;
 
   @override
   void didChangeDependencies() {
     presenter = widget.initPresenter != null
-        ? widget.initPresenter(this)
+        ? widget.initPresenter!(this)
         : DetailPresenter(
             id: widget.todoId,
             view: this,
@@ -54,11 +49,11 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Todo>(
-      stream: presenter.where((todo) => todo != null),
+      stream: presenter,
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LoadingSpinner();
 
-        final todo = snapshot.data;
+        final todo = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -72,7 +67,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                   deleteTodo.add(todo.id);
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -88,8 +83,9 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                         value: todo.complete,
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
-                          updateTodo
-                              .add(todo.copyWith(complete: !todo.complete));
+                          updateTodo.add(
+                            todo.copyWith(complete: !todo.complete),
+                          );
                         },
                       ),
                     ),
@@ -98,21 +94,18 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
+                            padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
-                          )
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -123,11 +116,10 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
@@ -138,6 +130,7 @@ class DetailScreenState extends State<DetailScreen> with DetailView {
                 ),
               );
             },
+            child: Icon(Icons.edit),
           ),
         );
       },

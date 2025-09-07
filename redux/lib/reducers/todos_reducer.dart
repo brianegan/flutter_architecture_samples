@@ -1,20 +1,16 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:redux/redux.dart';
 import 'package:redux_sample/actions/actions.dart';
 import 'package:redux_sample/models/models.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 
 final todosReducer = combineReducers<List<Todo>>([
-  TypedReducer<List<Todo>, AddTodoAction>(_addTodo),
-  TypedReducer<List<Todo>, DeleteTodoAction>(_deleteTodo),
-  TypedReducer<List<Todo>, UpdateTodoAction>(_updateTodo),
-  TypedReducer<List<Todo>, ClearCompletedAction>(_clearCompleted),
-  TypedReducer<List<Todo>, ToggleAllAction>(_toggleAll),
-  TypedReducer<List<Todo>, TodosLoadedAction>(_setLoadedTodos),
-  TypedReducer<List<Todo>, TodosNotLoadedAction>(_setNoTodos),
+  TypedReducer<List<Todo>, AddTodoAction>(_addTodo).call,
+  TypedReducer<List<Todo>, DeleteTodoAction>(_deleteTodo).call,
+  TypedReducer<List<Todo>, UpdateTodoAction>(_updateTodo).call,
+  TypedReducer<List<Todo>, ClearCompletedAction>(_clearCompleted).call,
+  TypedReducer<List<Todo>, ToggleAllAction>(_toggleAll).call,
+  TypedReducer<List<Todo>, TodosLoadedAction>(_setLoadedTodos).call,
+  TypedReducer<List<Todo>, TodosNotLoadedAction>(_setNoTodos).call,
 ]);
 
 List<Todo> _addTodo(List<Todo> todos, AddTodoAction action) {

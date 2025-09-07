@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/localization.dart';
@@ -17,10 +13,10 @@ class SimpleBlocApp extends StatelessWidget {
   final UserRepository userRepository;
 
   const SimpleBlocApp({
-    Key key,
-    this.todosInteractor,
-    this.userRepository,
-  }) : super(key: key);
+    super.key,
+    required this.todosInteractor,
+    required this.userRepository,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +26,17 @@ class SimpleBlocApp extends StatelessWidget {
       child: TodosBlocProvider(
         bloc: TodosListBloc(todosInteractor),
         child: MaterialApp(
-          onGenerateTitle: (context) => BlocLocalizations.of(context).appTitle,
-          theme: ArchSampleTheme.theme,
+          onGenerateTitle: (context) =>
+              SimpleBlocLocalizations.of(context).appTitle,
+          theme: ArchSampleTheme.lightTheme,
+          darkTheme: ArchSampleTheme.darkTheme,
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
-            InheritedWidgetLocalizationsDelegate(),
+            SimpleBlocLocalizationsDelegate(),
           ],
           routes: {
             ArchSampleRoutes.home: (context) {
-              return HomeScreen(
-                repository: Injector.of(context).userRepository,
-              );
+              return HomeScreen();
             },
             ArchSampleRoutes.addTodo: (context) {
               return AddEditScreen(

@@ -1,21 +1,18 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 import 'dart:io';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-/// We create two Mocks for our Web Client and File Storage. We will use these
-/// mock classes to verify the behavior of the TodosRepository.
-class MockFileStorage extends Mock implements FileStorage {}
+import 'repository_test.mocks.dart';
 
-class MockWebClient extends Mock implements WebClient {}
-
+@GenerateNiceMocks([
+  MockSpec<FileStorage>(),
+  MockSpec<WebClient>(),
+])
 void main() {
   group('TodosRepository', () {
     List<TodoEntity> createTodos() {

@@ -9,8 +9,8 @@ class DetailsScreen extends StatelessWidget {
   final Todo todo;
   final void Function() onRemove;
 
-  const DetailsScreen({@required this.todo, @required this.onRemove})
-      : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({required this.todo, required this.onRemove})
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class DetailsScreen extends StatelessWidget {
             tooltip: ArchSampleLocalizations.of(context).deleteTodo,
             icon: const Icon(Icons.delete),
             onPressed: onRemove,
-          )
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -31,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (context) => EditTodoScreen(
                 todo: todo,
                 onEdit: () => Navigator.pop(context),
@@ -54,7 +54,7 @@ class DetailsScreen extends StatelessWidget {
                     builder: (_) => Checkbox(
                       key: ArchSampleKeys.detailsTodoItemCheckbox,
                       value: todo.complete,
-                      onChanged: (done) => todo.complete = done,
+                      onChanged: (done) => todo.complete = done ?? false,
                     ),
                   ),
                 ),
@@ -63,15 +63,12 @@ class DetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8.0,
-                          bottom: 16.0,
-                        ),
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
                         child: Observer(
                           builder: (context) => Text(
                             todo.task,
                             key: ArchSampleKeys.detailsTodoItemTask,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),
                       ),
@@ -79,9 +76,9 @@ class DetailsScreen extends StatelessWidget {
                         builder: (_) => Text(
                           todo.note,
                           key: ArchSampleKeys.detailsTodoItemNote,
-                          style: Theme.of(context).textTheme.subhead,
+                          style: Theme.of(context).textTheme.titleMedium,
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

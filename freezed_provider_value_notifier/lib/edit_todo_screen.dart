@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
+import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class EditTodoScreen extends StatefulWidget {
@@ -8,18 +8,19 @@ class EditTodoScreen extends StatefulWidget {
   final String id;
 
   const EditTodoScreen({
-    @required this.id,
-    @required this.onEdit,
-  }) : super(key: ArchSampleKeys.editTodoScreen);
+    super.key = ArchSampleKeys.editTodoScreen,
+    required this.id,
+    required this.onEdit,
+  });
 
   @override
-  _EditTodoScreenState createState() => _EditTodoScreenState();
+  EditTodoScreenState createState() => EditTodoScreenState();
 }
 
-class _EditTodoScreenState extends State<EditTodoScreen> {
+class EditTodoScreenState extends State<EditTodoScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _taskController;
-  TextEditingController _noteController;
+  late TextEditingController _taskController;
+  late TextEditingController _noteController;
 
   @override
   void initState() {
@@ -49,12 +50,12 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               TextFormField(
                 controller: _taskController,
                 key: ArchSampleKeys.taskField,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headlineSmall,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).newTodoHint,
                 ),
                 validator: (val) {
-                  return val.trim().isEmpty
+                  return val != null && val.trim().isEmpty
                       ? ArchSampleLocalizations.of(context).emptyTodoError
                       : null;
                 },
@@ -66,7 +67,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 maxLines: 10,
-              )
+              ),
             ],
           ),
         ),
@@ -75,8 +76,8 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         key: ArchSampleKeys.saveTodoFab,
         tooltip: ArchSampleLocalizations.of(context).saveChanges,
         onPressed: () {
-          if (_formKey.currentState.validate()) {
-            _formKey.currentState.save();
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
             widget.onEdit(_taskController.text, _noteController.text);
           }
         },

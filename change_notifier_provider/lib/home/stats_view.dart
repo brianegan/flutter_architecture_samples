@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:change_notifier_provider_sample/todo_list_model.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class StatsView extends StatelessWidget {
-  const StatsView();
+  const StatsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).completedTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -27,7 +26,7 @@ class StatsView extends StatelessWidget {
               builder: (context, numCompleted, _) => Text(
                 '$numCompleted',
                 key: ArchSampleKeys.statsNumCompleted,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
           ),
@@ -35,7 +34,7 @@ class StatsView extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               ArchSampleLocalizations.of(context).activeTodos,
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Padding(
@@ -45,10 +44,10 @@ class StatsView extends StatelessWidget {
               builder: (context, numActive, _) => Text(
                 '$numActive',
                 key: ArchSampleKeys.statsNumActive,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             ),
-          )
+          ),
         ],
       ),
     );

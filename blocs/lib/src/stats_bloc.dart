@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
 import 'package:blocs/src/models/models.dart';
@@ -11,10 +7,7 @@ class StatsBloc {
   final Stream<int> numActive;
   final Stream<int> numComplete;
 
-  StatsBloc._(
-    this.numActive,
-    this.numComplete,
-  );
+  StatsBloc._(this.numActive, this.numComplete);
 
   factory StatsBloc(TodosInteractor interactor) {
     return StatsBloc._(

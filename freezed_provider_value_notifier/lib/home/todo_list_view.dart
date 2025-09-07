@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
+import 'package:provider/provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 import '../details_screen.dart';
@@ -9,7 +9,7 @@ import '../models.dart';
 class TodoListView extends StatelessWidget {
   final void Function(BuildContext context, Todo todo) onRemove;
 
-  TodoListView({Key key, @required this.onRemove}) : super(key: key);
+  const TodoListView({super.key, required this.onRemove});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,10 @@ class TodoListView extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
+                    MaterialPageRoute<void>(
                       builder: (_) {
                         return DetailsScreen(
-                          id: todo?.id,
+                          id: todo.id,
                           onRemove: () {
                             Navigator.pop(context);
                             onRemove(context, todo);
@@ -46,22 +46,22 @@ class TodoListView extends StatelessWidget {
                   key: ArchSampleKeys.todoItemCheckbox(todo.id),
                   value: todo.complete,
                   onChanged: (complete) {
-                    context
-                        .read<TodoListController>()
-                        .updateTodo(todo.copy(complete: complete));
+                    context.read<TodoListController>().updateTodo(
+                      todo.copy(complete: complete),
+                    );
                   },
                 ),
                 title: Text(
                   todo.task,
                   key: ArchSampleKeys.todoItemTask(todo.id),
-                  style: Theme.of(context).textTheme.title,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 subtitle: Text(
                   todo.note,
                   key: ArchSampleKeys.todoItemNote(todo.id),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.subhead,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             );

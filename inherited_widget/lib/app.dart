@@ -1,7 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:inherited_widget_sample/localization.dart';
 import 'package:inherited_widget_sample/screens/add_edit_screen.dart';
@@ -9,14 +5,15 @@ import 'package:inherited_widget_sample/screens/home_screen.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class InheritedWidgetApp extends StatelessWidget {
-  const InheritedWidgetApp();
+  const InheritedWidgetApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ArchSampleTheme.lightTheme,
+      darkTheme: ArchSampleTheme.darkTheme,
       onGenerateTitle: (context) =>
           InheritedWidgetLocalizations.of(context).appTitle,
-      theme: ArchSampleTheme.theme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),
         InheritedWidgetLocalizationsDelegate(),

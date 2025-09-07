@@ -1,8 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
@@ -11,10 +6,11 @@ import 'package:vanilla/models.dart';
 import 'package:vanilla/screens/add_edit_screen.dart';
 import 'package:vanilla/screens/home_screen.dart';
 
+@immutable
 class VanillaApp extends StatefulWidget {
   final TodosRepository repository;
 
-  VanillaApp({@required this.repository});
+  const VanillaApp({super.key, required this.repository});
 
   @override
   State<StatefulWidget> createState() {
@@ -29,24 +25,28 @@ class VanillaAppState extends State<VanillaApp> {
   void initState() {
     super.initState();
 
-    widget.repository.loadTodos().then((loadedTodos) {
-      setState(() {
-        appState = AppState(
-          todos: loadedTodos.map(Todo.fromEntity).toList(),
-        );
-      });
-    }).catchError((err) {
-      setState(() {
-        appState.isLoading = false;
-      });
-    });
+    widget.repository
+        .loadTodos()
+        .then((loadedTodos) {
+          setState(() {
+            appState = AppState(
+              todos: loadedTodos.map(Todo.fromEntity).toList(),
+            );
+          });
+        })
+        .catchError((err) {
+          setState(() {
+            appState.isLoading = false;
+          });
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (context) => VanillaLocalizations.of(context).appTitle,
-      theme: ArchSampleTheme.theme,
+      theme: ArchSampleTheme.lightTheme,
+      darkTheme: ArchSampleTheme.darkTheme,
       localizationsDelegates: [
         ArchSampleLocalizationsDelegate(),
         VanillaLocalizationsDelegate(),
@@ -99,10 +99,10 @@ class VanillaAppState extends State<VanillaApp> {
 
   void updateTodo(
     Todo todo, {
-    bool complete,
-    String id,
-    String note,
-    String task,
+    bool? complete,
+    String? id,
+    String? note,
+    String? task,
   }) {
     setState(() {
       todo.complete = complete ?? todo.complete;

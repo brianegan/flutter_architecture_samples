@@ -1,23 +1,20 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 
-class MockReactiveTodosRepository extends Mock
-    implements ReactiveTodosRepository {}
+import 'todos_interactor_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<ReactiveTodosRepository>()])
 void main() {
   group('TodosListInteractor', () {
     test('should convert repo entities into Todos', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [TodoEntity('Hallo', '1', "Note", false)];
 
       when(repository.todos()).thenAnswer((_) => Stream.fromIterable([todos]));
@@ -27,7 +24,7 @@ void main() {
 
     test('allComplete should stream false if some todos incomplete', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", false),
         TodoEntity('Friend', '2', "Note", true),
@@ -40,7 +37,7 @@ void main() {
 
     test('allComplete should stream true when all todos are complete', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", true),
         TodoEntity('Friend', '2', "Note", true),
@@ -52,7 +49,7 @@ void main() {
 
     test('hasCompletedTodos should be true when all todos are complete', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", true),
         TodoEntity('Friend', '2', "Note", true),
@@ -65,7 +62,7 @@ void main() {
 
     test('hasCompletedTodos should be true when some todos are complete', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", false),
         TodoEntity('Friend', '2', "Note", true),
@@ -78,7 +75,7 @@ void main() {
 
     test('hasCompletedTodos should be false when all todos are incomplete', () {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", false),
         TodoEntity('Friend', '2', "Note", false),
@@ -91,12 +88,13 @@ void main() {
 
     test('should add todos to the repo', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todo = Todo("AddMe");
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
-      when(repository.addNewTodo(todo.toEntity()))
-          .thenAnswer((_) => Future.value());
+      when(
+        repository.addNewTodo(todo.toEntity()),
+      ).thenAnswer((_) => Future.value());
 
       interactor.addNewTodo(todo);
 
@@ -105,7 +103,7 @@ void main() {
 
     test('should send deletions to the repo', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
 
       when(repository.todos()).thenAnswer((_) => Stream.empty());
       when(repository.deleteTodo(['1'])).thenAnswer((_) => Future.value());
@@ -117,7 +115,7 @@ void main() {
 
     test('should remove completed todos from the repo', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final todos = [
         TodoEntity('Hallo', '1', "Note", false),
         TodoEntity('Friend', '2', "Note", true),
@@ -133,7 +131,7 @@ void main() {
 
     test('if some todos incomplete, should toggle todos complete', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final e1 = TodoEntity('Hallo', '1', "Note", false);
       final e1Update = TodoEntity('Hallo', '1', "Note", true);
       final e2 = TodoEntity('Friend', '2', "Note", true);
@@ -144,8 +142,9 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -154,7 +153,7 @@ void main() {
 
     test('if all todos incomplete, should toggle all todos complete', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final e1 = TodoEntity('Hallo', '1', "Note", false);
       final e1Update = TodoEntity('Hallo', '1', "Note", true);
       final e2 = TodoEntity('Friend', '2', "Note", false);
@@ -166,10 +165,12 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
-      when(repository.updateTodo(e2Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e2Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 
@@ -179,7 +180,7 @@ void main() {
 
     test('if all todos complete, should toggle todos incomplete', () async {
       final repository = MockReactiveTodosRepository();
-      final interactor = TodosInteractor(repository);
+      final interactor = TodoListInteractor(repository);
       final e1 = TodoEntity('Hallo', '1', "Note", true);
       final e1Update = TodoEntity('Hallo', '1', "Note", false);
       final e2 = TodoEntity('Friend', '2', "Note", true);
@@ -191,10 +192,12 @@ void main() {
       );
 
       when(repository.todos()).thenAnswer((_) => source.stream);
-      when(repository.updateTodo(e1Update))
-          .thenAnswer((_) => Future.sync(() {}));
-      when(repository.updateTodo(e2Update))
-          .thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e1Update),
+      ).thenAnswer((_) => Future.sync(() {}));
+      when(
+        repository.updateTodo(e2Update),
+      ).thenAnswer((_) => Future.sync(() {}));
 
       await interactor.toggleAll(null);
 

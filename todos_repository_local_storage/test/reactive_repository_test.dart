@@ -1,16 +1,14 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 import 'package:todos_repository_core/todos_repository_core.dart';
 import 'package:todos_repository_local_storage/todos_repository_local_storage.dart';
 
-class MockTodosRepository extends Mock implements TodosRepository {}
+import 'reactive_repository_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<TodosRepository>()])
 void main() {
   group('ReactiveTodosRepository', () {
     List<TodoEntity> createTodos([String task = 'Task']) {
@@ -62,11 +60,10 @@ void main() {
 
       when(repository.loadTodos())
           .thenAnswer((_) => Future.value(<TodoEntity>[]));
-      when(repository.saveTodos(todos)).thenAnswer((_) => Future.value());
 
       await reactiveRepository.addNewTodo(todos.first);
 
-      verify(repository.saveTodos(any));
+      verify(repository.saveTodos([todos.first]));
       expect(reactiveRepository.todos(), emits([todos.first]));
     });
 

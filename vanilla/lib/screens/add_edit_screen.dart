@@ -1,109 +1,101 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 import 'package:vanilla/models.dart';
 import 'package:vanilla/widgets/typedefs.dart';
 
 class AddEditScreen extends StatefulWidget {
-  final Todo todo;
+  final Todo? todo;
   final TodoAdder addTodo;
   final TodoUpdater updateTodo;
 
-  AddEditScreen({
-    Key key,
-    @required this.addTodo,
-    @required this.updateTodo,
+  const AddEditScreen({
+    super.key = ArchSampleKeys.addTodoScreen,
+    required this.addTodo,
+    required this.updateTodo,
     this.todo,
-  }) : super(key: key ?? ArchSampleKeys.addTodoScreen);
+  });
 
   @override
-  _AddEditScreenState createState() => _AddEditScreenState();
+  State<AddEditScreen> createState() => _AddEditScreenState();
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _task;
-  String _note;
+  String? _task;
+  String? _note;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing
+              ? ArchSampleLocalizations.of(context).editTodo
+              : ArchSampleLocalizations.of(context).addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
-          autovalidate: false,
-          onWillPop: () {
-            return Future(() => true);
-          },
+          key: _formKey,
+          canPop: true,
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.task : '',
+                initialValue: widget.todo != null ? widget.todo!.task : '',
                 key: ArchSampleKeys.taskField,
                 autofocus: isEditing ? false : true,
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.titleLarge,
                 decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
-                validator: (val) => val.trim().isEmpty
+                  hintText: ArchSampleLocalizations.of(context).newTodoHint,
+                ),
+                validator: (val) => val?.trim().isEmpty ?? true
                     ? ArchSampleLocalizations.of(context).emptyTodoError
                     : null,
                 onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.note : '',
+                initialValue: widget.todo != null ? widget.todo!.note : '',
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
-                style: Theme.of(context).textTheme.subhead,
+                style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                   hintText: ArchSampleLocalizations.of(context).notesHint,
                 ),
                 onSaved: (value) => _note = value,
-              )
+              ),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: isEditing
-              ? ArchSampleKeys.saveTodoFab
-              : ArchSampleKeys.saveNewTodo,
-          tooltip: isEditing
-              ? ArchSampleLocalizations.of(context).saveChanges
-              : ArchSampleLocalizations.of(context).addTodo,
-          child: Icon(isEditing ? Icons.check : Icons.add),
-          onPressed: () {
-            final form = formKey.currentState;
-            if (form.validate()) {
-              form.save();
+        key: isEditing
+            ? ArchSampleKeys.saveTodoFab
+            : ArchSampleKeys.saveNewTodo,
+        tooltip: isEditing
+            ? ArchSampleLocalizations.of(context).saveChanges
+            : ArchSampleLocalizations.of(context).addTodo,
+        child: Icon(Icons.check),
+        onPressed: () {
+          final form = _formKey.currentState!;
 
-              final task = _task;
-              final note = _note;
+          if (form.validate()) {
+            form.save();
 
-              if (isEditing) {
-                widget.updateTodo(widget.todo, task: task, note: note);
-              } else {
-                widget.addTodo(Todo(
-                  task,
-                  note: note,
-                ));
-              }
+            final task = _task!;
+            final note = _note!;
 
-              Navigator.pop(context);
+            if (isEditing) {
+              widget.updateTodo(widget.todo!, task: task, note: note);
+            } else {
+              widget.addTodo(Todo(task, note: note));
             }
-          }),
+
+            Navigator.pop(context);
+          }
+        },
+      ),
     );
   }
 

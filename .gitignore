@@ -91,3 +91,9 @@ lcov.info
 !**/*/ios/**/default.pbxuser
 !**/*/ios/**/default.perspectivev3
 **/*/generated_plugin_registrant.dart
+
+.vscode/
+
+# FVM Version Cache
+.fvm/
+.cursor/

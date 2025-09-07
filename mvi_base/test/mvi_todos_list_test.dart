@@ -1,26 +1,18 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mvi_base/mvi_base.dart';
-import 'package:mvi_base/src/models/models.dart';
 import 'package:test/test.dart';
 
-class MockTodosListInteractor extends Mock implements TodosInteractor {}
+import 'mvi_todos_list_test.mocks.dart';
 
-class MockUserInteractor implements UserInteractor {
-  @override
-  Future<User> login() => Future.sync(() => User('Erica'));
-}
-
+@GenerateNiceMocks([MockSpec<TodoListInteractor>(), MockSpec<UserInteractor>()])
 void main() {
   group('MviTodosList', () {
     group('View', () {
       test('should clean up after itself', () {
-        final view = TodosListView();
+        final view = TodoListView();
 
         view.tearDown();
 
@@ -35,30 +27,32 @@ void main() {
 
     group('Presenter', () {
       test('should have an initial state', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
         );
 
-        expect(presenter.latest, TodosListModel.initial());
+        expect(presenter.latest, TodoListModel.initial());
       });
 
       test('should show all todos by default', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [Todo('Hi')];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
@@ -66,134 +60,131 @@ void main() {
 
         expect(
           presenter,
-          emitsThrough(ModelWith(
-            activeFilter: VisibilityFilter.all,
-            visibleTodos: todos,
-          )),
+          emitsThrough(
+            ModelWith(activeFilter: VisibilityFilter.all, visibleTodos: todos),
+          ),
         );
       });
 
       test('should display completed todos', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
         );
         view.updateFilter.add(VisibilityFilter.completed);
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(visibleTodos: [todos.last])),
-        );
+        expect(presenter, emitsThrough(ModelWith(visibleTodos: [todos.last])));
       });
 
       test('should display active todos', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
         );
         view.updateFilter.add(VisibilityFilter.active);
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(visibleTodos: [todos.first])),
-        );
+        expect(presenter, emitsThrough(ModelWith(visibleTodos: [todos.first])));
       });
 
       test('allComplete should stream state of interactor', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
         );
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(allComplete: false)),
-        );
+        expect(presenter, emitsThrough(ModelWith(allComplete: false)));
       });
 
       test('hasCompletedTodos should reflect the interactor', () {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
         );
 
-        expect(
-          presenter,
-          emitsThrough(ModelWith(hasCompletedTodos: true)),
-        );
+        expect(presenter, emitsThrough(ModelWith(hasCompletedTodos: true)));
       });
 
       test('should add todos to the interactor', () async {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
@@ -205,20 +196,22 @@ void main() {
       });
 
       test('should send deletions to the interactor', () async {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
@@ -230,20 +223,22 @@ void main() {
       });
 
       test('should remove completed todos from the interactor', () async {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
@@ -255,20 +250,22 @@ void main() {
       });
 
       test('should toggle complete', () async {
-        final interactor = MockTodosListInteractor();
-        final view = TodosListView();
+        final interactor = MockTodoListInteractor();
+        final view = TodoListView();
         final todos = [
           Todo('Hallo', complete: false),
           Todo('Friend', complete: true),
         ];
 
         when(interactor.todos).thenAnswer((_) => Stream.fromIterable([todos]));
-        when(interactor.allComplete)
-            .thenAnswer((_) => Stream.fromIterable([false]));
-        when(interactor.hasCompletedTodos)
-            .thenAnswer((_) => Stream.fromIterable([true]));
+        when(
+          interactor.allComplete,
+        ).thenAnswer((_) => Stream.fromIterable([false]));
+        when(
+          interactor.hasCompletedTodos,
+        ).thenAnswer((_) => Stream.fromIterable([true]));
 
-        final presenter = TodosListPresenter(
+        final presenter = TodoListPresenter(
           view: view,
           todosInteractor: interactor,
           userInteractor: MockUserInteractor(),
@@ -283,11 +280,11 @@ void main() {
 }
 
 class ModelWith extends Matcher {
-  final VisibilityFilter activeFilter;
-  final bool allComplete;
-  final bool hasCompletedTodos;
-  final List<Todo> visibleTodos;
-  final bool loading;
+  final VisibilityFilter? activeFilter;
+  final bool? allComplete;
+  final bool? hasCompletedTodos;
+  final List<Todo>? visibleTodos;
+  final bool? loading;
   String errors = '';
 
   ModelWith({
@@ -304,11 +301,11 @@ class ModelWith extends Matcher {
   }
 
   @override
-  bool matches(dynamic item, Map matchState) {
-    if (item is TodosListModel) {
+  bool matches(dynamic item, Map<dynamic, dynamic> matchState) {
+    if (item is TodoListModel) {
       bool match = true;
       if (visibleTodos != null) {
-        match = _listsEqual(visibleTodos, item.visibleTodos);
+        match = _listsEqual(visibleTodos!, item.visibleTodos);
         errors += ' visibleTodos';
       }
 
@@ -339,7 +336,7 @@ class ModelWith extends Matcher {
   }
 
   static bool _listsEqual(List<Todo> first, List<Todo> second) {
-    if (first.length != second?.length) return false;
+    if (first.length != second.length) return false;
 
     for (int i = 0; i < first.length; i++) {
       if (first[i] != second[i]) {

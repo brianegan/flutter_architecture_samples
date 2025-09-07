@@ -21,12 +21,7 @@ class _TodoEncoder extends Converter<Todo, TodoEntity> {
 
   @override
   TodoEntity convert(Todo todo) {
-    return TodoEntity(
-      todo.task,
-      todo.id,
-      todo.note,
-      todo.complete,
-    );
+    return TodoEntity(todo.task, todo.id, todo.note, todo.complete);
   }
 }
 
@@ -37,7 +32,7 @@ class _TodoDecoder extends Converter<TodoEntity, Todo> {
   Todo convert(TodoEntity entity) {
     return Todo(
       task: entity.task,
-      complete: entity.complete ?? false,
+      complete: entity.complete,
       note: entity.note,
       id: entity.id,
     );

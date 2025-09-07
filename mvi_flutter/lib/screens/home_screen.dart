@@ -1,9 +1,4 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:mvi_flutter_sample/dependency_injection.dart';
 import 'package:mvi_flutter_sample/localization.dart';
@@ -12,30 +7,30 @@ import 'package:mvi_flutter_sample/widgets/filter_button.dart';
 import 'package:mvi_flutter_sample/widgets/loading.dart';
 import 'package:mvi_flutter_sample/widgets/stats_counter.dart';
 import 'package:mvi_flutter_sample/widgets/todo_list.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 enum AppTab { todos, stats }
 
 class HomeScreen extends StatefulWidget {
-  final MviPresenter<TodosListModel> Function(TodosListView) initPresenter;
+  final TodoListPresenter Function(TodoListView)? initPresenter;
 
-  HomeScreen({Key key, this.initPresenter})
-      : super(key: key ?? ArchSampleKeys.homeScreen);
+  const HomeScreen({super.key = ArchSampleKeys.homeScreen, this.initPresenter});
 
   @override
-  State<StatefulWidget> createState() {
+  State<HomeScreen> createState() {
     return HomeScreenState();
   }
 }
 
-class HomeScreenState extends State<HomeScreen> with TodosListView {
+class HomeScreenState extends State<HomeScreen> with TodoListView {
   AppTab activeTab = AppTab.todos;
-  TodosListPresenter presenter;
+  late final TodoListPresenter presenter;
 
   @override
   void didChangeDependencies() {
     presenter = widget.initPresenter != null
-        ? widget.initPresenter(this)
-        : TodosListPresenter(
+        ? widget.initPresenter!(this)
+        : TodoListPresenter(
             view: this,
             todosInteractor: Injector.of(context).todosInteractor,
             userInteractor: Injector.of(context).userInteractor,
@@ -55,24 +50,24 @@ class HomeScreenState extends State<HomeScreen> with TodosListView {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<TodosListModel>(
+    return StreamBuilder<TodoListModel>(
       stream: presenter,
       initialData: presenter.latest,
       builder: (context, modelSnapshot) {
+        final data = modelSnapshot.data!;
+
         return Scaffold(
           appBar: AppBar(
             title: Text(BlocLocalizations.of(context).appTitle),
             actions: [
               FilterButton(
                 isActive: activeTab == AppTab.todos,
-                activeFilter:
-                    modelSnapshot.data?.activeFilter ?? VisibilityFilter.all,
+                activeFilter: data.activeFilter,
                 onSelected: updateFilter.add,
               ),
               ExtraActionsButton(
-                allComplete: modelSnapshot.data?.allComplete ?? false,
-                hasCompletedTodos:
-                    modelSnapshot.data?.hasCompletedTodos ?? false,
+                allComplete: data.allComplete,
+                hasCompletedTodos: data.hasCompletedTodos,
                 onSelected: (action) {
                   if (action == ExtraAction.toggleAllComplete) {
                     toggleAll.add(null);
@@ -83,26 +78,24 @@ class HomeScreenState extends State<HomeScreen> with TodosListView {
               ),
             ],
           ),
-          body: modelSnapshot.data.loading
-              ? LoadingSpinner(
-                  key: ArchSampleKeys.todosLoading,
-                )
+          body: data.loading
+              ? LoadingSpinner(key: ArchSampleKeys.todosLoading)
               : activeTab == AppTab.todos
-                  ? TodoList(
-                      loading: modelSnapshot.data.loading,
-                      addTodo: addTodo.add,
-                      updateTodo: updateTodo.add,
-                      deleteTodo: deleteTodo.add,
-                      todos: modelSnapshot.data?.visibleTodos ?? [],
-                    )
-                  : StatsCounter(),
+              ? TodoList(
+                  loading: data.loading,
+                  addTodo: addTodo.add,
+                  updateTodo: updateTodo.add,
+                  deleteTodo: deleteTodo.add,
+                  todos: data.visibleTodos,
+                )
+              : StatsCounter(),
           floatingActionButton: FloatingActionButton(
             key: ArchSampleKeys.addTodoFab,
             onPressed: () {
               Navigator.pushNamed(context, ArchSampleRoutes.addTodo);
             },
-            child: Icon(Icons.add),
             tooltip: ArchSampleLocalizations.of(context).addTodo,
+            child: Icon(Icons.add),
           ),
           bottomNavigationBar: BottomNavigationBar(
             key: ArchSampleKeys.tabs,
@@ -120,11 +113,9 @@ class HomeScreenState extends State<HomeScreen> with TodosListView {
                       ? ArchSampleKeys.statsTab
                       : ArchSampleKeys.todoTab,
                 ),
-                title: Text(
-                  tab == AppTab.stats
-                      ? ArchSampleLocalizations.of(context).stats
-                      : ArchSampleLocalizations.of(context).todos,
-                ),
+                label: tab == AppTab.stats
+                    ? ArchSampleLocalizations.of(context).stats
+                    : ArchSampleLocalizations.of(context).todos,
               );
             }).toList(),
           ),

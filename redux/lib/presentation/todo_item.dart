@@ -1,23 +1,19 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class TodoItem extends StatelessWidget {
   final DismissDirectionCallback onDismissed;
   final GestureTapCallback onTap;
-  final ValueChanged<bool> onCheckboxChanged;
+  final ValueChanged<bool?> onCheckboxChanged;
   final Todo todo;
 
-  TodoItem({
-    @required this.onDismissed,
-    @required this.onTap,
-    @required this.onCheckboxChanged,
-    @required this.todo,
+  const TodoItem({
+    super.key,
+    required this.onDismissed,
+    required this.onTap,
+    required this.onCheckboxChanged,
+    required this.todo,
   });
 
   @override
@@ -34,12 +30,12 @@ class TodoItem extends StatelessWidget {
         ),
         title: Hero(
           tag: '${todo.id}__heroTag',
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Text(
               todo.task,
               key: ArchSampleKeys.todoItemTask(todo.id),
-              style: Theme.of(context).textTheme.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
         ),
@@ -48,7 +44,7 @@ class TodoItem extends StatelessWidget {
           key: ArchSampleKeys.todoItemNote(todo.id),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
       ),
     );

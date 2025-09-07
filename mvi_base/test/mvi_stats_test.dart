@@ -1,19 +1,17 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 import 'dart:async';
 
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:mvi_base/mvi_base.dart';
 import 'package:test/test.dart';
 
-class MockTodosInteractor extends Mock implements TodosInteractor {}
+import 'mvi_stats_test.mocks.dart';
 
+@GenerateNiceMocks([MockSpec<TodoListInteractor>()])
 void main() {
   group('MviStats', () {
     test('should stream the number of active and completed todos', () {
-      final interactor = MockTodosInteractor();
+      final interactor = MockTodoListInteractor();
       final todos = [
         Todo('Hi', complete: true),
         Todo('There', complete: true),
@@ -26,7 +24,7 @@ void main() {
 
       expect(
         presenter,
-        emitsThrough(StatsModel(1, 2)),
+        emitsThrough(StatsModelLoaded(numActive: 1, numComplete: 2)),
       );
     });
   });

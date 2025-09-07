@@ -1,0 +1,93 @@
+name: "Validate"
+description: "Runs lint, format, and test on an app"
+inputs:
+  working-directory:
+    description: "Directory to run validation in"
+    required: true
+  run-integration-tests:
+    description: "Run integration tests"
+    required: false
+    default: "true"
+  deploy-to-netlify:
+    description: "Deploy to Netlify"
+    required: true
+    default: "false"
+  netlify-auth-token:
+    description: "Netlify auth token"
+    required: true
+  netlify-site-id:
+    description: "Netlify site id"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Set up flutter
+      uses: kuhnroyal/flutter-fvm-config-action/setup@v3
+
+    - name: Get dependencies
+      shell: bash
+      run: flutter pub get
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Check dart formatting
+      shell: bash
+      run: dart format -o none --set-exit-if-changed .
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Check dart analysis
+      shell: bash
+      run: dart analyze --fatal-infos --fatal-warnings .
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Run unit tests and prepare coverage
+      shell: bash
+      if: '[ -d "${{ inputs.working-directory }}/test" ]'
+      run: |
+        flutter test --coverage
+        # Extract directory name for artifact naming
+        echo "DIR_NAME=$(basename "${{ inputs.working-directory }}")" >> $GITHUB_ENV
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Upload coverage artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-lcov-${{ env.DIR_NAME }}
+        path: ${{ inputs.working-directory }}/coverage/lcov.info
+
+    - name: Run linux integration tests
+      if: ${{ inputs.run-integration-tests != 'false' }}
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install \
+          clang \
+          cmake \
+          git \
+          ninja-build \
+          pkg-config \
+          libgtk-3-dev \
+          liblzma-dev \
+          libstdc++-12-dev \
+          libglu1-mesa \
+          xvfb
+        export DISPLAY=:99 # Set display for Xvfb
+        xvfb-run -a flutter test integration_test/app_test.dart -d linux
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Build web app
+      if: ${{ inputs.deploy-to-netlify != 'false' }}
+      shell: bash
+      run: |
+        flutter build web --wasm
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: Deploy to Netlify
+      if: ${{ inputs.deploy-to-netlify != 'false' }}
+      uses: nwtgck/actions-netlify@v3.0
+      with:
+        publish-dir: ${{ inputs.working-directory }}/build/web
+        production-deploy: true
+        deploy-message: "Deploy from GitHub Actions"
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ inputs.netlify-auth-token }}
+        NETLIFY_SITE_ID: ${{ inputs.netlify-site-id }}

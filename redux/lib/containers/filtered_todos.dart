@@ -1,8 +1,3 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -12,7 +7,7 @@ import 'package:redux_sample/presentation/todo_list.dart';
 import 'package:redux_sample/selectors/selectors.dart';
 
 class FilteredTodos extends StatelessWidget {
-  FilteredTodos({Key key}) : super(key: key);
+  const FilteredTodos({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +28,16 @@ class FilteredTodos extends StatelessWidget {
 class _ViewModel {
   final List<Todo> todos;
   final bool loading;
-  final Function(Todo, bool) onCheckboxChanged;
-  final Function(Todo) onRemove;
-  final Function(Todo) onUndoRemove;
+  final void Function(Todo, bool?) onCheckboxChanged;
+  final void Function(Todo) onRemove;
+  final void Function(Todo) onUndoRemove;
 
   _ViewModel({
-    @required this.todos,
-    @required this.loading,
-    @required this.onCheckboxChanged,
-    @required this.onRemove,
-    @required this.onUndoRemove,
+    required this.todos,
+    required this.loading,
+    required this.onCheckboxChanged,
+    required this.onRemove,
+    required this.onUndoRemove,
   });
 
   static _ViewModel fromStore(Store<AppState> store) {
@@ -53,10 +48,9 @@ class _ViewModel {
       ),
       loading: store.state.isLoading,
       onCheckboxChanged: (todo, complete) {
-        store.dispatch(UpdateTodoAction(
-          todo.id,
-          todo.copyWith(complete: !todo.complete),
-        ));
+        store.dispatch(
+          UpdateTodoAction(todo.id, todo.copyWith(complete: !todo.complete)),
+        );
       },
       onRemove: (todo) {
         store.dispatch(DeleteTodoAction(todo.id));

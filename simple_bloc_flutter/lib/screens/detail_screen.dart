@@ -1,22 +1,15 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
+import 'package:simple_bloc_flutter_sample/dependency_injection.dart';
 import 'package:simple_bloc_flutter_sample/screens/add_edit_screen.dart';
 import 'package:simple_bloc_flutter_sample/widgets/loading.dart';
 import 'package:simple_blocs/simple_blocs.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatefulWidget {
   final String todoId;
-  final TodoBloc Function() initBloc;
 
-  DetailScreen({
-    @required this.todoId,
-    @required this.initBloc,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailScreen({required this.todoId})
+    : super(key: ArchSampleKeys.todoDetailsScreen);
 
   @override
   DetailScreenState createState() {
@@ -25,12 +18,12 @@ class DetailScreen extends StatefulWidget {
 }
 
 class DetailScreenState extends State<DetailScreen> {
-  TodoBloc todoBloc;
+  late TodoBloc todoBloc;
 
   @override
-  void initState() {
-    super.initState();
-    todoBloc = widget.initBloc();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    todoBloc = TodoBloc(Injector.of(context).todosInteractor);
   }
 
   @override
@@ -41,11 +34,11 @@ class DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Todo>(
-      stream: todoBloc.todo(widget.todoId).where((todo) => todo != null),
+      stream: todoBloc.todo(widget.todoId),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LoadingSpinner();
 
-        final todo = snapshot.data;
+        final todo = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
@@ -59,7 +52,7 @@ class DetailScreenState extends State<DetailScreen> {
                   todoBloc.deleteTodo(todo.id);
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -76,7 +69,8 @@ class DetailScreenState extends State<DetailScreen> {
                         key: ArchSampleKeys.detailsTodoItemCheckbox,
                         onChanged: (complete) {
                           todoBloc.updateTodo(
-                              todo.copyWith(complete: !todo.complete));
+                            todo.copyWith(complete: !todo.complete),
+                          );
                         },
                       ),
                     ),
@@ -85,21 +79,18 @@ class DetailScreenState extends State<DetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
+                            padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
-                          )
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -110,11 +101,10 @@ class DetailScreenState extends State<DetailScreen> {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todo: todo,
@@ -125,6 +115,7 @@ class DetailScreenState extends State<DetailScreen> {
                 ),
               );
             },
+            child: const Icon(Icons.edit),
           ),
         );
       },

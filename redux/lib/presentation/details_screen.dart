@@ -1,24 +1,19 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:redux_sample/containers/edit_todo.dart';
 import 'package:redux_sample/models/models.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailsScreen extends StatelessWidget {
   final Todo todo;
-  final Function onDelete;
-  final Function(bool) toggleCompleted;
+  final void Function() onDelete;
+  final void Function(bool?) toggleCompleted;
 
-  DetailsScreen({
-    Key key,
-    @required this.todo,
-    @required this.onDelete,
-    @required this.toggleCompleted,
-  }) : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todo,
+    required this.onDelete,
+    required this.toggleCompleted,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +31,7 @@ class DetailsScreen extends StatelessWidget {
               onDelete();
               Navigator.pop(context, todo);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -61,21 +56,18 @@ class DetailsScreen extends StatelessWidget {
                         tag: '${todo.id}__heroTag',
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.only(
-                            top: 8.0,
-                            bottom: 16.0,
-                          ),
+                          padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                           child: Text(
                             todo.task,
                             key: ArchSampleKeys.detailsTodoItemTask,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ),
                       ),
                       Text(
                         todo.note,
                         key: ArchSampleKeys.detailsTodoItemNote,
-                        style: Theme.of(context).textTheme.subhead,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
                   ),
@@ -90,12 +82,10 @@ class DetailsScreen extends StatelessWidget {
         tooltip: localizations.editTodo,
         child: Icon(Icons.edit),
         onPressed: () {
-          Navigator.of(context).push(
+          Navigator.of(context).push<void>(
             MaterialPageRoute(
               builder: (context) {
-                return EditTodo(
-                  todo: todo,
-                );
+                return EditTodo(todo: todo);
               },
             ),
           );

@@ -1,21 +1,17 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:todos_app_core/todos_app_core.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:scoped_model_sample/models.dart';
 import 'package:scoped_model_sample/screens/add_edit_screen.dart';
 import 'package:scoped_model_sample/todo_list_model.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class DetailScreen extends StatelessWidget {
   final String todoId;
 
-  DetailScreen({
-    @required this.todoId,
-  }) : super(key: ArchSampleKeys.todoDetailsScreen);
+  const DetailScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.todoId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +31,7 @@ class DetailScreen extends StatelessWidget {
                   model.removeTodo(todo);
                   Navigator.pop(context, todo);
                 },
-              )
+              ),
             ],
           ),
           body: Padding(
@@ -60,21 +56,18 @@ class DetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
+                            padding: EdgeInsets.only(top: 8.0, bottom: 16.0),
                             child: Text(
                               todo.task,
                               key: ArchSampleKeys.detailsTodoItemTask,
-                              style: Theme.of(context).textTheme.headline,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Text(
                             todo.note,
                             key: ArchSampleKeys.detailsTodoItemNote,
-                            style: Theme.of(context).textTheme.subhead,
-                          )
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
                         ],
                       ),
                     ),
@@ -85,11 +78,10 @@ class DetailScreen extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             tooltip: ArchSampleLocalizations.of(context).editTodo,
-            child: Icon(Icons.edit),
             key: ArchSampleKeys.editTodoFab,
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
+                MaterialPageRoute<void>(
                   builder: (context) {
                     return AddEditScreen(
                       todoId: todoId,
@@ -99,6 +91,7 @@ class DetailScreen extends StatelessWidget {
                 ),
               );
             },
+            child: Icon(Icons.edit),
           ),
         );
       },

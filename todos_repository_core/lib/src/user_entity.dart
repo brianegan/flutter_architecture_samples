@@ -1,13 +1,13 @@
-// Copyright 2018 The Flutter Architecture Sample Authors. All rights reserved.
-// Use of this source code is governed by the MIT license that can be found
-// in the LICENSE file.
-
 class UserEntity {
   final String id;
   final String displayName;
   final String photoUrl;
 
-  UserEntity({this.id, this.displayName, this.photoUrl});
+  UserEntity({
+    required this.id,
+    required this.displayName,
+    required this.photoUrl,
+  });
 
   @override
   bool operator ==(Object other) =>

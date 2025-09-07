@@ -1,19 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:freezed_provider_value_notifier/value_notifier_provider.dart';
 import 'package:freezed_provider_value_notifier/home/home_screen.dart';
 import 'package:freezed_provider_value_notifier/localization.dart';
 import 'package:freezed_provider_value_notifier/models.dart';
 import 'package:freezed_provider_value_notifier/todo_list_model.dart';
+import 'package:freezed_provider_value_notifier/value_notifier_provider.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:todos_repository_core/todos_repository_core.dart';
 
 import 'mock_repository.dart';
 
 /// Demonstrates how to test Widgets
 void main() {
-  group('HomeScreen', () {
+  group('$HomeScreen', () {
     final todoListFinder = find.byKey(ArchSampleKeys.todoList);
     final todoItem1Finder = find.byKey(ArchSampleKeys.todoItem('1'));
     final todoItem2Finder = find.byKey(ArchSampleKeys.todoItem('2'));
@@ -83,14 +81,7 @@ void main() {
 }
 
 class _TestWidget extends StatelessWidget {
-  final Widget child;
-  final TodosRepository repository;
-
-  const _TestWidget({
-    Key key,
-    this.child,
-    this.repository,
-  }) : super(key: key);
+  const _TestWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +95,7 @@ class _TestWidget extends StatelessWidget {
           ProviderLocalizationsDelegate(),
           ArchSampleLocalizationsDelegate(),
         ],
-        home: child ?? const HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
@@ -119,10 +110,11 @@ final List<Todo> defaultTodos = [
 Matcher isChecked(bool isChecked) {
   return matchesSemantics(
     isChecked: isChecked,
+    hasTapAction: true,
+    hasFocusAction: true,
     hasCheckedState: true,
+    isFocusable: true,
     hasEnabledState: true,
     isEnabled: true,
-    isFocusable: true,
-    hasTapAction: true,
   );
 }
