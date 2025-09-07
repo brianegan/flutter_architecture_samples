@@ -1,12 +1,12 @@
+import 'package:bloc_library/blocs/filtered_todos/filtered_todos.dart';
+import 'package:bloc_library/localization.dart';
+import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/widgets/filter_button.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_library/blocs/filtered_todos/filtered_todos.dart';
-import 'package:bloc_library/widgets/filter_button.dart';
-import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/localization.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class MockFilteredTodosBloc
@@ -15,7 +15,7 @@ class MockFilteredTodosBloc
 
 void main() {
   group('FilterButton', () {
-    FilteredTodosBloc filteredTodosBloc;
+    late FilteredTodosBloc filteredTodosBloc;
 
     setUp(() {
       filteredTodosBloc = MockFilteredTodosBloc();
@@ -25,7 +25,7 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        filteredTodosBloc.state,
+        () => filteredTodosBloc.state,
       ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.all));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -55,7 +55,7 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        filteredTodosBloc.state,
+        () => filteredTodosBloc.state,
       ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.active));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -85,7 +85,7 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        filteredTodosBloc.state,
+        () => filteredTodosBloc.state,
       ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.completed));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -115,10 +115,10 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        filteredTodosBloc.state,
+        () => filteredTodosBloc.state,
       ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.active));
       when(
-        filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)),
+        () => filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)),
       ).thenReturn(null);
       await tester.pumpWidget(
         BlocProvider.value(
@@ -146,7 +146,7 @@ void main() {
 
       await tester.tap(allFilterFinder);
       verify(
-        filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)),
+        () => filteredTodosBloc.add(UpdateFilter(VisibilityFilter.all)),
       ).called(1);
     });
   });

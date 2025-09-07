@@ -4,7 +4,7 @@
 
 import './blocs/filtered_todos_bloc_test.dart' as filtered_todos_bloc;
 import './blocs/filtered_todos_event_test.dart' as filtered_todos_event;
-import './blocs/simple_bloc_delegate_test.dart' as simple_bloc_delegate;
+import 'blocs/simple_bloc_observer_test.dart' as simple_bloc_delegate;
 import './blocs/tab_bloc_test.dart' as tab_bloc;
 import './blocs/tab_event_test.dart' as tab_event;
 import './blocs/todos_bloc_test.dart' as todos_bloc;

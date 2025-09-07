@@ -19,6 +19,17 @@ jobs:
         uses: ./.github/actions/flutter_analysis_and_tests
         with:
           working-directory: ./bloc_flutter
+  bloc_library:
+    name: bloc_library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Static Analysis & Tests
+        uses: ./.github/actions/flutter_analysis_and_tests
+        with:
+          working-directory: ./bloc_library
   blocs:
     name: blocs
     runs-on: ubuntu-latest

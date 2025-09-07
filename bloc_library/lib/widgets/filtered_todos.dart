@@ -1,16 +1,14 @@
+import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/screens/screens.dart';
+import 'package:bloc_library/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/blocs/blocs.dart';
-import 'package:bloc_library/widgets/widgets.dart';
-import 'package:bloc_library/screens/screens.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
 
 class FilteredTodos extends StatelessWidget {
-  FilteredTodos({Key key}) : super(key: key);
+  const FilteredTodos({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class FilteredTodos extends StatelessWidget {
                 todo: todo,
                 onDismissed: (_) {
                   todosBloc.add(DeleteTodo(todo));
-                  Scaffold.of(context).showSnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
                     DeleteTodoSnackBar(
                       key: ArchSampleKeys.snackbar,
                       todo: todo,
@@ -49,8 +47,8 @@ class FilteredTodos extends StatelessWidget {
                       },
                     ),
                   );
-                  if (removedTodo != null) {
-                    Scaffold.of(context).showSnackBar(
+                  if (removedTodo != null && context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
                       DeleteTodoSnackBar(
                         key: ArchSampleKeys.snackbar,
                         todo: todo,

@@ -1,8 +1,8 @@
+import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/widgets/delete_todo_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/widgets/delete_todo_snack_bar.dart';
-import 'package:bloc_library/models/models.dart';
 
 void main() {
   group('DeleteTodoSnackBar', () {
@@ -16,7 +16,7 @@ void main() {
               builder: (BuildContext context) {
                 return GestureDetector(
                   onTap: () {
-                    Scaffold.of(context).showSnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
                       DeleteTodoSnackBar(
                         key: snackBarKey,
                         onUndo: () {},
@@ -26,7 +26,7 @@ void main() {
                     );
                   },
                   behavior: HitTestBehavior.opaque,
-                  child: Container(height: 100.0, width: 100.0, key: tapTarget),
+                  child: SizedBox(height: 500.0, width: 500.0, key: tapTarget),
                 );
               },
             ),
@@ -58,7 +58,7 @@ void main() {
               builder: (BuildContext context) {
                 return GestureDetector(
                   onTap: () {
-                    Scaffold.of(context).showSnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(
                       DeleteTodoSnackBar(
                         onUndo: () {
                           ++tapCount;

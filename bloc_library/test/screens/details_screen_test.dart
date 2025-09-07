@@ -1,13 +1,13 @@
+import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:bloc_library/blocs/todos/todos.dart';
+import 'package:bloc_library/localization.dart';
+import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/screens/screens.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_library/blocs/todos/todos.dart';
-import 'package:bloc_library/screens/screens.dart';
-import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
-import 'package:bloc_library/localization.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
@@ -15,7 +15,7 @@ class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
 
 void main() {
   group('DetailsScreen', () {
-    TodosBloc todosBloc;
+    late TodosBloc todosBloc;
 
     setUp(() {
       todosBloc = MockTodosBloc();
@@ -26,7 +26,7 @@ void main() {
     });
 
     testWidgets('renders properly with no todos', (WidgetTester tester) async {
-      when(todosBloc.state).thenReturn(TodosLoaded([]));
+      when(() => todosBloc.state).thenReturn(TodosLoaded([]));
       await tester.pumpWidget(
         BlocProvider.value(
           value: todosBloc,
@@ -45,7 +45,7 @@ void main() {
 
     testWidgets('renders properly with todos', (WidgetTester tester) async {
       when(
-        todosBloc.state,
+        () => todosBloc.state,
       ).thenReturn(TodosLoaded([Todo('wash car', id: '0')]));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -68,10 +68,12 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        todosBloc.state,
+        () => todosBloc.state,
       ).thenReturn(TodosLoaded([Todo('wash car', id: '0')]));
       when(
-        todosBloc.add(UpdateTodo(Todo('wash car', id: '0', complete: true))),
+        () => todosBloc.add(
+          UpdateTodo(Todo('wash car', id: '0', complete: true)),
+        ),
       ).thenReturn(null);
       await tester.pumpWidget(
         BlocProvider.value(
@@ -88,7 +90,9 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(BlocLibraryKeys.detailsScreenCheckBox));
       verify(
-        todosBloc.add(UpdateTodo(Todo('wash car', id: '0', complete: true))),
+        () => todosBloc.add(
+          UpdateTodo(Todo('wash car', id: '0', complete: true)),
+        ),
       ).called(1);
     });
 
@@ -96,7 +100,7 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        todosBloc.state,
+        () => todosBloc.state,
       ).thenReturn(TodosLoaded([Todo('wash car', id: '0')]));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -120,10 +124,12 @@ void main() {
       WidgetTester tester,
     ) async {
       when(
-        todosBloc.add(UpdateTodo(Todo('new todo', id: '0', complete: true))),
+        () => todosBloc.add(
+          UpdateTodo(Todo('new todo', id: '0', complete: true)),
+        ),
       ).thenReturn(null);
       when(
-        todosBloc.state,
+        () => todosBloc.state,
       ).thenReturn(TodosLoaded([Todo('wash car', id: '0')]));
       await tester.pumpWidget(
         BlocProvider.value(
@@ -146,7 +152,9 @@ void main() {
       await tester.tap(find.byKey(ArchSampleKeys.saveTodoFab));
       await tester.pumpAndSettle();
       verify(
-        todosBloc.add(UpdateTodo(Todo('new todo', id: '0', complete: false))),
+        () => todosBloc.add(
+          UpdateTodo(Todo('new todo', id: '0', complete: false)),
+        ),
       ).called(1);
     });
   });

@@ -1,7 +1,7 @@
 import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/screens/screens.dart';
-import 'package:flutter/foundation.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
@@ -9,8 +9,10 @@ import 'package:todos_app_core/todos_app_core.dart';
 class DetailsScreen extends StatelessWidget {
   final String id;
 
-  DetailsScreen({Key key, @required this.id})
-    : super(key: key ?? ArchSampleKeys.todoDetailsScreen);
+  const DetailsScreen({
+    super.key = ArchSampleKeys.todoDetailsScreen,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,8 @@ class DetailsScreen extends StatelessWidget {
     return BlocBuilder(
       bloc: todosBloc,
       builder: (BuildContext context, TodosState state) {
-        final todo = (state as TodosLoaded).todos.firstWhere(
+        final todo = (state as TodosLoaded).todos.firstWhereOrNull(
           (todo) => todo.id == id,
-          orElse: () => null,
         );
         final localizations = ArchSampleLocalizations.of(context);
         return Scaffold(
@@ -32,7 +33,7 @@ class DetailsScreen extends StatelessWidget {
                 key: ArchSampleKeys.deleteTodoButton,
                 icon: Icon(Icons.delete),
                 onPressed: () {
-                  todosBloc.add(DeleteTodo(todo));
+                  todosBloc.add(DeleteTodo(todo!));
                   Navigator.pop(context, todo);
                 },
               ),
@@ -78,7 +79,7 @@ class DetailsScreen extends StatelessWidget {
                                       key: ArchSampleKeys.detailsTodoItemTask,
                                       style: Theme.of(
                                         context,
-                                      ).textTheme.headline,
+                                      ).textTheme.headlineSmall,
                                     ),
                                   ),
                                 ),
@@ -100,7 +101,6 @@ class DetailsScreen extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             key: ArchSampleKeys.editTodoFab,
             tooltip: localizations.editTodo,
-            child: Icon(Icons.edit),
             onPressed: todo == null
                 ? null
                 : () {
@@ -123,6 +123,7 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     );
                   },
+            child: Icon(Icons.edit),
           ),
         );
       },

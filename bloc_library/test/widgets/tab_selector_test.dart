@@ -1,9 +1,9 @@
+import 'package:bloc_library/localization.dart';
+import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/widgets/tab_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
-import 'package:bloc_library/widgets/tab_selector.dart';
-import 'package:bloc_library/models/models.dart';
 
 void main() {
   group('TabSelector', () {
@@ -13,7 +13,7 @@ void main() {
           home: Scaffold(
             body: Container(),
             bottomNavigationBar: TabSelector(
-              onTabSelected: (_) => null,
+              onTabSelected: (_) {},
               activeTab: AppTab.todos,
             ),
           ),
@@ -31,7 +31,7 @@ void main() {
     testWidgets(
       'should call onTabSelected with correct index when tab tapped',
       (WidgetTester tester) async {
-        AppTab selectedTab;
+        late AppTab selectedTab;
 
         await tester.pumpWidget(
           MaterialApp(

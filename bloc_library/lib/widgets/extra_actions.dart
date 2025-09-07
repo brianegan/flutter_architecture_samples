@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todos_app_core/todos_app_core.dart';
+import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/blocs/todos/todos.dart';
 import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActions extends StatelessWidget {
-  ExtraActions({Key key}) : super(key: ArchSampleKeys.extraActionsButton);
+  ExtraActions({super.key = ArchSampleKeys.extraActionsButton});
 
   @override
   Widget build(BuildContext context) {

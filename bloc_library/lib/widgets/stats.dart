@@ -1,14 +1,12 @@
 import 'package:bloc_library/bloc_library_keys.dart';
 import 'package:bloc_library/blocs/stats/stats.dart';
 import 'package:bloc_library/widgets/widgets.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class Stats extends StatelessWidget {
-  Stats({Key key}) : super(key: key);
+  const Stats({super.key});
 
   @override
   Widget build(BuildContext context) {

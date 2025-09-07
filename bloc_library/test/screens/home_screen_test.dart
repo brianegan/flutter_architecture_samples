@@ -1,22 +1,20 @@
 import 'package:bloc_library/blocs/blocs.dart';
-import 'package:bloc_library/blocs/tab/tab_bloc.dart';
+import 'package:bloc_library/localization.dart';
 import 'package:bloc_library/models/app_tab.dart';
+import 'package:bloc_library/models/visibility_filter.dart';
 import 'package:bloc_library/screens/screens.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_library/blocs/todos/todos.dart';
-import 'package:bloc_library/screens/home_screen.dart';
-import 'package:bloc_library/localization.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class MockTodosBloc extends MockBloc<TodosEvent, TodosState>
     implements TodosBloc {}
 
 class MockFilteredTodosBloc
-    extends MockBloc<FilteredTodosLoaded, FilteredTodosState>
+    extends MockBloc<FilteredTodosEvent, FilteredTodosState>
     implements FilteredTodosBloc {}
 
 class MockTabBloc extends MockBloc<TabEvent, AppTab> implements TabBloc {}
@@ -26,10 +24,10 @@ class MockStatsBloc extends MockBloc<StatsEvent, StatsState>
 
 void main() {
   group('HomeScreen', () {
-    TodosBloc todosBloc;
-    FilteredTodosBloc filteredTodosBloc;
-    TabBloc tabBloc;
-    StatsBloc statsBloc;
+    late TodosBloc todosBloc;
+    late FilteredTodosBloc filteredTodosBloc;
+    late TabBloc tabBloc;
+    late StatsBloc statsBloc;
 
     setUp(() {
       todosBloc = MockTodosBloc();
@@ -39,8 +37,11 @@ void main() {
     });
 
     testWidgets('renders correctly', (WidgetTester tester) async {
-      when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
-      when(tabBloc.state).thenAnswer((_) => AppTab.todos);
+      when(() => todosBloc.state).thenAnswer((_) => TodosLoaded([]));
+      when(() => tabBloc.state).thenAnswer((_) => AppTab.todos);
+      when(
+        () => filteredTodosBloc.state,
+      ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.all));
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [
@@ -66,8 +67,11 @@ void main() {
     testWidgets('Navigates to /addTodo when Floating Action Button is tapped', (
       WidgetTester tester,
     ) async {
-      when(todosBloc.state).thenAnswer((_) => TodosLoaded([]));
-      when(tabBloc.state).thenAnswer((_) => AppTab.todos);
+      when(() => todosBloc.state).thenAnswer((_) => TodosLoaded([]));
+      when(() => tabBloc.state).thenAnswer((_) => AppTab.todos);
+      when(
+        () => filteredTodosBloc.state,
+      ).thenAnswer((_) => FilteredTodosLoaded([], VisibilityFilter.all));
       await tester.pumpWidget(
         MultiBlocProvider(
           providers: [

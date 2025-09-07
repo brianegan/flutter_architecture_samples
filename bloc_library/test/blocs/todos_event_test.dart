@@ -1,12 +1,12 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:bloc_library/blocs/blocs.dart';
 import 'package:bloc_library/models/models.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('TodosEvent', () {
     group('LoadTodos', () {
       test('toString returns correct value', () {
-        expect(LoadTodos().toString(), 'LoadTodos');
+        expect(LoadTodos().toString(), 'LoadTodos()');
       });
     });
 
@@ -39,13 +39,13 @@ void main() {
 
     group('ClearCompleted', () {
       test('toString returns correct value', () {
-        expect(ClearCompleted().toString(), 'ClearCompleted');
+        expect(ClearCompleted().toString(), 'ClearCompleted()');
       });
     });
 
     group('ToggleAll', () {
       test('toString returns correct value', () {
-        expect(ToggleAll().toString(), 'ToggleAll');
+        expect(ToggleAll().toString(), 'ToggleAll()');
       });
     });
   });

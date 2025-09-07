@@ -1,16 +1,20 @@
-import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_library/blocs/simple_bloc_delegate.dart';
-import 'package:bloc/bloc.dart';
 import 'dart:async';
 
-List<String> printLog;
+import 'package:bloc/bloc.dart';
+import 'package:bloc_library/blocs/simple_bloc_observer.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+class MockBloc extends Mock implements Bloc<dynamic, dynamic> {}
+
+var printLog = <String>[];
 
 void main() {
-  group('SimpleBlocDelegate', () {
-    SimpleBlocDelegate delegate;
+  group('$SimpleBlocObserver', () {
+    late SimpleBlocObserver delegate;
 
     setUp(() {
-      delegate = SimpleBlocDelegate();
+      delegate = SimpleBlocObserver();
       printLog = <String>[];
     });
 
@@ -18,7 +22,7 @@ void main() {
       'onTransition prints Transition',
       overridePrint(() {
         delegate.onTransition(
-          null,
+          MockBloc(),
           Transition<String, String>(
             currentState: 'A',
             event: 'E',
@@ -35,7 +39,7 @@ void main() {
     test(
       'onError prints Error',
       overridePrint(() {
-        delegate.onError(null, 'whoops', null);
+        delegate.onError(MockBloc(), 'whoops', StackTrace.empty);
         expect(printLog[0], 'whoops');
       }),
     );
@@ -43,16 +47,16 @@ void main() {
     test(
       'onEvent prints Event',
       overridePrint(() {
-        delegate.onEvent(null, 'event');
+        delegate.onEvent(MockBloc(), 'event');
         expect(printLog[0], 'event');
       }),
     );
   });
 }
 
-dynamic overridePrint(dynamic Function() testFn) => () {
+dynamic Function() overridePrint(void Function() testFn) => () {
   var spec = ZoneSpecification(
-    print: (_, __, ___, String msg) {
+    print: (_, _, _, String msg) {
       // Add to log instead of printing to stdout
       printLog.add(msg);
     },

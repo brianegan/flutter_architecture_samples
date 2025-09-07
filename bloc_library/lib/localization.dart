@@ -7,7 +7,7 @@ class FlutterBlocLocalizations {
     return Localizations.of<FlutterBlocLocalizations>(
       context,
       FlutterBlocLocalizations,
-    );
+    )!;
   }
 
   String get appTitle => 'Bloc Library Example';

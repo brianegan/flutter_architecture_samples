@@ -1,12 +1,12 @@
+import 'package:bloc_library/bloc_library_keys.dart';
+import 'package:bloc_library/blocs/stats/stats.dart';
+import 'package:bloc_library/localization.dart';
+import 'package:bloc_library/widgets/stats.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:bloc_library/blocs/stats/stats.dart';
-import 'package:bloc_library/widgets/stats.dart';
-import 'package:bloc_library/bloc_library_keys.dart';
-import 'package:bloc_library/localization.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class MockStatsBloc extends MockBloc<StatsEvent, StatsState>
@@ -14,7 +14,7 @@ class MockStatsBloc extends MockBloc<StatsEvent, StatsState>
 
 void main() {
   group('Stats', () {
-    StatsBloc statsBloc;
+    late StatsBloc statsBloc;
 
     setUp(() {
       statsBloc = MockStatsBloc();
@@ -23,7 +23,7 @@ void main() {
     testWidgets('should render LoadingIndicator when state is StatsLoading', (
       WidgetTester tester,
     ) async {
-      when(statsBloc.state).thenAnswer((_) => StatsLoading());
+      when(() => statsBloc.state).thenAnswer((_) => StatsLoading());
       await tester.pumpWidget(
         BlocProvider.value(
           value: statsBloc,
@@ -40,30 +40,10 @@ void main() {
       expect(find.byKey(BlocLibraryKeys.statsLoadingIndicator), findsOneWidget);
     });
 
-    testWidgets('should render empty stats container when state is null', (
-      WidgetTester tester,
-    ) async {
-      when(statsBloc.state).thenAnswer((_) => null);
-      await tester.pumpWidget(
-        BlocProvider.value(
-          value: statsBloc,
-          child: MaterialApp(
-            home: Scaffold(body: Stats()),
-            localizationsDelegates: [
-              ArchSampleLocalizationsDelegate(),
-              FlutterBlocLocalizationsDelegate(),
-            ],
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-      expect(find.byKey(BlocLibraryKeys.emptyStatsContainer), findsOneWidget);
-    });
-
     testWidgets('should render correct stats when state is StatsLoaded(0, 0)', (
       WidgetTester tester,
     ) async {
-      when(statsBloc.state).thenAnswer((_) => StatsLoaded(0, 0));
+      when(() => statsBloc.state).thenAnswer((_) => StatsLoaded(0, 0));
       await tester.pumpWidget(
         BlocProvider.value(
           value: statsBloc,
@@ -89,7 +69,7 @@ void main() {
     testWidgets('should render correct stats when state is StatsLoaded(2, 1)', (
       WidgetTester tester,
     ) async {
-      when(statsBloc.state).thenAnswer((_) => StatsLoaded(2, 1));
+      when(() => statsBloc.state).thenAnswer((_) => StatsLoaded(2, 1));
       await tester.pumpWidget(
         BlocProvider.value(
           value: statsBloc,

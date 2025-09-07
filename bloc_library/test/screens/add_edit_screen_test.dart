@@ -1,8 +1,8 @@
+import 'package:bloc_library/localization.dart';
+import 'package:bloc_library/models/models.dart';
+import 'package:bloc_library/screens/add_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:bloc_library/screens/add_edit_screen.dart';
-import 'package:bloc_library/models/models.dart';
-import 'package:bloc_library/localization.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
           home: Scaffold(
             body: AddEditScreen(
               isEditing: true,
-              onSave: (_, __) {},
+              onSave: (_, _) {},
               todo: Todo('wash dishes', id: '0'),
             ),
           ),
