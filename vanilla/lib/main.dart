@@ -10,7 +10,7 @@ Future<void> main() async {
     VanillaApp(
       repository: LocalStorageRepository(
         localStorage: KeyValueStorage(
-          'vanilla_showcase',
+          'vanilla',
           await SharedPreferences.getInstance(),
         ),
       ),

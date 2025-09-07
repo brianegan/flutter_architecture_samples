@@ -8,15 +8,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Flutter Architecture Samples</title>
-  <link rel="shortcut icon" href="assets/favicon.ico"/>
+  <link rel="shortcut icon" href="assets/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="assets/favicon-32x32.png"
-        sizes="32x32"/>
-  <link rel="icon" type="image/png" href="assets/favicon-16x16.png"
-        sizes="16x16"/>
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css"
-    rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="assets/favicon-16x16.png" sizes="16x16" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <style>
     body {
@@ -141,13 +137,11 @@
 
     /* Larger than tablet screen */
 
-    @media (min-width: 80.0rem) {
-    }
+    @media (min-width: 80.0rem) {}
 
     /* Larger than desktop screen */
 
-    @media (min-width: 120.0rem) {
-    }
+    @media (min-width: 120.0rem) {}
 
     .web-demo {
       border: 1px solid #3FBCCC;
@@ -177,217 +171,189 @@
 </head>
 
 <body>
-<div class="container">
-  <div class="row site-header">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Flutter Architecture Samples Logo">
+  <div class="container">
+    <div class="row site-header">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Flutter Architecture Samples Logo">
+      </div>
+      <div class="site-title-container">
+        <h1 class="site-title">Flutter Architecture Samples</h1>
+        <h5 class="site-subtitle">A gallery of app architectures</h5>
+      </div>
     </div>
-    <div class="site-title-container">
-      <h1 class="site-title">Flutter Architecture Samples</h1>
-      <h5 class="site-subtitle">A gallery of app architectures</h5>
+
+    <aside class="screenshot">
+      <picture>
+        <img src="assets/screenshot.png" alt="Screenshot of the app">
+      </picture>
+    </aside>
+    <div class="content">
+      <div class="description">
+        <p>
+          Flutter provides a lot of flexibility in deciding how to organize and
+          architect your apps. While this
+          freedom is very valuable,
+          it can also lead to apps with large classes, inconsistent naming
+          schemes, as well as mismatching or
+          missing
+          architectures. These types of issues can make testing, maintaining and
+          extending your apps
+          difficult.</p>
+        <p>The Flutter Architecture Samples project demonstrates strategies to
+          help solve or avoid these common
+          problems.
+          This project implements the same "Todos" app using different
+          architectural concepts and tools.</p>
+      </div>
+
+      <div class="downloads">
+        <a href="https://github.com/brianegan/flutter_architecture_samples/archive/main.zip"
+          class="button button-blue">Download</a>
+        <a href="https://github.com/brianegan/flutter_architecture_samples"
+          class="button button-blue button-outline">Github</a>
+      </div>
+
+      <div class="card">
+        <h3>Samples</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/vanilla">Vanilla
+              Lifting State Up
+            </a>
+            <a href="https://fas-vanilla.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/brianegan/flutter_architecture_samples/tree/main/inherited_widget">InheritedWidget</a>
+            <a href="https://fas-change-notifier-provider.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/change_notifier_provider">ChangeNotifier
+              + Provider</a>
+            <a href="https://fas-change-notifier-provider.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/brianegan/flutter_architecture_samples/tree/main/freezed_provider_value_notifier">Freezed
+              + Provider + Value Notifier</a>
+            <a href="https://fas-freezed-provider-value-notifier.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/bloc_flutter">BLoC</a>
+            <a href="https://fas-bloc-flutter.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/bloc_library">Bloc
+              Library</a>
+            <a href="https://fas-bloc-library.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/mobx">Mobx</a>
+            <a href="https://fas-mobx.netlify.app" class="web-demo">Web Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/redux">Redux</a>
+            <a href="https://fas-redux.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/simple_bloc_flutter">"Simple"
+              BLoC Example</a>
+            <a href="https://fas-simple-bloc.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/mvi_flutter">MVI</a>
+            <a href="https://fas-mvi.netlify.app" class="web-demo">Web Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/scoped_model">scoped_model</a>
+            <a href="https://fas-scoped-model.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/signals">signals</a>
+            <a href="https://fas-signals.netlify.app" class="web-demo">Web
+              Demo</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Supporting code</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/integration_tests">Integration
+              Tests</a>
+          </li>
+          <li>
+            <a href="https://github.com/brianegan/flutter_architecture_samples/tree/main/example/todos_repository">Todos
+              Repository</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Contributors</h3>
+        <ul>
+          <li>
+            <a href="https://github.com/brianegan">Brian Egan</a>
+          </li>
+          <li>
+            <a href="https://github.com/davidmarne">David Marne</a>
+          </li>
+          <li>
+            <a href="https://github.com/passsy">Pascal Welsch</a>
+          </li>
+          <li>
+            <a href="https://github.com/kinggolf">Larry King</a>
+          </li>
+          <li>
+            <a href="https://github.com/franklinharper">Frank Harper</a>
+          </li>
+          <li>
+            <a href="https://github.com/p69">Pavel Shilyagov</a>
+          </li>
+          <li>
+            <a href="https://github.com/mmcc007">Maurice McCabe</a>
+          </li>
+          <li>
+            <a href="https://github.com/leocavalcante">Leo Cavalcante</a>
+          </li>
+          <li>
+            <a href="https://github.com/AndriousSolutions">Greg Perry</a>
+          </li>
+          <li>
+            <a href="https://github.com/felangel">Felix Angelov</a>
+          </li>
+          <li>
+            <a href="https://github.com/frideosapps">Francesco Mineo</a>
+          </li>
+          <li>
+            <a href="https://github.com/pavanpodila">Pavan Podila</a>
+          </li>
+          <li>
+            <a href="https://github.com/kush3107">Kushagra Saxena</a>
+          </li>
+          <li>
+            <a href="https://github.com/GIfatahTH">Mellati Fateh</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="copyright">
+        <p> &copy; 2017
+          <a href="https://github.com/brianegan">Brian Egan</a> and contributors.
+        </p>
+      </div>
     </div>
   </div>
-
-  <aside class="screenshot">
-    <picture>
-      <img src="assets/screenshot.png" alt="Screenshot of the app">
-    </picture>
-  </aside>
-  <div class="content">
-    <div class="description">
-      <p>
-        Flutter provides a lot of flexibility in deciding how to organize and
-        architect your apps. While this
-        freedom is very valuable,
-        it can also lead to apps with large classes, inconsistent naming
-        schemes, as well as mismatching or
-        missing
-        architectures. These types of issues can make testing, maintaining and
-        extending your apps
-        difficult.</p>
-      <p>The Flutter Architecture Samples project demonstrates strategies to
-        help solve or avoid these common
-        problems.
-        This project implements the same "Todos" app using different
-        architectural concepts and tools.</p>
-    </div>
-
-    <div class="downloads">
-      <a
-        href="https://github.com/brianegan/flutter_architecture_samples/archive/master.zip"
-        class="button button-blue">Download</a>
-      <a href="https://github.com/brianegan/flutter_architecture_samples"
-         class="button button-blue button-outline">Github</a>
-    </div>
-
-    <div class="card">
-      <h3>Samples</h3>
-      <ul>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/vanilla">Vanilla
-            Lifting State Up
-          </a>
-          <a href="https://fas_vanilla.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/inherited_widget">InheritedWidget</a>
-          <a href="https://fas_inherited_widget.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/change_notifier_provider">ChangeNotifier
-            + Provider</a>
-          <a href="https://fas_change_notifier_provider.codemagic.app"
-             class="web-demo">Web
-            Demo</a>
-        </li>
-
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_flutter">BLoC</a>
-          <a href="https://fas_bloc_flutter.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/bloc_library">Bloc
-            Library</a>
-          <a href="https://fas_bloc_library.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mobx">Mobx</a>
-          <a href="https://fas_mobx.codemagic.app" class="web-demo">Web Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/redux">Redux</a>
-          <a href="https://fas_redux.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/simple_bloc_flutter">"Simple"
-            BLoC Example</a>
-          <a href="https://fas_simple_bloc.codemagic.app" class="web-demo">Web
-            Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvi_flutter">MVI</a>
-          <a href="https://fas_mvi.codemagic.app" class="web-demo">Web Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/states_rebuilder">states_rebuilder</a>
-          <a href="https://fas_states_rebuilder.codemagic.app" class="web-demo">Web Demo</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/built_redux">built_redux</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/scoped_model">scoped_model</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/firestore_redux">Redux
-            and Firestore</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvu">MVU</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/mvc">MVC
-            Example</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/frideos_library">Frideos
-            library</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Supporting code</h3>
-      <ul>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/integration_tests">Integration
-            Tests</a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/brianegan/flutter_architecture_samples/tree/master/example/todos_repository">Todos
-            Repository</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Contributors</h3>
-      <ul>
-        <li>
-          <a href="https://github.com/brianegan">Brian Egan</a>
-        </li>
-        <li>
-          <a href="https://github.com/davidmarne">David Marne</a>
-        </li>
-        <li>
-          <a href="https://github.com/passsy">Pascal Welsch</a>
-        </li>
-        <li>
-          <a href="https://github.com/kinggolf">Larry King</a>
-        </li>
-        <li>
-          <a href="https://github.com/franklinharper">Frank Harper</a>
-        </li>
-        <li>
-          <a href="https://github.com/p69">Pavel Shilyagov</a>
-        </li>
-        <li>
-          <a href="https://github.com/mmcc007">Maurice McCabe</a>
-        </li>
-        <li>
-          <a href="https://github.com/leocavalcante">Leo Cavalcante</a>
-        </li>
-        <li>
-          <a href="https://github.com/AndriousSolutions">Greg Perry</a>
-        </li>
-        <li>
-          <a href="https://github.com/felangel">Felix Angelov</a>
-        </li>
-        <li>
-          <a href="https://github.com/frideosapps">Francesco Mineo</a>
-        </li>
-        <li>
-          <a href="https://github.com/pavanpodila">Pavan Podila</a>
-        </li>
-        <li>
-          <a href="https://github.com/kush3107">Kushagra Saxena</a>
-        </li>
-        <li>
-          <a href="https://github.com/GIfatahTH">Mellati Fateh</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="copyright">
-      <p> &copy; 2017
-        <a href="https://github.com/brianegan">Brian Egan</a> and contributors.
-      </p>
-    </div>
-  </div>
-</div>
 </body>
 
 </html>
