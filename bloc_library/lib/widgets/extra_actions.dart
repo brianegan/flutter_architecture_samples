@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todos_app_core/todos_app_core.dart';
 
 class ExtraActions extends StatelessWidget {
-  ExtraActions({super.key = ArchSampleKeys.extraActionsButton});
+  const ExtraActions({super.key = ArchSampleKeys.extraActionsButton});
 
   @override
   Widget build(BuildContext context) {

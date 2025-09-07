@@ -44,6 +44,8 @@ class TodoBloc {
   void close() {
     deleteTodo.close();
     updateTodo.close();
-    _subscriptions.forEach((subscription) => subscription.cancel());
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
   }
 }

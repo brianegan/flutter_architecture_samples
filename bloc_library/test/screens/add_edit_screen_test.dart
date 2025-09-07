@@ -37,7 +37,7 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(
-            body: AddEditScreen(isEditing: false, onSave: (_, __) {}),
+            body: AddEditScreen(isEditing: false, onSave: (_, _) {}),
           ),
           localizationsDelegates: [
             ArchSampleLocalizationsDelegate(),
@@ -59,7 +59,7 @@ void main() {
           home: Scaffold(
             body: AddEditScreen(
               isEditing: true,
-              onSave: (_, __) {
+              onSave: (_, _) {
                 onSavePressed = true;
               },
               todo: Todo('wash dishes'),
@@ -84,7 +84,7 @@ void main() {
           home: Scaffold(
             body: AddEditScreen(
               isEditing: true,
-              onSave: (_, __) {},
+              onSave: (_, _) {},
               todo: Todo('wash dishes'),
             ),
           ),

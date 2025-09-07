@@ -7,7 +7,7 @@ import 'package:todos_app_core/todos_app_core.dart';
 class FilterButton extends StatelessWidget {
   final bool visible;
 
-  FilterButton({super.key, required this.visible});
+  const FilterButton({super.key, required this.visible});
 
   @override
   Widget build(BuildContext context) {

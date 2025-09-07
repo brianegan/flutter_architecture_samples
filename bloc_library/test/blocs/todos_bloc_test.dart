@@ -95,7 +95,6 @@ void main() {
           ..add(AddTodo(todo1))
           ..add(AddTodo(todo2))
           ..add(ClearCompleted());
-        ;
       },
       expect: () => [
         TodosLoaded([]),
@@ -119,7 +118,6 @@ void main() {
           ..add(AddTodo(todo1))
           ..add(AddTodo(todo2))
           ..add(ToggleAll());
-        ;
       },
       expect: () => [
         TodosLoaded([]),
@@ -146,7 +144,6 @@ void main() {
           ..add(AddTodo(todo1))
           ..add(AddTodo(todo2))
           ..add(ToggleAll());
-        ;
       },
       expect: () => [
         TodosLoaded([]),

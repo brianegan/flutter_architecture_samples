@@ -9,5 +9,5 @@ class UserBloc {
   Stream<UserEntity> login() =>
       _repository.login().asStream().asBroadcastStream();
 
-  UserBloc(UserRepository repository) : this._repository = repository;
+  UserBloc(UserRepository repository) : _repository = repository;
 }

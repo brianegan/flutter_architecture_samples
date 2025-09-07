@@ -124,6 +124,8 @@ class TodosListBloc {
     clearCompleted.close();
     toggleAll.close();
     updateTodo.close();
-    _subscriptions.forEach((subscription) => subscription.cancel());
+    for (var subscription in _subscriptions) {
+      subscription.cancel();
+    }
   }
 }
