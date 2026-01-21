@@ -1,0 +1,4 @@
+enum TodoApplicationState {
+  LOADING,
+  READY
+}
