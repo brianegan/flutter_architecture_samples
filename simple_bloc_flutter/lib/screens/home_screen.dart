@@ -139,7 +139,9 @@ class HomeScreenState extends State<HomeScreen> {
             onSelected: (action) {
               if (action == ExtraAction.toggleAllComplete) {
                 todosBloc.toggleAll();
-              } else if (action == ExtraAction.clearCompleted) {
+            
+                
+                se if (action == ExtraAction.clearCompleted) {
                 todosBloc.clearCompleted();
               }
             },
