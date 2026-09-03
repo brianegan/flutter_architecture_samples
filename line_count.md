@@ -23,10 +23,11 @@ samples to make them smaller, unless doing so improves the application overall.
 | inherited_widget | 815 |
 | change_notifier_provider | 822 |
 | vanilla | 837 |
+| view_model | 892 |
 | simple blocs | 1033 |
 | bloc | 1123 |
 | bloc library | 1191 |
 | mvi | 1232 |
 | redux | 1345 |
 
-Note: This file was generated on Sun Sep  7 20:58:20 UTC 2025 using `scripts/line_counter.sh`.
+Note: This file was generated on Thu Sep  3 06:05:53 UTC 2026 using `scripts/line_counter.sh`.

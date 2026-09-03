@@ -39,6 +39,7 @@ ensure the focus is kept on the aims described above, the app uses a simple UI.
 - [Redux Example](redux) ([Web Demo](https://fas-redux.netlify.app)) - Uses the [Redux](https://pub.dartlang.org/packages/redux) library to manage app state and update Widgets
 - ["Simple" BLoC Example](simple_bloc_flutter) ([Web Demo](https://fas-simple-bloc.netlify.app/)) - Similar to the BLoC pattern, but uses Functions for Inputs and Streams for Outputs. Results in far less code compared to original BLoC pattern if code sharing with AngularDart apps isn't an important use case for your app.
 - [Signals Example](signals) ([Web Demo](https://fas-signals.netlify.app)) - Uses the [Signals](https://pub.dev/packages/signals) package by [Rody Davis](https://pub.dev/publishers/rodydavis.com/packages).
+- [ViewModel Example](view_model) ([Web Demo](https://fas-view-model.netlify.app)) - Uses the [view_model](https://pub.dev/packages/view_model) package for lifecycle-bound state management and dependency injection.
 - [MVI Example](mvi_flutter) ([Web Demo](https://fas-mvi.netlify.app)) - Uses the concepts from [Cycle.JS](https://cycle.js.org/) and applies them to Flutter.
 - [scoped_model Example](scoped_model) ([Web Demo](https://fas-scoped-model.netlify.app)) - Uses the [scoped_model](https://pub.dartlang.org/packages/scoped_model) library to hold app state and notify Widgets of Updates
 
