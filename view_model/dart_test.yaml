@@ -1,0 +1,2 @@
+# view_model uses a process-wide registry and configuration, so tests run serially.
+concurrency: 1

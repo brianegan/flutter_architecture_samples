@@ -47,6 +47,7 @@ samples=(
     "mobx:mobx"
     "mvi:mvi_flutter mvi_base"
     "signals:signals"
+    "view_model:view_model"
     "redux:redux"
     "scoped_model:scoped_model"
     "simple blocs:simple_bloc_flutter simple_blocs"
